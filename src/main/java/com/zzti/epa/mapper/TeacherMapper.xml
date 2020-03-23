@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.epa.mapper.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.epa.model.Teacher" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="CHAR" />
+    <result column="enabled" property="enabled" jdbcType="BIT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="userface" property="userface" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="departmentId" property="departmentId" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="jobLevelId" property="jobLevelId" jdbcType="INTEGER" />
+    <result column="gender" property="gender" jdbcType="CHAR" />
+    <result column="workID" property="workID" jdbcType="CHAR" />
+    <result column="rId" property="rId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="AllTeacherInfo" type="map" extends="BaseResultMap">
+    <association property="department" javaType="com.zzti.epa.model.Department">
+      <id column="did" property="id"/>
+      <result column="dname" property="name"></result>
+    </association>
+    <association property="jobLevel" javaType="com.zzti.epa.model.JobLevel">
+      <id column="jid" property="id"/>
+      <result column="jname" property="name"></result>
+    </association>
+
+    <collection
+            property="roles"
+            column="{tid=id,rId=rId}"
+            ofType="com.zzti.epa.model.Role"
+            select="com.zzti.epa.mapper.TeacherMapper.queryRoleByTid">
+      <id column="rid" property="id"/>
+      <result column="rname" property="name"/>
+      <result column="rnameZh" property="nameZh"/>
+    </collection>
+  </resultMap>
+  
+  <select id="queryRoleByTid" parameterType="java.util.Map" resultType="java.util.Map">
+
+        select
+            tr.rid as rid,
+            r.name as rname,
+            r.nameZh as rnameZh
+            from
+              role r,
+              teacher_role tr
+            where
+                r.id=tr.rid
+                and tr.tid=#{tid}
+                <if test="rId !=null">
+                  and #{rId} in(select r.id from role r,teacher_role tr where r.id=tr.rid and tr.tid=#{tid})
+                </if>
+
+  </select>
+   <!--新增-->
+  <select id="getTeacherRolesById" resultType="com.zzti.epa.model.Role">
+
+        select r.* from role r,teacher_role tr where tr.`rid`=r.`id` and tr.`tid`=#{id}
+  </select>
+  <select id="loadUserByUsername" resultMap="BaseResultMap">
+    select * from teacher where username=#{username};
+  </select>
+  <!--查询教师用户，条件为关键词，这里存储在tea.name中，另外还有部门id、角色id、职称id--> 
+  <select id="getTeacherByPage" resultMap="AllTeacherInfo">
+    select  teacher.id, teacher.name, teacher.phone,  teacher.enabled, teacher.username,teacher.userface,teacher.remark ,
+    teacher.departmentId,teacher.email,teacher.jobLevelId,teacher.gender,teacher.workID
+    ,d.id as did,d.name as dname,j.id as jid,j.name as jname,
+    #{tea.rId} as rId
+    from teacher ,department d,joblevel j
+    where  teacher.departmentId=d.id and teacher.jobLevelId=j.id
+    <if test="tea.name !=null and tea.name!=''">
+      and teacher.name like concat('%',#{tea.name},'%')
+    </if>
+
+    <if test="tea.departmentId !=null">
+      and teacher.departmentId =#{tea.departmentId}
+    </if>
+    <if test="tea.jobLevelId !=null">
+      and teacher.jobLevelId =#{tea.jobLevelId}
+    </if>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+
+  </select>
+  <select id="getTotal" resultType="Long">
+    select count(*) from teacher t
+    <where>
+
+      <if test="tea!=null">
+        <if test="tea.name !=null and tea.name!=''">
+          and t.name like concat('%',#{tea.name},'%')
+        </if>
+        <if test="tea.departmentId !=null">
+          and t.departmentId =#{tea.departmentId}
+        </if>
+        <if test="tea.jobLevelId !=null">
+          and t.jobLevelId =#{tea.jobLevelId}
+        </if>
+      </if>
+    </where>
+
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  <sql id="Base_Column_List" >
+    id, name, phone, enabled, username, password, userface, remark, departmentId, email, 
+    jobLevelId, gender, workID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from teacher
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.epa.model.Teacher" >
+    insert into teacher (id, name, phone, 
+      enabled, username, password, 
+      userface, remark, departmentId, 
+      email, jobLevelId, gender, 
+      workID)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, 
+      #{enabled,jdbcType=BIT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{userface,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, 
+      #{email,jdbcType=VARCHAR}, #{jobLevelId,jdbcType=INTEGER}, #{gender,jdbcType=CHAR}, 
+      #{workID,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="userface != null" >
+        userface,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="departmentId != null" >
+        departmentId,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="jobLevelId != null" >
+        jobLevelId,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="workID != null" >
+        workID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userface != null" >
+        #{userface,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="jobLevelId != null" >
+        #{jobLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=CHAR},
+      </if>
+      <if test="workID != null" >
+        #{workID,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.epa.model.Teacher" >
+    update teacher
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userface != null" >
+        userface = #{userface,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        departmentId = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="jobLevelId != null" >
+        jobLevelId = #{jobLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=CHAR},
+      </if>
+      <if test="workID != null" >
+        workID = #{workID,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.epa.model.Teacher" >
+    update teacher
+    set name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=CHAR},
+      enabled = #{enabled,jdbcType=BIT},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      userface = #{userface,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      departmentId = #{departmentId,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      jobLevelId = #{jobLevelId,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=CHAR},
+      workID = #{workID,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
