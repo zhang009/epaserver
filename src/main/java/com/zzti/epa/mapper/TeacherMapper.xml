@@ -105,7 +105,9 @@
     </where>
 
   </select>
-  
+  <select id="isExistWorkID" resultType="Integer">
+        select count(*) from teacher where workID=#{workID}
+  </select>
   
   
   

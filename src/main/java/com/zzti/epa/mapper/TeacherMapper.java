@@ -26,4 +26,6 @@ public interface TeacherMapper {
     List<Teacher> getTeacherByPage(@Param("page")Integer page,  @Param("size")Integer size,@Param("tea")Teacher teacher);
 
     Long getTotal(@Param("tea")Teacher teacher);
+
+    Integer isExistWorkID(String  workID);
 }

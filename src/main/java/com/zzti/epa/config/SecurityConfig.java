@@ -88,6 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         //登录成功，前提工作-》在model里面封装自定义返回实体类RespBean
                         //resp.setContentType("application/json:charset=utf-8");
                         resp.setContentType("application/json;charset=utf-8");
+
                         PrintWriter out=resp.getWriter();
                         Teacher teacher=(Teacher)authentication.getPrincipal();//获取登录成功的hr对象
                        // System.out.println("hr:"+hr.toString());
@@ -145,6 +146,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         //在这里你可以选择请求失败了之后，是重定向还是直接返回结果
                         //没有登录认证，在这里处理结果，不要重定向
                         resp.setContentType("application/json;charset=utf-8");
+                        resp.setStatus(401);
                         PrintWriter out=resp.getWriter();
                         RespBean respBean =RespBean.error("访问失败！");
                         if(e instanceof InsufficientAuthenticationException){

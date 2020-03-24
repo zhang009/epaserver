@@ -42,7 +42,7 @@ public class TeacherService implements UserDetailsService {
         if(page!=null&& size!=null){
             page=(page-1)*size;
         }
-        System.out.println("trid:"+teacher.getrId());
+
         List<Teacher> data=teacherMapper.getTeacherByPage(page,size,teacher);//第三个参数为关键词
         Long total=teacherMapper.getTotal(teacher);//总记录数
         RespPageBean bean = new RespPageBean();
@@ -70,7 +70,11 @@ public class TeacherService implements UserDetailsService {
 
     public Integer addTea(Teacher teacher) {
         teacher.setEnabled(true);
-        System.out.println(teacher.toString());
+        //System.out.println(teacher.toString());
         return teacherMapper.insertSelective(teacher);
+    }
+
+    public boolean isExistWorkID(String workID) {
+        return teacherMapper.isExistWorkID(workID)>=1;
     }
 }

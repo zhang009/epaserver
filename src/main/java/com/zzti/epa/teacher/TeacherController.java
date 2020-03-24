@@ -8,7 +8,9 @@ import com.zzti.epa.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName TeacherController
@@ -38,13 +40,13 @@ public class TeacherController {
     @GetMapping("/")
     public RespPageBean getTeacherByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10")
             Integer size, Teacher teacher){/*这里teacher存储为条件搜索内容*/
-        System.out.println("rid:"+teacher.getrId());
-        System.out.println("name:"+teacher.getName());
+        System.out.println(">>>>>>>>>>>>角色rid:"+teacher.getrId());
+        System.out.println(">>>>>>>>>>>>关键词name:"+teacher.getName());
         return teacherService.getTeacherByPage(page,size,teacher);
     }
     @GetMapping("/joblevel")
     public List<JobLevel> getAllJobLevels(){
-        System.out.println("joblevel:");
+        System.out.println("getAllJobLevels:");
         return jobLevelService.getAllJobLevels();
     }
     @GetMapping("/deps")
@@ -87,5 +89,18 @@ public class TeacherController {
             return RespBean.ok("添加成功！");
         }
         return RespBean.ok("添加成功！");
+    }
+    @GetMapping("/workID/{workID}")
+    public Map<String,String> isExistWorkID(@PathVariable String workID){
+       // System.out.println("workID:"+workID);
+        Map<String, String> map=new HashMap<String, String>();
+        if(teacherService.isExistWorkID(workID)){
+           // System.out.println("ok");
+            map.put("result", "yes");
+        }else{
+           // System.out.println("no");
+            map.put("result", "no");
+        }
+        return map;
     }
 }
