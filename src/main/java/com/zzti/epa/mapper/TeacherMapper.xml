@@ -17,7 +17,7 @@
     <result column="workID" property="workID" jdbcType="CHAR" />
     <result column="rId" property="rId" jdbcType="INTEGER" />
   </resultMap>
-
+<!--该resultMap查询所有的Teacher信息-->
   <resultMap id="AllTeacherInfo" type="map" extends="BaseResultMap">
     <association property="department" javaType="com.zzti.epa.model.Department">
       <id column="did" property="id"/>
@@ -33,18 +33,16 @@
             column="{tid=id,rId=rId}"
             ofType="com.zzti.epa.model.Role"
             select="com.zzti.epa.mapper.TeacherMapper.queryRoleByTid">
-      <id column="rid" property="id"/>
-      <result column="rname" property="name"/>
-      <result column="rnameZh" property="nameZh"/>
+
     </collection>
   </resultMap>
   
-  <select id="queryRoleByTid" parameterType="java.util.Map" resultType="java.util.Map">
+  <select id="queryRoleByTid" parameterType="java.util.Map" resultType="com.zzti.epa.model.Role">
 
         select
-            tr.rid as rid,
-            r.name as rname,
-            r.nameZh as rnameZh
+            tr.rid as id,
+            r.name,
+            r.nameZh
             from
               role r,
               teacher_role tr
@@ -109,7 +107,10 @@
         select count(*) from teacher where workID=#{workID}
   </select>
   
-  
+  <delete id="deleteTeasByIds" >
+    delete from teacher where id in
+    <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
+  </delete>
   
   
   
@@ -141,7 +142,7 @@
       #{email,jdbcType=VARCHAR}, #{jobLevelId,jdbcType=INTEGER}, #{gender,jdbcType=CHAR}, 
       #{workID,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.zzti.epa.model.Teacher" >
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.Teacher" useGeneratedKeys="true" keyProperty="id">
     insert into teacher
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

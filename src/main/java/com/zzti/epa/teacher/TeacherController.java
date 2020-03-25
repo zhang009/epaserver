@@ -103,4 +103,12 @@ public class TeacherController {
         }
         return map;
     }
+
+    @DeleteMapping("/")
+    public RespBean deleteTeasByIds(Integer [] ids){
+        if(teacherService.deleteTeasByIds(ids)==ids.length){
+            return RespBean.ok("删除成功!");
+        }
+        return RespBean.error("删除失败!");
+    }
 }

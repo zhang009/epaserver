@@ -1,5 +1,7 @@
 package com.zzti.epa.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zzti.epa.mapper.TeacherMapper;
 import com.zzti.epa.mapper.TeacherRoleMapper;
 import com.zzti.epa.model.RespPageBean;
@@ -9,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -44,9 +47,24 @@ public class TeacherService implements UserDetailsService {
         }
 
         List<Teacher> data=teacherMapper.getTeacherByPage(page,size,teacher);//第三个参数为关键词
+        //检查条件搜索，如果条件搜索选择了角色，则需要在这里筛选
+        Teacher teacher1=null;
         Long total=teacherMapper.getTotal(teacher);//总记录数
+        ObjectMapper mapper = new ObjectMapper();
+        List<Teacher> list = mapper.convertValue(data, new TypeReference<List<Teacher>>() { });//这里需要转化，map转为对象
+
+        for (int i =0;i< list.size();i++){
+            teacher1=list.get(i);
+            if(teacher1.getRoles().size()==0||teacher1.getRoles()==null){//如果查询出的角色不存在
+                list.remove(i);//移除部门为空的用户
+                total--;//总记录数减1
+                i--;//当移除一个元素的时候，list集合会向前移动，所以这里需要让下标再前移一位
+            }else{//判断
+
+            }
+        }
         RespPageBean bean = new RespPageBean();
-        bean.setData(data);//放入数据
+        bean.setData(list);//放入数据
         bean.setTotal(total);//放入总记录数
         return bean;
     }
@@ -68,13 +86,21 @@ public class TeacherService implements UserDetailsService {
         return teacherMapper.updateByPrimaryKeySelective(teacher);
     }
 
+    //添加教师用户
+    @Transactional
     public Integer addTea(Teacher teacher) {
         teacher.setEnabled(true);
+        teacherMapper.insertSelective(teacher);
         //System.out.println(teacher.toString());
-        return teacherMapper.insertSelective(teacher);
+        return teacherRoleMapper.firstAddRole(teacher.getId());
+
     }
 
     public boolean isExistWorkID(String workID) {
         return teacherMapper.isExistWorkID(workID)>=1;
+    }
+
+    public Integer deleteTeasByIds(Integer[] ids) {
+        return teacherMapper.deleteTeasByIds(ids);
     }
 }

@@ -20,4 +20,6 @@ public interface TeacherRoleMapper {
     void deleteByTeaId(Integer tid);
 
     Integer addRole(@Param("tid") Integer tid, @Param("rids")Integer[] rids);
+
+    Integer firstAddRole(Integer tid);
 }

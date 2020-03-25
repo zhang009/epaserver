@@ -28,4 +28,6 @@ public interface TeacherMapper {
     Long getTotal(@Param("tea")Teacher teacher);
 
     Integer isExistWorkID(String  workID);
+
+    Integer deleteTeasByIds(@Param("ids")Integer[] ids);
 }

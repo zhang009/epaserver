@@ -16,6 +16,12 @@
       (#{tid},#{rid})
     </foreach>
   </insert>
+  <insert id="firstAddRole">
+    insert into teacher_role (tid,rid) values (#{tid},1);
+  </insert>
+
+
+
 
 
   <sql id="Base_Column_List" >

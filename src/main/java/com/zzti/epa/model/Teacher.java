@@ -45,6 +45,29 @@ public class Teacher implements UserDetails {
     private Department department;
     private JobLevel jobLevel;
 
+    public Teacher() {
+    }
+
+    public Teacher(Integer id, String name, String phone, Boolean enabled, String username, String password, String userface, String remark, Integer departmentId, String email, Integer jobLevelId, String gender, String workID, Integer rId, List<Role> roles, Department department, JobLevel jobLevel) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.enabled = enabled;
+        this.username = username;
+        this.password = password;
+        this.userface = userface;
+        this.remark = remark;
+        this.departmentId = departmentId;
+        this.email = email;
+        this.jobLevelId = jobLevelId;
+        this.gender = gender;
+        this.workID = workID;
+        this.rId = rId;
+        this.roles = roles;
+        this.department = department;
+        this.jobLevel = jobLevel;
+    }
+
     @Override
     public String toString() {
         return "Teacher{" +
