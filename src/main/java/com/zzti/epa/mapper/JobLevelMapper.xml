@@ -19,6 +19,9 @@
     <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
   </delete>
 
+  <select id="getAllJobLevelsWithName" resultType="String">
+    select name from joblevel
+  </select>
 
 
 

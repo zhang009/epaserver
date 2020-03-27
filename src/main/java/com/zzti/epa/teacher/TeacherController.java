@@ -5,9 +5,13 @@ import com.zzti.epa.service.DepartmentService;
 import com.zzti.epa.service.JobLevelService;
 import com.zzti.epa.service.RoleService;
 import com.zzti.epa.service.TeacherService;
+import com.zzti.epa.utils.POIUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,6 +108,12 @@ public class TeacherController {
         return map;
     }
 
+    /**
+    * @Description:批量删除
+    * @Date: 2020/3/25  9:13
+    * @Param ids:
+    * @return: com.zzti.epa.model.RespBean
+    **/
     @DeleteMapping("/")
     public RespBean deleteTeasByIds(Integer [] ids){
         if(teacherService.deleteTeasByIds(ids)==ids.length){
@@ -111,4 +121,53 @@ public class TeacherController {
         }
         return RespBean.error("删除失败!");
     }
+    //下载文件返回的是ResponseEntity
+    /**
+    * @Description:下载教师用户模板
+    * @Date: 2020/3/26  11:04
+    * @return: org.springframework.http.ResponseEntity<byte[]>
+    **/
+    @GetMapping("/export")
+    public ResponseEntity<byte[]> exportData(){
+
+
+       /* HttpHeaders headers=new HttpHeaders();
+        ByteArrayOutputStream os=new ByteArrayOutputStream();
+        try {
+            ClassPathResource classPathResource = new ClassPathResource("excleTemplate/teacher.xls");
+            InputStream inputStream =classPathResource.getInputStream();
+            HSSFWorkbook wb=new HSSFWorkbook(inputStream);
+
+            headers.setContentDispositionFormData("attachment",new String("教师用户导入模板.xls".getBytes("UTF-8"),"ISO-8859-1"));
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            wb.write(os);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+       List<String> departments=departmentService.getAllDepartmentWithName();
+       List<String> joblevels=jobLevelService.getAllJobLevelsWithName();
+        return POIUtils.teachers2Excel(departments,joblevels);
+    }
+    /**
+    * @Description:批量导入数据
+    * @Date: 2020/3/26  21:35
+    * @Param file:
+    * @return: com.zzti.epa.model.RespBean
+    **/
+    @PostMapping("/import")
+    public RespBean importData(MultipartFile file) throws IOException {
+        //file当成excel文件来解析
+        // file.transferTo(new File("E:\\javatest.xls"));
+        List<Teacher> list=POIUtils.excel2Teacher(file,departmentService.getAllDepartments2(),jobLevelService.getAllJobLevels());
+      /*  for (Employee employee : list) {
+            System.out.println(employee.toString());
+        }*/
+        //将解析的数据插入到数据库
+        if(teacherService.addTeas(list)==list.size()) {
+            return RespBean.ok("上传成功！");
+        }
+        return RespBean.error("上传失败");
+    }
+
+
 }

@@ -42,5 +42,9 @@ public class JobLevelService {
         return jobLevelMapper.deleteJobLevelsByIds(ids);
     }
 
+    public List<String> getAllJobLevelsWithName(){
+        return jobLevelMapper.getAllJobLevelsWithName();
+    }
+
 
 }

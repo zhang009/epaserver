@@ -103,4 +103,21 @@ public class TeacherService implements UserDetailsService {
     public Integer deleteTeasByIds(Integer[] ids) {
         return teacherMapper.deleteTeasByIds(ids);
     }
+    //添加教师用户
+    @Transactional
+    public Integer addTeas(List<Teacher> list) {
+       /* System.out.println(list.toString());*/
+        Teacher teacher=null;
+        int count=0;
+        //这里分条插入是为了在角色表里设置默认的教师角色
+        for(int i=0;i<list.size();i++){
+            teacher=list.get(i);
+            if(teacher!=null){
+                teacherMapper.insertSelective(teacher);
+                teacherRoleMapper.firstAddRole(teacher.getId());
+                count++;
+            }
+        }
+        return count;
+    }
 }

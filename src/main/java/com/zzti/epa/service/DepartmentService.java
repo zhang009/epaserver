@@ -23,6 +23,9 @@ public class DepartmentService {
 
         return departmentMapper.getAllDepartmentsByParentId(-1);//递归查询
     }
+    public List<Department> getAllDepartments2(){
+        return departmentMapper.getAllDepartments2();
+    }
 
     public void addDep(Department dep) {
         dep.setEnabled(true);
@@ -35,5 +38,10 @@ public class DepartmentService {
 
     public List<Department> getAllDepartmentsWithOutChildren() {
         return departmentMapper.getAllDepartmentsWithOutChildren();
+    }
+
+    //获取部门中二级部门中的名字
+    public List<String> getAllDepartmentWithName() {
+        return departmentMapper.getAllDepartmentWithName();
     }
 }

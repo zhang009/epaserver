@@ -32,8 +32,13 @@
     department
   </select>
 
+  <select id="getAllDepartmentWithName" resultType="String">
+        select name from department where parentId=1
+  </select>
 
-
+  <select id="getAllDepartments2" resultType="com.zzti.epa.model.Department">
+    select * from department
+  </select>
 
 
 

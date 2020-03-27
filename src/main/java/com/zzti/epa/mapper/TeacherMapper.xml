@@ -112,7 +112,16 @@
     <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
   </delete>
   
-  
+  <insert id="addTeas" >
+    insert into teacher(name,gender,username,departmentId,email,jobLevelId,workID,phone)
+    values
+    <foreach collection="list" separator="," item="tea">
+      (#{tea.name,jdbcType=VARCHAR},#{tea.gender,jdbcType=CHAR},#{tea.username,jdbcType=VARCHAR},
+      #{tea.departmentId,jdbcType=INTEGER}, #{tea.email,jdbcType=VARCHAR},
+      #{tea.jobLevelId,jdbcType=INTEGER}, #{tea.workID,jdbcType=CHAR},#{tea.phone,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
   
   
   

@@ -30,4 +30,6 @@ public interface TeacherMapper {
     Integer isExistWorkID(String  workID);
 
     Integer deleteTeasByIds(@Param("ids")Integer[] ids);
+
+    Integer addTeas(@Param("list") List<Teacher> list);
 }
