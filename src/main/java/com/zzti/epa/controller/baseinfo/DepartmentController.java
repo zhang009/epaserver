@@ -3,7 +3,7 @@ package com.zzti.epa.controller.baseinfo;
 
 import com.zzti.epa.model.Department;
 import com.zzti.epa.model.RespBean;
-import com.zzti.epa.service.DepartmentService;
+import com.zzti.epa.service.baseinfo.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

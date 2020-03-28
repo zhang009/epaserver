@@ -18,11 +18,16 @@
         select * from department where parentId=#{pid}
   </select>
   <select id="addDep" statementType="CALLABLE">
-    call  addDep(#{name,mode=IN,jdbcType=VARCHAR},#{parentId,mode=IN,jdbcType=INTEGER},#{enabled,mode=IN,jdbcType=BOOLEAN},#{result,mode=OUT,jdbcType=INTEGER},#{id,mode=OUT,jdbcType=INTEGER})
+    call  addDep(
+    #{dep.name,mode=IN,jdbcType=VARCHAR},
+    #{dep.parentId,mode=IN,jdbcType=INTEGER},
+    #{dep.enabled,mode=IN,jdbcType=BOOLEAN},
+    #{dep.result,mode=OUT,jdbcType=INTEGER},
+    #{dep.id,mode=OUT,jdbcType=INTEGER})
   </select>
 
   <select id="deleteDepById" statementType="CALLABLE">
-    call deleteDep(#{id,mode=IN,jdbcType=INTEGER},#{result,mode=OUT,jdbcType=INTEGER})
+    call deleteDep(#{dep.id,mode=IN,jdbcType=INTEGER},#{dep.result,mode=OUT,jdbcType=INTEGER})
   </select>
 
   <select id="getAllDepartmentsWithOutChildren" resultMap="BaseResultMap">

@@ -2,6 +2,7 @@ package com.zzti.epa.mapper;
 
 
 import com.zzti.epa.model.Department;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,9 +23,9 @@ public interface DepartmentMapper {
 
     List<Department> getAllDepartmentsByParentId(Integer pid);
 
-    void addDep(Department dep);
+    void addDep(@Param("dep") Department dep);
 
-    void deleteDepById(Department dep);
+    void deleteDepById(@Param("dep")Department dep);
 
     List<Department> getAllDepartmentsWithOutChildren();
 

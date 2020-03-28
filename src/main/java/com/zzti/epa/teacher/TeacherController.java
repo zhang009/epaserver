@@ -1,8 +1,8 @@
 package com.zzti.epa.teacher;
 
 import com.zzti.epa.model.*;
-import com.zzti.epa.service.DepartmentService;
-import com.zzti.epa.service.JobLevelService;
+import com.zzti.epa.service.baseinfo.DepartmentService;
+import com.zzti.epa.service.baseinfo.JobLevelService;
 import com.zzti.epa.service.RoleService;
 import com.zzti.epa.service.TeacherService;
 import com.zzti.epa.utils.POIUtils;

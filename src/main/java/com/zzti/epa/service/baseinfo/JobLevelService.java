@@ -1,4 +1,4 @@
-package com.zzti.epa.service;
+package com.zzti.epa.service.baseinfo;
 
 
 import com.zzti.epa.mapper.JobLevelMapper;

@@ -1,4 +1,4 @@
-package com.zzti.epa.service;
+package com.zzti.epa.service.baseinfo;
 
 
 import com.zzti.epa.mapper.DepartmentMapper;
@@ -29,6 +29,7 @@ public class DepartmentService {
 
     public void addDep(Department dep) {
         dep.setEnabled(true);
+        System.out.println("adddep:"+dep.toString());
         departmentMapper.addDep(dep);
     }
 
