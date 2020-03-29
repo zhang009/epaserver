@@ -1,4 +1,4 @@
-package com.zzti.epa.mapper;
+package com.zzti.epa.mapper.baseinfo;
 
 import com.zzti.epa.model.Major;
 import org.apache.ibatis.annotations.Param;
@@ -21,4 +21,6 @@ public interface MajorMapper {
     List<Major> getMajorByPage(@Param("page") Integer page,@Param("size") Integer size,@Param("keyword") String keyword);
 
     Long getTotal(@Param("keyword")String keyword);
+
+    List<Major> getMajorBySid(@Param("schoolId") Integer schoolId);
 }

@@ -2,11 +2,12 @@ package com.zzti.epa.controller.baseinfo;
 
 import com.zzti.epa.model.Major;
 import com.zzti.epa.model.RespBean;
-import com.zzti.epa.model.RespPageBean;
 import com.zzti.epa.service.baseinfo.MajorService;
 import com.zzti.epa.service.baseinfo.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @ClassName MajorController
@@ -22,14 +23,23 @@ public class MajorController {
     MajorService majorService;
     @Autowired
     SchoolService schoolService;
-    @GetMapping("/")
+   /* @GetMapping("/")
     public RespPageBean getMajorByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10")
             Integer size, String keyword){
         // System.out.println("getSchoolByPage:"+"page:"+page+"size"+size+"keyword:"+keyword);
-        return majorService.getMajorByPage(null,null,null);
+        return majorService.getMajorByPage(1,10,null);
+    }*/
+
+    @GetMapping("/")
+    public List<Major> getMajorBySid(@RequestParam(value = "schoolId") Integer schoolId){
+        // System.out.println("getSchoolByPage:"+"page:"+page+"size"+size+"keyword:"+keyword);
+        System.out.println("schoolId:"+schoolId);
+        return majorService.getMajorBySid(schoolId);
     }
+
     @PostMapping("/")
     public RespBean addMajor(@RequestBody Major major){
+        //System.out.println("major.getschoolId:"+major.());
         if(majorService.addMajor(major)==1){
             return RespBean.ok("添加成功！");
         }

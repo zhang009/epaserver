@@ -1,4 +1,4 @@
-package com.zzti.epa.mapper;
+package com.zzti.epa.mapper.baseinfo;
 
 import com.zzti.epa.model.School;
 import org.apache.ibatis.annotations.Param;
@@ -21,4 +21,6 @@ public interface SchoolMapper {
     List<School> getSchoolByPage(@Param("page") Integer page,@Param("size") Integer size,@Param("keyword") String keyword);
 
     Long getTotal(String keyword);
+
+    List<School> getAllSchools();
 }

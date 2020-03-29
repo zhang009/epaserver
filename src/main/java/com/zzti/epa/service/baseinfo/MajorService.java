@@ -1,6 +1,6 @@
 package com.zzti.epa.service.baseinfo;
 
-import com.zzti.epa.mapper.MajorMapper;
+import com.zzti.epa.mapper.baseinfo.MajorMapper;
 import com.zzti.epa.model.Major;
 import com.zzti.epa.model.RespPageBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class MajorService {
         if(page!=null&& size!=null){
             page=(page-1)*size;
         }
-        List<Major> data=majorMapper.getMajorByPage(page,size,keyword);//第三个参数为关键词
+        List<Major> data=majorMapper.getMajorByPage(null,null,null);//第三个参数为关键词
         Long total=majorMapper.getTotal(keyword);//总记录数
         RespPageBean bean = new RespPageBean();
         bean.setData(data);
@@ -41,5 +41,9 @@ public class MajorService {
 
     public Integer deleteMajorBySid(Integer id) {
         return majorMapper.deleteByPrimaryKey(id);
+    }
+
+    public List<Major> getMajorBySid(Integer schoolId) {
+        return  majorMapper.getMajorBySid(schoolId);
     }
 }

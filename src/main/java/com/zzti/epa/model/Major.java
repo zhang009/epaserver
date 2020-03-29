@@ -5,7 +5,7 @@ public class Major {
 
     private String name;
 
-    private Integer schoolid;
+    private Integer schoolId;
 
     public Integer getId() {
         return id;
@@ -23,11 +23,11 @@ public class Major {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getSchoolid() {
-        return schoolid;
+    public Integer getSchoolId() {
+        return schoolId;
     }
 
-    public void setSchoolid(Integer schoolid) {
-        this.schoolid = schoolid;
+    public void setSchoolId(Integer schoolId) {
+        this.schoolId = schoolId;
     }
 }

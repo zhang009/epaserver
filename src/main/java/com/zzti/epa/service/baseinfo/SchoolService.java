@@ -1,6 +1,6 @@
 package com.zzti.epa.service.baseinfo;
 
-import com.zzti.epa.mapper.SchoolMapper;
+import com.zzti.epa.mapper.baseinfo.SchoolMapper;
 import com.zzti.epa.model.RespPageBean;
 import com.zzti.epa.model.School;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,4 +57,7 @@ public class SchoolService {
     }
 
 
+    public List<School> getAllSchools() {
+        return schoolMapper.getAllSchools();
+    }
 }

@@ -1,4 +1,4 @@
-package com.zzti.epa.teacher;
+package com.zzti.epa.controller.teacher;
 
 import com.zzti.epa.model.*;
 import com.zzti.epa.service.baseinfo.DepartmentService;
