@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @ClassName ClassController
- * @Description TODO
+ * @Description 班级管理接口
  * @Author Administrator
  * @Date 2020-03-29 14:30
  **/
