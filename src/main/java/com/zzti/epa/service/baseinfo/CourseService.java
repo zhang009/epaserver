@@ -58,4 +58,8 @@ public class CourseService {
     public List<Course> getAllCourse(Integer id) {
         return courseMapper.getAllCourse(id);
     }
+
+    public Course getCourseById(Integer id) {
+        return courseMapper.getCourseById(id);
+    }
 }

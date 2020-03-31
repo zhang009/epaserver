@@ -23,4 +23,18 @@ public class ChapterService {
     public List<Chapter> getChaptersByCourseId(Integer id) {
         return chapterMapper.getChaptersByCourseId(id);
     }
+
+    public Integer addChapter(Chapter chapter) {
+        return chapterMapper.insertSelective(chapter);
+    }
+
+
+
+    public Integer updateChapter(Chapter chapter) {
+        return chapterMapper.updateByPrimaryKeySelective(chapter);
+    }
+
+    public Integer deleteChapterByCid(Integer id) {
+        return chapterMapper.deleteByPrimaryKey(id);
+    }
 }

@@ -24,4 +24,6 @@ public interface CourseMapper {
     Long getTotal(@Param("course")Course course);
 
     List<Course> getAllCourse(@Param("classId") Integer id);
+
+    Course getCourseById(@Param("id")Integer id);
 }

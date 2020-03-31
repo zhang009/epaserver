@@ -1,11 +1,16 @@
 package com.zzti.epa.model;
-
+/**
+* @Description:章节类
+* @Date: 2020-03-31  13:02
+* @Param null:
+* @return: null
+**/
 public class Chapter {
     private Integer id;
 
     private String name;
 
-    private Integer courseid;
+    private Integer courseId;
 
     public Chapter() {
     }
@@ -26,11 +31,11 @@ public class Chapter {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getCourseid() {
-        return courseid;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setCourseid(Integer courseid) {
-        this.courseid = courseid;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 }

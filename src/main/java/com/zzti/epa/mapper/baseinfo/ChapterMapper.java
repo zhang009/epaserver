@@ -19,4 +19,6 @@ public interface ChapterMapper {
     int updateByPrimaryKey(Chapter record);
 
     List<Chapter> getChaptersByCourseId(@Param("courseId") Integer courseId);
+
+
 }

@@ -13,6 +13,9 @@
       and c.classId=#{classId}
     </if>
   </select>
+  <select id="getCourseById" resultType="com.zzti.epa.model.Course">
+    select * from course where course.id=#{id};
+  </select>
 
   <select id="getCourse"  resultType="com.zzti.epa.model.Course">
     select * from course c where id in (select max(id) from course group by name)

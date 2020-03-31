@@ -20,4 +20,16 @@ public class KnowsService {
     public List<Knows> getKnowsByCourseId(Integer courseId) {
         return knowsMapper.getKnowsByCourseId(courseId);
     }
+
+    public Integer addKnows(Knows knows) {
+        return knowsMapper.insertSelective(knows);
+    }
+
+    public Integer updateKnows(Knows knows) {
+        return knowsMapper.updateByPrimaryKey(knows);
+    }
+
+    public Integer deleteKnowsByKid(Integer id) {
+        return knowsMapper.deleteByPrimaryKey(id);
+    }
 }
