@@ -45,8 +45,22 @@
       </if>
     </where>
   </select>
-  
-  
+  <select id="getAllClass" resultType="com.zzti.epa.model.Class">
+    select * from class
+  </select>
+  <select id="getClassByName" resultType="com.zzti.epa.model.Class">
+    select * from class c
+    <where>
+      <if test="name!=null and name!=''">
+        and c.name like concat('%',#{name},'%')
+      </if>
+    </where>
+  </select>
+
+
+
+
+
   
   
   

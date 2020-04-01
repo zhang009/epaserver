@@ -25,4 +25,8 @@ public interface ClassMapper {
     List<Teacher> getClassByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("keyword") String keyword);
 
     Long getTotal(@Param("keyword") String keyword);
+
+    List<Class> getAllClass();
+
+    List<Class> getClassByName(@Param("name") String name);
 }

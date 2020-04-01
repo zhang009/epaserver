@@ -1,19 +1,48 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : linux-mysql5.7
-Source Server Version : 50729
-Source Host           : 39.107.252.137:3306
+Source Server         : localhost_3306
+Source Server Version : 50721
+Source Host           : localhost:3306
 Source Database       : epa
 
 Target Server Type    : MYSQL
-Target Server Version : 50729
+Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2020-03-29 17:57:21
+Date: 2020-04-01 23:07:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `chapter`
+-- ----------------------------
+DROP TABLE IF EXISTS `chapter`;
+CREATE TABLE `chapter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(300) DEFAULT NULL,
+  `courseId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `courseId` (`courseId`),
+  CONSTRAINT `chapter_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `course` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of chapter
+-- ----------------------------
+INSERT INTO `chapter` VALUES ('1', 'C数据类型', '6');
+INSERT INTO `chapter` VALUES ('2', '简单的算术运算和表达式', '6');
+INSERT INTO `chapter` VALUES ('3', '键盘输入和屏幕输出', '6');
+INSERT INTO `chapter` VALUES ('4', '选择控制结构', '6');
+INSERT INTO `chapter` VALUES ('5', '循环控制结构', '6');
+INSERT INTO `chapter` VALUES ('6', '函数', '6');
+INSERT INTO `chapter` VALUES ('7', '数组', '6');
+INSERT INTO `chapter` VALUES ('8', '指针', '6');
+INSERT INTO `chapter` VALUES ('9', '字符串', '6');
+INSERT INTO `chapter` VALUES ('10', '指针和数组', '6');
+INSERT INTO `chapter` VALUES ('11', '结构体和共用体', '6');
+INSERT INTO `chapter` VALUES ('12', '文件操作', '6');
 
 -- ----------------------------
 -- Table structure for `class`
@@ -26,7 +55,7 @@ CREATE TABLE `class` (
   `majorId` int(11) DEFAULT NULL COMMENT '专业id',
   `schoolId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of class
@@ -42,6 +71,116 @@ INSERT INTO `class` VALUES ('8', 'RB软工网172', '2017', '1', '1');
 INSERT INTO `class` VALUES ('9', 'RB软工网181', '2018', '1', '1');
 INSERT INTO `class` VALUES ('10', 'RB软工网181', '2018', '1', '1');
 INSERT INTO `class` VALUES ('11', 'RB软工网191', '2019', '1', '1');
+INSERT INTO `class` VALUES ('12', 'RB软工网191', '2019', '1', '1');
+INSERT INTO `class` VALUES ('14', 'RB软工互161', '2016', '3', '1');
+INSERT INTO `class` VALUES ('15', 'RB软工互162', '2016', '3', '1');
+INSERT INTO `class` VALUES ('16', 'RB软工互163', '2016', '3', '1');
+INSERT INTO `class` VALUES ('17', 'RB软工互164', '2016', '3', '1');
+INSERT INTO `class` VALUES ('18', 'RB软工互171', '2017', '3', '1');
+INSERT INTO `class` VALUES ('19', 'RB软工互172', '2017', '3', '1');
+INSERT INTO `class` VALUES ('20', 'RB软工互173', '2017', '3', '1');
+INSERT INTO `class` VALUES ('21', 'RB软工互174', '2017', '3', '1');
+INSERT INTO `class` VALUES ('22', 'RB软工互181', '2018', '3', '1');
+INSERT INTO `class` VALUES ('23', 'RB软工互182', '2018', '3', '1');
+INSERT INTO `class` VALUES ('24', 'RB软工互183', '2018', '3', '1');
+INSERT INTO `class` VALUES ('25', 'RB软工互184', '2018', '3', '1');
+INSERT INTO `class` VALUES ('26', 'RB软工互191', '2019', '3', '1');
+INSERT INTO `class` VALUES ('27', 'RB软工互192', '2019', '3', '1');
+INSERT INTO `class` VALUES ('28', 'RB软工互193', '2019', '3', '1');
+INSERT INTO `class` VALUES ('29', 'RB软工互194', '2019', '3', '1');
+INSERT INTO `class` VALUES ('30', 'RB软工金161', '2016', '4', '1');
+INSERT INTO `class` VALUES ('31', 'RB软工金162', '2016', '4', '1');
+INSERT INTO `class` VALUES ('32', 'RB软工金163', '2016', '4', '1');
+INSERT INTO `class` VALUES ('33', 'RB软工金164', '2016', '4', '1');
+INSERT INTO `class` VALUES ('34', 'RB软工金171', '2017', '4', '1');
+INSERT INTO `class` VALUES ('35', 'RB软工金172', '2017', '4', '1');
+INSERT INTO `class` VALUES ('36', 'RB软工金173', '2017', '4', '1');
+INSERT INTO `class` VALUES ('37', 'RB软工金174', '2017', '4', '1');
+INSERT INTO `class` VALUES ('38', 'RB软工金181', '2018', '4', '1');
+INSERT INTO `class` VALUES ('39', 'RB软工金182', '2018', '4', '1');
+INSERT INTO `class` VALUES ('40', 'RB软工金183', '2018', '4', '1');
+INSERT INTO `class` VALUES ('41', 'RB软工金184', '2018', '4', '1');
+INSERT INTO `class` VALUES ('42', 'RB软工金191', '2019', '4', '1');
+INSERT INTO `class` VALUES ('43', 'RB软工金192', '2019', '4', '1');
+INSERT INTO `class` VALUES ('44', 'RB软工金193', '2019', '4', '1');
+INSERT INTO `class` VALUES ('45', 'RB软工金194', '2019', '4', '1');
+INSERT INTO `class` VALUES ('46', 'RB软工移171', '2016', '5', '1');
+INSERT INTO `class` VALUES ('47', 'RB软工移172', '2017', '5', '1');
+INSERT INTO `class` VALUES ('48', 'RB软工移173', '2017', '5', '1');
+INSERT INTO `class` VALUES ('49', 'RB软工移174', '2017', '5', '1');
+INSERT INTO `class` VALUES ('50', 'RB软工移181', '2018', '5', '1');
+INSERT INTO `class` VALUES ('51', 'RB软工移182', '2018', '5', '1');
+INSERT INTO `class` VALUES ('52', 'RB软工移183', '2018', '5', '1');
+INSERT INTO `class` VALUES ('53', 'RB软工移184', '2018', '5', '1');
+INSERT INTO `class` VALUES ('54', 'RB软工移191', '2019', '5', '1');
+INSERT INTO `class` VALUES ('55', 'RB软工移192', '2019', '5', '1');
+INSERT INTO `class` VALUES ('56', 'RB软工移193', '2019', '5', '1');
+INSERT INTO `class` VALUES ('57', 'RB软工移194', '2019', '5', '1');
+INSERT INTO `class` VALUES ('58', 'RB软工数171', '2017', '6', '1');
+INSERT INTO `class` VALUES ('59', 'RB软工数172', '2017', '6', '1');
+INSERT INTO `class` VALUES ('60', 'RB软工数173', '2017', '6', '1');
+INSERT INTO `class` VALUES ('61', 'RB软工数174', '2017', '6', '1');
+INSERT INTO `class` VALUES ('62', 'RB软工数181', '2018', '6', '1');
+INSERT INTO `class` VALUES ('63', 'RB软工数182', '2018', '6', '1');
+INSERT INTO `class` VALUES ('64', 'RB软工数183', '2018', '6', '1');
+INSERT INTO `class` VALUES ('65', 'RB软工数184', '2018', '6', '1');
+INSERT INTO `class` VALUES ('66', 'RB软工数185', '2018', '6', '1');
+INSERT INTO `class` VALUES ('67', 'RB软工数186', '2018', '6', '1');
+INSERT INTO `class` VALUES ('68', 'RB软工数191', '2019', '6', '1');
+INSERT INTO `class` VALUES ('69', 'RB软工数192', '2019', '6', '1');
+INSERT INTO `class` VALUES ('70', 'RB软工数193', '2019', '6', '1');
+INSERT INTO `class` VALUES ('71', 'RB软工数194', '2019', '6', '1');
+INSERT INTO `class` VALUES ('72', 'RB软工数195', '2019', '6', '1');
+INSERT INTO `class` VALUES ('73', 'RB软工数196', '2019', '6', '1');
+
+-- ----------------------------
+-- Table structure for `class_course`
+-- ----------------------------
+DROP TABLE IF EXISTS `class_course`;
+CREATE TABLE `class_course` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `courseId` int(11) NOT NULL,
+  `classId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `class_course_ibfk_1` (`courseId`),
+  KEY `class_course_ibfk_2` (`classId`),
+  CONSTRAINT `class_course_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `class_course_ibfk_2` FOREIGN KEY (`classId`) REFERENCES `class` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of class_course
+-- ----------------------------
+INSERT INTO `class_course` VALUES ('3', '1', '5');
+INSERT INTO `class_course` VALUES ('4', '2', '5');
+INSERT INTO `class_course` VALUES ('5', '3', '5');
+INSERT INTO `class_course` VALUES ('6', '4', '5');
+INSERT INTO `class_course` VALUES ('7', '5', '6');
+INSERT INTO `class_course` VALUES ('8', '6', '11');
+
+-- ----------------------------
+-- Table structure for `course`
+-- ----------------------------
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE `course` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) DEFAULT NULL,
+  `term` varchar(200) DEFAULT NULL,
+  `classId` int(11) DEFAULT NULL COMMENT '班级id',
+  PRIMARY KEY (`id`),
+  KEY `course_ibfk_1` (`classId`),
+  CONSTRAINT `course_ibfk_1` FOREIGN KEY (`classId`) REFERENCES `class` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of course
+-- ----------------------------
+INSERT INTO `course` VALUES ('1', 'RB概率论与数理统计', '2018-2019学年第二学期', '5');
+INSERT INTO `course` VALUES ('2', '编译原理', '2018-2019学年第二学期', '5');
+INSERT INTO `course` VALUES ('3', '局域网组网技术', '2018-2019学年第二学期', '5');
+INSERT INTO `course` VALUES ('4', '网络安全技术', '2018-2019学年第二学期', '5');
+INSERT INTO `course` VALUES ('5', '网络安全技术', '2018-2019学年第二学期', '6');
+INSERT INTO `course` VALUES ('6', 'C语言程序设计', '2018-2019学年第一学期', '11');
 
 -- ----------------------------
 -- Table structure for `department`
@@ -104,6 +243,30 @@ INSERT INTO `joblevel` VALUES ('12', '助教', '初级', '2020-01-11 21:35:39', 
 INSERT INTO `joblevel` VALUES ('13', '讲师', '中级', '2020-01-11 00:00:00', '1');
 
 -- ----------------------------
+-- Table structure for `knows`
+-- ----------------------------
+DROP TABLE IF EXISTS `knows`;
+CREATE TABLE `knows` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(300) DEFAULT NULL,
+  `chapterId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `chapterId` (`chapterId`),
+  CONSTRAINT `knows_ibfk_1` FOREIGN KEY (`chapterId`) REFERENCES `chapter` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of knows
+-- ----------------------------
+INSERT INTO `knows` VALUES ('1', '测试1', '1');
+INSERT INTO `knows` VALUES ('2', '测试2', '2');
+INSERT INTO `knows` VALUES ('3', '测试3', '3');
+INSERT INTO `knows` VALUES ('4', '测试4', '4');
+INSERT INTO `knows` VALUES ('5', '测试5', '5');
+INSERT INTO `knows` VALUES ('6', '测试6', '6');
+INSERT INTO `knows` VALUES ('7', '测试7', '7');
+
+-- ----------------------------
 -- Table structure for `major`
 -- ----------------------------
 DROP TABLE IF EXISTS `major`;
@@ -112,7 +275,7 @@ CREATE TABLE `major` (
   `name` varchar(100) DEFAULT NULL,
   `schoolId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of major
@@ -127,6 +290,7 @@ INSERT INTO `major` VALUES ('7', '软件技术', '1');
 INSERT INTO `major` VALUES ('8', '计算机应用技术（软件测试与维护方向）', '1');
 INSERT INTO `major` VALUES ('9', '计算机信息管理（互联网营销方向）', '1');
 INSERT INTO `major` VALUES ('10', '软件技术（移动应用开发方向）', '1');
+INSERT INTO `major` VALUES ('12', '软件技术（软件测试技术方向）', '1');
 
 -- ----------------------------
 -- Table structure for `menu`
@@ -174,7 +338,7 @@ INSERT INTO `menu` VALUES ('23', '/system/user/**', '/sys/user', 'SysUserMan', '
 INSERT INTO `menu` VALUES ('24', '/system/authority/**', '/sys/aut', 'SysAuth', '权限管理', null, null, '1', '6', '1');
 INSERT INTO `menu` VALUES ('25', '/baseinfo/department/**', '/baseinfo/dep', 'BasDep', '部门管理', null, null, '1', '33', '1');
 INSERT INTO `menu` VALUES ('26', '/baseinfo/class/**', '/baseinfo/class', 'BasClass', '班级管理', null, null, '1', '33', '1');
-INSERT INTO `menu` VALUES ('27', '/baseinfo/datastructure/**', '/baseinfo/datastru', 'SysDataStru', '知识结构管理', null, null, '1', '33', '1');
+INSERT INTO `menu` VALUES ('27', '/baseinfo/datastructure/**', '/baseinfo/datastru', 'BasDataStru', '知识结构管理', null, null, '1', '33', '1');
 INSERT INTO `menu` VALUES ('28', '/system/init/**', '/sys/init', 'SysInit', '初始化数据库', null, null, '1', '6', '0');
 INSERT INTO `menu` VALUES ('33', '/', '/home', 'Home', '基础信息管理', 'fa fa-windows', null, '1', '1', '1');
 INSERT INTO `menu` VALUES ('34', '/baseinfo/stu/**', '/baseinfo/stu', 'BasStu', '学生管理', null, null, '1', '33', '1');
@@ -276,7 +440,7 @@ CREATE TABLE `school` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT NULL COMMENT '学院名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of school
@@ -292,6 +456,36 @@ INSERT INTO `school` VALUES ('9', '材料与化工学院');
 INSERT INTO `school` VALUES ('10', '建筑工程学院');
 INSERT INTO `school` VALUES ('11', '服装学院');
 INSERT INTO `school` VALUES ('12', '艺术设计学院');
+INSERT INTO `school` VALUES ('13', '经济管理学院');
+INSERT INTO `school` VALUES ('14', '新闻与传播学院');
+INSERT INTO `school` VALUES ('15', '法学院、知识产权学院');
+INSERT INTO `school` VALUES ('16', '理学院');
+INSERT INTO `school` VALUES ('17', '马克思主义学院');
+
+-- ----------------------------
+-- Table structure for `student`
+-- ----------------------------
+DROP TABLE IF EXISTS `student`;
+CREATE TABLE `student` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `studentNum` varchar(20) DEFAULT NULL,
+  `gender` varchar(4) DEFAULT NULL,
+  `userface` varchar(255) DEFAULT NULL,
+  `enabled` tinyint(4) DEFAULT '1',
+  `classId` int(11) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `classId` (`classId`),
+  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`classId`) REFERENCES `class` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of student
+-- ----------------------------
+INSERT INTO `student` VALUES ('1', '王小虎', '201619040128', '123', '201619040128', '男', null, '1', '1', null);
 
 -- ----------------------------
 -- Table structure for `teacher`

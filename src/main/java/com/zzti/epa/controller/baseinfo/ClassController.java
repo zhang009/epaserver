@@ -25,6 +25,17 @@ public class ClassController {
         System.out.println("schoolId:"+majorId);
         return classService.getClassByMid(majorId);
     }
+    @GetMapping("/all2")
+    public List<Class> getAllClass(){
+
+        return classService.getAllClass();
+    }
+    @GetMapping("/searchClassByName")
+    public List<Class> getClassByName(@RequestParam(value = "name")String name){
+
+        return classService.getClassByName(name);
+    }
+
 
     @GetMapping("/")
     public RespPageBean getClassByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10")

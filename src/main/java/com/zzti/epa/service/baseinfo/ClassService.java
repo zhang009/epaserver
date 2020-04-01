@@ -48,4 +48,12 @@ public class ClassService {
     public Integer deleteClassByCid(Integer id) {
         return classMapper.deleteByPrimaryKey(id);
     }
+
+    public List<Class> getAllClass() {
+        return classMapper.getAllClass();
+    }
+
+    public List<Class> getClassByName(String name) {
+        return classMapper.getClassByName(name);
+    }
 }
