@@ -1,7 +1,9 @@
 package com.zzti.epa.utils;
 
+import com.zzti.epa.model.Class;
 import com.zzti.epa.model.Department;
 import com.zzti.epa.model.JobLevel;
+import com.zzti.epa.model.Student;
 import com.zzti.epa.model.Teacher;
 import org.apache.poi.hpsf.DocumentSummaryInformation;
 import org.apache.poi.hpsf.SummaryInformation;
@@ -127,8 +129,6 @@ public class POIUtils {
             cellStyle2.setDataFormat(format.getFormat("@"));
             cell.setCellStyle(cellStyle2);
             cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-
-
         }
 
 
@@ -286,6 +286,188 @@ public class POIUtils {
             e.printStackTrace();
         }
 
+        return list;
+    }
+
+    //下载学生批量导入模板
+    public static ResponseEntity<byte[]> student2Excel(List<String> classes) {
+        //1、创建一个Excel文档
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        //2.创建文档摘要
+        workbook.createInformationProperties();
+        //3.获取并配置文档信息
+        DocumentSummaryInformation docInfo = workbook.getDocumentSummaryInformation();
+        docInfo.setCategory("学生用户模板");//文档类别
+        docInfo.setManager("admin");//文档管理员
+        docInfo.setCompany("www.zzti.edu.cn");//组织结构
+        //4.获取文档摘要信息
+        SummaryInformation summaryInfo = workbook.getSummaryInformation();
+        summaryInfo.setAuthor("zhang009");//文档作者
+        summaryInfo.setComments("本文档由zhang009提供");//备注
+        //5.创建样式
+        //创建标题行样式
+        HSSFCellStyle headerStyle=workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.YELLOW.index);//加入背景颜色
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+        headerStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+        headerStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+        headerStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+        HSSFFont font = workbook.createFont();//字体样式
+        font.setFontName("宋体");
+        font.setFontHeightInPoints((short) 10);//设置字体大小
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
+        headerStyle.setFont(font);//选择需要用到的字体格式
+        //    headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 居中
+        headerStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//垂直
+        headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);//水平
+        //创建表单
+        HSSFSheet sheet = workbook.createSheet("学生信息表");//参数为表单的名字Style
+        //定义列的宽度
+        //第一个参数为第几列，第二个参数为宽度
+        sheet.setColumnWidth(0,10*256);//姓名
+        sheet.setColumnWidth(1,15*256);//学号
+        sheet.setColumnWidth(2,10*256);//性别
+        sheet.setColumnWidth(3,20*256);//班级
+        //6.创建标题行（表头）
+        HSSFRow r0 = sheet.createRow(0);
+        r0.setHeightInPoints(18);//设置单元格行高
+
+        HSSFCell c0 = r0.createCell(0);
+        c0.setCellValue("姓名");
+        c0.setCellStyle(headerStyle);
+
+        //创建第二列
+        HSSFCell c1=r0.createCell(1);
+        c1.setCellStyle(headerStyle);
+        c1.setCellValue("学号");
+
+        HSSFCell c2=r0.createCell(2);
+        c2.setCellStyle(headerStyle);
+        c2.setCellValue("性别");
+
+        HSSFCell c3=r0.createCell(3);
+        c3.setCellStyle(headerStyle);
+        c3.setCellValue("班级");
+
+        //创建工号为文本格式
+        for(int i = 0;i < 500;i++)
+        {
+            HSSFRow row = sheet.createRow(i + 1);//创建行，第一行标题行已经创建
+            //创建第i个单元格
+            HSSFCell cell = row.createCell(1);
+            if(cell.getCellType()!=1){//cell.getCellType()==1为字符串型
+                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+            }
+            //新增的四句话，设置CELL格式为文本格式
+            HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+            HSSFDataFormat format = workbook.createDataFormat();
+            cellStyle2.setDataFormat(format.getFormat("@"));
+            cell.setCellStyle(cellStyle2);
+            cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+        }
+        //加载下拉列表内容
+       /* String [] classStr =classes.toArray(new String[classes.size()]);//集合转数组
+        DVConstraint constraint = DVConstraint.createExplicitListConstraint(classStr);
+        //设置数据有效性加载在哪个单元格上。
+        //四个参数分别是：起始行、终止行、起始列、终止列
+        int firstRow = 2-1;
+        int lastRow = 500-1;
+        int firstCol = 2-1;
+        int lastCol = 2-1;
+        CellRangeAddressList regions=new CellRangeAddressList(firstRow,lastRow,firstCol,lastCol);
+        //设置数据有效性对象（下拉列表）
+        DataValidation dataValidation = new HSSFDataValidation(regions,constraint);
+        sheet.addValidationData(dataValidation);*/
+        //
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        HttpHeaders headers=new HttpHeaders();
+
+        try {
+            headers.setContentDispositionFormData("attachment",new String("学生信息模板表.xls".getBytes("UTF-8"),"ISO-8859-1"));
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            workbook.write(bos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<byte[]>(bos.toByteArray(),headers, HttpStatus.CREATED);
+    }
+
+    //把excel学生信息解析成list集合
+    public static List<Student> excel2Student(MultipartFile file, List<Class> allClass) {
+        List<Student> list=new ArrayList<>();
+        Student student=null;
+        Class clazz=null;
+        try {
+            //1.创建一个workbook对象
+            HSSFWorkbook workbook = null;
+            workbook = new HSSFWorkbook(file.getInputStream());
+            //2.获取workbook中表单的数量
+            int numberOfSheets = workbook.getNumberOfSheets();
+            //   System.out.println("numberOfSheets:"+numberOfSheets);
+            for (int i = 0; i < numberOfSheets; i++) {
+                //3.获取表单
+                HSSFSheet sheet = workbook.getSheetAt(0);
+                //4.获取表单有多少行
+                int physicalNumberOfRows = sheet.getPhysicalNumberOfRows();
+                //    System.out.println("physicalNumberOfRows:"+physicalNumberOfRows);
+                for (int j = 0; j < physicalNumberOfRows; j++) {
+                    if (j == 0) {
+                        continue;//5.标题行不解析
+                    }
+                    //6.获取行
+                    HSSFRow row = sheet.getRow(j);
+                    if (row == null) {
+                        continue;//防止中间有空行
+                    }
+                    //7.获取列数
+                    int physicalNumberOfCells = row.getPhysicalNumberOfCells();
+                    //  System.out.println("列数：" + physicalNumberOfCells);
+                    student = new Student();
+                    if (physicalNumberOfCells == 4) {
+                        for (int k = 0; k < physicalNumberOfCells; k++) {
+                            HSSFCell cell = row.getCell(k);
+                            //字符串格式、日期格式
+                          /*  switch (cell.getCellType()) {
+                                case STRING:*/
+                            cell.setCellType(CellType.STRING);
+                            String cellValue = cell.getStringCellValue();
+                            //System.out.println("k:" + k + ",cellValue:" + cellValue);
+                            switch (k) {
+                                //根据列数决定如何处理
+                                case 0:
+                                    student.setName(cellValue);//姓名
+                                    break;
+                                case 1:
+                                    student.setStudentNum(cellValue);
+                                    student.setUsername(cellValue);//用户名设置和学号相同
+                                    break;
+                                case 2:
+                                    student.setGender(cellValue);
+                                    break;
+                                case 3:
+                                   int classIndex=allClass.indexOf(new Class(cellValue));
+                                   student.setClassId(allClass.get(classIndex).getId());
+                                    break;
+                            }
+                        }
+                    }else{
+                        break;
+                    }
+
+                   // System.out.println(student.toString());
+                    list.add(student);
+
+
+                }
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+      //  System.out.println(list.toString());
         return list;
     }
 }

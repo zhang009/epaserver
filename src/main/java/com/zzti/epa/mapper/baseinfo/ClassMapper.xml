@@ -56,6 +56,9 @@
       </if>
     </where>
   </select>
+  <select id="getAllClassWithName" resultType="String">
+    select name from class
+  </select>
 
 
 

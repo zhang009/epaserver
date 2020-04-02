@@ -1,5 +1,7 @@
 package com.zzti.epa.model;
 
+import java.util.Objects;
+
 public class Class {
     private Integer id;
 
@@ -11,6 +13,26 @@ public class Class {
     private Major major;
 
     private Integer schoolId;
+
+    public Class(String name) {
+        this.name = name;
+    }
+
+    public Class() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Class aClass = (Class) o;
+        return name.equals(aClass.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 
     public Integer getId() {
         return id;

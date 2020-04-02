@@ -23,6 +23,22 @@ public class Student {
 
     private Class clazz;
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", studentNum='" + studentNum + '\'' +
+                ", gender='" + gender + '\'' +
+                ", userface='" + userface + '\'' +
+                ", enabled=" + enabled +
+                ", classId=" + classId +
+                ", remark='" + remark + '\'' +
+                ", clazz=" + clazz +
+                '}';
+    }
 
     public Student() {
     }

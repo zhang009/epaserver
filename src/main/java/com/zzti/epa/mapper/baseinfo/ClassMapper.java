@@ -29,4 +29,6 @@ public interface ClassMapper {
     List<Class> getAllClass();
 
     List<Class> getClassByName(@Param("name") String name);
+
+    List<String> getAllClassWithName();
 }

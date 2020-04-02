@@ -24,4 +24,6 @@ public interface StudentMapper {
     Long getTotal(@Param("stu") Student student);
 
     Integer deleteStuByIds(@Param("ids") Integer[] ids);
+
+    Integer addStus(@Param("list")List<Student> list);
 }

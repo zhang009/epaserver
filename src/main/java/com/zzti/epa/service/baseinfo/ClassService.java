@@ -56,4 +56,8 @@ public class ClassService {
     public List<Class> getClassByName(String name) {
         return classMapper.getClassByName(name);
     }
+
+    public List<String> getAllClassWithName() {
+        return classMapper.getAllClassWithName();
+    }
 }

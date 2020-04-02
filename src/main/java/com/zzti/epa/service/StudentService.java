@@ -51,4 +51,9 @@ public class StudentService {
     public Integer deleteStuByIds(Integer[] ids) {
         return studentMapper.deleteStuByIds(ids);
     }
+
+    public Integer addStus(List<Student> list) {
+       return studentMapper.addStus(list);
+
+    }
 }
