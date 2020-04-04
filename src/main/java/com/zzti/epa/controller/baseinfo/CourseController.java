@@ -31,6 +31,7 @@ public class CourseController {
     public List<Course> getAllCourse(@RequestParam("classId") Integer id){
         return courseService.getAllCourse(id);
     }
+
     @PostMapping("/")
     public RespBean addCourse(@RequestBody Course course){
         if(courseService.addCourse(course)==1){

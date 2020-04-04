@@ -67,6 +67,7 @@ public class KnowsController {
         list.add(knowsTree1);//
         return list;
     }
+
     @PostMapping("/chapter")
     public RespBean addChapter(@RequestBody KnowsTree knowsTree){
         System.out.println("addKnowsTree:"+knowsTree.toString());
