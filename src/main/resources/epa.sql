@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2020-04-01 23:07:05
+Date: 2020-04-07 22:36:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `chapter` (
   PRIMARY KEY (`id`),
   KEY `courseId` (`courseId`),
   CONSTRAINT `chapter_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `course` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of chapter
@@ -43,6 +43,7 @@ INSERT INTO `chapter` VALUES ('9', '字符串', '6');
 INSERT INTO `chapter` VALUES ('10', '指针和数组', '6');
 INSERT INTO `chapter` VALUES ('11', '结构体和共用体', '6');
 INSERT INTO `chapter` VALUES ('12', '文件操作', '6');
+INSERT INTO `chapter` VALUES ('17', '第一章', '1');
 
 -- ----------------------------
 -- Table structure for `class`
@@ -222,6 +223,28 @@ INSERT INTO `department` VALUES ('20', '中原彼得堡航空学院', '1', '.1.2
 INSERT INTO `department` VALUES ('21', '测试3', '1', '.1.21', '1', '0');
 
 -- ----------------------------
+-- Table structure for `fb_question`
+-- ----------------------------
+DROP TABLE IF EXISTS `fb_question`;
+CREATE TABLE `fb_question` (
+  `id` int(11) NOT NULL,
+  `knowIds` varchar(255) DEFAULT NULL,
+  `stem` text,
+  `answer` varchar(255) DEFAULT NULL,
+  `analysis` text,
+  `teacherId` int(11) DEFAULT NULL,
+  `checkTeacherId` int(11) DEFAULT NULL,
+  `courseId` int(11) DEFAULT NULL,
+  `chapterId` int(11) DEFAULT NULL,
+  `dot` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of fb_question
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `joblevel`
 -- ----------------------------
 DROP TABLE IF EXISTS `joblevel`;
@@ -253,7 +276,7 @@ CREATE TABLE `knows` (
   PRIMARY KEY (`id`),
   KEY `chapterId` (`chapterId`),
   CONSTRAINT `knows_ibfk_1` FOREIGN KEY (`chapterId`) REFERENCES `chapter` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of knows
@@ -265,6 +288,9 @@ INSERT INTO `knows` VALUES ('4', '测试4', '4');
 INSERT INTO `knows` VALUES ('5', '测试5', '5');
 INSERT INTO `knows` VALUES ('6', '测试6', '6');
 INSERT INTO `knows` VALUES ('7', '测试7', '7');
+INSERT INTO `knows` VALUES ('11', '测试1-1-1', '1');
+INSERT INTO `knows` VALUES ('12', '666', '11');
+INSERT INTO `knows` VALUES ('14', '第一个知识点', '17');
 
 -- ----------------------------
 -- Table structure for `major`
@@ -291,6 +317,44 @@ INSERT INTO `major` VALUES ('8', '计算机应用技术（软件测试与维护�
 INSERT INTO `major` VALUES ('9', '计算机信息管理（互联网营销方向）', '1');
 INSERT INTO `major` VALUES ('10', '软件技术（移动应用开发方向）', '1');
 INSERT INTO `major` VALUES ('12', '软件技术（软件测试技术方向）', '1');
+
+-- ----------------------------
+-- Table structure for `mc_option`
+-- ----------------------------
+DROP TABLE IF EXISTS `mc_option`;
+CREATE TABLE `mc_option` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mcId` int(11) NOT NULL,
+  `optionNum` int(11) NOT NULL COMMENT '选项排序号',
+  `optionContent` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mc_option
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `mc_question`
+-- ----------------------------
+DROP TABLE IF EXISTS `mc_question`;
+CREATE TABLE `mc_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `knowIds` varchar(255) DEFAULT NULL,
+  `stem` text NOT NULL,
+  `answer` varchar(8) NOT NULL,
+  `analysis` text,
+  `checkTeacherId` int(11) NOT NULL,
+  `teacherId` int(11) NOT NULL,
+  `courseId` int(11) NOT NULL,
+  `chapterId` int(11) NOT NULL,
+  `dot` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mc_question
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `menu`
@@ -330,10 +394,10 @@ INSERT INTO `menu` VALUES ('14', '/exampaper/template/**', '/pap/template', 'Exa
 INSERT INTO `menu` VALUES ('15', '/exampaper/library/**', '/pap/library', 'ExamPaperLib', '试卷库管理', null, null, '1', '4', '1');
 INSERT INTO `menu` VALUES ('16', '/exampaper/create/**', '/pap/create', 'ExamPaperCre', '试卷组建', null, null, '1', '4', '1');
 INSERT INTO `menu` VALUES ('17', '/exampaper/check/**', '/pap/check', 'ExamPaperCheck', '试卷审核', null, null, '1', '4', '1');
-INSERT INTO `menu` VALUES ('19', '/analysis/all/**', '/sta/all', 'StaAll', '试卷数据分析', null, null, '1', '5', '1');
-INSERT INTO `menu` VALUES ('20', '/statistics/score/**', '/sta/score', 'StaScore', '试题数据分析', null, null, '1', '5', '1');
-INSERT INTO `menu` VALUES ('21', '/statistics/personnel/**', '/sta/pers', 'StaPers', '成绩信息统计', null, null, '1', '5', '1');
-INSERT INTO `menu` VALUES ('22', '/statistics/recored/**', '/sta/record', 'StaRecord', '学习效果分析', null, null, '1', '5', '1');
+INSERT INTO `menu` VALUES ('19', '/analysis/all/**', '/ana/all', 'AnaAll', '试卷数据分析', null, null, '1', '5', '1');
+INSERT INTO `menu` VALUES ('20', '/analysis/score/**', '/ana/score', 'StaScore', '试题数据分析', null, null, '1', '5', '1');
+INSERT INTO `menu` VALUES ('21', '/analysis/personnel/**', '/ana/pers', 'StaPers', '成绩信息统计', null, null, '1', '5', '1');
+INSERT INTO `menu` VALUES ('22', '/analysis/recored/**', '/ana/record', 'StaRecord', '学习效果分析', null, null, '1', '5', '1');
 INSERT INTO `menu` VALUES ('23', '/system/user/**', '/sys/user', 'SysUserMan', '用户管理', null, null, '1', '6', '1');
 INSERT INTO `menu` VALUES ('24', '/system/authority/**', '/sys/aut', 'SysAuth', '权限管理', null, null, '1', '6', '1');
 INSERT INTO `menu` VALUES ('25', '/baseinfo/department/**', '/baseinfo/dep', 'BasDep', '部门管理', null, null, '1', '33', '1');
@@ -415,6 +479,50 @@ INSERT INTO `menu_role` VALUES ('339', '27', '2');
 INSERT INTO `menu_role` VALUES ('340', '34', '2');
 
 -- ----------------------------
+-- Table structure for `qa_question`
+-- ----------------------------
+DROP TABLE IF EXISTS `qa_question`;
+CREATE TABLE `qa_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `knowIds` varchar(255) DEFAULT NULL,
+  `stem` text,
+  `answer` text,
+  `analysis` text,
+  `teacherId` int(11) DEFAULT NULL,
+  `chapterId` int(11) DEFAULT NULL,
+  `dot` int(11) DEFAULT NULL,
+  `checkTeacherId` int(11) DEFAULT NULL,
+  `courseId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qa_question
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `question_check`
+-- ----------------------------
+DROP TABLE IF EXISTS `question_check`;
+CREATE TABLE `question_check` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `questionId` int(11) NOT NULL COMMENT '试题id',
+  `postTeacherId` int(11) NOT NULL COMMENT '提交试题教师id',
+  `checkTeacherId` int(11) NOT NULL COMMENT '审核教师试题编号',
+  `checkStatus` tinyint(4) DEFAULT NULL,
+  `refuseReason` varchar(255) DEFAULT '拒绝原因',
+  PRIMARY KEY (`id`),
+  KEY `question_check_ibfk_1` (`postTeacherId`),
+  KEY `question_check_ibfk_2` (`checkTeacherId`),
+  CONSTRAINT `question_check_ibfk_1` FOREIGN KEY (`postTeacherId`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `question_check_ibfk_2` FOREIGN KEY (`checkTeacherId`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of question_check
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `role`
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
@@ -463,6 +571,32 @@ INSERT INTO `school` VALUES ('16', '理学院');
 INSERT INTO `school` VALUES ('17', '马克思主义学院');
 
 -- ----------------------------
+-- Table structure for `sc_question`
+-- ----------------------------
+DROP TABLE IF EXISTS `sc_question`;
+CREATE TABLE `sc_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `knowIds` varchar(255) DEFAULT NULL,
+  `stem` text NOT NULL,
+  `option1` text NOT NULL,
+  `option2` text,
+  `option3` text,
+  `option4` text,
+  `answer` varchar(8) DEFAULT NULL,
+  `analysis` text,
+  `teacherId` int(11) NOT NULL,
+  `checkTeacherId` int(11) NOT NULL,
+  `courseId` int(11) NOT NULL,
+  `chapterId` int(11) DEFAULT NULL,
+  `dot` tinyint(4) DEFAULT NULL COMMENT '试题难度',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sc_question
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `student`
 -- ----------------------------
 DROP TABLE IF EXISTS `student`;
@@ -472,7 +606,7 @@ CREATE TABLE `student` (
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
   `studentNum` varchar(20) DEFAULT NULL,
-  `gender` varchar(4) DEFAULT NULL,
+  `gender` char(4) DEFAULT NULL,
   `userface` varchar(255) DEFAULT NULL,
   `enabled` tinyint(4) DEFAULT '1',
   `classId` int(11) DEFAULT NULL,
@@ -480,7 +614,7 @@ CREATE TABLE `student` (
   PRIMARY KEY (`id`),
   KEY `classId` (`classId`),
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`classId`) REFERENCES `class` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
@@ -514,7 +648,6 @@ CREATE TABLE `teacher` (
 -- Records of teacher
 -- ----------------------------
 INSERT INTO `teacher` VALUES ('3', '系统管理员', '18568887789', '1', 'admin', '$2a$10$ySG2lkvjFHY5O0./CPIE1OI8VJsuKYEzOYzqIa7AJR6sEgSzUFOAm', 'http://bpic.588ku.com/element_pic/01/40/00/64573ce2edc0728.jpg', null, '2', '123@qq.com', '9', '男', '0001', null);
-INSERT INTO `teacher` VALUES ('5', '李白', '18568123489', '1', 'libai', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514093920321&di=913e88c23f382933ef430024afd9128a&imgtype=0&src=http%3A%2F%2Fp.3761.com%2Fpic%2F9771429316733.jpg', null, '2', '123@qq.com', '10', '男', '0002', null);
 INSERT INTO `teacher` VALUES ('10', '韩愈', '18568123666', '1', 'hanyu', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517070040185&di=be0375e0c3db6c311b837b28c208f318&imgtype=0&src=http%3A%2F%2Fimg2.soyoung.com%2Fpost%2F20150213%2F6%2F20150213141918532.jpg', null, '2', '123@qq.com', '12', '男', '0003', null);
 INSERT INTO `teacher` VALUES ('11', '柳宗元', '18568123377', '1', 'liuzongyuan', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515233756&di=0856d923a0a37a87fd26604a2c871370&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2014-09-27%2F041716704.jpg', null, '2', '123@qq.com', '9', '男', '0004', null);
 INSERT INTO `teacher` VALUES ('12', '曾巩', '18568128888', '1', 'zenggong', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517070040185&di=be0375e0c3db6c311b837b28c208f318&imgtype=0&src=http%3A%2F%2Fimg2.soyoung.com%2Fpost%2F20150213%2F6%2F20150213141918532.jpg', null, '2', '123@qq.com', '9', '男', '0005', null);
@@ -553,7 +686,6 @@ CREATE TABLE `teacher_role` (
 -- ----------------------------
 -- Records of teacher_role
 -- ----------------------------
-INSERT INTO `teacher_role` VALUES ('2', '5', '1');
 INSERT INTO `teacher_role` VALUES ('3', '10', '1');
 INSERT INTO `teacher_role` VALUES ('4', '11', '2');
 INSERT INTO `teacher_role` VALUES ('5', '12', '3');
@@ -575,6 +707,28 @@ INSERT INTO `teacher_role` VALUES ('36', '1552', '1');
 INSERT INTO `teacher_role` VALUES ('37', '1553', '1');
 INSERT INTO `teacher_role` VALUES ('38', '1554', '1');
 INSERT INTO `teacher_role` VALUES ('39', '1555', '1');
+
+-- ----------------------------
+-- Table structure for `tf_question`
+-- ----------------------------
+DROP TABLE IF EXISTS `tf_question`;
+CREATE TABLE `tf_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `knowIds` varchar(255) DEFAULT NULL,
+  `stem` text NOT NULL,
+  `answer` varchar(8) NOT NULL COMMENT '对或错',
+  `analysis` text,
+  `teacherId` int(11) DEFAULT NULL,
+  `checkTeacherId` int(11) DEFAULT NULL,
+  `courseId` int(11) DEFAULT NULL,
+  `chapterId` int(11) DEFAULT NULL,
+  `dot` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tf_question
+-- ----------------------------
 
 -- ----------------------------
 -- Procedure structure for `addDep`
