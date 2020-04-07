@@ -32,4 +32,6 @@ public interface TeacherMapper {
     Integer deleteTeasByIds(@Param("ids")Integer[] ids);
 
     Integer addTeas(@Param("list") List<Teacher> list);
+
+    List<Teacher> getTeacherCourseRole(@Param("rId") Integer rId);
 }

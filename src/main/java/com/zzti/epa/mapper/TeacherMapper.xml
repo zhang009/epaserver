@@ -36,7 +36,16 @@
 
     </collection>
   </resultMap>
-  
+  <!--所有教师（加角色列表）-->
+  <resultMap id="AllTeacherWithRole"  type="com.zzti.epa.model.Teacher" extends="BaseResultMap">
+
+    <collection property="roles" ofType="com.zzti.epa.model.Role">
+      <id property="id" column="rid"/>
+      <result property="name" column="rname"/>
+      <result property="nameZh" column="rnameZH"/>
+    </collection>
+  </resultMap>
+
   <select id="queryRoleByTid" parameterType="java.util.Map" resultType="com.zzti.epa.model.Role">
 
         select
@@ -85,6 +94,16 @@
     </if>
 
   </select>
+
+  <select id="getTeacherCourseRole" resultMap="AllTeacherWithRole">
+    select t.*, r.id as rid,r.name as rname,r.nameZh as rnameZh
+from teacher t, role r, teacher_role tr
+WHERE
+ r.id=tr.rid and tr.tid=t.id
+and #{rId} in (select r.id from role r,teacher_role tr where r.id=tr.rid and tr.tid=t.id)
+
+  </select>
+
   <select id="getTotal" resultType="Long">
     select count(*) from teacher t
     <where>
@@ -122,7 +141,12 @@
       )
     </foreach>
   </insert>
-  
+
+
+
+
+
+
   
   
   <sql id="Base_Column_List" >

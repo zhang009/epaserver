@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.epa.mapper.question.MCOptionMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.epa.model.MCOption" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mcId" property="mcid" jdbcType="INTEGER" />
+    <result column="optionNum" property="optionnum" jdbcType="INTEGER" />
+    <result column="optionContent" property="optioncontent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, mcId, optionNum, optionContent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mc_option
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mc_option
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.epa.model.MCOption" >
+    insert into mc_option (id, mcId, optionNum, 
+      optionContent)
+    values (#{id,jdbcType=INTEGER}, #{mcid,jdbcType=INTEGER}, #{optionnum,jdbcType=INTEGER}, 
+      #{optioncontent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.MCOption" >
+    insert into mc_option
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mcid != null" >
+        mcId,
+      </if>
+      <if test="optionnum != null" >
+        optionNum,
+      </if>
+      <if test="optioncontent != null" >
+        optionContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mcid != null" >
+        #{mcid,jdbcType=INTEGER},
+      </if>
+      <if test="optionnum != null" >
+        #{optionnum,jdbcType=INTEGER},
+      </if>
+      <if test="optioncontent != null" >
+        #{optioncontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.epa.model.MCOption" >
+    update mc_option
+    <set >
+      <if test="mcid != null" >
+        mcId = #{mcid,jdbcType=INTEGER},
+      </if>
+      <if test="optionnum != null" >
+        optionNum = #{optionnum,jdbcType=INTEGER},
+      </if>
+      <if test="optioncontent != null" >
+        optionContent = #{optioncontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.epa.model.MCOption" >
+    update mc_option
+    set mcId = #{mcid,jdbcType=INTEGER},
+      optionNum = #{optionnum,jdbcType=INTEGER},
+      optionContent = #{optioncontent,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

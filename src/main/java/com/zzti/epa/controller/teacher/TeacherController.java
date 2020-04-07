@@ -48,6 +48,15 @@ public class TeacherController {
         System.out.println(">>>>>>>>>>>>关键词name:"+teacher.getName());
         return teacherService.getTeacherByPage(page,size,teacher);
     }
+    /**
+    * @Description:获取所有课程负责人列表
+    * @Date: 2020-04-07  15:46
+    * @return: java.util.List<com.zzti.epa.model.JobLevel>
+    **/
+    @GetMapping("/addQue")
+    public List<Teacher> getTeacherByAddQue(){
+        return teacherService.getTeacherByAddQue();
+    }
     @GetMapping("/joblevel")
     public List<JobLevel> getAllJobLevels(){
         System.out.println("getAllJobLevels:");

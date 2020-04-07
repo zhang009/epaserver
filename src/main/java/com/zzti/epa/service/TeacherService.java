@@ -68,6 +68,21 @@ public class TeacherService implements UserDetailsService {
         bean.setTotal(total);//放入总记录数
         return bean;
     }
+    public List<Teacher> getTeacherByAddQue() {
+        List<Teacher> list=teacherMapper.getTeacherCourseRole(2);//传入课程负责人的角色id
+        //检查条件搜索，如果条件搜索选择了角色，则需要在这里筛选
+        Teacher teacher1=null;
+
+        for (int i =0;i< list.size();i++){
+            teacher1=list.get(i);
+            if(teacher1.getRoles().size()==0||teacher1.getRoles()==null){//如果查询出的角色不存在
+                list.remove(i);//移除部门为空的用户
+                i--;//当移除一个元素的时候，list集合会向前移动，所以这里需要让下标再前移一位
+            }else{//判断
+            }
+        }
+        return list;
+    }
 
 
     public Integer deleteTeaByEid(Integer id) {
@@ -120,4 +135,6 @@ public class TeacherService implements UserDetailsService {
         }
         return count;
     }
+
+
 }
