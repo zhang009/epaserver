@@ -3,15 +3,20 @@ package com.zzti.epa.model;
 public class QuestionCheck {
     private Integer id;
 
-    private Integer questionid;
+    private Integer questionId;
 
-    private Integer postteacherid;
+    private Integer postTeacherId;
 
-    private Integer checkteacherid;
+    private Integer checkTeacherId;
 
-    private Byte checkstatus;
+    private Byte checkStatus;
 
-    private String refusereason;
+    private String questionType;
+
+    private String refuseReason;
+
+    public QuestionCheck() {
+    }
 
     public Integer getId() {
         return id;
@@ -21,43 +26,51 @@ public class QuestionCheck {
         this.id = id;
     }
 
-    public Integer getQuestionid() {
-        return questionid;
+    public Integer getQuestionId() {
+        return questionId;
     }
 
-    public void setQuestionid(Integer questionid) {
-        this.questionid = questionid;
+    public void setQuestionId(Integer questionId) {
+        this.questionId = questionId;
     }
 
-    public Integer getPostteacherid() {
-        return postteacherid;
+    public Integer getPostTeacherId() {
+        return postTeacherId;
     }
 
-    public void setPostteacherid(Integer postteacherid) {
-        this.postteacherid = postteacherid;
+    public void setPostTeacherId(Integer postTeacherId) {
+        this.postTeacherId = postTeacherId;
     }
 
-    public Integer getCheckteacherid() {
-        return checkteacherid;
+    public Integer getCheckTeacherId() {
+        return checkTeacherId;
     }
 
-    public void setCheckteacherid(Integer checkteacherid) {
-        this.checkteacherid = checkteacherid;
+    public void setCheckTeacherId(Integer checkTeacherId) {
+        this.checkTeacherId = checkTeacherId;
     }
 
-    public Byte getCheckstatus() {
-        return checkstatus;
+    public Byte getCheckStatus() {
+        return checkStatus;
     }
 
-    public void setCheckstatus(Byte checkstatus) {
-        this.checkstatus = checkstatus;
+    public void setCheckStatus(Byte checkStatus) {
+        this.checkStatus = checkStatus;
     }
 
-    public String getRefusereason() {
-        return refusereason;
+    public String getQuestionType() {
+        return questionType;
     }
 
-    public void setRefusereason(String refusereason) {
-        this.refusereason = refusereason == null ? null : refusereason.trim();
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
+    }
+
+    public String getRefuseReason() {
+        return refuseReason;
+    }
+
+    public void setRefuseReason(String refuseReason) {
+        this.refuseReason = refuseReason;
     }
 }

@@ -3,14 +3,15 @@
 <mapper namespace="com.zzti.epa.mapper.question.QuestionCheckMapper" >
   <resultMap id="BaseResultMap" type="com.zzti.epa.model.QuestionCheck" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="questionId" property="questionid" jdbcType="INTEGER" />
-    <result column="postTeacherId" property="postteacherid" jdbcType="INTEGER" />
-    <result column="checkTeacherId" property="checkteacherid" jdbcType="INTEGER" />
-    <result column="checkStatus" property="checkstatus" jdbcType="TINYINT" />
-    <result column="refuseReason" property="refusereason" jdbcType="VARCHAR" />
+    <result column="questionId" property="questionId" jdbcType="INTEGER" />
+    <result column="postTeacherId" property="postTeacherId" jdbcType="INTEGER" />
+    <result column="checkTeacherId" property="checkTeacherId" jdbcType="INTEGER" />
+    <result column="checkStatus" property="checkStatus" jdbcType="TINYINT" />
+    <result column="questionType" property="questionType" jdbcType="VARCHAR" />
+    <result column="refuseReason" property="refuseReason" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, questionId, postTeacherId, checkTeacherId, checkStatus, refuseReason
+    id, questionId, postTeacherId, checkTeacherId, checkStatus, questionType, refuseReason
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,11 +25,11 @@
   </delete>
   <insert id="insert" parameterType="com.zzti.epa.model.QuestionCheck" >
     insert into question_check (id, questionId, postTeacherId, 
-      checkTeacherId, checkStatus, refuseReason
-      )
-    values (#{id,jdbcType=INTEGER}, #{questionid,jdbcType=INTEGER}, #{postteacherid,jdbcType=INTEGER}, 
-      #{checkteacherid,jdbcType=INTEGER}, #{checkstatus,jdbcType=TINYINT}, #{refusereason,jdbcType=VARCHAR}
-      )
+      checkTeacherId, checkStatus, questionType, 
+      refuseReason)
+    values (#{id,jdbcType=INTEGER}, #{questionId,jdbcType=INTEGER}, #{postTeacherId,jdbcType=INTEGER}, 
+      #{checkTeacherId,jdbcType=INTEGER}, #{checkStatus,jdbcType=TINYINT}, #{questionType,jdbcType=VARCHAR}, 
+      #{refuseReason,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zzti.epa.model.QuestionCheck" >
     insert into question_check
@@ -36,19 +37,22 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="questionid != null" >
+      <if test="questionId != null" >
         questionId,
       </if>
-      <if test="postteacherid != null" >
+      <if test="postTeacherId != null" >
         postTeacherId,
       </if>
-      <if test="checkteacherid != null" >
+      <if test="checkTeacherId != null" >
         checkTeacherId,
       </if>
-      <if test="checkstatus != null" >
+      <if test="checkStatus != null" >
         checkStatus,
       </if>
-      <if test="refusereason != null" >
+      <if test="questionType != null" >
+        questionType,
+      </if>
+      <if test="refuseReason != null" >
         refuseReason,
       </if>
     </trim>
@@ -56,51 +60,58 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="questionid != null" >
-        #{questionid,jdbcType=INTEGER},
+      <if test="questionId != null" >
+        #{questionId,jdbcType=INTEGER},
       </if>
-      <if test="postteacherid != null" >
-        #{postteacherid,jdbcType=INTEGER},
+      <if test="postTeacherId != null" >
+        #{postTeacherId,jdbcType=INTEGER},
       </if>
-      <if test="checkteacherid != null" >
-        #{checkteacherid,jdbcType=INTEGER},
+      <if test="checkTeacherId != null" >
+        #{checkTeacherId,jdbcType=INTEGER},
       </if>
-      <if test="checkstatus != null" >
-        #{checkstatus,jdbcType=TINYINT},
+      <if test="checkStatus != null" >
+        #{checkStatus,jdbcType=TINYINT},
       </if>
-      <if test="refusereason != null" >
-        #{refusereason,jdbcType=VARCHAR},
+      <if test="questionType != null" >
+        #{questionType,jdbcType=VARCHAR},
+      </if>
+      <if test="refuseReason != null" >
+        #{refuseReason,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zzti.epa.model.QuestionCheck" >
     update question_check
     <set >
-      <if test="questionid != null" >
-        questionId = #{questionid,jdbcType=INTEGER},
+      <if test="questionId != null" >
+        questionId = #{questionId,jdbcType=INTEGER},
       </if>
-      <if test="postteacherid != null" >
-        postTeacherId = #{postteacherid,jdbcType=INTEGER},
+      <if test="postTeacherId != null" >
+        postTeacherId = #{postTeacherId,jdbcType=INTEGER},
       </if>
-      <if test="checkteacherid != null" >
-        checkTeacherId = #{checkteacherid,jdbcType=INTEGER},
+      <if test="checkTeacherId != null" >
+        checkTeacherId = #{checkTeacherId,jdbcType=INTEGER},
       </if>
-      <if test="checkstatus != null" >
-        checkStatus = #{checkstatus,jdbcType=TINYINT},
+      <if test="checkStatus != null" >
+        checkStatus = #{checkStatus,jdbcType=TINYINT},
       </if>
-      <if test="refusereason != null" >
-        refuseReason = #{refusereason,jdbcType=VARCHAR},
+      <if test="questionType != null" >
+        questionType = #{questionType,jdbcType=VARCHAR},
+      </if>
+      <if test="refuseReason != null" >
+        refuseReason = #{refuseReason,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zzti.epa.model.QuestionCheck" >
     update question_check
-    set questionId = #{questionid,jdbcType=INTEGER},
-      postTeacherId = #{postteacherid,jdbcType=INTEGER},
-      checkTeacherId = #{checkteacherid,jdbcType=INTEGER},
-      checkStatus = #{checkstatus,jdbcType=TINYINT},
-      refuseReason = #{refusereason,jdbcType=VARCHAR}
+    set questionId = #{questionId,jdbcType=INTEGER},
+      postTeacherId = #{postTeacherId,jdbcType=INTEGER},
+      checkTeacherId = #{checkTeacherId,jdbcType=INTEGER},
+      checkStatus = #{checkStatus,jdbcType=TINYINT},
+      questionType = #{questionType,jdbcType=VARCHAR},
+      refuseReason = #{refuseReason,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

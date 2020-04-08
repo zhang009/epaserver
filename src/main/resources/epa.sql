@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2020-04-07 22:36:57
+Date: 2020-04-08 23:57:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -342,7 +342,7 @@ CREATE TABLE `mc_question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `knowIds` varchar(255) DEFAULT NULL,
   `stem` text NOT NULL,
-  `answer` varchar(8) NOT NULL,
+  `answer` varchar(16) NOT NULL,
   `analysis` text,
   `checkTeacherId` int(11) NOT NULL,
   `teacherId` int(11) NOT NULL,
@@ -509,18 +509,26 @@ CREATE TABLE `question_check` (
   `questionId` int(11) NOT NULL COMMENT '试题id',
   `postTeacherId` int(11) NOT NULL COMMENT '提交试题教师id',
   `checkTeacherId` int(11) NOT NULL COMMENT '审核教师试题编号',
-  `checkStatus` tinyint(4) DEFAULT NULL,
+  `checkStatus` tinyint(4) DEFAULT '0' COMMENT '待审核：0，审核通过：1：审核拒绝：2',
+  `questionType` varchar(8) DEFAULT NULL,
   `refuseReason` varchar(255) DEFAULT '拒绝原因',
   PRIMARY KEY (`id`),
   KEY `question_check_ibfk_1` (`postTeacherId`),
   KEY `question_check_ibfk_2` (`checkTeacherId`),
   CONSTRAINT `question_check_ibfk_1` FOREIGN KEY (`postTeacherId`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `question_check_ibfk_2` FOREIGN KEY (`checkTeacherId`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question_check
 -- ----------------------------
+INSERT INTO `question_check` VALUES ('1', '1', '3', '11', '0', 'sc', '拒绝原因');
+INSERT INTO `question_check` VALUES ('2', '2', '3', '3', '0', 'sc', '拒绝原因');
+INSERT INTO `question_check` VALUES ('3', '3', '3', '11', '0', 'sc', '拒绝原因');
+INSERT INTO `question_check` VALUES ('4', '4', '3', '11', '0', 'sc', '拒绝原因');
+INSERT INTO `question_check` VALUES ('5', '5', '3', '11', '0', 'sc', '拒绝原因');
+INSERT INTO `question_check` VALUES ('6', '6', '3', '11', '0', 'sc', '拒绝原因');
+INSERT INTO `question_check` VALUES ('7', '7', '3', '11', '0', 'sc', '拒绝原因');
 
 -- ----------------------------
 -- Table structure for `role`
@@ -590,11 +598,18 @@ CREATE TABLE `sc_question` (
   `chapterId` int(11) DEFAULT NULL,
   `dot` tinyint(4) DEFAULT NULL COMMENT '试题难度',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sc_question
 -- ----------------------------
+INSERT INTO `sc_question` VALUES ('1', null, '题干', 'A', 'B', 'C', 'D', '1', '解析', '3', '11', '6', '1', '1');
+INSERT INTO `sc_question` VALUES ('2', '', '题干', 'A', 'B', 'C', 'D', '1', '解析', '3', '3', '6', '1', '1');
+INSERT INTO `sc_question` VALUES ('3', '', '题干', 'ss', 'dd', 'dd', 'dd', '1', 'dd', '3', '11', '1', '17', '1');
+INSERT INTO `sc_question` VALUES ('4', '', 'ss', 's', 'd', 'd', 'd', '1', 'f', '3', '11', '6', '1', '1');
+INSERT INTO `sc_question` VALUES ('5', '', 'ss', 'd', 'f', 'd', 'd', '1', 's', '3', '11', '6', '2', '1');
+INSERT INTO `sc_question` VALUES ('6', '', 'sss', 'dd', 'd', 'd', 'd', '1', 'd', '3', '11', '6', '1', '1');
+INSERT INTO `sc_question` VALUES ('7', '1|11|2', '是是是', '的', '地方', '士大夫', '方试试', '1', '算法', '3', '11', '6', '6', '2');
 
 -- ----------------------------
 -- Table structure for `student`
