@@ -3,7 +3,7 @@ package com.zzti.epa.model;
 public class TFQuestion {
     private Integer id;
 
-    private String knowids;
+    private String knowIds;
 
     private String stem;
 
@@ -11,13 +11,13 @@ public class TFQuestion {
 
     private String analysis;
 
-    private Integer teacherid;
+    private Integer teacherId;
 
-    private Integer checkteacherid;
+    private Integer checkTeacherId;
 
-    private Integer courseid;
+    private Integer courseId;
 
-    private Integer chapterid;
+    private Integer chapterId;
 
     private Byte dot;
 
@@ -29,13 +29,6 @@ public class TFQuestion {
         this.id = id;
     }
 
-    public String getKnowids() {
-        return knowids;
-    }
-
-    public void setKnowids(String knowids) {
-        this.knowids = knowids == null ? null : knowids.trim();
-    }
 
     public String getStem() {
         return stem;
@@ -61,36 +54,44 @@ public class TFQuestion {
         this.analysis = analysis == null ? null : analysis.trim();
     }
 
-    public Integer getTeacherid() {
-        return teacherid;
+    public String getKnowIds() {
+        return knowIds;
     }
 
-    public void setTeacherid(Integer teacherid) {
-        this.teacherid = teacherid;
+    public void setKnowIds(String knowIds) {
+        this.knowIds = knowIds;
     }
 
-    public Integer getCheckteacherid() {
-        return checkteacherid;
+    public Integer getTeacherId() {
+        return teacherId;
     }
 
-    public void setCheckteacherid(Integer checkteacherid) {
-        this.checkteacherid = checkteacherid;
+    public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
     }
 
-    public Integer getCourseid() {
-        return courseid;
+    public Integer getCheckTeacherId() {
+        return checkTeacherId;
     }
 
-    public void setCourseid(Integer courseid) {
-        this.courseid = courseid;
+    public void setCheckTeacherId(Integer checkTeacherId) {
+        this.checkTeacherId = checkTeacherId;
     }
 
-    public Integer getChapterid() {
-        return chapterid;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setChapterid(Integer chapterid) {
-        this.chapterid = chapterid;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    public Integer getChapterId() {
+        return chapterId;
+    }
+
+    public void setChapterId(Integer chapterId) {
+        this.chapterId = chapterId;
     }
 
     public Byte getDot() {

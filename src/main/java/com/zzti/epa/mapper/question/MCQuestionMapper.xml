@@ -3,14 +3,14 @@
 <mapper namespace="com.zzti.epa.mapper.question.MCQuestionMapper" >
   <resultMap id="BaseResultMap" type="com.zzti.epa.model.MCQuestion" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="knowIds" property="knowids" jdbcType="VARCHAR" />
+    <result column="knowIds" property="knowIds" jdbcType="VARCHAR" />
     <result column="stem" property="stem" jdbcType="VARCHAR" />
     <result column="answer" property="answer" jdbcType="VARCHAR" />
     <result column="analysis" property="analysis" jdbcType="VARCHAR" />
-    <result column="checkTeacherId" property="checkteacherid" jdbcType="INTEGER" />
-    <result column="teacherId" property="teacherid" jdbcType="INTEGER" />
-    <result column="courseId" property="courseid" jdbcType="INTEGER" />
-    <result column="chapterId" property="chapterid" jdbcType="INTEGER" />
+    <result column="checkTeacherId" property="checkTeacherId" jdbcType="INTEGER" />
+    <result column="teacherId" property="teacherId" jdbcType="INTEGER" />
+    <result column="courseId" property="courseId" jdbcType="INTEGER" />
+    <result column="chapterId" property="chapterId" jdbcType="INTEGER" />
     <result column="dot" property="dot" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -32,18 +32,18 @@
       answer, analysis, checkTeacherId, 
       teacherId, courseId, chapterId, 
       dot)
-    values (#{id,jdbcType=INTEGER}, #{knowids,jdbcType=VARCHAR}, #{stem,jdbcType=VARCHAR}, 
-      #{answer,jdbcType=VARCHAR}, #{analysis,jdbcType=VARCHAR}, #{checkteacherid,jdbcType=INTEGER}, 
-      #{teacherid,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}, #{chapterid,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{knowIds,jdbcType=VARCHAR}, #{stem,jdbcType=VARCHAR}, 
+      #{answer,jdbcType=VARCHAR}, #{analysis,jdbcType=VARCHAR}, #{checkTeacherId,jdbcType=INTEGER}, 
+      #{teacherId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{chapterId,jdbcType=INTEGER}, 
       #{dot,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.zzti.epa.model.MCQuestion" >
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.MCQuestion" useGeneratedKeys="true" keyProperty="id">
     insert into mc_question
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="knowids != null" >
+      <if test="knowIds != null" >
         knowIds,
       </if>
       <if test="stem != null" >
@@ -55,16 +55,16 @@
       <if test="analysis != null" >
         analysis,
       </if>
-      <if test="checkteacherid != null" >
+      <if test="checkTeacherId != null" >
         checkTeacherId,
       </if>
-      <if test="teacherid != null" >
+      <if test="teacherId != null" >
         teacherId,
       </if>
-      <if test="courseid != null" >
+      <if test="courseId != null" >
         courseId,
       </if>
-      <if test="chapterid != null" >
+      <if test="chapterId != null" >
         chapterId,
       </if>
       <if test="dot != null" >
@@ -75,8 +75,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="knowids != null" >
-        #{knowids,jdbcType=VARCHAR},
+      <if test="knowIds != null" >
+        #{knowIds,jdbcType=VARCHAR},
       </if>
       <if test="stem != null" >
         #{stem,jdbcType=VARCHAR},
@@ -87,17 +87,17 @@
       <if test="analysis != null" >
         #{analysis,jdbcType=VARCHAR},
       </if>
-      <if test="checkteacherid != null" >
-        #{checkteacherid,jdbcType=INTEGER},
+      <if test="checkTeacherId != null" >
+        #{checkTeacherId,jdbcType=INTEGER},
       </if>
-      <if test="teacherid != null" >
-        #{teacherid,jdbcType=INTEGER},
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
       </if>
-      <if test="courseid != null" >
-        #{courseid,jdbcType=INTEGER},
+      <if test="courseId != null" >
+        #{courseId,jdbcType=INTEGER},
       </if>
-      <if test="chapterid != null" >
-        #{chapterid,jdbcType=INTEGER},
+      <if test="chapterId != null" >
+        #{chapterId,jdbcType=INTEGER},
       </if>
       <if test="dot != null" >
         #{dot,jdbcType=TINYINT},
@@ -107,8 +107,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zzti.epa.model.MCQuestion" >
     update mc_question
     <set >
-      <if test="knowids != null" >
-        knowIds = #{knowids,jdbcType=VARCHAR},
+      <if test="knowIds != null" >
+        knowIds = #{knowIds,jdbcType=VARCHAR},
       </if>
       <if test="stem != null" >
         stem = #{stem,jdbcType=VARCHAR},
@@ -119,17 +119,17 @@
       <if test="analysis != null" >
         analysis = #{analysis,jdbcType=VARCHAR},
       </if>
-      <if test="checkteacherid != null" >
-        checkTeacherId = #{checkteacherid,jdbcType=INTEGER},
+      <if test="checkTeacherId != null" >
+        checkTeacherId = #{checkTeacherId,jdbcType=INTEGER},
       </if>
-      <if test="teacherid != null" >
-        teacherId = #{teacherid,jdbcType=INTEGER},
+      <if test="teacherId != null" >
+        teacherId = #{teacherId,jdbcType=INTEGER},
       </if>
-      <if test="courseid != null" >
-        courseId = #{courseid,jdbcType=INTEGER},
+      <if test="courseId != null" >
+        courseId = #{courseId,jdbcType=INTEGER},
       </if>
-      <if test="chapterid != null" >
-        chapterId = #{chapterid,jdbcType=INTEGER},
+      <if test="chapterId != null" >
+        chapterId = #{chapterId,jdbcType=INTEGER},
       </if>
       <if test="dot != null" >
         dot = #{dot,jdbcType=TINYINT},
@@ -139,14 +139,14 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zzti.epa.model.MCQuestion" >
     update mc_question
-    set knowIds = #{knowids,jdbcType=VARCHAR},
+    set knowIds = #{knowIds,jdbcType=VARCHAR},
       stem = #{stem,jdbcType=VARCHAR},
       answer = #{answer,jdbcType=VARCHAR},
       analysis = #{analysis,jdbcType=VARCHAR},
-      checkTeacherId = #{checkteacherid,jdbcType=INTEGER},
-      teacherId = #{teacherid,jdbcType=INTEGER},
-      courseId = #{courseid,jdbcType=INTEGER},
-      chapterId = #{chapterid,jdbcType=INTEGER},
+      checkTeacherId = #{checkTeacherId,jdbcType=INTEGER},
+      teacherId = #{teacherId,jdbcType=INTEGER},
+      courseId = #{courseId,jdbcType=INTEGER},
+      chapterId = #{chapterId,jdbcType=INTEGER},
       dot = #{dot,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>

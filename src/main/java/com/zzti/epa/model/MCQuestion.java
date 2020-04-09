@@ -1,9 +1,11 @@
 package com.zzti.epa.model;
 
+import java.util.List;
+
 public class MCQuestion {
     private Integer id;
 
-    private String knowids;
+    private String knowIds;
 
     private String stem;
 
@@ -11,15 +13,41 @@ public class MCQuestion {
 
     private String analysis;
 
-    private Integer checkteacherid;
+    private Integer checkTeacherId;
 
-    private Integer teacherid;
+    private Integer teacherId;
 
-    private Integer courseid;
+    private Integer courseId;
 
-    private Integer chapterid;
+    private Integer chapterId;
 
     private Byte dot;
+    private List<MCOption> options;
+
+    @Override
+    public String toString() {
+        return "MCQuestion{" +
+                "id=" + id +
+                ", knowIds='" + knowIds + '\'' +
+                ", stem='" + stem + '\'' +
+                ", answer='" + answer + '\'' +
+                ", analysis='" + analysis + '\'' +
+                ", checkTeacherId=" + checkTeacherId +
+                ", teacherId=" + teacherId +
+                ", courseId=" + courseId +
+                ", chapterId=" + chapterId +
+                ", dot=" + dot +
+                ", options=" + options +
+                '}';
+    }
+
+    public List<MCOption> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<MCOption> options) {
+        this.options = options;
+    }
 
     public Integer getId() {
         return id;
@@ -29,13 +57,6 @@ public class MCQuestion {
         this.id = id;
     }
 
-    public String getKnowids() {
-        return knowids;
-    }
-
-    public void setKnowids(String knowids) {
-        this.knowids = knowids == null ? null : knowids.trim();
-    }
 
     public String getStem() {
         return stem;
@@ -61,36 +82,45 @@ public class MCQuestion {
         this.analysis = analysis == null ? null : analysis.trim();
     }
 
-    public Integer getCheckteacherid() {
-        return checkteacherid;
+
+    public String getKnowIds() {
+        return knowIds;
     }
 
-    public void setCheckteacherid(Integer checkteacherid) {
-        this.checkteacherid = checkteacherid;
+    public void setKnowIds(String knowIds) {
+        this.knowIds = knowIds;
     }
 
-    public Integer getTeacherid() {
-        return teacherid;
+    public Integer getCheckTeacherId() {
+        return checkTeacherId;
     }
 
-    public void setTeacherid(Integer teacherid) {
-        this.teacherid = teacherid;
+    public void setCheckTeacherId(Integer checkTeacherId) {
+        this.checkTeacherId = checkTeacherId;
     }
 
-    public Integer getCourseid() {
-        return courseid;
+    public Integer getTeacherId() {
+        return teacherId;
     }
 
-    public void setCourseid(Integer courseid) {
-        this.courseid = courseid;
+    public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
     }
 
-    public Integer getChapterid() {
-        return chapterid;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setChapterid(Integer chapterid) {
-        this.chapterid = chapterid;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    public Integer getChapterId() {
+        return chapterId;
+    }
+
+    public void setChapterId(Integer chapterId) {
+        this.chapterId = chapterId;
     }
 
     public Byte getDot() {
