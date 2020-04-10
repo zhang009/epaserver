@@ -31,6 +31,7 @@ public class QAQuestionService {
         qaQuestion.setTeacherId(teacher.getId());
         qaQuestionMapper.insertSelective(qaQuestion);
         int qaQuestionId=qaQuestion.getId();
+
         QuestionCheck questionCheck=new QuestionCheck();
         questionCheck.setPostTeacherId(teacher.getId());
         questionCheck.setCheckTeacherId(qaQuestion.getCheckTeacherId());

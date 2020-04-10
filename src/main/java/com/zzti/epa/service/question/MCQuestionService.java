@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * @ClassName MCQuestionService
- * @Description TODO
+ * @Description 多选题业务层
  * @Author Administrator
  * @Date 2020-04-09 11:15
  **/
