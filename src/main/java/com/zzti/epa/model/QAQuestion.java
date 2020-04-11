@@ -1,5 +1,7 @@
 package com.zzti.epa.model;
 
+import java.util.List;
+
 public class QAQuestion {
     private Integer id;
 
@@ -20,7 +22,24 @@ public class QAQuestion {
     private Integer checkTeacherId;
 
     private Integer courseId;
+    private Teacher teacher;
+    private List<Knows> knows;
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public List<Knows> getKnows() {
+        return knows;
+    }
+
+    public void setKnows(List<Knows> knows) {
+        this.knows = knows;
+    }
     public Integer getId() {
         return id;
     }

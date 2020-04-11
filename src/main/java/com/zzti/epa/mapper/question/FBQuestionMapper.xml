@@ -13,6 +13,55 @@
     <result column="chapterId" property="chapterId" jdbcType="INTEGER" />
     <result column="dot" property="dot" jdbcType="TINYINT" />
   </resultMap>
+  <resultMap id="AllFBQuestionInfo" type="com.zzti.epa.model.FBQuestion" extends="BaseResultMap">
+    <association property="teacher" javaType="com.zzti.epa.model.Teacher">
+      <id column="tid" property="id"/>
+      <result column="tname" property="name"></result>
+    </association>
+    <collection property="knows" ofType="com.zzti.epa.model.Knows">
+      <id column="kid" property="id"/>
+      <result column="kname" property="name"/>
+    </collection>
+  </resultMap>
+  <select id="getFBQuestionByPage">
+select fb.*,t.id as tid,t.name as tname,k.id as kid, k.name as kname from fb_question fb ,teacher t,knows k
+where fb.teacherId=t.id
+			and fb.chapterId=k.chapterId
+    <if test="fb.courseId !=null and fb.chapterId!=null">
+      and fb.courseId=#{fb.courseId}
+      and fb.chapterId =#{fb.chapterId}
+    </if>
+    <if test="fb.courseId !=null">
+      and fb.chapterId =#{fb.chapterId}
+    </if>
+  </select>
+  <select id="getTotal" resultType="Long">
+    select count(*) from fb_question fb
+    <where>
+
+      <if test="fb.courseId !=null and fb.chapterId!=null">
+        and fb.courseId=#{fb.courseId}
+        and fb.chapterId =#{fb.chapterId}
+      </if>
+      <if test="fb.courseId !=null">
+        and fb.chapterId =#{fb.chapterId}
+      </if>
+    </where>
+
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
   <sql id="Base_Column_List" >
     id, knowIds, stem, answer, analysis, teacherId, checkTeacherId, courseId, chapterId, 
     dot

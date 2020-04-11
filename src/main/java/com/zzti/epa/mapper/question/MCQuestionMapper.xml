@@ -13,6 +13,54 @@
     <result column="chapterId" property="chapterId" jdbcType="INTEGER" />
     <result column="dot" property="dot" jdbcType="TINYINT" />
   </resultMap>
+
+  <resultMap id="AllMCQuestionInfo" type="com.zzti.epa.model.MCQuestion" extends="BaseResultMap">
+    <association property="teacher" javaType="com.zzti.epa.model.Teacher">
+      <id column="tid" property="id"/>
+      <result column="tname" property="name"></result>
+    </association>
+    <collection property="knows" ofType="com.zzti.epa.model.Knows">
+      <id column="kid" property="id"/>
+      <result column="kname" property="name"/>
+    </collection>
+    <collection property="options" ofType="com.zzti.epa.model.MCOption">
+      <id column="oid" property="id"/>
+      <result column="optionNum" property="optionNum"/>
+      <result column="optionContent" property="optionContent"/>
+    </collection>
+  </resultMap>
+<select id="getMCQuestionByPage" resultMap="AllMCQuestionInfo">
+  select mc.*,t.id as tid,t.name as tname,k.id as kid, k.name as kname,mco.id as oid, mco.optionNum, mco.optionContent from mc_question mc,teacher t,knows k,mc_option mco
+where mc.teacherId=t.id
+			and mc.chapterId=k.chapterId
+			and mc.id=mco.mcId
+  <if test="mc.courseId !=null and mc.chapterId!=null">
+    and mc.courseId=#{mc.courseId}
+    and mc.chapterId =#{mc.chapterId}
+  </if>
+  <if test="mc.courseId !=null">
+    and mc.chapterId =#{mc.chapterId}
+  </if>
+</select>
+  <select id="getTotal" resultType="Long">
+    select count(*) from mc_question mc
+    <where>
+
+      <if test="mc.courseId !=null and mc.chapterId!=null">
+        and mc.courseId=#{mc.courseId}
+        and mc.chapterId =#{mc.chapterId}
+      </if>
+      <if test="mc.courseId !=null">
+        and mc.chapterId =#{mc.chapterId}
+      </if>
+    </where>
+
+  </select>
+
+
+
+
+
   <sql id="Base_Column_List" >
     id, knowIds, stem, answer, analysis, checkTeacherId, teacherId, courseId, chapterId, 
     dot

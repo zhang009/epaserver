@@ -2,13 +2,10 @@ package com.zzti.epa.controller.question;
 
 import com.zzti.epa.model.QAQuestion;
 import com.zzti.epa.model.RespBean;
+import com.zzti.epa.model.RespPageBean;
 import com.zzti.epa.service.question.QAQuestionService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName QAQuestionController
@@ -28,6 +25,26 @@ public class QAQuestionController {
             return RespBean.ok("添加成功！");
         }
         return RespBean.ok("添加成功！");
+    }
+    @GetMapping("/")
+    public RespPageBean getQAQuestionByPage(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "10")
+            Integer size, QAQuestion qaQuestion){
+        return qaQuestionService.getQAQuestionByPage(page,size,qaQuestion);
+    }
+
+    @DeleteMapping("/{id}")
+    public RespBean deleteQAQuestionById(@PathVariable Integer id){
+        if(qaQuestionService.deleteQAQuestionById(id)==1){
+            return RespBean.ok("删除成功！");
+        }
+        return RespBean.error("删除成功！");
+    }
+    @PutMapping("/update")
+    public RespBean updateQAQuestion(@RequestBody QAQuestion qaQuestion){
+        if(qaQuestionService.updateQAQuestion(qaQuestion)==1){
+            return RespBean.ok("更新成功！");
+        }
+        return RespBean.error("更新失败！");
     }
 
 }

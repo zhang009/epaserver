@@ -1,5 +1,6 @@
 package com.zzti.epa.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +20,7 @@ public class Teacher implements UserDetails {
 
     private String phone;
 
-    private Boolean enabled;
+    private Boolean enabled=true;
 
     private String username;
 
@@ -46,6 +47,11 @@ public class Teacher implements UserDetails {
     private JobLevel jobLevel;
 
     public Teacher() {
+    }
+
+    public Teacher(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Teacher(Integer id, String name, String phone, Boolean enabled, String username, String password, String userface, String remark, Integer departmentId, String email, Integer jobLevelId, String gender, String workID, Integer rId, List<Role> roles, Department department, JobLevel jobLevel) {
@@ -249,14 +255,14 @@ public class Teacher implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
-	@Override// @JsonIgnore
+    @JsonIgnore
+	@Override//
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>(roles.size());
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
         return authorities;//返回用户的角色
-
     }
 
 

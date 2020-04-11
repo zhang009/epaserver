@@ -5,12 +5,15 @@ import com.zzti.epa.config.IAuthenticationFacade;
 import com.zzti.epa.mapper.question.QuestionCheckMapper;
 import com.zzti.epa.mapper.question.SCQuestionMapper;
 import com.zzti.epa.model.QuestionCheck;
+import com.zzti.epa.model.RespPageBean;
 import com.zzti.epa.model.SCQuestion;
 import com.zzti.epa.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @ClassName SCQuestionService
@@ -49,5 +52,27 @@ public class SCQuestionService {
         questionCheck.setQuestionId(scQuestionId);
         questionCheck.setQuestionType("sc");//设置试题类型
         return  questionCheckMapper.insertSelective(questionCheck);
+    }
+
+
+    public RespPageBean getSCQuestionByPage(Integer page, Integer size, SCQuestion scQuestion) {
+        if(page!=null&& size!=null){
+            page=(page-1)*size;
+        }
+        List<SCQuestion> data=scQuestionMapper.getSCQuestionByPage(page,size,scQuestion);
+
+        Long total=scQuestionMapper.getTotal(scQuestion);//总记录数
+        RespPageBean bean = new RespPageBean();
+        bean.setData(data);//放入数据
+        bean.setTotal(total);//放入总记录数
+        return bean;
+    }
+
+    public Integer deleteSCQuestionByCid(Integer id) {
+        return scQuestionMapper.deleteByPrimaryKey(id);
+    }
+
+    public Integer updateSCQuestion(SCQuestion scQuestion) {
+        return scQuestionMapper.updateByPrimaryKeySelective(scQuestion);//更新操作
     }
 }

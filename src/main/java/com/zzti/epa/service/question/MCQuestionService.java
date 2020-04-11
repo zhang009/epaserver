@@ -4,10 +4,7 @@ import com.zzti.epa.config.IAuthenticationFacade;
 import com.zzti.epa.mapper.question.MCOptionMapper;
 import com.zzti.epa.mapper.question.MCQuestionMapper;
 import com.zzti.epa.mapper.question.QuestionCheckMapper;
-import com.zzti.epa.model.MCOption;
-import com.zzti.epa.model.MCQuestion;
-import com.zzti.epa.model.QuestionCheck;
-import com.zzti.epa.model.Teacher;
+import com.zzti.epa.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -65,5 +62,25 @@ public class MCQuestionService {
         questionCheck.setQuestionId(mcQuestionId);
         questionCheck.setQuestionType("mc");//设置试题类型
         return questionCheckMapper.insertSelective(questionCheck);
+    }
+
+    public RespPageBean getMCQuestionByPage(Integer page, Integer size, MCQuestion mcQuestion) {
+        if(page!=null&& size!=null){
+            page=(page-1)*size;
+        }
+        List<MCQuestion> data=mcQuestionMapper.getMCQuestionByPage(page,size,mcQuestion);
+        Long total=mcQuestionMapper.getTotal(mcQuestion);//总记录数
+        RespPageBean bean = new RespPageBean();
+        bean.setData(data);//放入数据
+        bean.setTotal(total);//放入总记录数
+        return bean;
+    }
+
+    public Integer deleteMCQuestionById(Integer id) {
+        return mcQuestionMapper.deleteByPrimaryKey(id);
+    }
+
+    public Integer updateMCQuestion(MCQuestion mcQuestion) {
+        return mcQuestionMapper.updateByPrimaryKeySelective(mcQuestion);
     }
 }

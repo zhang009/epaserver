@@ -1,6 +1,9 @@
 package com.zzti.epa.mapper.question;
 
 import com.zzti.epa.model.TFQuestion;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TFQuestionMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,8 @@ public interface TFQuestionMapper {
     int updateByPrimaryKeySelective(TFQuestion record);
 
     int updateByPrimaryKey(TFQuestion record);
+
+    List<TFQuestion> getTFQuestionByPage(@Param("page") Integer page,@Param("size") Integer size,@Param("tf") TFQuestion tfQuestion);
+
+    Long getTotal(@Param("tf") TFQuestion tfQuestion);
 }

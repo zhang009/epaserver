@@ -7,6 +7,15 @@
     <result column="optionNum" property="optionNum" jdbcType="INTEGER" />
     <result column="optionContent" property="optionContent" jdbcType="VARCHAR" />
   </resultMap>
+
+
+
+
+
+
+
+
+
   <sql id="Base_Column_List" >
     id, mcId, optionNum, optionContent
   </sql>

@@ -13,6 +13,58 @@
     <result column="checkTeacherId" property="checkTeacherId" jdbcType="INTEGER" />
     <result column="courseId" property="courseId" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="AllQAQuestionInfo" type="com.zzti.epa.model.QAQuestion" extends="BaseResultMap">
+    <association property="teacher" javaType="com.zzti.epa.model.Teacher">
+      <id column="tid" property="id"/>
+      <result column="tname" property="name"></result>
+    </association>
+    <collection property="knows" ofType="com.zzti.epa.model.Knows">
+      <id column="kid" property="id"/>
+      <result column="kname" property="name"/>
+    </collection>
+  </resultMap>
+
+  <select id="getQAQuestionByPage" resultMap="AllQAQuestionInfo">
+    select qa.*,t.id as tid,t.name as tname,k.id as kid, k.name as kname from qa_question qa ,teacher t,knows k
+where qa.teacherId=t.id
+			and qa.chapterId=k.chapterId
+    <if test="qa.courseId !=null and qa.chapterId!=null">
+      and qa.courseId=#{qa.courseId}
+      and qa.chapterId =#{qa.chapterId}
+    </if>
+    <if test="qa.courseId !=null">
+      and qa.chapterId =#{qa.chapterId}
+    </if>
+  </select>
+  <select id="getTotal" resultType="Long">
+    select count(*) from qa_question qa
+    <where>
+
+      <if test="qa.courseId !=null and qa.chapterId!=null">
+        and qa.courseId=#{qa.courseId}
+        and qa.chapterId =#{qa.chapterId}
+      </if>
+      <if test="qa.courseId !=null">
+        and qa.chapterId =#{qa.chapterId}
+      </if>
+    </where>
+
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <sql id="Base_Column_List" >
     id, knowIds, stem, answer, analysis, teacherId, chapterId, dot, checkTeacherId, courseId
   </sql>

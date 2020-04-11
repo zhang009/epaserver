@@ -22,7 +22,25 @@ public class MCQuestion {
     private Integer chapterId;
 
     private Byte dot;
+    private  Teacher teacher;
     private List<MCOption> options;
+    private List<Knows> knows;
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public List<Knows> getKnows() {
+        return knows;
+    }
+
+    public void setKnows(List<Knows> knows) {
+        this.knows = knows;
+    }
 
     @Override
     public String toString() {

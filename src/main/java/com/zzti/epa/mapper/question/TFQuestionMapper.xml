@@ -13,6 +13,53 @@
     <result column="chapterId" property="chapterId" jdbcType="INTEGER" />
     <result column="dot" property="dot" jdbcType="TINYINT" />
   </resultMap>
+
+  <resultMap id="AllTFQuestionInfo" type="com.zzti.epa.model.TFQuestion" extends="BaseResultMap">
+    <association property="teacher" javaType="com.zzti.epa.model.Teacher">
+      <id column="tid" property="id"/>
+      <result column="tname" property="name"></result>
+    </association>
+    <collection property="knows" ofType="com.zzti.epa.model.Knows">
+      <id column="kid" property="id"/>
+      <result column="kname" property="name"/>
+    </collection>
+  </resultMap>
+
+
+  <select id="getTFQuestionByPage" resultMap="AllTFQuestionInfo">
+select tf.*,t.id as tid,t.name as tname,k.id as kid, k.name as kname from tf_question tf,teacher t,knows k
+where tf.teacherId=t.id
+			and tf.chapterId=k.chapterId
+    <if test="tf.courseId !=null and tf.chapterId!=null">
+      and tf.courseId=#{tf.courseId}
+      and tf.chapterId =#{tf.chapterId}
+    </if>
+    <if test="tf.courseId !=null">
+      and tf.chapterId =#{tf.chapterId}
+    </if>
+  </select>
+  <select id="getTotal" resultType="Long">
+    select count(*) from tf_question tf
+    <where>
+
+      <if test="tf.courseId !=null and tf.chapterId!=null">
+        and tf.courseId=#{tf.courseId}
+        and tf.chapterId =#{tf.chapterId}
+      </if>
+      <if test="tf.courseId !=null">
+        and tf.chapterId =#{tf.chapterId}
+      </if>
+    </where>
+
+  </select>
+
+
+
+
+
+
+
+
   <sql id="Base_Column_List" >
     id, knowIds, stem, answer, analysis, teacherId, checkTeacherId, courseId, chapterId, 
     dot

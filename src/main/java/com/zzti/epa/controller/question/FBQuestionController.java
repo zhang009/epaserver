@@ -2,12 +2,10 @@ package com.zzti.epa.controller.question;
 
 import com.zzti.epa.model.FBQuestion;
 import com.zzti.epa.model.RespBean;
+import com.zzti.epa.model.RespPageBean;
 import com.zzti.epa.service.question.FBQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName FBQuestionController
@@ -27,5 +25,26 @@ public class FBQuestionController {
             return RespBean.ok("添加成功！");
         }
         return RespBean.ok("添加成功！");
+    }
+
+    @GetMapping("/")
+    public RespPageBean getFBQuestionByPage(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "10")
+            Integer size, FBQuestion fbQuestion){
+        return fbQuestionService.getFBQuestionByPage(page,size,fbQuestion);
+    }
+
+    @DeleteMapping("/{id}")
+    public RespBean deleteFBQuestionById(@PathVariable Integer id){
+        if(fbQuestionService.deleteFBQuestionById(id)==1){
+            return RespBean.ok("删除成功！");
+        }
+        return RespBean.error("删除成功！");
+    }
+    @PutMapping("/update")
+    public RespBean updateFBQuestion(@RequestBody FBQuestion fbQuestion){
+        if(fbQuestionService.updateFBQuestion(fbQuestion)==1){
+            return RespBean.ok("更新成功！");
+        }
+        return RespBean.error("更新失败！");
     }
 }

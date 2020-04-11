@@ -1,13 +1,11 @@
 package com.zzti.epa.controller.question;
 
 import com.zzti.epa.model.RespBean;
+import com.zzti.epa.model.RespPageBean;
 import com.zzti.epa.model.TFQuestion;
 import com.zzti.epa.service.question.TFQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName TFQuestionController
@@ -27,4 +25,25 @@ public class TFQuestionController {
         }
         return RespBean.ok("添加成功！");
     }
+    @GetMapping("/")
+    public RespPageBean getTFQuestionByPage(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "10")
+            Integer size, TFQuestion tfQuestion){
+        return tfQuestionService.getTFQuestionByPage(page,size,tfQuestion);
+    }
+
+    @DeleteMapping("/{id}")
+    public RespBean deleteTFQuestionById(@PathVariable Integer id){
+        if(tfQuestionService.deleteTFQuestionById(id)==1){
+            return RespBean.ok("删除成功！");
+        }
+        return RespBean.error("删除成功！");
+    }
+    @PutMapping("/update")
+    public RespBean updateTFQuestion(@RequestBody TFQuestion tfQuestion){
+        if(tfQuestionService.updateTFQuestion(tfQuestion)==1){
+            return RespBean.ok("更新成功！");
+        }
+        return RespBean.error("更新失败！");
+    }
+
 }

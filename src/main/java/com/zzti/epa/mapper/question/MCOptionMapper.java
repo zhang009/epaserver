@@ -14,4 +14,5 @@ public interface MCOptionMapper {
     int updateByPrimaryKeySelective(MCOption record);
 
     int updateByPrimaryKey(MCOption record);
+
 }

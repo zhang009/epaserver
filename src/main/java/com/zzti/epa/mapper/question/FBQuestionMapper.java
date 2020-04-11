@@ -1,6 +1,9 @@
 package com.zzti.epa.mapper.question;
 
 import com.zzti.epa.model.FBQuestion;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface FBQuestionMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,8 @@ public interface FBQuestionMapper {
     int updateByPrimaryKeySelective(FBQuestion record);
 
     int updateByPrimaryKey(FBQuestion record);
+
+    List<FBQuestion> getFBQuestionByPage(@Param("page") Integer page, @Param("size") Integer size,@Param("fb") FBQuestion fbQuestion);
+
+    Long getTotal(@Param("fb") FBQuestion fbQuestion);
 }

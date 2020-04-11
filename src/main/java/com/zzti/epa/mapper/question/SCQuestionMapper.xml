@@ -17,6 +17,47 @@
     <result column="chapterId" property="chapterId" jdbcType="INTEGER" />
     <result column="dot" property="dot" jdbcType="TINYINT" />
   </resultMap>
+  <resultMap id="AllSCQuestionInfo" type="com.zzti.epa.model.SCQuestion" extends="BaseResultMap">
+
+    <association property="teacher" javaType="com.zzti.epa.model.Teacher">
+      <id column="tid" property="id"/>
+      <result column="tname" property="name"></result>
+    </association>
+    <collection property="knows" ofType="com.zzti.epa.model.Knows">
+      <id column="kid" property="id"/>
+      <result column="kname" property="name"/>
+    </collection>
+    </resultMap>
+  <select id="getSCQuestionByPage" resultMap="AllSCQuestionInfo">
+    select sc.*,t.id as tid,t.name as tname,k.id as kid, k.name as kname from sc_question sc,teacher t,knows k
+    where sc.teacherId=t.id
+    and sc.chapterId=k.chapterId
+    <if test="sc.courseId !=null and sc.chapterId!=null">
+        and sc.courseId=#{sc.courseId}
+      and sc.chapterId =#{sc.chapterId}
+    </if>
+    <if test="sc.courseId !=null">
+      and sc.chapterId =#{sc.chapterId}
+    </if>
+  </select>
+  <select id="getTotal" resultType="Long">
+    select count(*) from sc_question sc
+    <where>
+
+      <if test="sc.courseId !=null and sc.chapterId!=null">
+        and sc.courseId=#{sc.courseId}
+        and sc.chapterId =#{sc.chapterId}
+      </if>
+      <if test="sc.courseId !=null">
+        and sc.chapterId =#{sc.chapterId}
+      </if>
+    </where>
+
+  </select>
+
+
+
+
   <sql id="Base_Column_List" >
     id, knowIds, stem, option1, option2, option3, option4, answer, analysis, teacherId, 
     checkTeacherId, courseId, chapterId, dot
