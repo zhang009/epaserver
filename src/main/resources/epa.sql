@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2020-04-08 23:57:25
+Date: 2020-04-12 23:14:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `chapter` (
   PRIMARY KEY (`id`),
   KEY `courseId` (`courseId`),
   CONSTRAINT `chapter_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `course` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of chapter
@@ -227,10 +227,10 @@ INSERT INTO `department` VALUES ('21', '测试3', '1', '.1.21', '1', '0');
 -- ----------------------------
 DROP TABLE IF EXISTS `fb_question`;
 CREATE TABLE `fb_question` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `knowIds` varchar(255) DEFAULT NULL,
-  `stem` text,
-  `answer` varchar(255) DEFAULT NULL,
+  `stem` text NOT NULL,
+  `answer` varchar(255) NOT NULL,
   `analysis` text,
   `teacherId` int(11) DEFAULT NULL,
   `checkTeacherId` int(11) DEFAULT NULL,
@@ -238,11 +238,14 @@ CREATE TABLE `fb_question` (
   `chapterId` int(11) DEFAULT NULL,
   `dot` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fb_question
 -- ----------------------------
+INSERT INTO `fb_question` VALUES ('1', '25', '结构化程序的三种基本结构为_____________、______________、_____________。', '顺序、选择、循环', '', '3', '3', '6', '4', '1');
+INSERT INTO `fb_question` VALUES ('2', '42', 'C语言程序中对文本文件的存取是以____________为单位进行的。', '字节', '', '3', '3', '6', '12', '1');
+INSERT INTO `fb_question` VALUES ('3', '17', '设x为int型变量，请写出一个关系表达式________ ，用以判断x同时为3和7的倍数时，关系表达式的值为真。', 'x%3==0&&x%7==0', '', '3', '3', '6', '2', '1');
 
 -- ----------------------------
 -- Table structure for `joblevel`
@@ -276,21 +279,40 @@ CREATE TABLE `knows` (
   PRIMARY KEY (`id`),
   KEY `chapterId` (`chapterId`),
   CONSTRAINT `knows_ibfk_1` FOREIGN KEY (`chapterId`) REFERENCES `chapter` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of knows
 -- ----------------------------
-INSERT INTO `knows` VALUES ('1', '测试1', '1');
-INSERT INTO `knows` VALUES ('2', '测试2', '2');
-INSERT INTO `knows` VALUES ('3', '测试3', '3');
-INSERT INTO `knows` VALUES ('4', '测试4', '4');
-INSERT INTO `knows` VALUES ('5', '测试5', '5');
-INSERT INTO `knows` VALUES ('6', '测试6', '6');
-INSERT INTO `knows` VALUES ('7', '测试7', '7');
-INSERT INTO `knows` VALUES ('11', '测试1-1-1', '1');
-INSERT INTO `knows` VALUES ('12', '666', '11');
 INSERT INTO `knows` VALUES ('14', '第一个知识点', '17');
+INSERT INTO `knows` VALUES ('15', '常量与变量', '1');
+INSERT INTO `knows` VALUES ('16', '变量的赋值和赋值运算符', '1');
+INSERT INTO `knows` VALUES ('17', 'C运算符合表达式', '2');
+INSERT INTO `knows` VALUES ('18', '宏常量', '2');
+INSERT INTO `knows` VALUES ('19', '自动类型转换与强制类型转换运算符', '2');
+INSERT INTO `knows` VALUES ('20', '数据的格式化屏幕输入输出', '3');
+INSERT INTO `knows` VALUES ('21', '关系运算符与关系表达式', '4');
+INSERT INTO `knows` VALUES ('22', '条件运算符和条件表达式', '4');
+INSERT INTO `knows` VALUES ('23', '计数控制的循环', '5');
+INSERT INTO `knows` VALUES ('24', '嵌套循环', '5');
+INSERT INTO `knows` VALUES ('25', '条件控制循环', '5');
+INSERT INTO `knows` VALUES ('26', '函数的定义', '6');
+INSERT INTO `knows` VALUES ('27', '函数的递归调用和递归函数', '6');
+INSERT INTO `knows` VALUES ('28', '变量的作用域和存储类型', '6');
+INSERT INTO `knows` VALUES ('29', '模块化程序设计', '6');
+INSERT INTO `knows` VALUES ('30', '一维数组的定义和初始化', '7');
+INSERT INTO `knows` VALUES ('31', '二维数组的定义和初始化', '7');
+INSERT INTO `knows` VALUES ('32', '排序和查找', '7');
+INSERT INTO `knows` VALUES ('33', '变量的内存地址', '8');
+INSERT INTO `knows` VALUES ('34', '指针变量的定义和初始化', '8');
+INSERT INTO `knows` VALUES ('35', '字符串常量', '9');
+INSERT INTO `knows` VALUES ('36', '字符串存储', '9');
+INSERT INTO `knows` VALUES ('37', '字符指针', '9');
+INSERT INTO `knows` VALUES ('38', '字符串处理函数', '9');
+INSERT INTO `knows` VALUES ('39', '指针和一维数组的关系', '10');
+INSERT INTO `knows` VALUES ('40', '指针和二维数组的关系', '10');
+INSERT INTO `knows` VALUES ('41', '结构体定义和使用', '11');
+INSERT INTO `knows` VALUES ('42', '文件的存储', '12');
 
 -- ----------------------------
 -- Table structure for `major`
@@ -328,11 +350,23 @@ CREATE TABLE `mc_option` (
   `optionNum` int(11) NOT NULL COMMENT '选项排序号',
   `optionContent` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mc_option
 -- ----------------------------
+INSERT INTO `mc_option` VALUES ('1', '1', '1', '可以嵌套定义,不可以嵌套调用 ');
+INSERT INTO `mc_option` VALUES ('2', '1', '2', '不可以嵌套定义,可以嵌套调用 ');
+INSERT INTO `mc_option` VALUES ('3', '1', '3', '可以嵌套定义,也可以嵌套调用 ');
+INSERT INTO `mc_option` VALUES ('4', '1', '4', '嵌套定义和嵌套调用都不允许 ');
+INSERT INTO `mc_option` VALUES ('5', '2', '1', '用typedef可以定义各种类型名,但不能用来定义变量 ');
+INSERT INTO `mc_option` VALUES ('6', '2', '2', '用typedef可以增加新类型 ');
+INSERT INTO `mc_option` VALUES ('7', '2', '3', '用typedef只是将已存在的类型用一个新的名字来代表');
+INSERT INTO `mc_option` VALUES ('8', '2', '4', '使用typedef便于程序的通用');
+INSERT INTO `mc_option` VALUES ('9', '3', '1', '在switch语句中必须使用break语句 ');
+INSERT INTO `mc_option` VALUES ('10', '3', '2', '语句只能用于switch语句 ');
+INSERT INTO `mc_option` VALUES ('11', '3', '3', '在switch语句中,可以根据需要使用或不使用break语句 ');
+INSERT INTO `mc_option` VALUES ('12', '3', '4', '语句是switch语句的一部分 ');
 
 -- ----------------------------
 -- Table structure for `mc_question`
@@ -344,17 +378,20 @@ CREATE TABLE `mc_question` (
   `stem` text NOT NULL,
   `answer` varchar(16) NOT NULL,
   `analysis` text,
-  `checkTeacherId` int(11) NOT NULL,
-  `teacherId` int(11) NOT NULL,
-  `courseId` int(11) NOT NULL,
-  `chapterId` int(11) NOT NULL,
-  `dot` tinyint(4) NOT NULL,
+  `checkTeacherId` int(11) DEFAULT NULL,
+  `teacherId` int(11) DEFAULT NULL,
+  `courseId` int(11) DEFAULT NULL,
+  `chapterId` int(11) DEFAULT NULL,
+  `dot` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mc_question
 -- ----------------------------
+INSERT INTO `mc_question` VALUES ('1', '26', 'C语言中的函数描述不正确的有().', 'ACD', '', '3', '3', '6', '6', '2');
+INSERT INTO `mc_question` VALUES ('2', '15', 'typedef的叙述正确的是().', 'ACD', '', '3', '3', '6', '1', '1');
+INSERT INTO `mc_question` VALUES ('3', '25', 'switch语句和break语句中描述错误的有().', 'ABD', '', '3', '3', '6', '5', '2');
 
 -- ----------------------------
 -- Table structure for `menu`
@@ -485,8 +522,8 @@ DROP TABLE IF EXISTS `qa_question`;
 CREATE TABLE `qa_question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `knowIds` varchar(255) DEFAULT NULL,
-  `stem` text,
-  `answer` text,
+  `stem` text NOT NULL,
+  `answer` text NOT NULL,
   `analysis` text,
   `teacherId` int(11) DEFAULT NULL,
   `chapterId` int(11) DEFAULT NULL,
@@ -494,11 +531,12 @@ CREATE TABLE `qa_question` (
   `checkTeacherId` int(11) DEFAULT NULL,
   `courseId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of qa_question
 -- ----------------------------
+INSERT INTO `qa_question` VALUES ('1', '34@20', '指针数据类型与基本数据类型相比有哪些相同点和不同点，作为参数时有何不同', '面向过程的语言采用结构化程序设计思想：功能分解并逐步求精。把复杂的任务，分解成一系列小的功能、模块。可处理一些复杂的任务。缺点：数据与处理这些数据的方法的分离。重用性差。（数据和程序分开）                                            \n面向对象的程序设计的本质：引入对象，把数据与数据的处理过程当成一个整体。三大特性：封装与数据隐蔽，继承与重用，多态性', '', '3', '8', '2', '3', '6');
 
 -- ----------------------------
 -- Table structure for `question_check`
@@ -511,24 +549,43 @@ CREATE TABLE `question_check` (
   `checkTeacherId` int(11) NOT NULL COMMENT '审核教师试题编号',
   `checkStatus` tinyint(4) DEFAULT '0' COMMENT '待审核：0，审核通过：1：审核拒绝：2',
   `questionType` varchar(8) DEFAULT NULL,
-  `refuseReason` varchar(255) DEFAULT '拒绝原因',
+  `refuseReason` varchar(255) DEFAULT '' COMMENT '拒绝原因',
+  `postTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `question_check_ibfk_1` (`postTeacherId`),
   KEY `question_check_ibfk_2` (`checkTeacherId`),
   CONSTRAINT `question_check_ibfk_1` FOREIGN KEY (`postTeacherId`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `question_check_ibfk_2` FOREIGN KEY (`checkTeacherId`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question_check
 -- ----------------------------
-INSERT INTO `question_check` VALUES ('1', '1', '3', '11', '0', 'sc', '拒绝原因');
-INSERT INTO `question_check` VALUES ('2', '2', '3', '3', '0', 'sc', '拒绝原因');
-INSERT INTO `question_check` VALUES ('3', '3', '3', '11', '0', 'sc', '拒绝原因');
-INSERT INTO `question_check` VALUES ('4', '4', '3', '11', '0', 'sc', '拒绝原因');
-INSERT INTO `question_check` VALUES ('5', '5', '3', '11', '0', 'sc', '拒绝原因');
-INSERT INTO `question_check` VALUES ('6', '6', '3', '11', '0', 'sc', '拒绝原因');
-INSERT INTO `question_check` VALUES ('7', '7', '3', '11', '0', 'sc', '拒绝原因');
+INSERT INTO `question_check` VALUES ('1', '1', '10', '3', '0', 'sc', '', '2020-04-12 21:02:31');
+INSERT INTO `question_check` VALUES ('2', '2', '10', '3', '1', 'sc', '', '2020-04-12 22:35:19');
+INSERT INTO `question_check` VALUES ('3', '3', '10', '3', '1', 'sc', '', '2020-04-12 22:35:23');
+INSERT INTO `question_check` VALUES ('4', '4', '10', '3', '1', 'sc', '', '2020-04-12 22:35:28');
+INSERT INTO `question_check` VALUES ('5', '5', '10', '3', '1', 'sc', '', '2020-04-12 22:38:31');
+INSERT INTO `question_check` VALUES ('6', '6', '10', '3', '1', 'sc', '', '2020-04-12 23:09:35');
+INSERT INTO `question_check` VALUES ('7', '1', '10', '3', '1', 'fb', '', '2020-04-12 23:09:49');
+INSERT INTO `question_check` VALUES ('8', '2', '10', '3', '2', 'fb', '士大夫', '2020-04-12 23:11:26');
+INSERT INTO `question_check` VALUES ('9', '3', '10', '3', '0', 'fb', '', '2020-04-12 18:40:24');
+INSERT INTO `question_check` VALUES ('10', '7', '10', '3', '0', 'sc', '', '2020-04-12 18:40:26');
+INSERT INTO `question_check` VALUES ('11', '8', '10', '3', '0', 'sc', '', '2020-04-12 18:40:28');
+INSERT INTO `question_check` VALUES ('12', '1', '10', '3', '0', 'qa', '', '2020-04-12 18:40:30');
+INSERT INTO `question_check` VALUES ('13', '1', '10', '3', '0', 'tf', '', '2020-04-12 18:40:33');
+INSERT INTO `question_check` VALUES ('14', '2', '10', '3', '0', 'tf', '', '2020-04-12 18:40:35');
+INSERT INTO `question_check` VALUES ('15', '3', '10', '3', '0', 'tf', '', '2020-04-12 18:40:37');
+INSERT INTO `question_check` VALUES ('16', '4', '10', '3', '0', 'tf', '', '2020-04-12 18:40:39');
+INSERT INTO `question_check` VALUES ('17', '5', '10', '3', '0', 'tf', '', '2020-04-12 18:40:41');
+INSERT INTO `question_check` VALUES ('18', '6', '10', '3', '0', 'tf', '', '2020-04-12 18:40:46');
+INSERT INTO `question_check` VALUES ('19', '7', '10', '3', '0', 'tf', '', '2020-04-12 18:40:48');
+INSERT INTO `question_check` VALUES ('20', '8', '11', '3', '0', 'tf', '', '2020-04-12 18:40:50');
+INSERT INTO `question_check` VALUES ('21', '9', '10', '3', '0', 'tf', '', '2020-04-12 18:40:52');
+INSERT INTO `question_check` VALUES ('22', '10', '3', '3', '0', 'tf', '', '2020-04-12 18:41:46');
+INSERT INTO `question_check` VALUES ('23', '1', '10', '3', '0', 'mc', '', '2020-04-12 18:41:19');
+INSERT INTO `question_check` VALUES ('24', '2', '3', '3', '0', 'mc', '', '2020-04-12 18:41:34');
+INSERT INTO `question_check` VALUES ('25', '3', '3', '3', '0', 'mc', '', '2020-04-12 18:41:38');
 
 -- ----------------------------
 -- Table structure for `role`
@@ -594,22 +651,23 @@ CREATE TABLE `sc_question` (
   `analysis` text,
   `teacherId` int(11) NOT NULL,
   `checkTeacherId` int(11) NOT NULL,
-  `courseId` int(11) NOT NULL,
+  `courseId` int(11) DEFAULT NULL,
   `chapterId` int(11) DEFAULT NULL,
   `dot` tinyint(4) DEFAULT NULL COMMENT '试题难度',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sc_question
 -- ----------------------------
-INSERT INTO `sc_question` VALUES ('1', null, '题干', 'A', 'B', 'C', 'D', '1', '解析', '3', '11', '6', '1', '1');
-INSERT INTO `sc_question` VALUES ('2', '', '题干', 'A', 'B', 'C', 'D', '1', '解析', '3', '3', '6', '1', '1');
-INSERT INTO `sc_question` VALUES ('3', '', '题干', 'ss', 'dd', 'dd', 'dd', '1', 'dd', '3', '11', '1', '17', '1');
-INSERT INTO `sc_question` VALUES ('4', '', 'ss', 's', 'd', 'd', 'd', '1', 'f', '3', '11', '6', '1', '1');
-INSERT INTO `sc_question` VALUES ('5', '', 'ss', 'd', 'f', 'd', 'd', '1', 's', '3', '11', '6', '2', '1');
-INSERT INTO `sc_question` VALUES ('6', '', 'sss', 'dd', 'd', 'd', 'd', '1', 'd', '3', '11', '6', '1', '1');
-INSERT INTO `sc_question` VALUES ('7', '1|11|2', '是是是', '的', '地方', '士大夫', '方试试', '1', '算法', '3', '11', '6', '6', '2');
+INSERT INTO `sc_question` VALUES ('1', '20', '执行以下程序段后的输出结果是______ 。', '11 10', '11 11', '10 11', '10 10', 'A', '无', '3', '3', '6', '2', '1');
+INSERT INTO `sc_question` VALUES ('2', '20', '以下程序的输出结果是_____。\n#include <stdio.h>\nvoid main(void)\n{\nint a = 7;\nfloat x = 2.5, y = 4.7;\nprintf(\"%f\", x+a%3*(int)(x+y)%2/4);\n }', '0', '2.75', '2', '2.5', 'D', '', '3', '3', '6', '3', '1');
+INSERT INTO `sc_question` VALUES ('3', '30', '以下关于数组的描述正确的是 ______。', '数组的大小是固定的，但可以有不同类型的数组元素。', '数组的大小是可变的，但所有的数组元改变可素必须是相同类型的元素。', '数组的大小是固定的，所有数组元素的数据类型必须相同。', '数组的大小是可变的，可以有不同类型的数组元素。', 'C', '', '3', '3', '6', '7', '1');
+INSERT INTO `sc_question` VALUES ('4', '26', '以下C语言中，对函数不正确的描述是________。', '当用数组名作形参时，形参数组使实参数组随之改变', '允许函数递归调用', '函数形参的作用范围只是局限于所定义的函数内', '函数定义必须在主调函数之前', 'D', '', '3', '3', '6', '6', '1');
+INSERT INTO `sc_question` VALUES ('5', '26', '函数调用:strcat(strcpy(str1,str2),str3)的功能是_______。', '将串str1复制到串str2中后再连接到串str3之后', '将串str1连接到串str2之后再复制到串str3之后', '将串str2复制到串str1中后再将串str3连接到串str1之后', '将串str2连接到串str1之后再将串str1复制到串str3中', 'A', '', '3', '3', '6', '6', '1');
+INSERT INTO `sc_question` VALUES ('6', '34', '若有语句：char *line[5];，以下叙述中正确的是______。', '定义line是一个数组，每个数组元素是一个类型为char的指针变量', '定义line是一个指针变量，该变量可以指向一个长度为5的字符型数组', '定义line是一个指针数组，语句中的*号称为间址运算符', '定义line是一个指向字符型函数的指针', 'A', '', '3', '3', '6', '8', '1');
+INSERT INTO `sc_question` VALUES ('7', '30', '程序设计中，若用数组名作为函数调用的实参，传递给形参的是______。', '数组第一个元素的值', '数组中全部元素的值', '数组元素的个数', '数组的首地址', 'D', '', '3', '3', '6', '7', '2');
+INSERT INTO `sc_question` VALUES ('8', '41', '设有以下说明语句\nstruct stu\n{ int a;    \n  float b;\n}stutype;\n则下面的叙述不正确的是_____ 。', 'struct是结构体类型的关键字', 'stu是用户定义的结构体类型名', 'stutype是用户定义的结构体类型名', 'a和b都是结构体成员名', 'C', '', '3', '3', '6', '11', '1');
 
 -- ----------------------------
 -- Table structure for `student`
@@ -739,11 +797,21 @@ CREATE TABLE `tf_question` (
   `chapterId` int(11) DEFAULT NULL,
   `dot` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tf_question
 -- ----------------------------
+INSERT INTO `tf_question` VALUES ('1', '17', '对于int n=3;执行n+=n-=n*n；后n的值是9。（   ）', '错', '', '3', '3', '6', '2', '1');
+INSERT INTO `tf_question` VALUES ('2', '17', '在C语言中，定义int a=b=c=5;是错的，而int a,b,c; a=b=c=5;是正确的.（  ）', '对', '', '3', '3', '6', '2', '1');
+INSERT INTO `tf_question` VALUES ('3', '17', '若有定义int a=3,b=4,c=5; 则a+b>c&&b==c的值为1。（   ）', '错', '', '3', '3', '6', '2', '1');
+INSERT INTO `tf_question` VALUES ('4', '17', 'int x=3,y=2; 则表达式(y++==--x)?y++:x++的值为3。（  ）', '对', '', '3', '3', '6', '2', '3');
+INSERT INTO `tf_question` VALUES ('5', '16', '在C语言中，不同类型的数据不可以在一起进行算术运算。（ ）', '错', '', '3', '3', '6', '1', '1');
+INSERT INTO `tf_question` VALUES ('6', '16', '由于计算机的计算精度很高，所以在C语言中程序计算1.0/3*3的结果肯定等于1。（ ）', '错', '', '3', '3', '6', '1', '1');
+INSERT INTO `tf_question` VALUES ('7', '19', '当一个C语言表达式中同时含有字符型、整型、单精度和双精度类型数据参加运算时，按照\"由低到高\"的原则，所有的数据都必须先转换为双精度类型数据后方能参加运算。（ ）', '错', '', '3', '3', '6', '2', '1');
+INSERT INTO `tf_question` VALUES ('8', '17', 'C语言与其他高级语言一样，对于所有的同级运算符均遵循左结合原则。（  ）', '错', '', '3', '3', '6', '2', '1');
+INSERT INTO `tf_question` VALUES ('9', '25', '实际上，可以用顺序、分支、循环三种结构构造任何算法。( )', '错', '', '3', '3', '6', '5', '1');
+INSERT INTO `tf_question` VALUES ('10', '15', '在C程序的主函数main中定义的变量就是全局变量。', '错', '', '3', '3', '6', '1', '1');
 
 -- ----------------------------
 -- Procedure structure for `addDep`
