@@ -8,8 +8,70 @@
     <result column="checkTeacherId" property="checkTeacherId" jdbcType="INTEGER" />
     <result column="checkStatus" property="checkStatus" jdbcType="TINYINT" />
     <result column="questionType" property="questionType" jdbcType="VARCHAR" />
+    <result column="postTime" property="postTime" jdbcType="TIMESTAMP" />
     <result column="refuseReason" property="refuseReason" jdbcType="VARCHAR" />
   </resultMap>
+
+  <resultMap id="QuestionCheckWithTeacher" type="com.zzti.epa.model.QuestionCheck" extends="BaseResultMap">
+    <association property="postTeacher" javaType="com.zzti.epa.model.Teacher">
+      <id column="tid" property="id"/>
+      <result column="tname" property="name"></result>
+    </association>
+
+  </resultMap>
+  <resultMap id="QuestionCheckWithTeacher2" type="com.zzti.epa.model.QuestionCheck" extends="BaseResultMap">
+    <association property="checkTeacher" javaType="com.zzti.epa.model.Teacher">
+      <id column="tid" property="id"/>
+      <result column="tname" property="name"></result>
+    </association>
+
+  </resultMap>
+
+  <select id="getQuestionCheckByCheckTId" resultMap="QuestionCheckWithTeacher">
+    select qc.*,t.id as tid,t.name as tname from question_check qc,teacher t
+        where qc.postTeacherId=t.id
+        and qc.checkTeacherId=#{tId}
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <select id="getTotal" resultType="Long">
+    select count(*) from question_check qc
+    where qc.checkTeacherId=#{id}
+
+  </select>
+
+  <select id="getQuestionReceiveByCheckTId" resultMap="QuestionCheckWithTeacher2">
+     select qc.*,t.id as tid,t.name as tname from question_check qc,teacher t
+        where qc.checkTeacherId=t.id
+        and qc.postTeacherId=#{tId}
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <select id="getTotal2" resultType="Long">
+    select count(*) from question_check qc
+    where qc.postTeacherId=#{id}
+
+  </select>
+
+  <update id="passQuestionCheck" parameterType="Integer">
+    update question_check set checkStatus=1
+        where id=#{id}
+
+  </update>
+  <update id="refuseQuestionCheck">
+    update question_check set checkStatus=2,refuseReason=#{reason}
+    where id=#{id}
+  </update>
+
+
+
+
+
+
+
+
   <sql id="Base_Column_List" >
     id, questionId, postTeacherId, checkTeacherId, checkStatus, questionType, refuseReason
   </sql>

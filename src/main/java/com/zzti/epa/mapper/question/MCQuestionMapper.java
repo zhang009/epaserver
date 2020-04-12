@@ -22,4 +22,6 @@ public interface MCQuestionMapper {
     List<MCQuestion> getMCQuestionByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("mc") MCQuestion mcQuestion);
 
     Long getTotal(@Param("mc")MCQuestion mcQuestion);
+
+    MCQuestion getMCQuestionById(@Param("id") Integer questionId);
 }

@@ -1,5 +1,9 @@
 package com.zzti.epa.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class QuestionCheck {
     private Integer id;
 
@@ -15,7 +19,83 @@ public class QuestionCheck {
 
     private String refuseReason;
 
+    private Teacher postTeacher;
+    private Teacher checkTeacher;
+
+    private SCQuestion scQuestion;
+    private MCQuestion mcQuestion;
+    private TFQuestion tfQuestion;
+    private FBQuestion fbQuestion;
+    private QAQuestion qaQuestion;
+
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")//第二个参数为设置时区
+    private Date postTime;
+
     public QuestionCheck() {
+    }
+
+    public Teacher getPostTeacher() {
+        return postTeacher;
+    }
+
+    public void setPostTeacher(Teacher postTeacher) {
+        this.postTeacher = postTeacher;
+    }
+
+    public Teacher getCheckTeacher() {
+        return checkTeacher;
+    }
+
+    public void setCheckTeacher(Teacher checkTeacher) {
+        this.checkTeacher = checkTeacher;
+    }
+
+    public SCQuestion getScQuestion() {
+        return scQuestion;
+    }
+
+    public void setScQuestion(SCQuestion scQuestion) {
+        this.scQuestion = scQuestion;
+    }
+
+    public MCQuestion getMcQuestion() {
+        return mcQuestion;
+    }
+
+    public void setMcQuestion(MCQuestion mcQuestion) {
+        this.mcQuestion = mcQuestion;
+    }
+
+    public TFQuestion getTfQuestion() {
+        return tfQuestion;
+    }
+
+    public void setTfQuestion(TFQuestion tfQuestion) {
+        this.tfQuestion = tfQuestion;
+    }
+
+    public FBQuestion getFbQuestion() {
+        return fbQuestion;
+    }
+
+    public void setFbQuestion(FBQuestion fbQuestion) {
+        this.fbQuestion = fbQuestion;
+    }
+
+    public QAQuestion getQaQuestion() {
+        return qaQuestion;
+    }
+
+    public void setQaQuestion(QAQuestion qaQuestion) {
+        this.qaQuestion = qaQuestion;
+    }
+
+    public Date getPostTime() {
+        return postTime;
+    }
+
+    public void setPostTime(Date postTime) {
+        this.postTime = postTime;
     }
 
     public Integer getId() {

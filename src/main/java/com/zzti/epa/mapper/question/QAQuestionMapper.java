@@ -21,4 +21,6 @@ public interface QAQuestionMapper {
     List<QAQuestion> getQAQuestionByPage(@Param("page") Integer page,@Param("size") Integer size, @Param("qa") QAQuestion qaQuestion);
 
     Long getTotal(@Param("qa") QAQuestion qaQuestion);
+
+    QAQuestion getQAQuestionById(@Param("id") Integer questionId);
 }

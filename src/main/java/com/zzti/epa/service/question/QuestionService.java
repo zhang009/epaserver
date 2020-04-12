@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -149,6 +150,7 @@ public class QuestionService {
                         questionCheck.setCheckTeacherId(checkTeacherId);
                         questionCheck.setQuestionId(scQuestionId);
                         questionCheck.setQuestionType("sc");//设置试题类型
+                        questionCheck.setPostTime(new Date());
                         questionCheckMapper.insertSelective(questionCheck);//插入试题审核记录
                        /* sclist.add(scQuestion);//加入list集合*/
                     }
@@ -289,6 +291,7 @@ public class QuestionService {
                         questionCheck.setCheckTeacherId(checkTeacherId);
                         questionCheck.setQuestionId(mcQuestionId);
                         questionCheck.setQuestionType("mc");//设置试题类型
+                        questionCheck.setPostTime(new Date());
                         questionCheckMapper.insertSelective(questionCheck);//插入试题审核记录
 
                         MCOption temOption=null;
@@ -349,6 +352,7 @@ public class QuestionService {
                         questionCheck.setCheckTeacherId(checkTeacherId);
                         questionCheck.setQuestionId(tfQuestionId);
                         questionCheck.setQuestionType("tf");//设置试题类型
+                        questionCheck.setPostTime(new Date());
                         questionCheckMapper.insertSelective(questionCheck);//插入试题审核记录
                     }
                 }
@@ -402,6 +406,7 @@ public class QuestionService {
                         questionCheck.setCheckTeacherId(checkTeacherId);
                         questionCheck.setQuestionId(fbQuestionId);
                         questionCheck.setQuestionType("fb");//设置试题类型
+                        questionCheck.setPostTime(new Date());
                         questionCheckMapper.insertSelective(questionCheck);//插入试题审核记录
                     }
                 }
@@ -455,6 +460,7 @@ public class QuestionService {
                         questionCheck.setCheckTeacherId(checkTeacherId);
                         questionCheck.setQuestionId(qaQuestionId);
                         questionCheck.setQuestionType("qa");//设置试题类型
+                        questionCheck.setPostTime(new Date());
                         questionCheckMapper.insertSelective(questionCheck);//插入试题审核记录
                     }
                 }

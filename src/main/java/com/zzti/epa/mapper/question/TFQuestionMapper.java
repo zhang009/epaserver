@@ -21,4 +21,6 @@ public interface TFQuestionMapper {
     List<TFQuestion> getTFQuestionByPage(@Param("page") Integer page,@Param("size") Integer size,@Param("tf") TFQuestion tfQuestion);
 
     Long getTotal(@Param("tf") TFQuestion tfQuestion);
+
+    TFQuestion getTFQuestionById(@Param("id")Integer questionId);
 }

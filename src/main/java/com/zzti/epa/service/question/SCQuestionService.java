@@ -2,17 +2,17 @@ package com.zzti.epa.service.question;
 
 
 import com.zzti.epa.config.IAuthenticationFacade;
+import com.zzti.epa.mapper.baseinfo.KnowsMapper;
 import com.zzti.epa.mapper.question.QuestionCheckMapper;
 import com.zzti.epa.mapper.question.SCQuestionMapper;
-import com.zzti.epa.model.QuestionCheck;
-import com.zzti.epa.model.RespPageBean;
-import com.zzti.epa.model.SCQuestion;
-import com.zzti.epa.model.Teacher;
+import com.zzti.epa.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +28,10 @@ public class SCQuestionService {
    SCQuestionMapper scQuestionMapper;
    @Autowired
    QuestionCheckMapper questionCheckMapper;
+    @Autowired
+    KnowsMapper knowsMapper;
+
+
     @Autowired
     private IAuthenticationFacade authenticationFacade;
     /**
@@ -51,6 +55,7 @@ public class SCQuestionService {
         questionCheck.setCheckTeacherId(scQuestion.getCheckTeacherId());
         questionCheck.setQuestionId(scQuestionId);
         questionCheck.setQuestionType("sc");//设置试题类型
+        questionCheck.setPostTime(new Date());
         return  questionCheckMapper.insertSelective(questionCheck);
     }
 
@@ -60,6 +65,19 @@ public class SCQuestionService {
             page=(page-1)*size;
         }
         List<SCQuestion> data=scQuestionMapper.getSCQuestionByPage(page,size,scQuestion);
+        for (int i=0;i<data.size();i++){//遍历查询知识点,把“|”分割的知识点id查询出来赋值到List<Knows>数组中
+            SCQuestion scQuestion1=data.get(i);
+            String knowIds=scQuestion1.getKnowIds();
+            String [] knowIds2=knowIds.split("@");
+            List<Knows> listKnows=new ArrayList<>();//存放每个试题的知识点
+            for (int j=0;j<knowIds2.length;j++){
+                Knows knows=knowsMapper.getKnowsById(knowIds2[j]);
+                if(knows!=null){
+                    listKnows.add(knows);
+                }
+            }
+            scQuestion1.setKnows(listKnows);
+        }
 
         Long total=scQuestionMapper.getTotal(scQuestion);//总记录数
         RespPageBean bean = new RespPageBean();

@@ -21,4 +21,6 @@ public interface SCQuestionMapper {
     List<SCQuestion> getSCQuestionByPage(@Param("page")Integer page,@Param("size") Integer size, @Param("sc")SCQuestion scQuestion);
 
     Long getTotal(@Param("sc")SCQuestion scQuestion);
+
+    SCQuestion getSCQuestionById(@Param("id") Integer questionId);
 }

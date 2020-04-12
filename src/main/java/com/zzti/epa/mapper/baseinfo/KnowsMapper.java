@@ -19,4 +19,7 @@ public interface KnowsMapper {
     int updateByPrimaryKey(Knows record);
 
     List<Knows> getKnowsByCourseId(@Param("courseId") Integer courseId);
+
+    Knows getKnowsById(@Param("id")String id);
+
 }

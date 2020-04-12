@@ -12,6 +12,10 @@
         where c.courseId=#{courseId} and k.chapterId=c.id
   </select>
 
+  <select id="getKnowsById" parameterType="String" resultType="com.zzti.epa.model.Knows">
+    select * from knows k
+    where k.id=#{id}
+  </select>
 
 
 

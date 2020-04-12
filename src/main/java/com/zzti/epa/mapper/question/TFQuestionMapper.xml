@@ -19,23 +19,22 @@
       <id column="tid" property="id"/>
       <result column="tname" property="name"></result>
     </association>
-    <collection property="knows" ofType="com.zzti.epa.model.Knows">
-      <id column="kid" property="id"/>
-      <result column="kname" property="name"/>
-    </collection>
+
   </resultMap>
 
-
   <select id="getTFQuestionByPage" resultMap="AllTFQuestionInfo">
-select tf.*,t.id as tid,t.name as tname,k.id as kid, k.name as kname from tf_question tf,teacher t,knows k
+select tf.*,t.id as tid,t.name as tname from tf_question tf,teacher t
 where tf.teacherId=t.id
-			and tf.chapterId=k.chapterId
+
     <if test="tf.courseId !=null and tf.chapterId!=null">
       and tf.courseId=#{tf.courseId}
       and tf.chapterId =#{tf.chapterId}
     </if>
     <if test="tf.courseId !=null">
       and tf.chapterId =#{tf.chapterId}
+    </if>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
     </if>
   </select>
   <select id="getTotal" resultType="Long">
@@ -52,7 +51,9 @@ where tf.teacherId=t.id
     </where>
 
   </select>
-
+<select id="getTFQuestionById" resultType="com.zzti.epa.model.TFQuestion">
+  select * from tf_question where id=#{id}
+</select>
 
 
 

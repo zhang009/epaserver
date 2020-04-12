@@ -29,15 +29,18 @@
     </collection>
     </resultMap>
   <select id="getSCQuestionByPage" resultMap="AllSCQuestionInfo">
-    select sc.*,t.id as tid,t.name as tname,k.id as kid, k.name as kname from sc_question sc,teacher t,knows k
+    select sc.*,t.id as tid,t.name as tname from sc_question sc,teacher t
     where sc.teacherId=t.id
-    and sc.chapterId=k.chapterId
+
     <if test="sc.courseId !=null and sc.chapterId!=null">
         and sc.courseId=#{sc.courseId}
       and sc.chapterId =#{sc.chapterId}
     </if>
     <if test="sc.courseId !=null">
       and sc.chapterId =#{sc.chapterId}
+    </if>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
     </if>
   </select>
   <select id="getTotal" resultType="Long">
@@ -55,6 +58,9 @@
 
   </select>
 
+  <select id="getSCQuestionById" resultType="com.zzti.epa.model.SCQuestion">
+    select * from sc_question where id=#{id}
+  </select>
 
 
 

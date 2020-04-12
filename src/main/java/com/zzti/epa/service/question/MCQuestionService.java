@@ -1,6 +1,7 @@
 package com.zzti.epa.service.question;
 
 import com.zzti.epa.config.IAuthenticationFacade;
+import com.zzti.epa.mapper.baseinfo.KnowsMapper;
 import com.zzti.epa.mapper.question.MCOptionMapper;
 import com.zzti.epa.mapper.question.MCQuestionMapper;
 import com.zzti.epa.mapper.question.QuestionCheckMapper;
@@ -10,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +29,8 @@ public class MCQuestionService {
     QuestionCheckMapper questionCheckMapper;
     @Autowired
     MCOptionMapper mcOptionMapper;
+    @Autowired
+    KnowsMapper knowsMapper;
     @Autowired
     private IAuthenticationFacade authenticationFacade;
 
@@ -61,6 +66,7 @@ public class MCQuestionService {
         questionCheck.setCheckTeacherId(mcQuestion.getCheckTeacherId());
         questionCheck.setQuestionId(mcQuestionId);
         questionCheck.setQuestionType("mc");//设置试题类型
+        questionCheck.setPostTime(new Date());
         return questionCheckMapper.insertSelective(questionCheck);
     }
 
@@ -69,6 +75,22 @@ public class MCQuestionService {
             page=(page-1)*size;
         }
         List<MCQuestion> data=mcQuestionMapper.getMCQuestionByPage(page,size,mcQuestion);
+        for (int i=0;i<data.size();i++){//遍历查询知识点,把“|”分割的知识点id查询出来赋值到List<Knows>数组中
+            MCQuestion mcQuestion1=data.get(i);
+            String knowIds=mcQuestion1.getKnowIds();
+            String [] knowIds2=knowIds.split("@");
+            List<Knows> listKnows=new ArrayList<>();//存放每个试题的知识点
+            for (int j=0;j<knowIds2.length;j++){
+                Knows knows=knowsMapper.getKnowsById(knowIds2[j]);
+                if(knows!=null){
+                    listKnows.add(knows);
+                }
+            }
+            mcQuestion1.setKnows(listKnows);
+        }
+
+
+
         Long total=mcQuestionMapper.getTotal(mcQuestion);//总记录数
         RespPageBean bean = new RespPageBean();
         bean.setData(data);//放入数据

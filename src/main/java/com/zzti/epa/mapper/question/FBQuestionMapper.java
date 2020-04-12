@@ -21,4 +21,6 @@ public interface FBQuestionMapper {
     List<FBQuestion> getFBQuestionByPage(@Param("page") Integer page, @Param("size") Integer size,@Param("fb") FBQuestion fbQuestion);
 
     Long getTotal(@Param("fb") FBQuestion fbQuestion);
+
+    FBQuestion getFBQuestionById(@Param("id") Integer questionId);
 }

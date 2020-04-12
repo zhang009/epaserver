@@ -18,22 +18,22 @@
       <id column="tid" property="id"/>
       <result column="tname" property="name"></result>
     </association>
-    <collection property="knows" ofType="com.zzti.epa.model.Knows">
-      <id column="kid" property="id"/>
-      <result column="kname" property="name"/>
-    </collection>
+
   </resultMap>
 
   <select id="getQAQuestionByPage" resultMap="AllQAQuestionInfo">
-    select qa.*,t.id as tid,t.name as tname,k.id as kid, k.name as kname from qa_question qa ,teacher t,knows k
+    select qa.*,t.id as tid,t.name as tname from qa_question qa ,teacher t
 where qa.teacherId=t.id
-			and qa.chapterId=k.chapterId
+
     <if test="qa.courseId !=null and qa.chapterId!=null">
       and qa.courseId=#{qa.courseId}
       and qa.chapterId =#{qa.chapterId}
     </if>
     <if test="qa.courseId !=null">
       and qa.chapterId =#{qa.chapterId}
+    </if>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
     </if>
   </select>
   <select id="getTotal" resultType="Long">
@@ -50,6 +50,9 @@ where qa.teacherId=t.id
     </where>
 
   </select>
+<select id="getQAQuestionById" resultType="com.zzti.epa.model.QAQuestion">
+  select * from qa_question where id=#{id};
+</select>
 
 
 

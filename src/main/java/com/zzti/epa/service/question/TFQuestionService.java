@@ -1,6 +1,7 @@
 package com.zzti.epa.service.question;
 
 import com.zzti.epa.config.IAuthenticationFacade;
+import com.zzti.epa.mapper.baseinfo.KnowsMapper;
 import com.zzti.epa.mapper.question.QuestionCheckMapper;
 import com.zzti.epa.mapper.question.TFQuestionMapper;
 import com.zzti.epa.model.*;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +26,8 @@ public class TFQuestionService {
     @Autowired
     QuestionCheckMapper questionCheckMapper;
     @Autowired
+    KnowsMapper knowsMapper;
+    @Autowired
     private IAuthenticationFacade authenticationFacade;
     public Integer AddTFQuestion(TFQuestion tfQuestion) {
         Authentication authentication = authenticationFacade.getAuthentication();
@@ -36,6 +41,7 @@ public class TFQuestionService {
         questionCheck.setCheckTeacherId(tfQuestion.getCheckTeacherId());
         questionCheck.setQuestionId(tfQuestionId);
         questionCheck.setQuestionType("tf");//设置试题类型
+        questionCheck.setPostTime(new Date());
         return  questionCheckMapper.insertSelective(questionCheck);
     }
 
@@ -44,6 +50,19 @@ public class TFQuestionService {
             page=(page-1)*size;
         }
         List<TFQuestion> data=tfQuestionMapper.getTFQuestionByPage(page,size,tfQuestion);
+        for (int i=0;i<data.size();i++){//遍历查询知识点,把“|”分割的知识点id查询出来赋值到List<Knows>数组中
+            TFQuestion tfQuestion1=data.get(i);
+            String knowIds=tfQuestion1.getKnowIds();
+            String [] knowIds2=knowIds.split("@");
+            List<Knows> listKnows=new ArrayList<>();//存放每个试题的知识点
+            for (int j=0;j<knowIds2.length;j++){
+                Knows knows=knowsMapper.getKnowsById(knowIds2[j]);
+                if(knows!=null){
+                    listKnows.add(knows);
+                }
+            }
+            tfQuestion1.setKnows(listKnows);
+        }
         Long total=tfQuestionMapper.getTotal(tfQuestion);//总记录数
         RespPageBean bean = new RespPageBean();
         bean.setData(data);//放入数据

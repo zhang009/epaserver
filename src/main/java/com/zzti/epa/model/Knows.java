@@ -13,7 +13,14 @@ public class Knows {
 
     private Integer chapterId;
 
-
+    @Override
+    public String toString() {
+        return "Knows{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", chapterId=" + chapterId +
+                '}';
+    }
 
     public Integer getId() {
         return id;
