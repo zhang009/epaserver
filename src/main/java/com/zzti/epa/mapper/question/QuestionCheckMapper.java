@@ -34,4 +34,6 @@ public interface QuestionCheckMapper {
 
 
     Integer refuseQuestionCheck(@Param("id") Integer id, @Param("reason")String refuseReason);
+
+    void updateStatusByQueIdAndType(@Param("type") String tf, @Param("qId") Integer id);
 }

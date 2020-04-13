@@ -16,6 +16,8 @@
     <result column="courseId" property="courseId" jdbcType="INTEGER" />
     <result column="chapterId" property="chapterId" jdbcType="INTEGER" />
     <result column="dot" property="dot" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="AllSCQuestionInfo" type="com.zzti.epa.model.SCQuestion" extends="BaseResultMap">
 
@@ -66,7 +68,7 @@
 
   <sql id="Base_Column_List" >
     id, knowIds, stem, option1, option2, option3, option4, answer, analysis, teacherId, 
-    checkTeacherId, courseId, chapterId, dot
+    checkTeacherId, courseId, chapterId, dot,status,updateTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -83,12 +85,12 @@
       option1, option2, option3, 
       option4, answer, analysis, 
       teacherId, checkTeacherId, courseId, 
-      chapterId, dot)
+      chapterId, dot,status,updateTime)
     values (#{id,jdbcType=INTEGER}, #{knowIds,jdbcType=VARCHAR}, #{stem,jdbcType=VARCHAR}, 
       #{option1,jdbcType=VARCHAR}, #{option2,jdbcType=VARCHAR}, #{option3,jdbcType=VARCHAR}, 
       #{option4,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{analysis,jdbcType=VARCHAR}, 
       #{teacherId,jdbcType=INTEGER}, #{checkTeacherId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
-      #{chapterId,jdbcType=INTEGER}, #{dot,jdbcType=TINYINT})
+      #{chapterId,jdbcType=INTEGER}, #{dot,jdbcType=TINYINT},#{status,jdbcType=TINYINT}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.zzti.epa.model.SCQuestion"  useGeneratedKeys="true" keyProperty="id">
     insert into sc_question
@@ -135,6 +137,12 @@
       <if test="dot != null" >
         dot,
       </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -178,6 +186,12 @@
       </if>
       <if test="dot != null" >
         #{dot,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -223,6 +237,12 @@
       <if test="dot != null" >
         dot = #{dot,jdbcType=TINYINT},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -240,7 +260,9 @@
       checkTeacherId = #{checkTeacherId,jdbcType=INTEGER},
       courseId = #{courseId,jdbcType=INTEGER},
       chapterId = #{chapterId,jdbcType=INTEGER},
-      dot = #{dot,jdbcType=TINYINT}
+      dot = #{dot,jdbcType=TINYINT},
+       status = #{status,jdbcType=TINYINT},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

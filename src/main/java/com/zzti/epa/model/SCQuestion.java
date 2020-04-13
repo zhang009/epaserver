@@ -1,5 +1,8 @@
 package com.zzti.epa.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 import java.util.List;
 
 public class SCQuestion {
@@ -29,9 +32,31 @@ public class SCQuestion {
 
     private Integer chapterId;
 
+    private int status;
+
     private Byte dot;
     private  Teacher teacher;
     private List<Knows> knows;
+
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")//第二个参数为设置时区
+    private Date updateTime;
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public Teacher getTeacher() {
         return teacher;

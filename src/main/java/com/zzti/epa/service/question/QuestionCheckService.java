@@ -38,13 +38,16 @@ public class QuestionCheckService {
     * @return: com.zzti.epa.model.RespPageBean
     **/
     public RespPageBean getReceiveCheck(Integer page, Integer size) {
+        if(page!=null&& size!=null){
+            page=(page-1)*size;
+        }
         Teacher teacher=TeacherUtils.getTeacher();//获取当前用户信息
         Integer teacherId= teacher.getId();
         List<QuestionCheck> qclist=questionCheckMapper.getQuestionCheckByCheckTId(teacherId,page,size);
         QuestionCheck questionCheck=null;
         for (int i=0;i<qclist.size();i++){
             questionCheck=qclist.get(i);
-            System.out.println(questionCheck.getQuestionType());
+
             if(questionCheck.getQuestionType().equals("sc")){//初始化试题信息
                 SCQuestion scQuestion=scQuestionMapper.getSCQuestionById(questionCheck.getQuestionId());
                 questionCheck.setScQuestion(scQuestion);
@@ -83,26 +86,30 @@ public class QuestionCheckService {
     * @return: com.zzti.epa.model.RespPageBean
     **/
     public RespPageBean getSubmitCheck(Integer page, Integer size) {
+        if(page!=null&& size!=null){
+            page=(page-1)*size;
+        }
         Teacher teacher=TeacherUtils.getTeacher();//获取当前用户信息
         Integer teacherId= teacher.getId();
+        QuestionCheck questionCheck=null;
         List<QuestionCheck> qclist=questionCheckMapper.getQuestionReceiveByCheckTId(teacherId,page,size);
         for (int i=0;i<qclist.size();i++){
-            QuestionCheck questionCheck=qclist.get(i);
-            if(questionCheck.getQuestionType()=="sc"){//初始化试题信息
+            questionCheck=qclist.get(i);
+            if(questionCheck.getQuestionType().equals("sc")){//初始化试题信息
                 SCQuestion scQuestion=scQuestionMapper.getSCQuestionById(questionCheck.getQuestionId());
                 questionCheck.setScQuestion(scQuestion);
 
-            }else if(questionCheck.getQuestionType()=="mc"){
+            }else if(questionCheck.getQuestionType().equals("mc")){
                 MCQuestion mcQuestion=mcQuestionMapper.getMCQuestionById(questionCheck.getQuestionId());
                 questionCheck.setMcQuestion(mcQuestion);
 
-            }else if(questionCheck.getQuestionType()=="tf"){
+            }else if(questionCheck.getQuestionType().equals("tf")){
                 TFQuestion tfQuestion=tfQuestionMapper.getTFQuestionById(questionCheck.getQuestionId());
                 questionCheck.setTfQuestion(tfQuestion);
-            }else if(questionCheck.getQuestionType()=="fb"){
+            }else if(questionCheck.getQuestionType().equals("fb")){
                 FBQuestion fbQuestion=fbQuestionMapper.getFBQuestionById(questionCheck.getQuestionId());
                 questionCheck.setFbQuestion(fbQuestion);
-            }else if(questionCheck.getQuestionType()=="qa"){
+            }else if(questionCheck.getQuestionType().equals("qa")){
                 QAQuestion qaQuestion=qaQuestionMapper.getQAQuestionById(questionCheck.getQuestionId());
                 questionCheck.setQaQuestion(qaQuestion);
             }

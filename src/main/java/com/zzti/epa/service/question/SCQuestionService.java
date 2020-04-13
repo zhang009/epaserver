@@ -91,6 +91,10 @@ public class SCQuestionService {
     }
 
     public Integer updateSCQuestion(SCQuestion scQuestion) {
+        if(scQuestion.getStatus()==2){//如果是处于审核不通过状态，状态码为2，则把更新过后的状态码调整为0，未审核状态
+            scQuestion.setStatus(0);
+            questionCheckMapper.updateStatusByQueIdAndType("sc",scQuestion.getId());
+        }
         return scQuestionMapper.updateByPrimaryKeySelective(scQuestion);//更新操作
     }
 }

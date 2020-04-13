@@ -8,6 +8,7 @@ import com.zzti.epa.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,7 +76,14 @@ public class TFQuestionService {
         return  tfQuestionMapper.deleteByPrimaryKey(id);
     }
 
+    @Transactional
     public Integer updateTFQuestion(TFQuestion tfQuestion) {
-        return updateTFQuestion(tfQuestion);
+        System.out.println(tfQuestion.toString());
+        if(tfQuestion.getStatus()==2){//这里是审核拒绝后的更新操作，需要在审核表里改变试题的状态
+            tfQuestion.setStatus(0);
+            questionCheckMapper.updateStatusByQueIdAndType("tf",tfQuestion.getId());
+
+        }
+        return tfQuestionMapper.updateByPrimaryKeySelective(tfQuestion);
     }
 }

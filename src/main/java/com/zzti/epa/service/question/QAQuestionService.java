@@ -79,6 +79,10 @@ public class QAQuestionService {
     }
 
     public Integer updateQAQuestion(QAQuestion qaQuestion) {
+        if(qaQuestion.getStatus()==2){//如果是处于审核不通过状态，状态码为2，则把更新过后的状态码调整为0，未审核状态
+            qaQuestion.setStatus(0);
+            questionCheckMapper.updateStatusByQueIdAndType("qa",qaQuestion.getId());
+        }
         return qaQuestionMapper.updateByPrimaryKey(qaQuestion);
     }
 }

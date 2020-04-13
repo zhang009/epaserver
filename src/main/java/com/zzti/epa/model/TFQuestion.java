@@ -1,5 +1,8 @@
 package com.zzti.epa.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 import java.util.List;
 
 public class TFQuestion {
@@ -24,6 +27,26 @@ public class TFQuestion {
     private Byte dot;
     private Teacher teacher;
     private List<Knows> knows;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")//第二个参数为设置时区
+
+    private Date updateTime;
+    private int status;
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public Teacher getTeacher() {
         return teacher;
@@ -115,6 +138,26 @@ public class TFQuestion {
 
     public Byte getDot() {
         return dot;
+    }
+
+    @Override
+    public String toString() {
+        return "TFQuestion{" +
+                "id=" + id +
+                ", knowIds='" + knowIds + '\'' +
+                ", stem='" + stem + '\'' +
+                ", answer='" + answer + '\'' +
+                ", analysis='" + analysis + '\'' +
+                ", teacherId=" + teacherId +
+                ", checkTeacherId=" + checkTeacherId +
+                ", courseId=" + courseId +
+                ", chapterId=" + chapterId +
+                ", dot=" + dot +
+                ", teacher=" + teacher +
+                ", knows=" + knows +
+                ", updateTime=" + updateTime +
+                ", status=" + status +
+                '}';
     }
 
     public void setDot(Byte dot) {

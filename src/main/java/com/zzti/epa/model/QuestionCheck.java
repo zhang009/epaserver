@@ -28,7 +28,7 @@ public class QuestionCheck {
     private FBQuestion fbQuestion;
     private QAQuestion qaQuestion;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")//第二个参数为设置时区
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")//第二个参数为设置时区
     private Date postTime;
 
     public QuestionCheck() {

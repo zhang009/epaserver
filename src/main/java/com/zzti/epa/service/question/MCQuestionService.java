@@ -103,6 +103,10 @@ public class MCQuestionService {
     }
 
     public Integer updateMCQuestion(MCQuestion mcQuestion) {
+        if(mcQuestion.getStatus()==2){//如果是处于审核不通过状态，状态码为2，则把更新过后的状态码调整为0，未审核状态
+            mcQuestion.setStatus(0);
+            questionCheckMapper.updateStatusByQueIdAndType("mc",mcQuestion.getId());
+        }
         return mcQuestionMapper.updateByPrimaryKeySelective(mcQuestion);
     }
 }

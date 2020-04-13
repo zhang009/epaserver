@@ -65,6 +65,10 @@
     where id=#{id}
   </update>
 
+  <update id="updateStatusByQueIdAndType">
+    update question_check set checkStatus=0
+    where questionType=#{type} and questionId=#{qId}
+  </update>
 
 
 

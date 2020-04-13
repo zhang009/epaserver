@@ -28,6 +28,7 @@ public class QuestionCheckController {
     @GetMapping("/receive")
     public RespPageBean getReceiveCheck(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "10")
             Integer size){
+        System.out.println("page:"+page+"size:"+size);
         return questionCheckService.getReceiveCheck(page,size);
     }
     @GetMapping("/submit")
