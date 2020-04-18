@@ -46,6 +46,9 @@ where mc.teacherId=t.id
   <if test="mc.courseId !=null">
     and mc.chapterId =#{mc.chapterId}
   </if>
+  <if test="mc.dot != null" >
+    and mc.dot =#{mc.dot}
+  </if>
   <if test="page !=null and size!=null">
     limit #{page},#{size}
   </if>
@@ -60,6 +63,9 @@ where mc.teacherId=t.id
       </if>
       <if test="mc.courseId !=null">
         and mc.chapterId =#{mc.chapterId}
+      </if>
+      <if test="mc.dot != null" >
+        and mc.dot =#{mc.dot}
       </if>
     </where>
 

@@ -39,7 +39,10 @@
       and sc.chapterId =#{sc.chapterId}
     </if>
     <if test="sc.courseId !=null">
-      and sc.chapterId =#{sc.chapterId}
+      and sc.courseId =#{sc.courseId}
+    </if>
+    <if test="sc.dot != null" >
+      and sc.dot =#{sc.dot}
     </if>
     <if test="page !=null and size!=null">
       limit #{page},#{size}
@@ -48,13 +51,15 @@
   <select id="getTotal" resultType="Long">
     select count(*) from sc_question sc
     <where>
-
       <if test="sc.courseId !=null and sc.chapterId!=null">
         and sc.courseId=#{sc.courseId}
         and sc.chapterId =#{sc.chapterId}
       </if>
       <if test="sc.courseId !=null">
-        and sc.chapterId =#{sc.chapterId}
+        and sc.courseId =#{sc.courseId}
+      </if>
+      <if test="sc.dot != null" >
+        and sc.dot =#{sc.dot}
       </if>
     </where>
 

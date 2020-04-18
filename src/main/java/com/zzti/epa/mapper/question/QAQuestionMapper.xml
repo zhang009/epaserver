@@ -35,6 +35,9 @@ where qa.teacherId=t.id
     <if test="qa.courseId !=null">
       and qa.chapterId =#{qa.chapterId}
     </if>
+    <if test="qa.dot != null" >
+      and qa.dot =#{qa.dot}
+    </if>
     <if test="page !=null and size!=null">
       limit #{page},#{size}
     </if>
@@ -49,6 +52,9 @@ where qa.teacherId=t.id
       </if>
       <if test="qa.courseId !=null">
         and qa.chapterId =#{qa.chapterId}
+      </if>
+      <if test="qa.dot != null" >
+        and qa.dot =#{qa.dot}
       </if>
     </where>
 

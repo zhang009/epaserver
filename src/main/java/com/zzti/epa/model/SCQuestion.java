@@ -178,7 +178,29 @@ public class SCQuestion {
         this.analysis = analysis == null ? null : analysis.trim();
     }
 
-
+    @Override
+    public String toString() {
+        return "SCQuestion{" +
+                "id=" + id +
+                ", knowIds='" + knowIds + '\'' +
+                ", stem='" + stem + '\'' +
+                ", option1='" + option1 + '\'' +
+                ", option2='" + option2 + '\'' +
+                ", option3='" + option3 + '\'' +
+                ", option4='" + option4 + '\'' +
+                ", answer='" + answer + '\'' +
+                ", analysis='" + analysis + '\'' +
+                ", teacherId=" + teacherId +
+                ", checkTeacherId=" + checkTeacherId +
+                ", courseId=" + courseId +
+                ", chapterId=" + chapterId +
+                ", status=" + status +
+                ", dot=" + dot +
+                ", teacher=" + teacher +
+                ", knows=" + knows +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 
     public Byte getDot() {
         return dot;

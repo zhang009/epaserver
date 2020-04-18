@@ -33,7 +33,10 @@ where tf.teacherId=t.id
       and tf.chapterId =#{tf.chapterId}
     </if>
     <if test="tf.courseId !=null">
-      and tf.chapterId =#{tf.chapterId}
+      and tf.courseId =#{tf.courseId}
+    </if>
+    <if test="tf.dot != null" >
+      and tf.dot =#{tf.dot}
     </if>
     <if test="page !=null and size!=null">
       limit #{page},#{size}
@@ -48,7 +51,10 @@ where tf.teacherId=t.id
         and tf.chapterId =#{tf.chapterId}
       </if>
       <if test="tf.courseId !=null">
-        and tf.chapterId =#{tf.chapterId}
+        and tf.courseId =#{tf.courseId}
+      </if>
+      <if test="tf.dot != null" >
+        and tf.dot =#{tf.dot}
       </if>
     </where>
 

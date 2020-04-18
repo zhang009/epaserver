@@ -22,6 +22,7 @@ public class SCQuestionController {
     @GetMapping("/")
     public RespPageBean getSCQuestionByPage(@RequestParam(defaultValue = "1")Integer page,@RequestParam(defaultValue = "10")
                                             Integer size,SCQuestion scQuestion){
+        System.out.println(scQuestion.toString());
         return scQuestionService.getSCQuestionByPage(page,size,scQuestion);
     }
     @PostMapping("/add")

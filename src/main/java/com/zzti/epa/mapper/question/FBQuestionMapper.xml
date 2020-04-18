@@ -31,7 +31,10 @@ where fb.teacherId=t.id
       and fb.chapterId =#{fb.chapterId}
     </if>
     <if test="fb.courseId !=null">
-      and fb.chapterId =#{fb.chapterId}
+      and fb.courseId =#{fb.courseId}
+    </if>
+    <if test="fb.dot != null" >
+      and fb.dot =#{fb.dot}
     </if>
     <if test="page !=null and size!=null">
       limit #{page},#{size}
@@ -46,7 +49,10 @@ where fb.teacherId=t.id
         and fb.chapterId =#{fb.chapterId}
       </if>
       <if test="fb.courseId !=null">
-        and fb.chapterId =#{fb.chapterId}
+        and fb.courseId =#{fb.courseId}
+      </if>
+      <if test="fb.dot != null" >
+        and fb.dot =#{fb.dot}
       </if>
     </where>
 
