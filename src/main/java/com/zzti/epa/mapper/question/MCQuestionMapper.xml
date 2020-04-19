@@ -44,7 +44,7 @@ where mc.teacherId=t.id
     and mc.chapterId =#{mc.chapterId}
   </if>
   <if test="mc.courseId !=null">
-    and mc.chapterId =#{mc.chapterId}
+    and mc.courseId =#{mc.courseId}
   </if>
   <if test="mc.dot != null" >
     and mc.dot =#{mc.dot}
@@ -62,7 +62,7 @@ where mc.teacherId=t.id
         and mc.chapterId =#{mc.chapterId}
       </if>
       <if test="mc.courseId !=null">
-        and mc.chapterId =#{mc.chapterId}
+        and mc.courseId =#{mc.courseId}
       </if>
       <if test="mc.dot != null" >
         and mc.dot =#{mc.dot}

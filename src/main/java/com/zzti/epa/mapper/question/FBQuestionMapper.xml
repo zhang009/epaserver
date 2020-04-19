@@ -22,7 +22,7 @@
     </association>
 
   </resultMap>
-  <select id="getFBQuestionByPage">
+  <select id="getFBQuestionByPage" resultMap="AllFBQuestionInfo">
 select fb.*,t.id as tid,t.name as tname from fb_question fb ,teacher t
 where fb.teacherId=t.id
 

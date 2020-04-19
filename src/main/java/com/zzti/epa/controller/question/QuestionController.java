@@ -1,6 +1,7 @@
 package com.zzti.epa.controller.question;
 
 import com.zzti.epa.model.RespBean;
+import com.zzti.epa.model.SelectQueList;
 import com.zzti.epa.service.question.QuestionService;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,11 @@ public class QuestionController {
         }
         return new ResponseEntity<byte[]>(os.toByteArray(),headers, HttpStatus.CREATED);
 
+    }
+    @GetMapping("/getQueByIds")
+    public SelectQueList getSelectQueListByIds(SelectQueList selectQueList){
+
+       // System.out.println(selectQueList.toString());
+        return questionService.getSelectQueListByIds(selectQueList);
     }
 }

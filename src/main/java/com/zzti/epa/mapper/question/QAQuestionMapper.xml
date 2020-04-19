@@ -33,7 +33,7 @@ where qa.teacherId=t.id
       and qa.chapterId =#{qa.chapterId}
     </if>
     <if test="qa.courseId !=null">
-      and qa.chapterId =#{qa.chapterId}
+      and qa.courseId =#{qa.courseId}
     </if>
     <if test="qa.dot != null" >
       and qa.dot =#{qa.dot}
@@ -51,7 +51,7 @@ where qa.teacherId=t.id
         and qa.chapterId =#{qa.chapterId}
       </if>
       <if test="qa.courseId !=null">
-        and qa.chapterId =#{qa.chapterId}
+        and qa.courseId =#{qa.courseId}
       </if>
       <if test="qa.dot != null" >
         and qa.dot =#{qa.dot}

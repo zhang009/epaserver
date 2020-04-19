@@ -477,4 +477,67 @@ public class QuestionService {
 
         return 1;
     }
+
+    //根据id数组查询试题信息
+    public SelectQueList getSelectQueListByIds(SelectQueList selectQueList) {
+        SelectQueList list=new SelectQueList();
+        Integer [] scIds=selectQueList.getScIds();
+        Integer [] mcIds=selectQueList.getMcIds();
+        Integer [] tfIds=selectQueList.getTfIds();
+        Integer [] fbIds=selectQueList.getFbIds();
+        Integer [] qaIds=selectQueList.getQaIds();
+
+        if(scIds.length>0){
+            List<SCQuestion> scQuestionList=new ArrayList<>();
+            SCQuestion scQuestion=null;
+            for(int i=0;i<scIds.length;i++){
+                Integer scId=scIds[i];
+                System.out.println("scId:"+scId);
+                scQuestion=scQuestionMapper.getSCQuestionById(scId);
+                scQuestionList.add(scQuestion);
+            }
+            list.setSclist(scQuestionList);
+        }
+        if(mcIds.length>0){
+            List<MCQuestion> mcQuestionList=new ArrayList<>();
+            MCQuestion mcQuestion=null;
+            for(int i=0;i<mcIds.length;i++){
+                Integer mcId=mcIds[i];
+                mcQuestion=mcQuestionMapper.getMCQuestionById(mcId);
+                mcQuestionList.add(mcQuestion);
+            }
+            list.setMclist(mcQuestionList);
+        }
+        if(tfIds.length>0){
+            List<TFQuestion> tfQuestionList=new ArrayList<>();
+            TFQuestion tfQuestion=null;
+            for (int i = 0; i < tfIds.length; i++) {
+                Integer tfId=tfIds[i];
+                tfQuestion=tfQuestionMapper.getTFQuestionById(tfId);
+                tfQuestionList.add(tfQuestion);
+            }
+            list.setTflist(tfQuestionList);
+        }
+        if(fbIds.length>0){
+            List<FBQuestion> fbQuestionList=new ArrayList<>();
+            FBQuestion fbQuestion=null;
+            for (int i = 0; i < fbIds.length; i++) {
+                Integer fbId=fbIds[i];
+                fbQuestion=fbQuestionMapper.getFBQuestionById(fbId);
+                fbQuestionList.add(fbQuestion);
+            }
+            list.setFblist(fbQuestionList);
+        }
+        if(qaIds.length>0){
+            List<QAQuestion> qaQuestionList=new ArrayList<>();
+            QAQuestion qaQuestion=null;
+            for (int i = 0; i < qaIds.length; i++) {
+                Integer qaId=qaIds[i];
+                qaQuestion=qaQuestionMapper.getQAQuestionById(qaId);
+                qaQuestionList.add(qaQuestion);
+            }
+            list.setQalist(qaQuestionList);
+        }
+        return list;
+    }
 }
