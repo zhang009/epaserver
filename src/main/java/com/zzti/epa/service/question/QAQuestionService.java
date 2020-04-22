@@ -1,6 +1,7 @@
 package com.zzti.epa.service.question;
 
 import com.zzti.epa.config.IAuthenticationFacade;
+import com.zzti.epa.mapper.baseinfo.ChapterMapper;
 import com.zzti.epa.mapper.baseinfo.KnowsMapper;
 import com.zzti.epa.mapper.question.QAQuestionMapper;
 import com.zzti.epa.mapper.question.QuestionCheckMapper;
@@ -28,6 +29,8 @@ public class QAQuestionService {
     QuestionCheckMapper questionCheckMapper;
     @Autowired
     KnowsMapper knowsMapper;
+    @Autowired
+    ChapterMapper chapterMapper;
     @Autowired
     private IAuthenticationFacade authenticationFacade;
     public Integer AddQAQuestion(QAQuestion qaQuestion) {
@@ -84,5 +87,25 @@ public class QAQuestionService {
             questionCheckMapper.updateStatusByQueIdAndType("qa",qaQuestion.getId());
         }
         return qaQuestionMapper.updateByPrimaryKey(qaQuestion);
+    }
+    public QAQuestion getQAQuestionById(Integer id){//带有章节和知识点信息的单选试题
+        QAQuestion qaQuestion=qaQuestionMapper.getQAQuestionById(id);
+        String knowIds=qaQuestion.getKnowIds();
+
+        String [] knowIds2=knowIds.split("@");
+        List<Knows> listKnows=new ArrayList<>();//存放每个试题的知识点
+        for (int j=0;j<knowIds2.length;j++){
+            Knows knows=knowsMapper.getKnowsById(knowIds2[j]);
+            if(knows!=null){
+                listKnows.add(knows);
+            }
+        }
+        qaQuestion.setKnows(listKnows);
+
+        Integer chapterId=qaQuestion.getChapterId();
+        Chapter chapter=chapterMapper.selectByPrimaryKey(chapterId);
+        qaQuestion.setChapter(chapter);
+        return qaQuestion;
+
     }
 }

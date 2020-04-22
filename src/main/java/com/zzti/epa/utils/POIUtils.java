@@ -49,18 +49,20 @@ public class POIUtils {
         HSSFCellStyle headerStyle=workbook.createCellStyle();
         headerStyle.setFillForegroundColor(IndexedColors.YELLOW.index);//加入背景颜色
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
-        headerStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
-        headerStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
-        headerStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+       /* headerStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);*/ //下边框
+        headerStyle.setBorderBottom(BorderStyle.THIN); //下边框
+        headerStyle.setBorderLeft(BorderStyle.THIN);//左边框
+        headerStyle.setBorderTop(BorderStyle.THIN);//上边框
+        headerStyle.setBorderRight(BorderStyle.THIN);//右边框
         HSSFFont font = workbook.createFont();
         font.setFontName("宋体");
         font.setFontHeightInPoints((short) 10);//设置字体大小
-        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
+        /*font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示*/
+        font.setBold(true);
         headerStyle.setFont(font);//选择需要用到的字体格式
     //    headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 居中
-        headerStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//垂直
-        headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);//水平
+        headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);//垂直
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);//水平
 
         //创建表单
         HSSFSheet sheet = workbook.createSheet("教师信息表");//参数为表单的名字Style
@@ -120,15 +122,15 @@ public class POIUtils {
             HSSFRow row = sheet.createRow(i + 1);
             //创建第i个单元格
             HSSFCell cell = row.createCell(1);
-            if(cell.getCellType()!=1){
-                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+            if(cell.getCellType()!=CellType.STRING){
+                cell.setCellType(CellType.STRING);
             }
             //新增的四句话，设置CELL格式为文本格式
             HSSFCellStyle cellStyle2 = workbook.createCellStyle();
             HSSFDataFormat format = workbook.createDataFormat();
             cellStyle2.setDataFormat(format.getFormat("@"));
             cell.setCellStyle(cellStyle2);
-            cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+            cell.setCellType(CellType.STRING);
         }
 
 
@@ -309,18 +311,19 @@ public class POIUtils {
         HSSFCellStyle headerStyle=workbook.createCellStyle();
         headerStyle.setFillForegroundColor(IndexedColors.YELLOW.index);//加入背景颜色
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
-        headerStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
-        headerStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
-        headerStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+        headerStyle.setBorderBottom(BorderStyle.THIN); //下边框
+        headerStyle.setBorderLeft(BorderStyle.THIN);//左边框
+        headerStyle.setBorderTop(BorderStyle.THIN);//上边框
+        headerStyle.setBorderRight(BorderStyle.THIN);//右边框
         HSSFFont font = workbook.createFont();//字体样式
         font.setFontName("宋体");
         font.setFontHeightInPoints((short) 10);//设置字体大小
-        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
+      /*  font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示*/
+        font.setBold(true);
         headerStyle.setFont(font);//选择需要用到的字体格式
         //    headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 居中
-        headerStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//垂直
-        headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);//水平
+        headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);//垂直
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);//水平
         //创建表单
         HSSFSheet sheet = workbook.createSheet("学生信息表");//参数为表单的名字Style
         //定义列的宽度
@@ -356,15 +359,15 @@ public class POIUtils {
             HSSFRow row = sheet.createRow(i + 1);//创建行，第一行标题行已经创建
             //创建第i个单元格
             HSSFCell cell = row.createCell(1);
-            if(cell.getCellType()!=1){//cell.getCellType()==1为字符串型
-                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+            if(cell.getCellType()!=CellType.STRING){//cell.getCellType()==1为字符串型
+                cell.setCellType(CellType.STRING);
             }
             //新增的四句话，设置CELL格式为文本格式
             HSSFCellStyle cellStyle2 = workbook.createCellStyle();
             HSSFDataFormat format = workbook.createDataFormat();
             cellStyle2.setDataFormat(format.getFormat("@"));
             cell.setCellStyle(cellStyle2);
-            cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+            cell.setCellType(CellType.STRING);
         }
         //加载下拉列表内容
        /* String [] classStr =classes.toArray(new String[classes.size()]);//集合转数组

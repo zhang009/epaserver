@@ -9,6 +9,8 @@ public class MCOption {
 
     private String optionContent;
 
+
+
     public MCOption() {
     }
 
@@ -21,6 +23,8 @@ public class MCOption {
                 ", optionContent='" + optionContent + '\'' +
                 '}';
     }
+
+
 
     public Integer getId() {
         return id;

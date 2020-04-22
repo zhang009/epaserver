@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.epa.mapper.paper.TestPaperMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.epa.model.TestPaper" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="majorId" property="majorId" jdbcType="INTEGER" />
+    <result column="semester" property="semester" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="DATE" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="courseId" property="courseId" jdbcType="INTEGER" />
+    <result column="chapterIds" property="chapterIds" jdbcType="VARCHAR" />
+    <result column="knowIds" property="knowIds" jdbcType="VARCHAR" />
+    <result column="postTeacherId" property="postTeacherId" jdbcType="INTEGER" />
+    <result column="checkTeacherId" property="checkTeacherId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="paperType" property="paperType" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="totalScore" property="totalScore" jdbcType="REAL" />
+    <result column="passScore" property="passScore" jdbcType="REAL" />
+    <result column="queTypes" property="queTypes" jdbcType="VARCHAR" />
+    <result column="dot" property="dot" jdbcType="REAL" />
+  </resultMap>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <sql id="Base_Column_List" >
+    id, name, schoolId, majorId, semester, createTime, updateTime, courseId, chapterIds,
+    knowIds, postTeacherId, checkTeacherId, status, paperType, remark, totalScore, passScore,
+    queTypes, dot
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from test_paper
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from test_paper
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.epa.model.TestPaper" >
+    insert into test_paper (id, name, schoolId,
+      majorId, semester, createTime,
+      updateTime, courseId, chapterIds,
+      knowIds, postTeacherId, checkTeacherId,
+      status, paperType, remark,
+      totalScore, passScore, queTypes,
+      dot)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{schoolId,jdbcType=INTEGER},
+      #{majorId,jdbcType=INTEGER}, #{semester,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
+      #{updateTime,jdbcType=TIMESTAMP}, #{courseId,jdbcType=INTEGER}, #{chapterIds,jdbcType=VARCHAR},
+      #{knowIds,jdbcType=VARCHAR}, #{postTeacherId,jdbcType=INTEGER}, #{checkTeacherId,jdbcType=INTEGER},
+      #{status,jdbcType=INTEGER}, #{paperType,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
+      #{totalScore,jdbcType=REAL}, #{passScore,jdbcType=REAL}, #{queTypes,jdbcType=VARCHAR},
+      #{dot,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.TestPaper"  useGeneratedKeys="true" keyProperty="id">
+    insert into test_paper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="majorId != null" >
+        majorId,
+      </if>
+      <if test="semester != null" >
+        semester,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="courseId != null" >
+        courseId,
+      </if>
+      <if test="chapterIds != null" >
+        chapterIds,
+      </if>
+      <if test="knowIds != null" >
+        knowIds,
+      </if>
+      <if test="postTeacherId != null" >
+        postTeacherId,
+      </if>
+      <if test="checkTeacherId != null" >
+        checkTeacherId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="paperType != null" >
+        paperType,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="totalScore != null" >
+        totalScore,
+      </if>
+      <if test="passScore != null" >
+        passScore,
+      </if>
+      <if test="queTypes != null" >
+        queTypes,
+      </if>
+      <if test="dot != null" >
+        dot,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="majorId != null" >
+        #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="semester != null" >
+        #{semester,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="chapterIds != null" >
+        #{chapterIds,jdbcType=VARCHAR},
+      </if>
+      <if test="knowIds != null" >
+        #{knowIds,jdbcType=VARCHAR},
+      </if>
+      <if test="postTeacherId != null" >
+        #{postTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="checkTeacherId != null" >
+        #{checkTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="paperType != null" >
+        #{paperType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="totalScore != null" >
+        #{totalScore,jdbcType=REAL},
+      </if>
+      <if test="passScore != null" >
+        #{passScore,jdbcType=REAL},
+      </if>
+      <if test="queTypes != null" >
+        #{queTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="dot != null" >
+        #{dot,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.epa.model.TestPaper" >
+    update test_paper
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="majorId != null" >
+        majorId = #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="semester != null" >
+        semester = #{semester,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="courseId != null" >
+        courseId = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="chapterIds != null" >
+        chapterIds = #{chapterIds,jdbcType=VARCHAR},
+      </if>
+      <if test="knowIds != null" >
+        knowIds = #{knowIds,jdbcType=VARCHAR},
+      </if>
+      <if test="postTeacherId != null" >
+        postTeacherId = #{postTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="checkTeacherId != null" >
+        checkTeacherId = #{checkTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="paperType != null" >
+        paperType = #{paperType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="totalScore != null" >
+        totalScore = #{totalScore,jdbcType=REAL},
+      </if>
+      <if test="passScore != null" >
+        passScore = #{passScore,jdbcType=REAL},
+      </if>
+      <if test="queTypes != null" >
+        queTypes = #{queTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="dot != null" >
+        dot = #{dot,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.epa.model.TestPaper" >
+    update test_paper
+    set name = #{name,jdbcType=VARCHAR},
+      schoolId = #{schoolId,jdbcType=INTEGER},
+      majorId = #{majorId,jdbcType=INTEGER},
+      semester = #{semester,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=DATE},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      courseId = #{courseId,jdbcType=INTEGER},
+      chapterIds = #{chapterIds,jdbcType=VARCHAR},
+      knowIds = #{knowIds,jdbcType=VARCHAR},
+      postTeacherId = #{postTeacherId,jdbcType=INTEGER},
+      checkTeacherId = #{checkTeacherId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      paperType = #{paperType,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      totalScore = #{totalScore,jdbcType=REAL},
+      passScore = #{passScore,jdbcType=REAL},
+      queTypes = #{queTypes,jdbcType=VARCHAR},
+      dot = #{dot,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

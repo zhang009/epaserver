@@ -1,6 +1,7 @@
 package com.zzti.epa.service.question;
 
 import com.zzti.epa.config.IAuthenticationFacade;
+import com.zzti.epa.mapper.baseinfo.ChapterMapper;
 import com.zzti.epa.mapper.baseinfo.KnowsMapper;
 import com.zzti.epa.mapper.question.MCOptionMapper;
 import com.zzti.epa.mapper.question.MCQuestionMapper;
@@ -31,6 +32,8 @@ public class MCQuestionService {
     MCOptionMapper mcOptionMapper;
     @Autowired
     KnowsMapper knowsMapper;
+    @Autowired
+    ChapterMapper chapterMapper;
     @Autowired
     private IAuthenticationFacade authenticationFacade;
 
@@ -108,5 +111,24 @@ public class MCQuestionService {
             questionCheckMapper.updateStatusByQueIdAndType("mc",mcQuestion.getId());
         }
         return mcQuestionMapper.updateByPrimaryKeySelective(mcQuestion);
+    }
+    public MCQuestion getMCQuestionById(Integer id){
+        MCQuestion mcQuestion=mcQuestionMapper.getMCQuestionById(id);
+        String knowIds=mcQuestion.getKnowIds();
+
+        String [] knowIds2=knowIds.split("@");
+        List<Knows> listKnows=new ArrayList<>();//存放每个试题的知识点
+        for (int j=0;j<knowIds2.length;j++){
+            Knows knows=knowsMapper.getKnowsById(knowIds2[j]);
+            if(knows!=null){
+                listKnows.add(knows);
+            }
+        }
+        mcQuestion.setKnows(listKnows);
+
+        Integer chapterId=mcQuestion.getChapterId();
+        Chapter chapter=chapterMapper.selectByPrimaryKey(chapterId);
+        mcQuestion.setChapter(chapter);
+        return mcQuestion;
     }
 }

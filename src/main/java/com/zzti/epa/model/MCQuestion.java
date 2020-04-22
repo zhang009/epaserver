@@ -1,5 +1,6 @@
 package com.zzti.epa.model;
 
+import com.deepoove.poi.data.NumbericRenderData;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
@@ -29,9 +30,27 @@ public class MCQuestion {
     private List<MCOption> options;
     private List<Knows> knows;
 
+    private Chapter chapter;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")//第二个参数为设置时区
     private Date updateTime;
     private int status;
+
+    private NumbericRenderData options2;
+    public Chapter getChapter() {
+        return chapter;
+    }
+
+    public NumbericRenderData getOptions2() {
+        return options2;
+    }
+
+    public void setOptions2(NumbericRenderData options2) {
+        this.options2 = options2;
+    }
+
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
+    }
 
     public Date getUpdateTime() {
         return updateTime;

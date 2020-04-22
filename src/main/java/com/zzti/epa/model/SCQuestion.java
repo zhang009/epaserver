@@ -37,7 +37,15 @@ public class SCQuestion {
     private Byte dot;
     private  Teacher teacher;
     private List<Knows> knows;
+    private Chapter chapter;
 
+    public Chapter getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
+    }
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")//第二个参数为设置时区
     private Date updateTime;

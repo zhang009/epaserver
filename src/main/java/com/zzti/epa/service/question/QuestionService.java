@@ -46,6 +46,16 @@ public class QuestionService {
     @Autowired
     private IAuthenticationFacade authenticationFacade;
 
+    @Autowired
+    SCQuestionService scQuestionService;
+    @Autowired
+    MCQuestionService mcQuestionService;
+    @Autowired
+    TFQuestionService tfQuestionService;
+    @Autowired
+    FBQuestionService fbQuestionService;
+    @Autowired
+    QAQuestionService qaQuestionService;
 
     @Transactional
     public Integer importQueData(Integer courseId, Integer checkTeacherId, MultipartFile file) {
@@ -493,7 +503,7 @@ public class QuestionService {
             for(int i=0;i<scIds.length;i++){
                 Integer scId=scIds[i];
                 System.out.println("scId:"+scId);
-                scQuestion=scQuestionMapper.getSCQuestionById(scId);
+                scQuestion=scQuestionService.getSCQuestionById(scId);
                 scQuestionList.add(scQuestion);
             }
             list.setSclist(scQuestionList);
@@ -503,7 +513,7 @@ public class QuestionService {
             MCQuestion mcQuestion=null;
             for(int i=0;i<mcIds.length;i++){
                 Integer mcId=mcIds[i];
-                mcQuestion=mcQuestionMapper.getMCQuestionById(mcId);
+                mcQuestion=mcQuestionService.getMCQuestionById(mcId);
                 mcQuestionList.add(mcQuestion);
             }
             list.setMclist(mcQuestionList);
@@ -513,7 +523,7 @@ public class QuestionService {
             TFQuestion tfQuestion=null;
             for (int i = 0; i < tfIds.length; i++) {
                 Integer tfId=tfIds[i];
-                tfQuestion=tfQuestionMapper.getTFQuestionById(tfId);
+                tfQuestion=tfQuestionService.getTFQuestionById(tfId);
                 tfQuestionList.add(tfQuestion);
             }
             list.setTflist(tfQuestionList);
@@ -523,7 +533,7 @@ public class QuestionService {
             FBQuestion fbQuestion=null;
             for (int i = 0; i < fbIds.length; i++) {
                 Integer fbId=fbIds[i];
-                fbQuestion=fbQuestionMapper.getFBQuestionById(fbId);
+                fbQuestion=fbQuestionService.getFBQuestionById(fbId);
                 fbQuestionList.add(fbQuestion);
             }
             list.setFblist(fbQuestionList);
@@ -533,7 +543,7 @@ public class QuestionService {
             QAQuestion qaQuestion=null;
             for (int i = 0; i < qaIds.length; i++) {
                 Integer qaId=qaIds[i];
-                qaQuestion=qaQuestionMapper.getQAQuestionById(qaId);
+                qaQuestion=qaQuestionService.getQAQuestionById(qaId);
                 qaQuestionList.add(qaQuestion);
             }
             list.setQalist(qaQuestionList);

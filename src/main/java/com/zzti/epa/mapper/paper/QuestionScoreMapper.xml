@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.epa.mapper.paper.QuestionScoreMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.epa.model.QuestionScore" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="testPaperId" property="testPaperId" jdbcType="INTEGER" />
+    <result column="questionId" property="questionId" jdbcType="INTEGER" />
+    <result column="queType" property="queType" jdbcType="VARCHAR" />
+    <result column="sortNum" property="sortNum" jdbcType="INTEGER" />
+    <result column="chapterId" property="chapterId" jdbcType="INTEGER" />
+    <result column="knowIds" property="knowIds" jdbcType="VARCHAR" />
+    <result column="queScore" property="queScore" jdbcType="REAL" />
+  </resultMap>
+
+  <insert id="addQueScoreList">
+        insert into question_score(testPaperId, questionId, queType, sortNum,  queScore)
+        values
+        <foreach collection="list" separator="," item="questionScore">
+          (
+          #{questionScore.testPaperId,jdbcType=INTEGER},
+          #{questionScore.questionId,jdbcType=INTEGER},
+          #{questionScore.queType,jdbcType=VARCHAR},
+          #{questionScore.sortNum,jdbcType=INTEGER},
+          #{questionScore.queScore,jdbcType=REAL}
+          )
+        </foreach>
+  </insert>
+
+
+
+  <sql id="Base_Column_List" >
+    id, testPaperId, questionId, queType, sortNum, chapterId, knowIds, queScore
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from question_score
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from question_score
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.epa.model.QuestionScore" >
+    insert into question_score (id, testPaperId, questionId, 
+      queType, sortNum, chapterId, 
+      knowIds, queScore)
+    values (#{id,jdbcType=INTEGER}, #{testPaperId,jdbcType=INTEGER}, #{questionId,jdbcType=INTEGER}, 
+      #{queType,jdbcType=VARCHAR}, #{sortNum,jdbcType=INTEGER}, #{chapterId,jdbcType=INTEGER}, 
+      #{knowIds,jdbcType=VARCHAR}, #{queScore,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.QuestionScore" >
+    insert into question_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="testPaperId != null" >
+        testPaperId,
+      </if>
+      <if test="questionId != null" >
+        questionId,
+      </if>
+      <if test="queType != null" >
+        queType,
+      </if>
+      <if test="sortNum != null" >
+        sortNum,
+      </if>
+      <if test="chapterId != null" >
+        chapterId,
+      </if>
+      <if test="knowIds != null" >
+        knowIds,
+      </if>
+      <if test="queScore != null" >
+        queScore,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperId != null" >
+        #{testPaperId,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null" >
+        #{questionId,jdbcType=INTEGER},
+      </if>
+      <if test="queType != null" >
+        #{queType,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNum != null" >
+        #{sortNum,jdbcType=INTEGER},
+      </if>
+      <if test="chapterId != null" >
+        #{chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="knowIds != null" >
+        #{knowIds,jdbcType=VARCHAR},
+      </if>
+      <if test="queScore != null" >
+        #{queScore,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.epa.model.QuestionScore" >
+    update question_score
+    <set >
+      <if test="testPaperId != null" >
+        testPaperId = #{testPaperId,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null" >
+        questionId = #{questionId,jdbcType=INTEGER},
+      </if>
+      <if test="queType != null" >
+        queType = #{queType,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNum != null" >
+        sortNum = #{sortNum,jdbcType=INTEGER},
+      </if>
+      <if test="chapterId != null" >
+        chapterId = #{chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="knowIds != null" >
+        knowIds = #{knowIds,jdbcType=VARCHAR},
+      </if>
+      <if test="queScore != null" >
+        queScore = #{queScore,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.epa.model.QuestionScore" >
+    update question_score
+    set testPaperId = #{testPaperId,jdbcType=INTEGER},
+      questionId = #{questionId,jdbcType=INTEGER},
+      queType = #{queType,jdbcType=VARCHAR},
+      sortNum = #{sortNum,jdbcType=INTEGER},
+      chapterId = #{chapterId,jdbcType=INTEGER},
+      knowIds = #{knowIds,jdbcType=VARCHAR},
+      queScore = #{queScore,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

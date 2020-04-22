@@ -28,11 +28,19 @@ public class QAQuestion {
     private Teacher teacher;
     private List<Knows> knows;
 
+    private Chapter chapter;
     private int status;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")//第二个参数为设置时区
     private Date updateTime;
 
+    public Chapter getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
+    }
 
     public int getStatus() {
         return status;

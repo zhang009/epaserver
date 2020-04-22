@@ -1,6 +1,7 @@
 package com.zzti.epa.service.question;
 
 import com.zzti.epa.config.IAuthenticationFacade;
+import com.zzti.epa.mapper.baseinfo.ChapterMapper;
 import com.zzti.epa.mapper.baseinfo.KnowsMapper;
 import com.zzti.epa.mapper.question.FBQuestionMapper;
 import com.zzti.epa.mapper.question.QuestionCheckMapper;
@@ -27,6 +28,8 @@ public class FBQuestionService {
     QuestionCheckMapper questionCheckMapper;
     @Autowired
     KnowsMapper knowsMapper;
+    @Autowired
+    ChapterMapper chapterMapper;
     @Autowired
     IAuthenticationFacade authenticationFacade;
     public Integer AddFBQuestion(FBQuestion fbQuestion) {
@@ -85,5 +88,25 @@ public class FBQuestionService {
             questionCheckMapper.updateStatusByQueIdAndType("fb",fbQuestion.getId());
         }
         return fbQuestionMapper.updateByPrimaryKeySelective(fbQuestion);
+    }
+    public FBQuestion getFBQuestionById(Integer id){//带有章节和知识点信息的单选试题
+        FBQuestion fbQuestion=fbQuestionMapper.getFBQuestionById(id);
+        String knowIds=fbQuestion.getKnowIds();
+
+        String [] knowIds2=knowIds.split("@");
+        List<Knows> listKnows=new ArrayList<>();//存放每个试题的知识点
+        for (int j=0;j<knowIds2.length;j++){
+            Knows knows=knowsMapper.getKnowsById(knowIds2[j]);
+            if(knows!=null){
+                listKnows.add(knows);
+            }
+        }
+        fbQuestion.setKnows(listKnows);
+
+        Integer chapterId=fbQuestion.getChapterId();
+        Chapter chapter=chapterMapper.selectByPrimaryKey(chapterId);
+        fbQuestion.setChapter(chapter);
+        return fbQuestion;
+
     }
 }

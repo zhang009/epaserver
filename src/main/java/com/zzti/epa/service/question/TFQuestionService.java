@@ -1,6 +1,7 @@
 package com.zzti.epa.service.question;
 
 import com.zzti.epa.config.IAuthenticationFacade;
+import com.zzti.epa.mapper.baseinfo.ChapterMapper;
 import com.zzti.epa.mapper.baseinfo.KnowsMapper;
 import com.zzti.epa.mapper.question.QuestionCheckMapper;
 import com.zzti.epa.mapper.question.TFQuestionMapper;
@@ -28,6 +29,8 @@ public class TFQuestionService {
     QuestionCheckMapper questionCheckMapper;
     @Autowired
     KnowsMapper knowsMapper;
+    @Autowired
+    ChapterMapper chapterMapper;
     @Autowired
     private IAuthenticationFacade authenticationFacade;
     public Integer AddTFQuestion(TFQuestion tfQuestion) {
@@ -85,5 +88,25 @@ public class TFQuestionService {
 
         }
         return tfQuestionMapper.updateByPrimaryKeySelective(tfQuestion);
+    }
+    public TFQuestion getTFQuestionById(Integer id){//带有章节和知识点信息的单选试题
+        TFQuestion tfQuestion=tfQuestionMapper.getTFQuestionById(id);
+        String knowIds=tfQuestion.getKnowIds();
+
+        String [] knowIds2=knowIds.split("@");
+        List<Knows> listKnows=new ArrayList<>();//存放每个试题的知识点
+        for (int j=0;j<knowIds2.length;j++){
+            Knows knows=knowsMapper.getKnowsById(knowIds2[j]);
+            if(knows!=null){
+                listKnows.add(knows);
+            }
+        }
+        tfQuestion.setKnows(listKnows);
+
+        Integer chapterId=tfQuestion.getChapterId();
+        Chapter chapter=chapterMapper.selectByPrimaryKey(chapterId);
+        tfQuestion.setChapter(chapter);
+        return tfQuestion;
+
     }
 }
