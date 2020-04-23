@@ -1,5 +1,6 @@
 package com.zzti.epa.model;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -48,12 +49,46 @@ public class TestPaper {
     private Float[] fbScore;
     private Float[] qaScore;
 
-    private List<SCQuestion> sclist;//这里主要用来存储前端穿过来的排序过后的试卷id
+    private List<SCQuestion> sclist;//这里主要用来存储前端传过来的排序过后的试题id
     private List<MCQuestion> mclist;
     private List<TFQuestion> tflist;
     private List<FBQuestion> fblist;
     private List<QAQuestion> qalist;
 
+    @Override
+    public String toString() {
+        return "TestPaper{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", schoolId=" + schoolId +
+                ", majorId=" + majorId +
+                ", semester='" + semester + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", courseId=" + courseId +
+                ", chapterIds='" + chapterIds + '\'' +
+                ", knowIds='" + knowIds + '\'' +
+                ", postTeacherId=" + postTeacherId +
+                ", checkTeacherId=" + checkTeacherId +
+                ", status=" + status +
+                ", paperType=" + paperType +
+                ", remark='" + remark + '\'' +
+                ", totalScore=" + totalScore +
+                ", passScore=" + passScore +
+                ", queTypes='" + queTypes + '\'' +
+                ", dot=" + dot +
+                ", scScore=" + scScore +
+                ", mcScore=" + mcScore +
+                ", tfScore=" + tfScore +
+                ", fbScore=" + Arrays.toString(fbScore) +
+                ", qaScore=" + Arrays.toString(qaScore) +
+                ", sclist=" + sclist +
+                ", mclist=" + mclist +
+                ", tflist=" + tflist +
+                ", fblist=" + fblist +
+                ", qalist=" + qalist +
+                '}';
+    }
 
     public Float getScScore() {
         return scScore;

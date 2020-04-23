@@ -9,9 +9,7 @@ import com.zzti.epa.service.testpaper.TestPaperService;
 import com.zzti.epa.utils.DocUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,14 +44,18 @@ public class TestPaperController {
         return DocUtil.download(request,response,newWordName, testPaper);
     }
     @RequestMapping("/add")
-    public RespBean addTestPaper(TestPaper testPaper){
+    public RespBean addTestPaper(@RequestBody TestPaper testPaper){
         System.out.println(testPaper.toString());
 
 
-         if(testPaperService.addTestPaper(testPaper)==1){
+         if(testPaperService.addTestPaper(testPaper)){
              return RespBean.ok("提交成功！");
          }
         return RespBean.error("提交失败");
+    }
+    @GetMapping("/getTypesNum")
+    public TestPaper getQueTypeNum(@RequestParam("courseId") Integer courseId){//根据课程id获取题目数量，这里传回TestPaper对象只是为了方便传递数据
+        return testPaperService.getQueTypeNums(courseId);
     }
 
 }

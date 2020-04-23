@@ -64,7 +64,9 @@
     </where>
 
   </select>
-
+  <select id="getSCQuestionByCourseId" resultType="com.zzti.epa.model.SCQuestion">
+    select * from sc_question where courseId=#{id}
+  </select>
   <select id="getSCQuestionById" resultType="com.zzti.epa.model.SCQuestion">
     select * from sc_question where id=#{id}
   </select>

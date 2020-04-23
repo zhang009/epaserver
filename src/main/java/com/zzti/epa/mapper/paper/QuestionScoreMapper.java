@@ -1,6 +1,9 @@
 package com.zzti.epa.mapper.paper;
 
 import com.zzti.epa.model.QuestionScore;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface QuestionScoreMapper {
     int deleteByPrimaryKey(Integer id);
@@ -15,5 +18,5 @@ public interface QuestionScoreMapper {
 
     int updateByPrimaryKey(QuestionScore record);
 
-    Integer addQueScoreList();
+    Integer addQueScoreList(@Param("list") List<QuestionScore> questionScores);
 }

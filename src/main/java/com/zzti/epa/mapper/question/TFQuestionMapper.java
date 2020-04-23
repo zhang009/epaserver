@@ -23,4 +23,6 @@ public interface TFQuestionMapper {
     Long getTotal(@Param("tf") TFQuestion tfQuestion);
 
     TFQuestion getTFQuestionById(@Param("id")Integer questionId);
+
+    List<TFQuestion> getTFQuestionByCourseId(@Param("id") Integer id);
 }

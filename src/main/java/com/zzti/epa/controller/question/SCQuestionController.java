@@ -25,6 +25,7 @@ public class SCQuestionController {
         System.out.println(scQuestion.toString());
         return scQuestionService.getSCQuestionByPage(page,size,scQuestion);
     }
+
     @PostMapping("/add")
     public RespBean AddSCQuestion(@RequestBody SCQuestion scQuestion){
         if(scQuestionService.AddSCQuestion(scQuestion)==1){

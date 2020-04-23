@@ -2,6 +2,7 @@ package com.zzti.epa.service.testpaper;
 
 import com.zzti.epa.mapper.paper.QuestionScoreMapper;
 import com.zzti.epa.mapper.paper.TestPaperMapper;
+import com.zzti.epa.mapper.question.*;
 import com.zzti.epa.model.*;
 import com.zzti.epa.model.pojo.*;
 import com.zzti.epa.utils.TeacherUtils;
@@ -27,6 +28,18 @@ public class TestPaperService {
     TestPaperMapper testPaperMapper;
     @Autowired
     QuestionScoreMapper questionScoreMapper;
+
+    @Autowired
+    SCQuestionMapper scQuestionMapper;
+    @Autowired
+    MCQuestionMapper mcQuestionMapper;
+    @Autowired
+    TFQuestionMapper tfQuestionMapper;
+    @Autowired
+    FBQuestionMapper fbQuestionMapper;
+    @Autowired
+    QAQuestionMapper qaQuestionMapper;
+
 
     String []charNum= {"A.","B.","C.","D.","E.","F.","G.","H.","I.","J."};
     //将前端传来的临时试卷对象数据处理，添加一些参数
@@ -154,26 +167,26 @@ public class TestPaperService {
     }
 
     @Transactional
-    public Integer addTestPaper(TestPaper testPaper) {
+    public boolean addTestPaper(TestPaper testPaper) {
 
         //1.设置基本参数：创建时间，提交教师id,试卷状态，试题类型
         testPaper.setCreateTime(new Date());
         testPaper.setPostTeacherId(TeacherUtils.getTeacher().getId());
         testPaper.setStatus(0);//状态为0表示未审核
         String queTypes="";
-        if(testPaper.getSclist().size()>0){
+        if(testPaper.getSclist()!=null&&testPaper.getSclist().size()>0){
             queTypes+="单选题@";
         }
-        if(testPaper.getMclist().size()>0){
+        if(testPaper.getMclist()!=null&&testPaper.getMclist().size()>0){
             queTypes+="多选题@";
         }
-        if(testPaper.getTflist().size()>0){
+        if(testPaper.getTflist()!=null&&testPaper.getTflist().size()>0){
             queTypes+="判断题@";
         }
-        if(testPaper.getFblist().size()>0){
+        if(testPaper.getFblist()!=null&&testPaper.getFblist().size()>0){
             queTypes+="填空题@";
         }
-        if(testPaper.getQalist().size()>0){
+        if(testPaper.getQalist()!=null&&testPaper.getQalist().size()>0){
             queTypes+="简答题@";
         }
         Integer testPaperId=testPaperMapper.insertSelective(testPaper);
@@ -181,7 +194,7 @@ public class TestPaperService {
 
         List<QuestionScore> questionScores=new ArrayList<>();
         //设置单选题
-        if(testPaper.getSclist().size()>0){
+        if(testPaper.getSclist()!=null&&testPaper.getSclist().size()>0){
             List<SCQuestion> sclist=testPaper.getSclist();
             for (int i = 0; i < sclist.size(); i++) {
                 QuestionScore questionScore =new QuestionScore();
@@ -193,8 +206,8 @@ public class TestPaperService {
                 questionScores.add(questionScore);//加入集合
             }
         }
-        //设置单选题
-        if(testPaper.getMclist().size()>0){
+        //设置多选题
+        if(testPaper.getMclist()!=null&&testPaper.getMclist().size()>0){
             List<MCQuestion> mclist=testPaper.getMclist();
             for (int i = 0; i < mclist.size(); i++) {
                 QuestionScore questionScore =new QuestionScore();
@@ -207,7 +220,7 @@ public class TestPaperService {
             }
         }
         //设置判断题
-        if(testPaper.getTflist().size()>0){
+        if(testPaper.getTflist()!=null&&testPaper.getTflist().size()>0){
             List<TFQuestion> tflist=testPaper.getTflist();
             for (int i = 0; i < tflist.size(); i++) {
                 QuestionScore questionScore =new QuestionScore();
@@ -220,7 +233,7 @@ public class TestPaperService {
             }
         }
         //设置填空题
-        if(testPaper.getFblist().size()>0){
+        if(testPaper.getFblist()!=null&&testPaper.getFblist().size()>0){
             List<FBQuestion> fblist=testPaper.getFblist();
             for (int i = 0; i < fblist.size(); i++) {
                 QuestionScore questionScore =new QuestionScore();
@@ -233,7 +246,7 @@ public class TestPaperService {
             }
         }
         //设置简答题
-        if(testPaper.getQalist().size()>0){
+        if(testPaper.getQalist()!=null&&testPaper.getQalist().size()>0){
             List<QAQuestion> qalist=testPaper.getQalist();
             for (int i = 0; i < qalist.size(); i++) {
                 QuestionScore questionScore =new QuestionScore();
@@ -245,7 +258,23 @@ public class TestPaperService {
                 questionScores.add(questionScore);//加入集合
             }
         }
-        return questionScoreMapper.addQueScoreList();
+        return (questionScoreMapper.addQueScoreList(questionScores)==questionScores.size());
 
+    }
+
+    //根据课程id获取各题型的列表，封装到TestPaper对象中
+    public TestPaper getQueTypeNums(Integer courseId){
+        List<SCQuestion> sclist=scQuestionMapper.getSCQuestionByCourseId(courseId);
+        List<MCQuestion> mclist=mcQuestionMapper.getMCQuestionByCourseId(courseId);
+        List<TFQuestion> tflist=tfQuestionMapper.getTFQuestionByCourseId(courseId);
+        List<FBQuestion> fblist=fbQuestionMapper.getFBQuestionByCourseId(courseId);
+        List<QAQuestion> qalist=qaQuestionMapper.getQAQuestionByCourseId(courseId);
+        TestPaper testPaper=new TestPaper();
+        testPaper.setSclist(sclist);
+        testPaper.setMclist(mclist);
+        testPaper.setTflist(tflist);
+        testPaper.setFblist(fblist);
+        testPaper.setQalist(qalist);
+        return testPaper;
     }
 }

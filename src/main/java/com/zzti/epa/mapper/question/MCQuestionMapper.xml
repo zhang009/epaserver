@@ -75,7 +75,9 @@ where mc.teacherId=t.id
     where mc.id=mco.mcId
       and mc.id=#{id}
   </select>
-
+  <select id="getMCQuestionByCourseId" resultType="com.zzti.epa.model.MCQuestion">
+    select * from mc_question where courseId=#{id}
+  </select>
 
 
 
