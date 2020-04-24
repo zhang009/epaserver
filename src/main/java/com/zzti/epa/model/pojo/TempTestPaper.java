@@ -22,6 +22,8 @@ public class TempTestPaper {
     private Integer mcScore;
     private Integer tfScore;
     private Integer[] fbScore;
+    private Integer fbScore2;
+    private Integer qaScore2;
     private Integer [] qaScore;
     private ScPapTitle scTitle;
     private McPapTitle mcPapTitle;
@@ -53,6 +55,22 @@ public class TempTestPaper {
     private String qaAnswer;
 
     public TempTestPaper() {
+    }
+
+    public Integer getFbScore2() {
+        return fbScore2;
+    }
+
+    public void setFbScore2(Integer fbScore2) {
+        this.fbScore2 = fbScore2;
+    }
+
+    public Integer getQaScore2() {
+        return qaScore2;
+    }
+
+    public void setQaScore2(Integer qaScore2) {
+        this.qaScore2 = qaScore2;
     }
 
     @Override

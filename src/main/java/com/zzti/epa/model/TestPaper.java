@@ -47,13 +47,31 @@ public class TestPaper {
     private Float mcScore;
     private Float tfScore;
     private Float[] fbScore;
+    private Float fbScore2;
     private Float[] qaScore;
+    private Float qaScore2;
 
     private List<SCQuestion> sclist;//这里主要用来存储前端传过来的排序过后的试题id
     private List<MCQuestion> mclist;
     private List<TFQuestion> tflist;
     private List<FBQuestion> fblist;
     private List<QAQuestion> qalist;
+
+    public Float getFbScore2() {
+        return fbScore2;
+    }
+
+    public void setFbScore2(Float fbScore2) {
+        this.fbScore2 = fbScore2;
+    }
+
+    public Float getQaScore2() {
+        return qaScore2;
+    }
+
+    public void setQaScore2(Float qaScore2) {
+        this.qaScore2 = qaScore2;
+    }
 
     @Override
     public String toString() {
