@@ -23,27 +23,24 @@
     <result column="dot" property="dot" jdbcType="REAL" />
   </resultMap>
 
-  <resultMap id="testPaperWithTeacher" type="com.zzti.epa.model.TestPaper" extends="BaseResultMap">
-    <association property="teacher" javaType="com.zzti.epa.model.Teacher">
-      <id column="tid" property="id"/>
-      <result column="tname" property="name"></result>
-    </association>
+
+
+  <!--write by writer start-->
+  <resultMap id="ListOfTestPaper" type="com.zzti.epa.model.analysis.ListOfTestPaper">
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="DATE" />
+    <result column="tname" property="teacher" jdbcType="VARCHAR" />
   </resultMap>
-  <select id="getTestPaperWithTeacher">
-    select tp.* , t.id as tid, t.name as tname
-    from test_paper tp, teacher t
-    where t.id=tp.postTeacherId
+
+  <select id="select_ListOfTestPaper" resultMap="ListOfTestPaper" >
+    select
+    test_paper.id,test_paper.name,test_paper.createTime,teacher.name "tname"
+    from test_paper inner join teacher
+    where test_paper.postTeacherId=teacher.id;
   </select>
 
-
-
-
-
-
-
-
-
-
+  <!--write by writer end-->
 
 
   <sql id="Base_Column_List" >
