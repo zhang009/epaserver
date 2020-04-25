@@ -57,6 +57,16 @@ public class TestPaper {
     private List<FBQuestion> fblist;
     private List<QAQuestion> qalist;
 
+    private Teacher teacher;
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
     public Float getFbScore2() {
         return fbScore2;
     }

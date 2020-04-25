@@ -20,7 +20,6 @@
       <id column="tid" property="id"/>
       <result column="tname" property="name"></result>
     </association>
-
   </resultMap>
   <select id="getFBQuestionByPage" resultMap="AllFBQuestionInfo">
 select fb.*,t.id as tid,t.name as tname from fb_question fb ,teacher t
