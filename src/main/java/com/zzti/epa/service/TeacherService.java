@@ -137,4 +137,8 @@ public class TeacherService implements UserDetailsService {
     }
 
 
+    //获取所有提交模板教师列表
+    public List<Teacher> getTemplatePostTeacher() {
+        return teacherMapper.getTemplatePostTeacher();
+    }
 }

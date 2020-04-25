@@ -173,6 +173,7 @@ public class TestPaperService {
         testPaper.setPostTeacherId(TeacherUtils.getTeacher().getId());
         testPaper.setPaperType(0);//试题组卷类型，0代表手动组卷，1代表自动组卷
         testPaper.setStatus(0);//状态为0表示未审核
+        testPaper.setIsTemplate(0);//设置非试卷模板添加
         String queTypes="";
         if(testPaper.getSclist()!=null&&testPaper.getSclist().size()>0){
             queTypes+="单选题@";
@@ -1426,6 +1427,7 @@ public class TestPaperService {
         testPaper.setPostTeacherId(TeacherUtils.getTeacher().getId());
         testPaper.setPaperType(1);//试题组卷类型，0代表手动组卷，1代表自动组卷
         testPaper.setStatus(0);//状态为0表示未审核
+        testPaper.setIsTemplate(0);//设置非试卷模板添加
         String queTypes="";
         if(testPaper.getSclist()!=null&&testPaper.getSclist().size()>0){
             queTypes+="单选题@";
@@ -1515,4 +1517,6 @@ public class TestPaperService {
         return (questionScoreMapper.addQueScoreList(questionScores)==questionScores.size());//返回插入的结果
 
     }
+
+
 }

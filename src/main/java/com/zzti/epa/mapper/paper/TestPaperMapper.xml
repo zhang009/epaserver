@@ -20,10 +20,60 @@
     <result column="totalScore" property="totalScore" jdbcType="REAL" />
     <result column="passScore" property="passScore" jdbcType="REAL" />
     <result column="queTypes" property="queTypes" jdbcType="VARCHAR" />
+    <result column="isTemplate" property="isTemplate" jdbcType="INTEGER" />
     <result column="dot" property="dot" jdbcType="REAL" />
   </resultMap>
+  <!--write by yifang start-->
+  <resultMap id="TestPaperAllInfo" type="com.zzti.epa.model.TestPaper" extends="BaseResultMap">
+    <association property="teacher" javaType="com.zzti.epa.model.Teacher">
+      <result column="tid" property="id" jdbcType="INTEGER"/>
+      <result column="tname" property="name" jdbcType="INTEGER"/>
+    </association>
+    <association property="course" javaType="com.zzti.epa.model.Course">
+      <result column="cid" property="id" jdbcType="INTEGER"/>
+      <result column="cname" property="name" jdbcType="INTEGER"/>
+    </association>
+    <association property="school" javaType="com.zzti.epa.model.School">
+      <result column="sid" property="id" jdbcType="INTEGER"/>
+      <result column="sname" property="name" jdbcType="INTEGER"/>
+    </association>
+    <association property="major" javaType="com.zzti.epa.model.Major">
+      <result column="sid" property="id" jdbcType="INTEGER"/>
+      <result column="sname" property="name" jdbcType="INTEGER"/>
+    </association>
+  </resultMap>
+  <select id="getTestPaperByPage" resultMap="TestPaperAllInfo">
+          select DISTINCT tp.*,t.id as tid, t.name as tname,c.id as cid,c.name as cname,s.id as sid,s.name as sname,m.id as mid,m.name as mname
+      FROM
+      test_paper tp,teacher t,school s,course c,major m
+      where tp.postTeacherId=t.id
+      and tp.schoolId =s.id
+      and tp.courseId=c.id
+      and tp.majorId=m.id
 
+    <if test="tp.courseId !=null">
+      and tp.courseId=#{tp.courseId}
+    </if>
+    <if test="tp.postTeacherId !=null">
+      and tp.postTeacherId =#{tp.postTeacherId}
+    </if>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <select id="getTotal" resultType="Long">
+    select count(*) from test_paper tp
+    <where>
+      <if test="tp.courseId !=null">
+        and tp.courseId=#{tp.courseId}
+      </if>
+      <if test="tp.postTeacherId !=null">
+        and tp.postTeacherId =#{tp.postTeacherId}
+      </if>
+    </where>
 
+  </select>
+  <!--write by yifang end-->
 
   <!--write by writer start-->
   <resultMap id="ListOfTestPaper" type="com.zzti.epa.model.analysis.ListOfTestPaper">
@@ -47,7 +97,7 @@
   <sql id="Base_Column_List" >
     id, name, schoolId, majorId, semester, createTime, updateTime, courseId, chapterIds,
     knowIds, postTeacherId, checkTeacherId, status, paperType, remark, totalScore, passScore,
-    queTypes, dot
+    queTypes, isTemplate,dot
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
@@ -66,14 +116,14 @@
       knowIds, postTeacherId, checkTeacherId,
       status, paperType, remark,
       totalScore, passScore, queTypes,
-      dot)
+      isTemplate, dot)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{schoolId,jdbcType=INTEGER},
       #{majorId,jdbcType=INTEGER}, #{semester,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
       #{updateTime,jdbcType=TIMESTAMP}, #{courseId,jdbcType=INTEGER}, #{chapterIds,jdbcType=VARCHAR},
       #{knowIds,jdbcType=VARCHAR}, #{postTeacherId,jdbcType=INTEGER}, #{checkTeacherId,jdbcType=INTEGER},
       #{status,jdbcType=INTEGER}, #{paperType,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
       #{totalScore,jdbcType=REAL}, #{passScore,jdbcType=REAL}, #{queTypes,jdbcType=VARCHAR},
-      #{dot,jdbcType=REAL})
+      #{isTemplate,jdbcType=INTEGER}, #{dot,jdbcType=REAL})
   </insert>
   <insert id="insertSelective" parameterType="com.zzti.epa.model.TestPaper"  useGeneratedKeys="true" keyProperty="id">
     insert into test_paper
@@ -131,6 +181,9 @@
       </if>
       <if test="queTypes != null" >
         queTypes,
+      </if>
+      <if test="isTemplate != null" >
+        isTemplate,
       </if>
       <if test="dot != null" >
         dot,
@@ -191,6 +244,9 @@
       <if test="queTypes != null" >
         #{queTypes,jdbcType=VARCHAR},
       </if>
+      <if test="isTemplate != null" >
+        #{isTemplate,jdbcType=INTEGER},
+      </if>
       <if test="dot != null" >
         #{dot,jdbcType=REAL},
       </if>
@@ -250,6 +306,9 @@
       <if test="queTypes != null" >
         queTypes = #{queTypes,jdbcType=VARCHAR},
       </if>
+      <if test="isTemplate != null" >
+        isTemplate = #{isTemplate,jdbcType=INTEGER},
+      </if>
       <if test="dot != null" >
         dot = #{dot,jdbcType=REAL},
       </if>
@@ -275,6 +334,7 @@
       totalScore = #{totalScore,jdbcType=REAL},
       passScore = #{passScore,jdbcType=REAL},
       queTypes = #{queTypes,jdbcType=VARCHAR},
+       isTemplate = #{isTemplate,jdbcType=INTEGER},
       dot = #{dot,jdbcType=REAL}
     where id = #{id,jdbcType=INTEGER}
   </update>

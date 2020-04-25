@@ -141,6 +141,10 @@ and #{rId} in (select r.id from role r,teacher_role tr where r.id=tr.rid and tr.
       )
     </foreach>
   </insert>
+  <select id="getTemplatePostTeacher" resultType="com.zzti.epa.model.Teacher">
+          select DISTINCT t.* from teacher t,test_paper tp
+where tp.postTeacherId=t.id and tp.isTemplate=1;
+  </select>
 
 
 

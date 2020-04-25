@@ -34,4 +34,6 @@ public interface TeacherMapper {
     Integer addTeas(@Param("list") List<Teacher> list);
 
     List<Teacher> getTeacherCourseRole(@Param("rId") Integer rId);
+
+    List<Teacher> getTemplatePostTeacher();
 }

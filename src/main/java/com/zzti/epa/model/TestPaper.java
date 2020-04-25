@@ -1,5 +1,7 @@
 package com.zzti.epa.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +16,9 @@ public class TestPaper {
     private Integer majorId;
 
     private String semester;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")//第二个参数为设置时区
     private Date createTime;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")//第二个参数为设置时区
     private Date updateTime;
 
     private Integer courseId;
@@ -41,8 +43,12 @@ public class TestPaper {
 
     private String queTypes;
 
+    private Integer isTemplate;
     private Float dot;
 
+    private Course course;
+    private School school;
+    private Major major;
     private Float scScore;
     private Float mcScore;
     private Float tfScore;
@@ -61,6 +67,38 @@ public class TestPaper {
 
     public Teacher getTeacher() {
         return teacher;
+    }
+
+    public Integer getIsTemplate() {
+        return isTemplate;
+    }
+
+    public void setIsTemplate(Integer isTemplate) {
+        this.isTemplate = isTemplate;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+    public Major getMajor() {
+        return major;
+    }
+
+    public void setMajor(Major major) {
+        this.major = major;
     }
 
     public void setTeacher(Teacher teacher) {
