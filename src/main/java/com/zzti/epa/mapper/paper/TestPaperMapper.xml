@@ -23,6 +23,7 @@
     <result column="dot" property="dot" jdbcType="REAL" />
   </resultMap>
 
+
   <resultMap id="testPaperWithTeacher" type="com.zzti.epa.model.TestPaper" extends="BaseResultMap">
     <association property="teacher" javaType="com.zzti.epa.model.Teacher">
       <id column="tid" property="id"/>
