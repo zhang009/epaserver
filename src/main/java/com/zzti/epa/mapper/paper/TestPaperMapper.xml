@@ -51,6 +51,9 @@
       and tp.courseId=c.id
       and tp.majorId=m.id
 
+    <if test="tp.name!=null and tp.name!=''">
+      and tp.name like concat('%',#{tp.name},'%')
+    </if>
     <if test="tp.courseId !=null">
       and tp.courseId=#{tp.courseId}
     </if>

@@ -6,6 +6,17 @@ public class QueType {
 
     private String name;
 
+    @Override
+    public String toString() {
+        return "QueType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    public QueType() {
+    }
+
     public Integer getId() {
         return id;
     }

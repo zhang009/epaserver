@@ -5,6 +5,35 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
+
+  <select id="getQueTypes" resultType="com.zzti.epa.model.QueType">
+    select * from que_type
+  </select>
+  <select id="isExistQue" parameterType="String" resultType="com.zzti.epa.model.QueType">
+    select * from que_type where name=#{name}
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <sql id="Base_Column_List" >
     id, name
   </sql>

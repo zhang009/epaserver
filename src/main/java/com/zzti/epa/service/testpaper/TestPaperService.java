@@ -191,7 +191,8 @@ public class TestPaperService {
             queTypes+="简答题@";
         }
         testPaper.setQueTypes(queTypes);//设置试卷中试题的类型
-        Integer testPaperId=testPaperMapper.insertSelective(testPaper);
+        testPaperMapper.insertSelective(testPaper);
+        Integer testPaperId=testPaper.getId();
 
         //添加试卷分数表
         List<QuestionScore> questionScores=new ArrayList<>();
@@ -1139,9 +1140,6 @@ public class TestPaperService {
 
                 }
             }
-
-
-
         }
         if(endMclist.size()<testPaperReg.getMcTotalNum()){
             Random rand = new Random();//创建随机数生成器
@@ -1445,7 +1443,9 @@ public class TestPaperService {
             queTypes+="简答题@";
         }
         testPaper.setQueTypes(queTypes);//设置试卷中试题的类型
-        Integer testPaperId=testPaperMapper.insertSelective(testPaper);
+
+        testPaperMapper.insertSelective(testPaper);
+        Integer testPaperId=testPaper.getId();
 
         //添加试卷分数表
         List<QuestionScore> questionScores=new ArrayList<>();
