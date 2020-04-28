@@ -41,6 +41,7 @@
       <result column="sid" property="id" jdbcType="INTEGER"/>
       <result column="sname" property="name" jdbcType="INTEGER"/>
     </association>
+
   </resultMap>
   <select id="getTestPaperByPage" resultMap="TestPaperAllInfo">
           select DISTINCT tp.*,t.id as tid, t.name as tname,c.id as cid,c.name as cname,s.id as sid,s.name as sname,m.id as mid,m.name as mname
@@ -74,6 +75,39 @@
         and tp.postTeacherId =#{tp.postTeacherId}
       </if>
     </where>
+
+  </select>
+  <select id="getTestPaperTemplateByPage" resultMap="TestPaperAllInfo">
+     select DISTINCT tp.*,t.id as tid, t.name as tname,c.id as cid,c.name as cname,s.id as sid,s.name as sname,m.id as mid,m.name as mname
+      FROM
+      test_paper tp,teacher t,school s,course c,major m
+      where tp.postTeacherId=t.id
+      and tp.schoolId =s.id
+      and tp.courseId=c.id
+      and tp.majorId=m.id
+      and tp.isTemplate=1
+    <if test="tp.name!=null and tp.name!=''">
+      and tp.name like concat('%',#{tp.name},'%')
+    </if>
+    <if test="tp.courseId !=null">
+      and tp.courseId=#{tp.courseId}
+    </if>
+    <if test="tp.postTeacherId !=null">
+      and tp.postTeacherId =#{tp.postTeacherId}
+    </if>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <select id="getTestPaperTemplateTotal" resultType="Long">
+    select count(*) from test_paper tp where tp.isTemplate=1
+
+      <if test="tp.courseId !=null">
+        and tp.courseId=#{tp.courseId}
+      </if>
+      <if test="tp.postTeacherId !=null">
+        and tp.postTeacherId =#{tp.postTeacherId}
+      </if>
 
   </select>
   <!--write by yifang end-->

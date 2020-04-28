@@ -19,4 +19,11 @@ public interface QuestionScoreMapper {
     int updateByPrimaryKey(QuestionScore record);
 
     Integer addQueScoreList(@Param("list") List<QuestionScore> questionScores);
+
+    Integer addQueScoreListByTemplate(@Param("list") List<QuestionScore> questionScores);
+
+    //根据试卷id获取试卷模板中的试题列表QuestionScore
+    List<QuestionScore> getQuestionScoreByTestPaperId(@Param("testPaperId") Integer id);
+
+    Integer deleteByTestPaperId(@Param("testPaperId") Integer id);
 }

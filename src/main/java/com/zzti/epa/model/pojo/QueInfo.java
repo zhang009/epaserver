@@ -1,5 +1,7 @@
 package com.zzti.epa.model.pojo;
 
+import java.util.Arrays;
+
 /**
  * @ClassName QueInfo
  * @Description 接受前端试卷模板中的小题
@@ -10,6 +12,15 @@ public class QueInfo {
     private float score;
     private Integer chapterId;
     private Integer[] knowIds;
+
+    @Override
+    public String toString() {
+        return "QueInfo{" +
+                "score=" + score +
+                ", chapterId=" + chapterId +
+                ", knowIds=" + Arrays.toString(knowIds) +
+                '}';
+    }
 
     public float getScore() {
         return score;

@@ -24,8 +24,13 @@ public interface TestPaperMapper {
     //write by writer end
 
     //write by yifang start
+    //获取试卷列表
     List<TestPaper> getTestPaperByPage(@Param("page")Integer page, @Param("size") Integer size, @Param("tp") TestPaper testPaper);
     Long getTotal(@Param("tp")TestPaper testPaper);
+    //获取试卷模板列表
+    List<TestPaper> getTestPaperTemplateByPage(@Param("page")Integer page,  @Param("size")Integer size, @Param("tp")TestPaper testPaper);
+
+    Long getTestPaperTemplateTotal(@Param("tp")TestPaper testPaper);
 
     //write by yifang end
 

@@ -9,6 +9,7 @@ import java.util.List;
  * @Date 2020-04-26 16:52
  **/
 public class TempTestPaper2 {
+    private Integer id;
     private String name;
     private Integer schoolId;
     private Integer majorId;
@@ -20,6 +21,13 @@ public class TempTestPaper2 {
     private List<TemplateQuestions> questions;
 
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public float getTotalScore() {
         return totalScore;
@@ -101,7 +109,8 @@ public class TempTestPaper2 {
     @Override
     public String toString() {
         return "TempTestPaper2{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", schoolId=" + schoolId +
                 ", majorId=" + majorId +
                 ", semester='" + semester + '\'' +

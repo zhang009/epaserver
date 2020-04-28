@@ -32,7 +32,7 @@ public class TestPaperTemplateController {
                                            @RequestParam("size") Integer size,
                                            TestPaper testPaper){
         System.out.println(testPaper.toString());
-        return testPaperTemplateService.getTestPaperByPage(page,size,testPaper);
+        return testPaperTemplateService.getTestPaperTemplateByPage(page,size,testPaper);
     }
     @GetMapping("/getTeacher")
     public List<Teacher> getTemplatePostTeacher(){
@@ -57,7 +57,7 @@ public class TestPaperTemplateController {
     }
 
     @PostMapping("/addTemplate")
-    public RespBean addQueType(@RequestBody TempTestPaper2 tempTestPaper2){//添加题型
+    public RespBean addTestPaperTemplate(@RequestBody TempTestPaper2 tempTestPaper2){//添加题型
 
         System.out.println(tempTestPaper2.toString());
 
@@ -65,5 +65,21 @@ public class TestPaperTemplateController {
             return RespBean.ok("添加成功");
         }
         return RespBean.error("添加失败");
+    }
+    @PutMapping("/updateTemplate")
+    public RespBean updateTestTemplate(@RequestBody TempTestPaper2 tempTestPaper2){//添加题型
+
+
+        if(testPaperTemplateService.updatePaperTemplate(tempTestPaper2)){
+            return RespBean.ok("更新成功");
+        }
+        return RespBean.error("更新失败");
+    }
+    @DeleteMapping("/{id}")
+    public RespBean deleteTestPaperTemplateById(@PathVariable Integer id){
+        if(testPaperTemplateService.deleteTestPaperTemplateById(id)==1){
+            return RespBean.ok("删除成功！");
+        }
+        return RespBean.error("删除成功！");
     }
 }

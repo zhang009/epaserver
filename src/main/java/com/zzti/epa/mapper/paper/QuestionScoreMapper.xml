@@ -12,8 +12,16 @@
     <result column="queScore" property="queScore" jdbcType="REAL" />
   </resultMap>
 
+  <resultMap id="QuestionScoreAllInfo" type="com.zzti.epa.model.QuestionScore" extends="BaseResultMap">
+    <association property="chapter" javaType="com.zzti.epa.model.Chapter">
+      <result column="cid" property="id" jdbcType="INTEGER"/>
+      <result column="cname" property="name" jdbcType="INTEGER"/>
+    </association>
+
+  </resultMap>
+
   <insert id="addQueScoreList">
-        insert into question_score(testPaperId, questionId, queType, sortNum,  queScore)
+        insert into question_score(testPaperId, questionId, queType, sortNum,chapterId,knowIds, queScore)
         values
         <foreach collection="list" separator="," item="questionScore">
           (
@@ -21,10 +29,31 @@
           #{questionScore.questionId,jdbcType=INTEGER},
           #{questionScore.queType,jdbcType=VARCHAR},
           #{questionScore.sortNum,jdbcType=INTEGER},
+          #{questionScore.chapterId,jdbcType=INTEGER},
+          #{questionScore.knowIds,jdbcType=VARCHAR},
           #{questionScore.queScore,jdbcType=REAL}
           )
         </foreach>
   </insert>
+
+  <select id="getQuestionScoreByTestPaperId" resultMap="QuestionScoreAllInfo">
+   select qs.*,c.id as cid,c.name as cname from question_score qs,chapter c
+    where qs.chapterId=c.id
+        and qs.testPaperId=#{testPaperId} ORDER BY testPaperId,queType,sortNum
+  </select>
+
+  <delete id="deleteByTestPaperId">
+     delete from question_score
+    where question_score.testPaperId = #{testPaperId,jdbcType=INTEGER}
+  </delete>
+
+
+
+
+
+
+
+
 
 
 

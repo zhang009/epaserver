@@ -63,10 +63,24 @@ public class TestPaper {
     private List<FBQuestion> fblist;
     private List<QAQuestion> qalist;
 
-    private Teacher teacher;
+    private List<QuestionScore> questionScores;//这里主要是为了向前端传试卷模板的试题数据
+
+    private Teacher teacher;//试卷创建教师信息
+
+
+
+
 
     public Teacher getTeacher() {
         return teacher;
+    }
+
+    public List<QuestionScore> getQuestionScores() {
+        return questionScores;
+    }
+
+    public void setQuestionScores(List<QuestionScore> questionScores) {
+        this.questionScores = questionScores;
     }
 
     public Integer getIsTemplate() {

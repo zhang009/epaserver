@@ -1,5 +1,7 @@
 package com.zzti.epa.model;
 
+import java.util.List;
+
 public class QuestionScore {
     private Integer id;
 
@@ -16,6 +18,42 @@ public class QuestionScore {
     private String knowIds;
 
     private Float queScore;
+
+    private Chapter chapter;
+    private List<Knows> knows;
+
+
+    @Override
+    public String toString() {
+        return "QuestionScore{" +
+                "id=" + id +
+                ", testPaperId=" + testPaperId +
+                ", questionId=" + questionId +
+                ", queType='" + queType + '\'' +
+                ", sortNum=" + sortNum +
+                ", chapterId=" + chapterId +
+                ", knowIds='" + knowIds + '\'' +
+                ", queScore=" + queScore +
+                ", chapter=" + chapter +
+                ", knows=" + knows +
+                '}';
+    }
+
+    public Chapter getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
+    }
+
+    public List<Knows> getKnows() {
+        return knows;
+    }
+
+    public void setKnows(List<Knows> knows) {
+        this.knows = knows;
+    }
 
     public Integer getId() {
         return id;
