@@ -21,7 +21,12 @@
       <id column="tid" property="id"/>
       <result column="tname" property="name"></result>
     </association>
-
+  </resultMap>
+  <resultMap id="QAQuestionWithChapter" type="com.zzti.epa.model.QAQuestion" extends="BaseResultMap">
+    <association property="chapter" javaType="com.zzti.epa.model.Chapter">
+      <result column="cid" property="id" jdbcType="INTEGER"/>
+      <result column="cname" property="name" jdbcType="INTEGER"/>
+    </association>
   </resultMap>
 
   <select id="getQAQuestionByPage" resultMap="AllQAQuestionInfo">
@@ -59,8 +64,8 @@ where qa.teacherId=t.id
     </where>
 
   </select>
-<select id="getQAQuestionById" resultType="com.zzti.epa.model.QAQuestion">
-  select * from qa_question where id=#{id};
+<select id="getQAQuestionById" resultMap="QAQuestionWithChapter">
+  select qa.*, c.id as cid, c.name as cname from qa_question qa,chapter c where qa.chapterId=c.id and qa.id=#{id};
 </select>
 <select id="getQAQuestionByCourseId" resultType="com.zzti.epa.model.QAQuestion">
   select * from qa_question where courseId=#{id}

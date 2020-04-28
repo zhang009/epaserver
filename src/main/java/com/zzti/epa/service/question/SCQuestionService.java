@@ -101,6 +101,7 @@ public class SCQuestionService {
         return scQuestionMapper.updateByPrimaryKeySelective(scQuestion);//更新操作
     }
     public SCQuestion getSCQuestionById(Integer id){//带有章节和知识点信息的单选试题
+
         SCQuestion scQuestion=scQuestionMapper.getSCQuestionById(id);
         String knowIds=scQuestion.getKnowIds();
 

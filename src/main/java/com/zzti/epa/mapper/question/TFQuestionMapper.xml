@@ -23,6 +23,12 @@
     </association>
 
   </resultMap>
+  <resultMap id="TFQuestionWithChapter" type="com.zzti.epa.model.TFQuestion" extends="BaseResultMap">
+    <association property="chapter" javaType="com.zzti.epa.model.Chapter">
+      <result column="cid" property="id" jdbcType="INTEGER"/>
+      <result column="cname" property="name" jdbcType="INTEGER"/>
+    </association>
+  </resultMap>
 
   <select id="getTFQuestionByPage" resultMap="AllTFQuestionInfo">
 select tf.*,t.id as tid,t.name as tname from tf_question tf,teacher t
@@ -59,8 +65,8 @@ where tf.teacherId=t.id
     </where>
 
   </select>
-<select id="getTFQuestionById" resultType="com.zzti.epa.model.TFQuestion">
-  select * from tf_question where id=#{id}
+<select id="getTFQuestionById" resultMap="TFQuestionWithChapter">
+  select tf.*, c.id as cid, c.name as cname from tf_question tf,chapter c where tf.chapterId=c.id and tf.id=#{id}
 </select>
 <select id="getTFQuestionByCourseId" resultType="com.zzti.epa.model.TFQuestion">
   select * from tf_question where courseId=#{id}

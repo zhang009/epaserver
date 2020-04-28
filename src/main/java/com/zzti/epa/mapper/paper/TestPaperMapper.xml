@@ -38,8 +38,8 @@
       <result column="sname" property="name" jdbcType="INTEGER"/>
     </association>
     <association property="major" javaType="com.zzti.epa.model.Major">
-      <result column="sid" property="id" jdbcType="INTEGER"/>
-      <result column="sname" property="name" jdbcType="INTEGER"/>
+      <result column="mid" property="id" jdbcType="INTEGER"/>
+      <result column="mname" property="name" jdbcType="INTEGER"/>
     </association>
 
   </resultMap>
@@ -51,6 +51,7 @@
       and tp.schoolId =s.id
       and tp.courseId=c.id
       and tp.majorId=m.id
+    and tp.isTemplate=0
 
     <if test="tp.name!=null and tp.name!=''">
       and tp.name like concat('%',#{tp.name},'%')
@@ -60,6 +61,9 @@
     </if>
     <if test="tp.postTeacherId !=null">
       and tp.postTeacherId =#{tp.postTeacherId}
+    </if>
+    <if test="tp.paperType !=null">
+      and tp.paperType =#{tp.paperType}
     </if>
     <if test="page !=null and size!=null">
       limit #{page},#{size}
@@ -110,6 +114,29 @@
       </if>
 
   </select>
+  <select id="getTestPaperTotal" resultType="Long">
+    select count(*) from test_paper tp where tp.isTemplate=0
+
+    <if test="tp.name!=null and tp.name!=''">
+      and tp.name like concat('%',#{tp.name},'%')
+    </if>
+    <if test="tp.courseId !=null">
+      and tp.courseId=#{tp.courseId}
+    </if>
+    <if test="tp.postTeacherId !=null">
+      and tp.postTeacherId =#{tp.postTeacherId}
+    </if>
+    <if test="tp.paperType !=null">
+      and tp.paperType =#{tp.paperType}
+    </if>
+
+  </select>
+  <select id="getPostTeachers" resultType="com.zzti.epa.model.Teacher">
+      select DISTINCT t.* from test_paper tp,teacher t
+      where tp.postTeacherId=t.id
+    and tp.isTemplate=0
+  </select>
+
   <!--write by yifang end-->
 
   <!--write by writer start-->

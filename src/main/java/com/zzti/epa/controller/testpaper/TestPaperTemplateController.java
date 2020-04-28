@@ -28,7 +28,7 @@ public class TestPaperTemplateController {
     QueTypeService queTypeService;
 
     @GetMapping("/")
-    public RespPageBean getTestPaperByPage(@RequestParam("page")Integer page,
+    public RespPageBean getTestPaperTemplateByPage(@RequestParam("page")Integer page,
                                            @RequestParam("size") Integer size,
                                            TestPaper testPaper){
         System.out.println(testPaper.toString());

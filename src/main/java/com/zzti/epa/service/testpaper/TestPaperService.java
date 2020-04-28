@@ -1,10 +1,12 @@
 package com.zzti.epa.service.testpaper;
 
+import com.zzti.epa.mapper.baseinfo.KnowsMapper;
 import com.zzti.epa.mapper.paper.QuestionScoreMapper;
 import com.zzti.epa.mapper.paper.TestPaperMapper;
 import com.zzti.epa.mapper.question.*;
 import com.zzti.epa.model.*;
 import com.zzti.epa.model.pojo.*;
+import com.zzti.epa.service.question.*;
 import com.zzti.epa.utils.TeacherUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +42,23 @@ public class TestPaperService {
     FBQuestionMapper fbQuestionMapper;
     @Autowired
     QAQuestionMapper qaQuestionMapper;
+    @Autowired
+    KnowsMapper knowsMapper;
+    @Autowired
+    SCQuestionService scQuestionService;
+    @Autowired
+    MCQuestionService mcQuestionService;
+    @Autowired
+    TFQuestionService tfQuestionService;
+    @Autowired
+    FBQuestionService fbQuestionService;
+    @Autowired
+    QAQuestionService qaQuestionService;
+
 
 
     String []charNum= {"A.","B.","C.","D.","E.","F.","G.","H.","I.","J."};
-    //将前端传来的临时试卷对象数据处理，添加一些参数
+    //为了将试卷导出到word,将前端传来的临时试卷对象数据处理，添加一些参数
     public TempTestPaper handleTempTestPaper(TempTestPaper tempTestPaper) {
         //设置单选题的总分
         if(tempTestPaper.getSclist()!=null&&tempTestPaper.getScScore()!=null){
@@ -165,6 +180,7 @@ public class TestPaperService {
         return tempTestPaper;
     }
 
+    //添加试卷（手动组卷）
     @Transactional
     public boolean addTestPaper(TestPaper testPaper) {
 
@@ -1519,4 +1535,70 @@ public class TestPaperService {
     }
 
 
+    //获取试卷列表
+    public RespPageBean getTestPaperByPage(Integer page, Integer size, TestPaper testPaper) {
+        if(page!=null&& size!=null){
+            page=(page-1)*size;
+        }
+        List<TestPaper> data=testPaperMapper.getTestPaperByPage(page,size,testPaper);
+        //这里把试题信息进行封装
+        //首先获取试卷中的试题类型，放到集合中
+        List<SCQuestion> sclist=new ArrayList<>();
+        List<MCQuestion> mclist=new ArrayList<>();
+        List<TFQuestion> tflist=new ArrayList<>();
+        List<FBQuestion> fblist=new ArrayList<>();
+        List<QAQuestion> qalist=new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {//遍历试卷
+            TestPaper testPaper1=data.get(i);
+            System.out.println("aaaaaaaaaaaa:"+testPaper1.getId());
+            List<QuestionScore> questionScoreList=questionScoreMapper.getQuestionScoreByTestPaperId2(testPaper1.getId());
+            System.out.println("1111111111111111111111111111"+questionScoreList);
+            for (int j = 0; j < questionScoreList.size(); j++) {
+                QuestionScore questionScore=questionScoreList.get(j);
+                //
+                if(questionScore.getQueType().equals("单选题")){
+                    SCQuestion scQuestion=scQuestionService.getSCQuestionById(questionScore.getQuestionId());
+                    sclist.add(scQuestion);
+                }else if(questionScore.getQueType().equals("多选题")){
+                    MCQuestion mcQuestion=mcQuestionService.getMCQuestionById(questionScore.getQuestionId());
+                    mclist.add(mcQuestion);
+                }else if(questionScore.getQueType().equals("判断题")){
+                    TFQuestion tfQuestion=tfQuestionService.getTFQuestionById(questionScore.getQuestionId());
+                    tflist.add(tfQuestion);
+                }else if(questionScore.getQueType().equals("填空题")){
+                    FBQuestion fbQuestion=fbQuestionService.getFBQuestionById(questionScore.getQuestionId());
+                    fblist.add(fbQuestion);
+
+                }else if(questionScore.getQueType().equals("简答题")){
+                    QAQuestion qaQuestion=qaQuestionService.getQAQuestionById(questionScore.getQuestionId());
+                    qalist.add(qaQuestion);
+                }
+            }
+
+           // System.out.println(">>>>questionScoreList:"+questionScoreList);
+            testPaper1.setQuestionScores(questionScoreList);
+            testPaper1.setSclist(sclist);
+            testPaper1.setMclist(mclist);
+            testPaper1.setTflist(tflist);
+            testPaper1.setFblist(fblist);
+            testPaper1.setQalist(qalist);
+
+        }
+
+        Long total=testPaperMapper.getTestPaperTotal(testPaper);//总记录数
+        RespPageBean bean = new RespPageBean();
+        bean.setData(data);//放入数据
+        bean.setTotal(total);//放入总记录数
+        return bean;
+    }
+
+    //获取组卷人列表
+    public List<Teacher> getPostTeachers() {
+        return testPaperMapper.getPostTeachers();
+    }
+
+    public Integer deleteTestPaperById(Integer id) {
+        return  testPaperMapper.deleteByPrimaryKey(id);
+    }
 }

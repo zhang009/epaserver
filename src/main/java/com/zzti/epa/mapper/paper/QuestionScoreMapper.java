@@ -26,4 +26,7 @@ public interface QuestionScoreMapper {
     List<QuestionScore> getQuestionScoreByTestPaperId(@Param("testPaperId") Integer id);
 
     Integer deleteByTestPaperId(@Param("testPaperId") Integer id);
+
+    //根据试卷d获取试卷模板中的试题列表QuestionScore（不含章节）
+    List<QuestionScore> getQuestionScoreByTestPaperId2(@Param("testPaperId")Integer id);
 }

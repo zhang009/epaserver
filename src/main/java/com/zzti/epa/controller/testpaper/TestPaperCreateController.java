@@ -26,7 +26,7 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/pap/create")
-public class TestPaperController {
+public class TestPaperCreateController {
 
     @Autowired
     TestPaperService testPaperService;

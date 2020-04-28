@@ -30,6 +30,12 @@
       <result column="kname" property="name"/>
     </collection>
     </resultMap>
+    <resultMap id="SCQuestionWithChapter" type="com.zzti.epa.model.SCQuestion" extends="BaseResultMap">
+      <association property="chapter" javaType="com.zzti.epa.model.Chapter">
+        <result column="cid" property="id" jdbcType="INTEGER"/>
+        <result column="cname" property="name" jdbcType="INTEGER"/>
+      </association>
+    </resultMap>
   <select id="getSCQuestionByPage" resultMap="AllSCQuestionInfo">
     select sc.*,t.id as tid,t.name as tname from sc_question sc,teacher t
     where sc.teacherId=t.id
@@ -67,8 +73,10 @@
   <select id="getSCQuestionByCourseId" resultType="com.zzti.epa.model.SCQuestion">
     select * from sc_question where courseId=#{id}
   </select>
-  <select id="getSCQuestionById" resultType="com.zzti.epa.model.SCQuestion">
-    select * from sc_question where id=#{id}
+  <select id="getSCQuestionById" resultMap="SCQuestionWithChapter">
+    select sc.*,c.id as cid,c.name as cname
+        from sc_question sc ,chapter c
+        where sc.chapterId=c.id and sc.id=#{id}
   </select>
   <!--<select id="getSCQuestionByIdWithChapter" resultMap="SCQuestionWithChapter">
     select sc.* from sc_question where sc_question.chapterId=c.id and id=#{id}

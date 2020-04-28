@@ -1,5 +1,6 @@
 package com.zzti.epa.mapper.paper;
 
+import com.zzti.epa.model.Teacher;
 import com.zzti.epa.model.TestPaper;
 import com.zzti.epa.model.analysis.ListOfTestPaper;
 import org.apache.ibatis.annotations.Param;
@@ -27,10 +28,18 @@ public interface TestPaperMapper {
     //获取试卷列表
     List<TestPaper> getTestPaperByPage(@Param("page")Integer page, @Param("size") Integer size, @Param("tp") TestPaper testPaper);
     Long getTotal(@Param("tp")TestPaper testPaper);
+    //获取试卷总数
+    Long getTestPaperTotal(@Param("tp")TestPaper testPaper);
+
     //获取试卷模板列表
     List<TestPaper> getTestPaperTemplateByPage(@Param("page")Integer page,  @Param("size")Integer size, @Param("tp")TestPaper testPaper);
 
+    //获取试卷模板总数
     Long getTestPaperTemplateTotal(@Param("tp")TestPaper testPaper);
+
+    //获取组卷人列表（非试卷模板）
+    List<Teacher> getPostTeachers();
+
 
     //write by yifang end
 

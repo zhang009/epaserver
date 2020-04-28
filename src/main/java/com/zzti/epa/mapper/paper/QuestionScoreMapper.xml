@@ -41,6 +41,11 @@
     where qs.chapterId=c.id
         and qs.testPaperId=#{testPaperId} ORDER BY testPaperId,queType,sortNum
   </select>
+  <select id="getQuestionScoreByTestPaperId2" resultType="com.zzti.epa.model.QuestionScore">
+    select * from question_score
+    where
+         testPaperId=#{testPaperId}  ORDER BY testPaperId,queType,sortNum
+  </select>
 
   <delete id="deleteByTestPaperId">
      delete from question_score

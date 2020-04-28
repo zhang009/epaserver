@@ -29,6 +29,10 @@
     </collection>
   </resultMap>
   <resultMap id="MCQuestionWithOption" type="com.zzti.epa.model.MCQuestion" extends="BaseResultMap">
+    <association property="chapter" javaType="com.zzti.epa.model.Chapter">
+      <result column="cid" property="id" jdbcType="INTEGER"/>
+      <result column="cname" property="name" jdbcType="INTEGER"/>
+    </association>
     <collection property="options" ofType="com.zzti.epa.model.MCOption">
       <id column="oid" property="id"/>
       <result column="optionNum" property="optionNum"/>
@@ -71,12 +75,12 @@ where mc.teacherId=t.id
 
   </select>
   <select id="getMCQuestionById" resultMap="MCQuestionWithOption">
-      select mc.*,mco.id as oid, mco.optionNum, mco.optionContent from mc_question mc,mc_option mco
-    where mc.id=mco.mcId
+      select mc.*,mco.id as oid, mco.optionNum, mco.optionContent,c.id as cid ,c.name as cname  from mc_question mc,mc_option mco,chapter c
+    where mc.id=mco.mcId and c.id=mc.chapterId
       and mc.id=#{id}
   </select>
   <select id="getMCQuestionByCourseId" resultMap="MCQuestionWithOption">
-    select mc.*,mco.id as oid, mco.optionNum, mco.optionContent from mc_question mc,mc_option mco
+    select mc.*,mco.id as oid, mco.optionNum, mco.optionContentfrom mc_question mc,mc_option mco
     where mc.id=mco.mcId
       and mc.courseId=#{id}
   </select>
