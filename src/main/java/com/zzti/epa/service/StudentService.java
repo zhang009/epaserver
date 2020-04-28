@@ -31,7 +31,6 @@ public class StudentService {
         bean.setData(list);//放入数据
         bean.setTotal(total);//放入总记录数
         return bean;
-
     }
 
     public Integer deleteStuById(Integer id) {

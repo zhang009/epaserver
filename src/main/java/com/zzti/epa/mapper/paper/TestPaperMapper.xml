@@ -113,6 +113,7 @@
   <!--write by yifang end-->
 
   <!--write by writer start-->
+
   <resultMap id="ListOfTestPaper" type="com.zzti.epa.model.analysis.ListOfTestPaper">
     <id column="id" property="id" jdbcType="INTEGER"/>
     <result column="name" property="name" jdbcType="VARCHAR" />
