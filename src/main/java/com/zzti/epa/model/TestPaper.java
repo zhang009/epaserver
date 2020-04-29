@@ -44,11 +44,15 @@ public class TestPaper {
     private String queTypes;
 
     private Integer isTemplate;
+
     private Float dot;
 
     private Course course;
+
     private School school;
+
     private Major major;
+
     private Float scScore;
     private Float mcScore;
     private Float tfScore;

@@ -29,4 +29,6 @@ public interface QuestionScoreMapper {
 
     //根据试卷d获取试卷模板中的试题列表QuestionScore（不含章节）
     List<QuestionScore> getQuestionScoreByTestPaperId2(@Param("testPaperId")Integer id);
+
+
 }

@@ -1601,4 +1601,104 @@ public class TestPaperService {
     public Integer deleteTestPaperById(Integer id) {
         return  testPaperMapper.deleteByPrimaryKey(id);
     }
+
+    //更新试卷（手动组卷）
+    @Transactional
+    public boolean updateTestPaper(TestPaper testPaper) {
+
+
+        String queTypes="";
+
+        if(testPaper.getSclist()!=null&&testPaper.getSclist().size()>0){
+            queTypes+="单选题@";
+        }
+        if(testPaper.getMclist()!=null&&testPaper.getMclist().size()>0){
+            queTypes+="多选题@";
+        }
+        if(testPaper.getTflist()!=null&&testPaper.getTflist().size()>0){
+            queTypes+="判断题@";
+        }
+        if(testPaper.getFblist()!=null&&testPaper.getFblist().size()>0){
+            queTypes+="填空题@";
+        }
+        if(testPaper.getQalist()!=null&&testPaper.getQalist().size()>0){
+            queTypes+="简答题@";
+        }
+        testPaper.setQueTypes(queTypes);//设置试卷中试题的类型
+        testPaperMapper.updateByPrimaryKeySelective(testPaper);
+        Integer testPaperId=testPaper.getId();
+
+        //添加试卷分数表
+        List<QuestionScore> questionScores=new ArrayList<>();
+        //设置单选题
+        if(testPaper.getSclist()!=null&&testPaper.getSclist().size()>0){
+            List<SCQuestion> sclist=testPaper.getSclist();
+            for (int i = 0; i < sclist.size(); i++) {
+                QuestionScore questionScore =new QuestionScore();
+                questionScore.setTestPaperId(testPaperId);//设置试卷id
+                questionScore.setQuestionId(sclist.get(i).getId());//设置单选题id
+                questionScore.setQueType("单选题");
+                questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setQueScore(testPaper.getScScore());
+                questionScores.add(questionScore);//加入集合
+            }
+        }
+        //设置多选题
+        if(testPaper.getMclist()!=null&&testPaper.getMclist().size()>0){
+            List<MCQuestion> mclist=testPaper.getMclist();
+            for (int i = 0; i < mclist.size(); i++) {
+                QuestionScore questionScore =new QuestionScore();
+                questionScore.setTestPaperId(testPaperId);//设置试卷id
+                questionScore.setQuestionId(mclist.get(i).getId());//设置多选题id
+                questionScore.setQueType("多选题");
+                questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setQueScore(testPaper.getMcScore());
+                questionScores.add(questionScore);//加入集合
+            }
+        }
+        //设置判断题
+        if(testPaper.getTflist()!=null&&testPaper.getTflist().size()>0){
+            List<TFQuestion> tflist=testPaper.getTflist();
+            for (int i = 0; i < tflist.size(); i++) {
+                QuestionScore questionScore =new QuestionScore();
+                questionScore.setTestPaperId(testPaperId);//设置试卷id
+                questionScore.setQuestionId(tflist.get(i).getId());
+                questionScore.setQueType("判断题");
+                questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setQueScore(testPaper.getTfScore());
+                questionScores.add(questionScore);//加入集合
+            }
+        }
+        //设置填空题
+        if(testPaper.getFblist()!=null&&testPaper.getFblist().size()>0){
+            List<FBQuestion> fblist=testPaper.getFblist();
+            for (int i = 0; i < fblist.size(); i++) {
+                QuestionScore questionScore =new QuestionScore();
+                questionScore.setTestPaperId(testPaperId);//设置试卷id
+                questionScore.setQuestionId(fblist.get(i).getId());//设置单选题id
+                questionScore.setQueType("填空题");
+                questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setQueScore(testPaper.getFbScore()[i]);
+                questionScores.add(questionScore);//加入集合
+            }
+        }
+        //设置简答题
+        if(testPaper.getQalist()!=null&&testPaper.getQalist().size()>0){
+            List<QAQuestion> qalist=testPaper.getQalist();
+            for (int i = 0; i < qalist.size(); i++) {
+                QuestionScore questionScore =new QuestionScore();
+                questionScore.setTestPaperId(testPaperId);//设置试卷id
+                questionScore.setQuestionId(qalist.get(i).getId());//设置单选题id
+                questionScore.setQueType("简答题");
+                questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setQueScore(testPaper.getQaScore()[i]);
+                questionScores.add(questionScore);//加入集合
+            }
+        }
+
+        //删除所有的试题分数记录
+        questionScoreMapper.deleteByTestPaperId(testPaper.getId());
+        //重新添加
+        return (questionScoreMapper.addQueScoreList(questionScores)==questionScores.size());//返回插入的结果
+    }
 }

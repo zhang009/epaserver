@@ -69,6 +69,16 @@ public class TestPaperCreateController {
          }
         return RespBean.error("提交失败");
     }
+
+    //更新手工选题组卷
+    @PutMapping("/handAddUpdate")
+    public RespBean updateTestPaper(@RequestBody TestPaper testPaper){
+        System.out.println(testPaper.toString());
+        if(testPaperService.updateTestPaper(testPaper)){
+            return RespBean.ok("更新成功！");
+        }
+        return RespBean.error("更新失败");
+    }
     //自动选题组卷
     @RequestMapping("/autoAdd")
     public RespBean addTestPaper2(@RequestBody TestPaper testPaper){
