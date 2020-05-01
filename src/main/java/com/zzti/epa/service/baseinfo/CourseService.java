@@ -5,9 +5,9 @@ import com.zzti.epa.mapper.baseinfo.CourseMapper;
 import com.zzti.epa.model.ClassCourse;
 import com.zzti.epa.model.Course;
 import com.zzti.epa.model.RespPageBean;
-import com.zzti.epa.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class CourseService {
         if(page!=null&& size!=null){
             page=(page-1)*size;
         }
-        List<Teacher> data=courseMapper.getCourse(page,size,course);
+        List<Course> data=courseMapper.getCourse(page,size,course);
         Long total=courseMapper.getTotal(course);
         RespPageBean bean = new RespPageBean();
         bean.setData(data);
@@ -38,8 +38,10 @@ public class CourseService {
         return bean;
     }
 
+    //添加课程
+    @Transactional
     public Integer addCourse(Course course) {
-        //这里当添加完课程之后，需要在班级_课程里添加
+        //这里当添加完课程之后，需要在班级_课程里添加，删除时表关联自动删除
         courseMapper.insertSelective(course);
         ClassCourse classCourse=new ClassCourse();
         classCourse.setClassId(course.getClassId());

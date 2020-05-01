@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.epa.mapper.paper.PaperCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.epa.model.PaperCheck" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="testPaperId" property="testPaperId" jdbcType="INTEGER" />
+    <result column="testPaperType" property="testPaperType" jdbcType="INTEGER" />
+    <result column="postTeacherId" property="postTeacherId" jdbcType="INTEGER" />
+    <result column="checkTeacherId" property="checkTeacherId" jdbcType="INTEGER" />
+    <result column="checkStatus" property="checkStatus" jdbcType="INTEGER" />
+    <result column="refuseReason" property="refuseReason" jdbcType="VARCHAR" />
+    <result column="postTime" property="postTime" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="TestPaperCheckWithTeacher" type="com.zzti.epa.model.PaperCheck" extends="BaseResultMap">
+  <association property="postTeacher" javaType="com.zzti.epa.model.Teacher">
+    <id column="tid" property="id"/>
+    <result column="tname" property="name"></result>
+  </association>
+  </resultMap>
+
+  <resultMap id="TestPaperCheckWithTeacher2" type="com.zzti.epa.model.PaperCheck" extends="BaseResultMap">
+  <association property="checkTeacher" javaType="com.zzti.epa.model.Teacher">
+    <id column="tid" property="id"/>
+    <result column="tname" property="name"></result>
+  </association>
+  </resultMap>
+  <select id="getTestPaperCheckByCheckTId" resultMap="TestPaperCheckWithTeacher">
+     select pc.*,t.id as tid,t.name as tname from paper_check pc,teacher t
+        where pc.postTeacherId=t.id
+        and pc.checkTeacherId=#{testPaperId}
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <select id="getSubmmitedTestPaperCheckByCheckTId" resultMap="TestPaperCheckWithTeacher2">
+    select pc.*,t.id as tid,t.name as tname from paper_check pc,teacher t
+    where pc.checkTeacherId=t.id
+    and pc.postTeacherId=#{testPaperId}
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <select id="getTestPaperCheckTotal" resultType="Long">
+    select count(*) from paper_check pc
+    where pc.checkTeacherId=#{testPaperId}
+  </select>
+  <select id="getSubmmitedTestPaperCheckTotal" resultType="Long">
+select count(*) from paper_check pc
+    where pc.postTeacherId=#{testPaperId}
+  </select>
+  <update id="refuseTestPaperCheck">
+     update paper_check set checkStatus=2,refuseReason=#{reason}
+    where id=#{id}
+  </update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <sql id="Base_Column_List" >
+    id, testPaperId, testPaperType, postTeacherId, checkTeacherId, checkStatus, refuseReason, 
+    postTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from paper_check
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from paper_check
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.epa.model.PaperCheck" >
+    insert into paper_check (id, testPaperId, testPaperType, 
+      postTeacherId, checkTeacherId, checkStatus, 
+      refuseReason, postTime)
+    values (#{id,jdbcType=INTEGER}, #{testPaperId,jdbcType=INTEGER}, #{testPaperType,jdbcType=INTEGER}, 
+      #{postTeacherId,jdbcType=INTEGER}, #{checkTeacherId,jdbcType=INTEGER}, #{checkStatus,jdbcType=INTEGER}, 
+      #{refuseReason,jdbcType=VARCHAR}, #{postTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.PaperCheck" >
+    insert into paper_check
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="testPaperId != null" >
+        testPaperId,
+      </if>
+      <if test="testPaperType != null" >
+        testPaperType,
+      </if>
+      <if test="postTeacherId != null" >
+        postTeacherId,
+      </if>
+      <if test="checkTeacherId != null" >
+        checkTeacherId,
+      </if>
+      <if test="checkStatus != null" >
+        checkStatus,
+      </if>
+      <if test="refuseReason != null" >
+        refuseReason,
+      </if>
+      <if test="postTime != null" >
+        postTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperId != null" >
+        #{testPaperId,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperType != null" >
+        #{testPaperType,jdbcType=INTEGER},
+      </if>
+      <if test="postTeacherId != null" >
+        #{postTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="checkTeacherId != null" >
+        #{checkTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="checkStatus != null" >
+        #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="refuseReason != null" >
+        #{refuseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="postTime != null" >
+        #{postTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.epa.model.PaperCheck" >
+    update paper_check
+    <set >
+      <if test="testPaperId != null" >
+        testPaperId = #{testPaperId,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperType != null" >
+        testPaperType = #{testPaperType,jdbcType=INTEGER},
+      </if>
+      <if test="postTeacherId != null" >
+        postTeacherId = #{postTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="checkTeacherId != null" >
+        checkTeacherId = #{checkTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="checkStatus != null" >
+        checkStatus = #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="refuseReason != null" >
+        refuseReason = #{refuseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="postTime != null" >
+        postTime = #{postTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.epa.model.PaperCheck" >
+    update paper_check
+    set testPaperId = #{testPaperId,jdbcType=INTEGER},
+      testPaperType = #{testPaperType,jdbcType=INTEGER},
+      postTeacherId = #{postTeacherId,jdbcType=INTEGER},
+      checkTeacherId = #{checkTeacherId,jdbcType=INTEGER},
+      checkStatus = #{checkStatus,jdbcType=INTEGER},
+      refuseReason = #{refuseReason,jdbcType=VARCHAR},
+      postTime = #{postTime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -7,7 +7,8 @@ public class Course {
 
     private String term;
 
-    private Integer classId;
+    private Integer classId;//这里的classId只是为了接受前端的classId才在这里定义，
+                            // 注意班级和课程是多对多的关系，之间的联系靠关系表来实现
 
 
     public Integer getId() {

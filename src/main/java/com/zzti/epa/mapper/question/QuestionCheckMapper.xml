@@ -12,6 +12,7 @@
     <result column="refuseReason" property="refuseReason" jdbcType="VARCHAR" />
   </resultMap>
 
+  <!--试题审核-收到的审核-具有提交教师信息-->
   <resultMap id="QuestionCheckWithTeacher" type="com.zzti.epa.model.QuestionCheck" extends="BaseResultMap">
     <association property="postTeacher" javaType="com.zzti.epa.model.Teacher">
       <id column="tid" property="id"/>
@@ -19,6 +20,7 @@
     </association>
 
   </resultMap>
+  <!--试题审核-提交的审核-具有审核教师信息-->
   <resultMap id="QuestionCheckWithTeacher2" type="com.zzti.epa.model.QuestionCheck" extends="BaseResultMap">
     <association property="checkTeacher" javaType="com.zzti.epa.model.Teacher">
       <id column="tid" property="id"/>

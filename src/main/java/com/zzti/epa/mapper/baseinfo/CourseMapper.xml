@@ -17,7 +17,7 @@
     select * from course where course.id=#{id};
   </select>
 
-  <select id="getCourse"  resultType="com.zzti.epa.model.Course">
+  <!--<select id="getCourse"  resultType="com.zzti.epa.model.Course">
     select * from course c where id in (select max(id) from course group by name)
     <where>
       <if test="course.name!=null and course.name!=''">
@@ -25,6 +25,20 @@
       </if>
       <if test="course.classId!=null">
         and c.classId=#{course.classId}
+      </if>
+    </where>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>-->
+  <select id="getCourse" resultType="com.zzti.epa.model.Course">
+    select * from course c
+    <where>
+      <if test="course.name!=null and course.name!=''">
+        and c.name like concat('%',#{course.name},'%')
+      </if>
+      <if test="course.classId!=null">
+        and c.id in(select courseId from class_course where classId =#{course.classId})
       </if>
     </where>
     <if test="page !=null and size!=null">

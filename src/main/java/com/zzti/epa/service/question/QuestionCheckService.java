@@ -30,13 +30,8 @@ public class QuestionCheckService {
     @Autowired
     QAQuestionMapper qaQuestionMapper;
 
-    /**
-    * @Description:获取收到的审核
-    * @Date: 2020-04-12  17:27
-    * @Param page:
-     * @Param size:
-    * @return: com.zzti.epa.model.RespPageBean
-    **/
+
+    //获取收到的审核
     public RespPageBean getReceiveCheck(Integer page, Integer size) {
         if(page!=null&& size!=null){
             page=(page-1)*size;

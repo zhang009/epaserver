@@ -51,7 +51,7 @@
       and tp.schoolId =s.id
       and tp.courseId=c.id
       and tp.majorId=m.id
-    and tp.isTemplate=0
+      and tp.isTemplate=0
 
     <if test="tp.name!=null and tp.name!=''">
       and tp.name like concat('%',#{tp.name},'%')
@@ -69,6 +69,34 @@
       limit #{page},#{size}
     </if>
   </select>
+  <select id="getAllTestPaperByPage" resultMap="TestPaperAllInfo">
+    select DISTINCT tp.*,t.id as tid, t.name as tname,c.id as cid,c.name as cname,s.id as sid,s.name as sname,m.id as mid,m.name as mname
+    FROM
+    test_paper tp,teacher t,school s,course c,major m
+    where tp.postTeacherId=t.id
+    and tp.schoolId =s.id
+    and tp.courseId=c.id
+    and tp.majorId=m.id
+    <if test="tp.name!=null and tp.name!=''">
+      and tp.name like concat('%',#{tp.name},'%')
+    </if>
+    <if test="tp.courseId !=null">
+      and tp.courseId=#{tp.courseId}
+    </if>
+    <if test="tp.postTeacherId !=null">
+      and tp.postTeacherId =#{tp.postTeacherId}
+    </if>
+    <if test="tp.paperType !=null">
+      and tp.paperType =#{tp.paperType}
+    </if>
+    <if test="tp.isTemplate !=null">
+      and tp.isTemplate =#{tp.isTemplate}
+    </if>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+
   <select id="getTotal" resultType="Long">
     select count(*) from test_paper tp
     <where>
@@ -131,10 +159,48 @@
     </if>
 
   </select>
+  <!--成绩管理-获取所有的试卷总数-->
+  <select id="getAllTestPaperTotal" resultType="Long">
+    select count(*) from test_paper tp
+
+    <if test="tp.name!=null and tp.name!=''">
+      and tp.name like concat('%',#{tp.name},'%')
+    </if>
+    <if test="tp.courseId !=null">
+      and tp.courseId=#{tp.courseId}
+    </if>
+    <if test="tp.postTeacherId !=null">
+      and tp.postTeacherId =#{tp.postTeacherId}
+    </if>
+    <if test="tp.paperType !=null">
+      and tp.paperType =#{tp.paperType}
+    </if>
+    <if test="tp.isTemplate !=null">
+      and tp.isTemplate =#{tp.isTemplate}
+    </if>
+
+  </select>
+  <!--获取所有组卷的教师（非试卷模板）-->
   <select id="getPostTeachers" resultType="com.zzti.epa.model.Teacher">
       select DISTINCT t.* from test_paper tp,teacher t
       where tp.postTeacherId=t.id
     and tp.isTemplate=0
+  </select>
+  <!--获取所有组卷的教师-->
+  <select id="getAllCreateTeachers" resultType="com.zzti.epa.model.Teacher">
+     select DISTINCT t.* from test_paper tp,teacher t
+      where tp.postTeacherId=t.id
+  </select>
+  <select id="getTestPaperById" resultMap="TestPaperAllInfo">
+    select DISTINCT tp.*,t.id as tid, t.name as tname,c.id as cid,c.name as cname,s.id as sid,s.name as sname,m.id as mid,m.name as mname
+          FROM
+          test_paper tp,teacher t,school s,course c,major m
+          where tp.postTeacherId=t.id
+          and tp.schoolId =s.id
+          and tp.courseId=c.id
+          and tp.majorId=m.id
+          and isTemplate=0
+          and tp.id=#{testPaperId}
   </select>
 
   <!--write by yifang end-->

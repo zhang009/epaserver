@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.epa.mapper.grade.QuestionGradeMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.epa.model.QuestionGrade" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="studentGradeId" property="studentGradeId" jdbcType="INTEGER" />
+    <result column="questionScoreId" property="questionScoreId" jdbcType="INTEGER" />
+    <result column="queType" property="queType" jdbcType="VARCHAR" />
+    <result column="sortNum" property="sortNum" jdbcType="INTEGER" />
+    <result column="queGrade" property="queGrade" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, studentGradeId, questionScoreId, queType, sortNum, queGrade
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from question_grade
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from question_grade
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.epa.model.QuestionGrade" >
+    insert into question_grade (id, studentGradeId, questionScoreId, 
+      queType, sortNum, queGrade
+      )
+    values (#{id,jdbcType=INTEGER}, #{studentGradeId,jdbcType=INTEGER}, #{questionScoreId,jdbcType=INTEGER}, 
+      #{queType,jdbcType=VARCHAR}, #{sortNum,jdbcType=INTEGER}, #{queGrade,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.QuestionGrade" >
+    insert into question_grade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentGradeId != null" >
+        studentGradeId,
+      </if>
+      <if test="questionScoreId != null" >
+        questionScoreId,
+      </if>
+      <if test="queType != null" >
+        queType,
+      </if>
+      <if test="sortNum != null" >
+        sortNum,
+      </if>
+      <if test="queGrade != null" >
+        queGrade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="studentGradeId != null" >
+        #{studentGradeId,jdbcType=INTEGER},
+      </if>
+      <if test="questionScoreId != null" >
+        #{questionScoreId,jdbcType=INTEGER},
+      </if>
+      <if test="queType != null" >
+        #{queType,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNum != null" >
+        #{sortNum,jdbcType=INTEGER},
+      </if>
+      <if test="queGrade != null" >
+        #{queGrade,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.epa.model.QuestionGrade" >
+    update question_grade
+    <set >
+      <if test="studentGradeId != null" >
+        studentGradeId = #{studentGradeId,jdbcType=INTEGER},
+      </if>
+      <if test="questionScoreId != null" >
+        questionScoreId = #{questionScoreId,jdbcType=INTEGER},
+      </if>
+      <if test="queType != null" >
+        queType = #{queType,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNum != null" >
+        sortNum = #{sortNum,jdbcType=INTEGER},
+      </if>
+      <if test="queGrade != null" >
+        queGrade = #{queGrade,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.epa.model.QuestionGrade" >
+    update question_grade
+    set studentGradeId = #{studentGradeId,jdbcType=INTEGER},
+      questionScoreId = #{questionScoreId,jdbcType=INTEGER},
+      queType = #{queType,jdbcType=VARCHAR},
+      sortNum = #{sortNum,jdbcType=INTEGER},
+      queGrade = #{queGrade,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

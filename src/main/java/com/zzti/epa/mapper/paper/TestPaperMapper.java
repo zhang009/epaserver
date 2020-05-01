@@ -40,6 +40,15 @@ public interface TestPaperMapper {
     //获取组卷人列表（非试卷模板）
     List<Teacher> getPostTeachers();
 
+    TestPaper getTestPaperById(@Param("testPaperId") Integer testpaperId);
+    //获取组卷人列表(所有）
+    List<Teacher> getAllCreateTeachers();
+
+    //获取所有试卷
+    List<TestPaper> getAllTestPaperByPage(@Param("page")Integer page, @Param("size") Integer size, @Param("tp") TestPaper testPaper);
+
+    Long getAllTestPaperTotal( @Param("tp")TestPaper testPaper);
+
 
     //write by yifang end
 

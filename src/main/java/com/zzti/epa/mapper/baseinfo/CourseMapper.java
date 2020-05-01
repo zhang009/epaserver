@@ -1,7 +1,6 @@
 package com.zzti.epa.mapper.baseinfo;
 
 import com.zzti.epa.model.Course;
-import com.zzti.epa.model.Teacher;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public interface CourseMapper {
 
     int updateByPrimaryKey(Course record);
 
-    List<Teacher> getCourse(@Param("page")Integer page, @Param("size") Integer size, @Param("course")Course course);
+    List<Course> getCourse(@Param("page")Integer page, @Param("size") Integer size, @Param("course")Course course);
 
     Long getTotal(@Param("course")Course course);
 

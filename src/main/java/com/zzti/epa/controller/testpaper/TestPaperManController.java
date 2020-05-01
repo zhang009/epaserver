@@ -28,9 +28,16 @@ public class TestPaperManController {
         System.out.println(testPaper.toString());
         return testPaperService.getTestPaperByPage(page,size,testPaper);
     }
+    //获取组卷人信息（非试卷模板）
     @GetMapping("/getPostTeachers")
     public List<Teacher> getPostTeachers(){
         return testPaperService.getPostTeachers();
+    }
+
+    //获取组卷人信息（包括所有试卷的组卷人）
+    @GetMapping("/getAllPostTeachers")
+    public List<Teacher> getAllCreateTeachers(){
+        return testPaperService.getAllCreateTeachers();
     }
     @DeleteMapping("/{id}")
     public RespBean deleteTestPaperById(@PathVariable Integer id){
