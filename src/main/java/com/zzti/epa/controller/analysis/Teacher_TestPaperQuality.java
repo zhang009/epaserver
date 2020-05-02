@@ -23,7 +23,8 @@ public class Teacher_TestPaperQuality {
     //根据试卷id，得到这张试卷所有人的考试分数
     @PostMapping("/getTestPaperScoreById")
     public float[] getTestPaperScoreById(@RequestParam String id){
-        System.out.println(id);
+        //根据id查询出试卷的满分和及格分
+
         return null;
     }
 }
