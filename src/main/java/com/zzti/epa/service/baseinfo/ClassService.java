@@ -24,6 +24,9 @@ public class ClassService {
         return classMapper.getClassByMid(majorId);
     }
 
+    public List<Class> getAllClassByMajorId(Integer majorId){
+        return classMapper.getAllClassByMajorId(majorId);
+    }
     public RespPageBean getClassByPage(Integer page, Integer size, String keyword) {
         if(page!=null&& size!=null){
             page=(page-1)*size;

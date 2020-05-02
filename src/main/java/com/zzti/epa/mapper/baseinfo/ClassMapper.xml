@@ -59,6 +59,14 @@
   <select id="getAllClassWithName" resultType="String">
     select name from class
   </select>
+  <select id="getAllClassByMajorId" resultType="com.zzti.epa.model.Class">
+    select * from class
+     <where>
+       <if test="majorId !=null ">
+         and majorId=#{majorId}
+       </if>
+     </where>
+  </select>
 
 
 

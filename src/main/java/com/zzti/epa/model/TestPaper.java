@@ -160,17 +160,25 @@ public class TestPaper {
                 ", totalScore=" + totalScore +
                 ", passScore=" + passScore +
                 ", queTypes='" + queTypes + '\'' +
+                ", isTemplate=" + isTemplate +
                 ", dot=" + dot +
+                ", course=" + course +
+                ", school=" + school +
+                ", major=" + major +
                 ", scScore=" + scScore +
                 ", mcScore=" + mcScore +
                 ", tfScore=" + tfScore +
                 ", fbScore=" + Arrays.toString(fbScore) +
+                ", fbScore2=" + fbScore2 +
                 ", qaScore=" + Arrays.toString(qaScore) +
+                ", qaScore2=" + qaScore2 +
                 ", sclist=" + sclist +
                 ", mclist=" + mclist +
                 ", tflist=" + tflist +
                 ", fblist=" + fblist +
                 ", qalist=" + qalist +
+                ", questionScores=" + questionScores +
+                ", teacher=" + teacher +
                 '}';
     }
 

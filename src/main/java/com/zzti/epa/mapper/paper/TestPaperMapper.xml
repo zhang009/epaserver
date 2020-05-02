@@ -163,21 +163,24 @@
   <select id="getAllTestPaperTotal" resultType="Long">
     select count(*) from test_paper tp
 
-    <if test="tp.name!=null and tp.name!=''">
-      and tp.name like concat('%',#{tp.name},'%')
-    </if>
-    <if test="tp.courseId !=null">
-      and tp.courseId=#{tp.courseId}
-    </if>
-    <if test="tp.postTeacherId !=null">
-      and tp.postTeacherId =#{tp.postTeacherId}
-    </if>
-    <if test="tp.paperType !=null">
-      and tp.paperType =#{tp.paperType}
-    </if>
-    <if test="tp.isTemplate !=null">
-      and tp.isTemplate =#{tp.isTemplate}
-    </if>
+    <where>
+      <if test="tp.name!=null and tp.name!=''">
+        and tp.name like concat('%',#{tp.name},'%')
+      </if>
+      <if test="tp.courseId !=null">
+        and tp.courseId=#{tp.courseId}
+      </if>
+      <if test="tp.postTeacherId !=null">
+        and tp.postTeacherId =#{tp.postTeacherId}
+      </if>
+      <if test="tp.paperType !=null">
+        and tp.paperType =#{tp.paperType}
+      </if>
+      <if test="tp.isTemplate !=null">
+        and tp.isTemplate =#{tp.isTemplate}
+      </if>
+    </where>
+
 
   </select>
   <!--获取所有组卷的教师（非试卷模板）-->

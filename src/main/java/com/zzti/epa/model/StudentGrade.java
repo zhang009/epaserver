@@ -1,5 +1,9 @@
 package com.zzti.epa.model;
 
+import com.zzti.epa.model.gradePOJO.LargeQues;
+
+import java.util.List;
+
 public class StudentGrade {
     private Integer id;
 
@@ -13,6 +17,41 @@ public class StudentGrade {
     private Integer testPaperId;
 
     private Float totalGrade;
+
+    private Class clazz;
+
+    @Override
+    public String toString() {
+        return "StudentGrade{" +
+                "id=" + id +
+                ", studentNum='" + studentNum + '\'' +
+                ", studentName='" + studentName + '\'' +
+                ", courseId=" + courseId +
+                ", classId=" + classId +
+                ", testPaperId=" + testPaperId +
+                ", totalGrade=" + totalGrade +
+                ", clazz=" + clazz +
+                ", largeQues=" + largeQues +
+                '}';
+    }
+
+    private List<LargeQues> largeQues;//这里主要用来传递前端的试题成绩信息
+
+    public List<LargeQues> getLargeQues() {
+        return largeQues;
+    }
+
+    public void setLargeQues(List<LargeQues> largeQues) {
+        this.largeQues = largeQues;
+    }
+
+    public Class getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(Class clazz) {
+        this.clazz = clazz;
+    }
 
     public Integer getId() {
         return id;
