@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @ClassName KnowsController
- * @Description TODO
+ * @Description 知识点接口
  * @Author Administrator
  * @Date 2020-03-30 18:57
  **/
@@ -26,6 +26,7 @@ public class KnowsController {
     @Autowired
     CourseService courseService;
 
+    //根据课程id获取知识点
     @GetMapping("/all")
     public List<KnowsTree> getKnows(@RequestParam("courseId") Integer id){
         System.out.println(id);

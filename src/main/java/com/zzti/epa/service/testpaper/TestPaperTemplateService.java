@@ -73,33 +73,34 @@ public class TestPaperTemplateService {
 
     @Transactional
     public boolean addPaperTemplate(TempTestPaper2 tempTestPaper2) {//添加试卷模板
-        TestPaper testPaper=new TestPaper();
-        testPaper.setName(tempTestPaper2.getName());
-        testPaper.setSchoolId(tempTestPaper2.getSchoolId());
-        testPaper.setMajorId(tempTestPaper2.getMajorId());
-        testPaper.setSemester(tempTestPaper2.getSemester());
-        testPaper.setCourseId(tempTestPaper2.getCourseId());
-        testPaper.setRemark(tempTestPaper2.getRemark());
-        testPaper.setTotalScore(tempTestPaper2.getTotalScore());
-        testPaper.setPassScore(tempTestPaper2.getPassScore());
+        TestPaper testPaper=new TestPaper();//新建试卷对象
+        testPaper.setName(tempTestPaper2.getName());//设置试卷姓名
+        testPaper.setSchoolId(tempTestPaper2.getSchoolId());//学院id
+        testPaper.setMajorId(tempTestPaper2.getMajorId());//专业id
+        testPaper.setSemester(tempTestPaper2.getSemester());//学期
+        testPaper.setCourseId(tempTestPaper2.getCourseId());//课程id
+        testPaper.setRemark(tempTestPaper2.getRemark());//备注
+        testPaper.setTotalScore(tempTestPaper2.getTotalScore());//总分
+        testPaper.setPassScore(tempTestPaper2.getPassScore());//及格分
 
-        testPaper.setCreateTime(new Date());
-        testPaper.setPostTeacherId(TeacherUtils.getTeacher().getId());
+        testPaper.setCreateTime(new Date());//日期
+        testPaper.setPostTeacherId(TeacherUtils.getTeacher().getId());//提交教师的id编号
         /*testPaper.setPaperType(1);//试题组卷类型，0代表手动组卷，1代表自动组卷*/
         testPaper.setStatus(1);//状态为0表示未审核，这里试卷模板不用设置审核,这里统一设置为1
         testPaper.setIsTemplate(1);//设置试卷模板添加，试卷模板添加为1
         String queTypes="";
-        //这里需要遍历一次大题集合，获取题型，封装到一起
-        List<TemplateQuestions> templateQuestions=tempTestPaper2.getQuestions();//大题集合
+        //这里需要遍历一次大题集合，获取大题题型，封装到一起，
+        List<TemplateQuestions> templateQuestions=tempTestPaper2.getQuestions();//遍历大题集合
         for (int i = 0; i < templateQuestions.size(); i++) {
             TemplateQuestions templateQuestions1 = templateQuestions.get(i);
             if (templateQuestions1.getQueType() != null) {
                 queTypes += templateQuestions1.getQueType() + "@";
             }
         }
-        testPaper.setQueTypes(queTypes);
+        testPaper.setQueTypes(queTypes);//设置刚拼接的题型
         testPaperMapper.insertSelective(testPaper);//添加试卷模板到数据库，获取试卷模板的id
-        Integer testPaperId=testPaper.getId();
+        Integer testPaperId=testPaper.getId();//获取试卷模板的id
+
         List<QuestionScore> questionScores=new ArrayList<>();//存储试卷模板中的试题集合
         List<TemplateQuestions> largeQuestions=tempTestPaper2.getQuestions();// 获取大题集合
         for (int i = 0; i < largeQuestions.size(); i++) {

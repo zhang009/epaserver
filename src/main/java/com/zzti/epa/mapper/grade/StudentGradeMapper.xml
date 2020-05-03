@@ -67,7 +67,7 @@
     delete from student_grade
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zzti.epa.model.StudentGrade" >
+  <insert id="insert" parameterType="com.zzti.epa.model.StudentGrade" useGeneratedKeys="true" keyProperty="id">
     insert into student_grade (id, studentNum, studentName, 
       courseId, testPaperId, totalGrade,
        classId)
@@ -75,7 +75,7 @@
       #{courseId,jdbcType=INTEGER}, #{testPaperId,jdbcType=INTEGER}, #{totalGrade,jdbcType=REAL},
       #{classId,jdbcType=INTEGER} )
   </insert>
-  <insert id="insertSelective" parameterType="com.zzti.epa.model.StudentGrade" >
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.StudentGrade"  useGeneratedKeys="true" keyProperty="id">
     insert into student_grade
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

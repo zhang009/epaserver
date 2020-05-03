@@ -45,6 +45,10 @@
       </if>
   </select>
 
+  <select id="getAllStudentByClassId" resultType="com.zzti.epa.model.Student">
+    select * from student s where classId=#{classId}
+  </select>
+
   <delete id="deleteStuByIds">
     delete from student where id in
     <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
