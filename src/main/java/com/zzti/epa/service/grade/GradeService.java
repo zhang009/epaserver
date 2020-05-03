@@ -72,8 +72,8 @@ public class GradeService {
             LargeQues largeQues1=largeQues.get(i);
 
             //小题成绩表需要设置的字段为：studentGradeId、questionScoreId、queType、sortNum、queGrade、
-            for (int j = 0; j < largeQues1.getSmallQueGrades().size(); j++) {
-                SmallQueGrade smallQueGrade=largeQues1.getSmallQueGrades().get(i);//获取小题成绩
+            for (int j = 0; j < largeQues1.getSmallQueGrade().size(); j++) {
+                SmallQueGrade smallQueGrade=largeQues1.getSmallQueGrade().get(j);//获取小题成绩
                 QuestionGrade questionGrade=new QuestionGrade();//新建对象
                 questionGrade.setQueType(largeQues1.getQueType());//设置试题类型
                 questionGrade.setQueGrade(smallQueGrade.getQueGrade());//设置成绩值

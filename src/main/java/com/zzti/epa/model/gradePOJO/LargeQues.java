@@ -11,10 +11,27 @@ import java.util.List;
 public class LargeQues {
     private String queType;//大题题型
     private String largeQueScore;//大题总分（这里字段数据库里面没有，主要起到前端显示作用）
-    private List<SmallQueGrade> smallQueGrades;
+    private List<SmallQueGrade> smallQueGrade;
 
     public String getQueType() {
         return queType;
+    }
+
+    public List<SmallQueGrade> getSmallQueGrade() {
+        return smallQueGrade;
+    }
+
+    public void setSmallQueGrade(List<SmallQueGrade> smallQueGrade) {
+        this.smallQueGrade = smallQueGrade;
+    }
+
+    @Override
+    public String toString() {
+        return "LargeQues{" +
+                "queType='" + queType + '\'' +
+                ", largeQueScore='" + largeQueScore + '\'' +
+                ", smallQueGrade=" + smallQueGrade +
+                '}';
     }
 
     public void setQueType(String queType) {
@@ -29,11 +46,5 @@ public class LargeQues {
         this.largeQueScore = largeQueScore;
     }
 
-    public List<SmallQueGrade> getSmallQueGrades() {
-        return smallQueGrades;
-    }
 
-    public void setSmallQueGrades(List<SmallQueGrade> smallQueGrades) {
-        this.smallQueGrades = smallQueGrades;
-    }
 }

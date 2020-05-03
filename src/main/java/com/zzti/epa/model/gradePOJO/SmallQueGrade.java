@@ -13,6 +13,16 @@ public class SmallQueGrade {
     private Integer sortNum;//排序号
     private Integer questionScoreId;
 
+    @Override
+    public String toString() {
+        return "SmallQueGrade{" +
+                "initScore=" + initScore +
+                ", queGrade=" + queGrade +
+                ", sortNum=" + sortNum +
+                ", questionScoreId=" + questionScoreId +
+                '}';
+    }
+
     public Float getInitScore() {
         return initScore;
     }

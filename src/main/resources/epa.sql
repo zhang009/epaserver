@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2020-05-01 22:53:41
+Date: 2020-05-03 09:51:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -631,18 +631,46 @@ INSERT INTO `question_check` VALUES ('25', '3', '3', '3', '0', 'mc', '', '2020-0
 -- ----------------------------
 DROP TABLE IF EXISTS `question_grade`;
 CREATE TABLE `question_grade` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `studentGradeId` int(11) DEFAULT NULL,
-  `questionScoreId` int(11) DEFAULT NULL,
+  `questionScoreId` int(11) DEFAULT NULL COMMENT '对应试卷中小题分数的id',
   `queType` varchar(20) DEFAULT NULL,
   `sortNum` int(11) DEFAULT NULL,
   `queGrade` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question_grade
 -- ----------------------------
+INSERT INTO `question_grade` VALUES ('1', null, '170', '单选题', '1', null);
+INSERT INTO `question_grade` VALUES ('2', null, '171', '单选题', '2', null);
+INSERT INTO `question_grade` VALUES ('3', null, '172', '单选题', '3', null);
+INSERT INTO `question_grade` VALUES ('4', null, '173', '多选题', '1', null);
+INSERT INTO `question_grade` VALUES ('5', null, '174', '多选题', '2', null);
+INSERT INTO `question_grade` VALUES ('6', null, '175', '多选题', '3', null);
+INSERT INTO `question_grade` VALUES ('7', null, '176', '判断题', '1', null);
+INSERT INTO `question_grade` VALUES ('8', null, '177', '判断题', '2', null);
+INSERT INTO `question_grade` VALUES ('9', null, '178', '判断题', '3', null);
+INSERT INTO `question_grade` VALUES ('10', null, '179', '判断题', '4', null);
+INSERT INTO `question_grade` VALUES ('11', null, '180', '判断题', '5', null);
+INSERT INTO `question_grade` VALUES ('12', null, '181', '判断题', '6', null);
+INSERT INTO `question_grade` VALUES ('13', null, '182', '填空题', '1', null);
+INSERT INTO `question_grade` VALUES ('14', null, '183', '简答题', '1', null);
+INSERT INTO `question_grade` VALUES ('15', null, '170', '单选题', '1', null);
+INSERT INTO `question_grade` VALUES ('16', null, '171', '单选题', '2', null);
+INSERT INTO `question_grade` VALUES ('17', null, '172', '单选题', '3', null);
+INSERT INTO `question_grade` VALUES ('18', null, '173', '多选题', '1', null);
+INSERT INTO `question_grade` VALUES ('19', null, '174', '多选题', '2', null);
+INSERT INTO `question_grade` VALUES ('20', null, '175', '多选题', '3', null);
+INSERT INTO `question_grade` VALUES ('21', null, '176', '判断题', '1', null);
+INSERT INTO `question_grade` VALUES ('22', null, '177', '判断题', '2', null);
+INSERT INTO `question_grade` VALUES ('23', null, '178', '判断题', '3', null);
+INSERT INTO `question_grade` VALUES ('24', null, '179', '判断题', '4', null);
+INSERT INTO `question_grade` VALUES ('25', null, '180', '判断题', '5', null);
+INSERT INTO `question_grade` VALUES ('26', null, '181', '判断题', '6', null);
+INSERT INTO `question_grade` VALUES ('27', null, '182', '填空题', '1', null);
+INSERT INTO `question_grade` VALUES ('28', null, '183', '简答题', '1', null);
 
 -- ----------------------------
 -- Table structure for `question_score`
@@ -660,7 +688,7 @@ CREATE TABLE `question_score` (
   PRIMARY KEY (`id`),
   KEY `testPaperId` (`testPaperId`),
   CONSTRAINT `question_score_ibfk_1` FOREIGN KEY (`testPaperId`) REFERENCES `test_paper` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question_score
@@ -728,6 +756,38 @@ INSERT INTO `question_score` VALUES ('166', '1', '4', '判断题', '4', null, nu
 INSERT INTO `question_score` VALUES ('167', '1', '1', '填空题', '1', null, null, '2');
 INSERT INTO `question_score` VALUES ('168', '1', '2', '填空题', '2', null, null, '3');
 INSERT INTO `question_score` VALUES ('169', '1', '3', '填空题', '3', null, null, '2');
+INSERT INTO `question_score` VALUES ('170', '12', '3', '单选题', '1', null, null, '10');
+INSERT INTO `question_score` VALUES ('171', '12', '6', '单选题', '2', null, null, '10');
+INSERT INTO `question_score` VALUES ('172', '12', '7', '单选题', '3', null, null, '10');
+INSERT INTO `question_score` VALUES ('173', '12', '3', '多选题', '1', null, null, '20');
+INSERT INTO `question_score` VALUES ('174', '12', '2', '多选题', '2', null, null, '20');
+INSERT INTO `question_score` VALUES ('175', '12', '1', '多选题', '3', null, null, '20');
+INSERT INTO `question_score` VALUES ('176', '12', '5', '判断题', '1', null, null, '1');
+INSERT INTO `question_score` VALUES ('177', '12', '1', '判断题', '2', null, null, '1');
+INSERT INTO `question_score` VALUES ('178', '12', '7', '判断题', '3', null, null, '1');
+INSERT INTO `question_score` VALUES ('179', '12', '6', '判断题', '4', null, null, '1');
+INSERT INTO `question_score` VALUES ('180', '12', '4', '判断题', '5', null, null, '1');
+INSERT INTO `question_score` VALUES ('181', '12', '8', '判断题', '6', null, null, '1');
+INSERT INTO `question_score` VALUES ('182', '12', '2', '填空题', '1', null, null, '2');
+INSERT INTO `question_score` VALUES ('183', '12', '1', '简答题', '1', null, null, '1');
+INSERT INTO `question_score` VALUES ('184', '13', '6', '单选题', '1', null, null, '1');
+INSERT INTO `question_score` VALUES ('185', '13', '7', '单选题', '2', null, null, '1');
+INSERT INTO `question_score` VALUES ('186', '13', '2', '单选题', '3', null, null, '1');
+INSERT INTO `question_score` VALUES ('187', '13', '8', '单选题', '4', null, null, '1');
+INSERT INTO `question_score` VALUES ('188', '13', '5', '单选题', '5', null, null, '1');
+INSERT INTO `question_score` VALUES ('189', '13', '2', '多选题', '1', null, null, '2');
+INSERT INTO `question_score` VALUES ('190', '13', '1', '多选题', '2', null, null, '2');
+INSERT INTO `question_score` VALUES ('191', '13', '3', '多选题', '3', null, null, '2');
+INSERT INTO `question_score` VALUES ('192', '13', '1', '判断题', '1', null, null, '1');
+INSERT INTO `question_score` VALUES ('193', '13', '10', '判断题', '2', null, null, '1');
+INSERT INTO `question_score` VALUES ('194', '13', '5', '判断题', '3', null, null, '1');
+INSERT INTO `question_score` VALUES ('195', '13', '8', '判断题', '4', null, null, '1');
+INSERT INTO `question_score` VALUES ('196', '13', '9', '判断题', '5', null, null, '1');
+INSERT INTO `question_score` VALUES ('197', '13', '7', '判断题', '6', null, null, '1');
+INSERT INTO `question_score` VALUES ('198', '13', '2', '填空题', '1', null, null, '2');
+INSERT INTO `question_score` VALUES ('199', '13', '3', '填空题', '2', null, null, '2');
+INSERT INTO `question_score` VALUES ('200', '13', '1', '填空题', '3', null, null, '2');
+INSERT INTO `question_score` VALUES ('201', '13', '1', '简答题', '1', null, null, '77');
 
 -- ----------------------------
 -- Table structure for `que_type`
@@ -890,11 +950,13 @@ CREATE TABLE `student_grade` (
   `totalGrade` float DEFAULT NULL,
   `classId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student_grade
 -- ----------------------------
+INSERT INTO `student_grade` VALUES ('9', '201619040128', '张一方', '6', '12', '100', '5');
+INSERT INTO `student_grade` VALUES ('10', '201619040128', '张艺坊', '6', '12', '100', '5');
 
 -- ----------------------------
 -- Table structure for `teacher`
@@ -984,6 +1046,26 @@ INSERT INTO `teacher_role` VALUES ('38', '1554', '1');
 INSERT INTO `teacher_role` VALUES ('39', '1555', '1');
 
 -- ----------------------------
+-- Table structure for `testpaper_class`
+-- ----------------------------
+DROP TABLE IF EXISTS `testpaper_class`;
+CREATE TABLE `testpaper_class` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `testPaperId` int(11) DEFAULT NULL,
+  `classId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `testPaperId` (`testPaperId`),
+  KEY `classId` (`classId`),
+  CONSTRAINT `testpaper_class_ibfk_1` FOREIGN KEY (`testPaperId`) REFERENCES `test_paper` (`id`),
+  CONSTRAINT `testpaper_class_ibfk_2` FOREIGN KEY (`classId`) REFERENCES `class` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of testpaper_class
+-- ----------------------------
+INSERT INTO `testpaper_class` VALUES ('1', '12', '5');
+
+-- ----------------------------
 -- Table structure for `test_paper`
 -- ----------------------------
 DROP TABLE IF EXISTS `test_paper`;
@@ -1009,16 +1091,17 @@ CREATE TABLE `test_paper` (
   `isTemplate` int(11) DEFAULT '0' COMMENT '是否为试卷模板，1表示是，0表示否',
   `dot` float DEFAULT NULL COMMENT '试卷难度',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of test_paper
 -- ----------------------------
 INSERT INTO `test_paper` VALUES ('1', '期末测试', '1', '1', '2018-2019学年第一学期', '2020-04-24', '2020-04-29 22:31:32', '6', '2@3@7@6@1@5@4@12@8', '', '3', '3', '0', '0', '', '36', '36', '单选题@多选题@判断题@填空题@', '0', null);
-INSERT INTO `test_paper` VALUES ('8', 'ccc', '1', '1', '2018-2019学年第一学期', '2020-04-27', '2020-04-27 17:22:30', '6', null, null, '3', null, '1', null, '', '10', '6', '单选题@多选题@', '1', null);
+INSERT INTO `test_paper` VALUES ('8', 'ccc', '1', '1', '2018-2019学年第一学期', '2020-04-27', '2020-05-02 08:02:27', '6', null, null, '3', null, '1', null, '', '10', '6', '单选题@多选题@', '1', null);
 INSERT INTO `test_paper` VALUES ('9', 'ddd', '1', '1', '2018-2019学年第一学期', '2020-04-27', null, '6', null, null, '3', null, '1', null, '', '10', '6', '单选题@多选题@', '1', null);
 INSERT INTO `test_paper` VALUES ('10', 'eee111', '1', '1', '2018-2019学年第一学期', '2020-04-27', '2020-04-28 10:57:22', '6', null, null, '3', null, '1', null, '', '10', '6', '单选题@多选题@', '1', null);
-INSERT INTO `test_paper` VALUES ('11', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '0', null);
+INSERT INTO `test_paper` VALUES ('12', '自动测试222', '1', '1', '2018-2019学年第一学期', '2020-05-02', null, '6', '', '15@16@17@18@19@20@21@22@23@24@25@26@27@28@29@30@31@32@33@34@35@36@37@38@39@40@41@42', '3', null, '0', '1', '', '100', '60', '单选题@多选题@判断题@填空题@简答题@', '0', null);
+INSERT INTO `test_paper` VALUES ('13', '期末测试001', '1', '1', '2018-2019学年第一学期', '2020-05-03', null, '6', '', '15@16@17@18@19@20@21@22@23@24@25@26@27@28@29@30@31@32@33@34@35@36@37@38@39@40@41@42', '3', '3', '0', '1', '', '100', '60', '单选题@多选题@判断题@填空题@简答题@', '0', null);
 
 -- ----------------------------
 -- Table structure for `tf_question`

@@ -14,8 +14,11 @@
     insert into question_grade(studentGradeId, questionScoreId, queType, sortNum,queGrade)
     values
     <foreach collection="list" separator="," item="questionGrade">
-      ( #{studentGradeId,jdbcType=INTEGER}, #{questionScoreId,jdbcType=INTEGER},
-      #{queType,jdbcType=VARCHAR}, #{sortNum,jdbcType=INTEGER}, #{queGrade,jdbcType=REAL}
+      ( #{questionGrade.studentGradeId,jdbcType=INTEGER},
+       #{questionGrade.questionScoreId,jdbcType=INTEGER},
+      #{questionGrade.queType,jdbcType=VARCHAR},
+       #{questionGrade.sortNum,jdbcType=INTEGER},
+       #{questionGrade.queGrade,jdbcType=REAL}
       )
     </foreach>
   </insert>
