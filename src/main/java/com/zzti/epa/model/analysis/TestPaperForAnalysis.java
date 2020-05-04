@@ -3,12 +3,12 @@ package com.zzti.epa.model.analysis;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class TestPaper {
+public class TestPaperForAnalysis {
     int id;         //试卷id
-    float name;     //试卷名称
+    String name;     //试卷名称
     int schoolId;   //学院id
     int majorId;    //专业id
-    String Term;    //学年
+    String semester;    //学年
     Date createTime;//创建时间
     Timestamp updateTime;//修改时间
     int courseId;       //课程编号
@@ -17,11 +17,12 @@ public class TestPaper {
     int postTeacherId;  //出卷人id
     int checkTeacherId; //审核人Id
     int status;         //试卷状态
-    int PaperType;      //组卷类别
+    int paperType;      //组卷类别
     String remark;      //试卷备注信息
     float totalScore;   //总分值
-    float PassScore;    //及格分
-    String QueTypes;    //题目中包含的题型
+    float passScore;    //及格分
+    String queTypes;    //题目中包含的题型
+    int isTemplate;     //
     float dot;          //试卷难度
 
     public int getId() {
@@ -32,11 +33,11 @@ public class TestPaper {
         this.id = id;
     }
 
-    public float getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(float name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -56,12 +57,12 @@ public class TestPaper {
         this.majorId = majorId;
     }
 
-    public String getTerm() {
-        return Term;
+    public String getSemester() {
+        return semester;
     }
 
-    public void setTerm(String term) {
-        Term = term;
+    public void setSemester(String semester) {
+        this.semester = semester;
     }
 
     public Date getCreateTime() {
@@ -129,11 +130,11 @@ public class TestPaper {
     }
 
     public int getPaperType() {
-        return PaperType;
+        return paperType;
     }
 
     public void setPaperType(int paperType) {
-        PaperType = paperType;
+        this.paperType = paperType;
     }
 
     public String getRemark() {
@@ -153,19 +154,27 @@ public class TestPaper {
     }
 
     public float getPassScore() {
-        return PassScore;
+        return passScore;
     }
 
     public void setPassScore(float passScore) {
-        PassScore = passScore;
+        this.passScore = passScore;
     }
 
     public String getQueTypes() {
-        return QueTypes;
+        return queTypes;
     }
 
     public void setQueTypes(String queTypes) {
-        QueTypes = queTypes;
+        this.queTypes = queTypes;
+    }
+
+    public int getIsTemplate() {
+        return isTemplate;
+    }
+
+    public void setIsTemplate(int isTemplate) {
+        this.isTemplate = isTemplate;
     }
 
     public float getDot() {
@@ -178,12 +187,12 @@ public class TestPaper {
 
     @Override
     public String toString() {
-        return "TestPaper{" +
+        return "TestPaperForAnalysis{" +
                 "id=" + id +
                 ", name=" + name +
                 ", schoolId=" + schoolId +
                 ", majorId=" + majorId +
-                ", Term='" + Term + '\'' +
+                ", semester='" + semester + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", courseId=" + courseId +
@@ -192,11 +201,12 @@ public class TestPaper {
                 ", postTeacherId=" + postTeacherId +
                 ", checkTeacherId=" + checkTeacherId +
                 ", status=" + status +
-                ", PaperType=" + PaperType +
+                ", paperType=" + paperType +
                 ", remark='" + remark + '\'' +
                 ", totalScore=" + totalScore +
-                ", PassScore=" + PassScore +
-                ", QueTypes='" + QueTypes + '\'' +
+                ", passScore=" + passScore +
+                ", queTypes='" + queTypes + '\'' +
+                ", isTemplate=" + isTemplate +
                 ", dot=" + dot +
                 '}';
     }

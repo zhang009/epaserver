@@ -3,6 +3,7 @@ package com.zzti.epa.mapper.paper;
 import com.zzti.epa.model.Teacher;
 import com.zzti.epa.model.TestPaper;
 import com.zzti.epa.model.analysis.ListOfTestPaper;
+import com.zzti.epa.model.analysis.TestPaperForAnalysis;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,8 +22,17 @@ public interface TestPaperMapper {
     int updateByPrimaryKey(TestPaper record);
 
     //write by writer start
+    //write by writer start
+
+    //查询试卷列表
     List<ListOfTestPaper> select_ListOfTestPaper();
+    //根据id查询试卷
+    TestPaperForAnalysis getTestPaperByIdForAnalysis(@Param("id")Integer id);
+
     //write by writer end
+    //write by writer end
+
+
 
     //write by yifang start
     //获取试卷列表

@@ -214,12 +214,38 @@
     <result column="tname" property="teacher" jdbcType="VARCHAR" />
   </resultMap>
 
-
   <select id="select_ListOfTestPaper" resultMap="ListOfTestPaper" >
     select
     test_paper.id,test_paper.name,test_paper.createTime,teacher.name "tname"
     from test_paper inner join teacher
     where test_paper.postTeacherId=teacher.id;
+  </select>
+
+  <resultMap id="TestPaperForAnalysis_resultMap" type="com.zzti.epa.model.analysis.TestPaperForAnalysis" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="majorId" property="majorId" jdbcType="INTEGER" />
+    <result column="semester" property="semester" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="DATE" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="courseId" property="courseId" jdbcType="INTEGER" />
+    <result column="chapterIds" property="chapterIds" jdbcType="VARCHAR" />
+    <result column="knowIds" property="knowIds" jdbcType="VARCHAR" />
+    <result column="postTeacherId" property="postTeacherId" jdbcType="INTEGER" />
+    <result column="checkTeacherId" property="checkTeacherId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="paperType" property="paperType" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="totalScore" property="totalScore" jdbcType="REAL" />
+    <result column="passScore" property="passScore" jdbcType="REAL" />
+    <result column="queTypes" property="queTypes" jdbcType="VARCHAR" />
+    <result column="isTemplate" property="isTemplate" jdbcType="INTEGER" />
+    <result column="dot" property="dot" jdbcType="REAL" />
+  </resultMap>
+
+  <select id="getTestPaperByIdForAnalysis" resultMap="TestPaperForAnalysis_resultMap" parameterType="java.lang.Integer">
+    select * from test_paper where test_paper.id = #{id};
   </select>
 
   <!--write by writer end-->
