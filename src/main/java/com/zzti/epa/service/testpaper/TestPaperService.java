@@ -1711,6 +1711,7 @@ public class TestPaperService {
         if(page!=null&& size!=null){
             page=(page-1)*size;
         }
+
         List<TestPaper> data=testPaperMapper.getAllTestPaperByPage(page,size,testPaper);
         //这里把试题信息进行封装
         //首先获取试卷中的试题类型，放到集合中
@@ -1720,40 +1721,50 @@ public class TestPaperService {
         List<FBQuestion> fblist=new ArrayList<>();
         List<QAQuestion> qalist=new ArrayList<>();
 
+
         for (int i = 0; i < data.size(); i++) {//遍历试卷
             TestPaper testPaper1=data.get(i);
 
             List<QuestionScore> questionScoreList=questionScoreMapper.getQuestionScoreByTestPaperId2(testPaper1.getId());
 
-            for (int j = 0; j < questionScoreList.size(); j++) {
-                QuestionScore questionScore=questionScoreList.get(j);
-                //
-                if(questionScore.getQueType().equals("单选题")){
-                    SCQuestion scQuestion=scQuestionService.getSCQuestionById(questionScore.getQuestionId());
-                    sclist.add(scQuestion);
-                }else if(questionScore.getQueType().equals("多选题")){
-                    MCQuestion mcQuestion=mcQuestionService.getMCQuestionById(questionScore.getQuestionId());
-                    mclist.add(mcQuestion);
-                }else if(questionScore.getQueType().equals("判断题")){
-                    TFQuestion tfQuestion=tfQuestionService.getTFQuestionById(questionScore.getQuestionId());
-                    tflist.add(tfQuestion);
-                }else if(questionScore.getQueType().equals("填空题")){
-                    FBQuestion fbQuestion=fbQuestionService.getFBQuestionById(questionScore.getQuestionId());
-                    fblist.add(fbQuestion);
+            //判断是系统组卷还是试卷模板
+            if(testPaper1.getIsTemplate()==0){
+                //系统组卷
+                for (int j = 0; j < questionScoreList.size(); j++) {
+                    QuestionScore questionScore=questionScoreList.get(j);
+                    //
+                    if(questionScore.getQueType().equals("单选题")){
+                        SCQuestion scQuestion=scQuestionService.getSCQuestionById(questionScore.getQuestionId());
+                        sclist.add(scQuestion);
+                    }else if(questionScore.getQueType().equals("多选题")){
+                        MCQuestion mcQuestion=mcQuestionService.getMCQuestionById(questionScore.getQuestionId());
+                        mclist.add(mcQuestion);
+                    }else if(questionScore.getQueType().equals("判断题")){
+                        TFQuestion tfQuestion=tfQuestionService.getTFQuestionById(questionScore.getQuestionId());
+                        tflist.add(tfQuestion);
+                    }else if(questionScore.getQueType().equals("填空题")){
+                        FBQuestion fbQuestion=fbQuestionService.getFBQuestionById(questionScore.getQuestionId());
+                        fblist.add(fbQuestion);
 
-                }else if(questionScore.getQueType().equals("简答题")){
-                    QAQuestion qaQuestion=qaQuestionService.getQAQuestionById(questionScore.getQuestionId());
-                    qalist.add(qaQuestion);
+                    }else if(questionScore.getQueType().equals("简答题")){
+                        QAQuestion qaQuestion=qaQuestionService.getQAQuestionById(questionScore.getQuestionId());
+                        qalist.add(qaQuestion);
+                    }
                 }
+
+
+                testPaper1.setQuestionScores(questionScoreList);
+                testPaper1.setSclist(sclist);
+                testPaper1.setMclist(mclist);
+                testPaper1.setTflist(tflist);
+                testPaper1.setFblist(fblist);
+                testPaper1.setQalist(qalist);
+
+            }else{
+                //试卷模板
+                testPaper1.setQuestionScores(questionScoreList);
             }
 
-            // System.out.println(">>>>questionScoreList:"+questionScoreList);
-            testPaper1.setQuestionScores(questionScoreList);
-            testPaper1.setSclist(sclist);
-            testPaper1.setMclist(mclist);
-            testPaper1.setTflist(tflist);
-            testPaper1.setFblist(fblist);
-            testPaper1.setQalist(qalist);
 
         }
 

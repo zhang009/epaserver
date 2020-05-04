@@ -55,4 +55,9 @@ public class StudentService {
        return studentMapper.addStus(list);
 
     }
+
+    //根据班级id获取学生数据集合
+    public List<Student> getAllStudentByClassId(Integer classId) {
+        return studentMapper.getAllStudentByClassId(classId);
+    }
 }

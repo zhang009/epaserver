@@ -9,6 +9,24 @@
     <result column="sortNum" property="sortNum" jdbcType="INTEGER" />
     <result column="queGrade" property="queGrade" jdbcType="REAL" />
   </resultMap>
+  
+  <insert id="addQuestonGradeList">
+    insert into question_grade(studentGradeId, questionScoreId, queType, sortNum,queGrade)
+    values
+    <foreach collection="list" separator="," item="questionGrade">
+      ( #{questionGrade.studentGradeId,jdbcType=INTEGER},
+       #{questionGrade.questionScoreId,jdbcType=INTEGER},
+      #{questionGrade.queType,jdbcType=VARCHAR},
+       #{questionGrade.sortNum,jdbcType=INTEGER},
+       #{questionGrade.queGrade,jdbcType=REAL}
+      )
+    </foreach>
+  </insert>
+  
+  
+
+  
+  
   <sql id="Base_Column_List" >
     id, studentGradeId, questionScoreId, queType, sortNum, queGrade
   </sql>

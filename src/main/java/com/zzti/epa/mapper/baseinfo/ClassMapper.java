@@ -20,7 +20,7 @@ public interface ClassMapper {
     int updateByPrimaryKey(Class record);
 	
 	  //
-    List<Class> getClassByMid(Integer majorId);
+    List<Class> getClassByMid(@Param("majorId") Integer majorId);
 
     List<Teacher> getClassByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("keyword") String keyword);
 
@@ -31,4 +31,6 @@ public interface ClassMapper {
     List<Class> getClassByName(@Param("name") String name);
 
     List<String> getAllClassWithName();
+
+    List<Class> getAllClassByMajorId(@Param("majorId") Integer majorId);
 }

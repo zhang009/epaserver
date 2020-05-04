@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.epa.mapper.grade.TestPaperClassMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.epa.model.TestPaperClass" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="testPaperId" property="testPaperId" jdbcType="INTEGER" />
+    <result column="classId" property="classId" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <select id="getAllTestPaperClass" resultType="com.zzti.epa.model.Class">
+    select c.*
+    from testpaper_class tpc,class c
+    where tpc.classId=c.id
+    and tpc.testPaperId=#{testPaperId}
+  </select>
+
+
+
+  <insert id="insert" parameterType="com.zzti.epa.model.TestPaperClass" >
+    insert into testpaper_class (id, testPaperId, classId
+      )
+    values (#{id,jdbcType=INTEGER}, #{testPaperId,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.TestPaperClass" >
+    insert into testpaper_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="testPaperId != null" >
+        testPaperId,
+      </if>
+      <if test="classId != null" >
+        classId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperId != null" >
+        #{testPaperId,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null" >
+        #{classId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

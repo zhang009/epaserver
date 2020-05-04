@@ -56,6 +56,7 @@ public class TestPaperTemplateController {
         return RespBean.error("添加失败");
     }
 
+    //添加试卷模板
     @PostMapping("/addTemplate")
     public RespBean addTestPaperTemplate(@RequestBody TempTestPaper2 tempTestPaper2){//添加题型
 

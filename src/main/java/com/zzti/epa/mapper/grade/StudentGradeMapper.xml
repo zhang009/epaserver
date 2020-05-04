@@ -10,6 +10,7 @@
     <result column="totalGrade" property="totalGrade" jdbcType="REAL" />
     <result column="classId" property="classId" jdbcType="INTEGER" />
   </resultMap>
+
 <!--write by writer start-->
 <!--write by writer start-->
   <resultMap id="StudentGradeMap" type="com.zzti.epa.model.analysis.StudentGrade" >
@@ -26,6 +27,52 @@
 </select>
 <!--write by writer end-->
 <!--write by writer end-->
+
+  <resultMap id="AllStudentGradesByPageWithClass" type="com.zzti.epa.model.StudentGrade" extends="BaseResultMap">
+    <association property="clazz" javaType="com.zzti.epa.model.Class">
+      <id column="cid" property="id"/>
+      <result column="cname" property="name"/>
+    </association>
+  </resultMap>
+
+  <select id="getStudentGrades" resultMap="AllStudentGradesByPageWithClass">
+    select sg.*,c.id as cid ,c.name as cname from student_grade sg,class c
+    where sg.classId=c.id
+
+      <if test="studentGrade.classId !=null">
+        and sg.classId =#{studentGrade.classId}
+      </if>
+      <if test="studentGrade.testPaperId !=null">
+        and sg.testPaperId =#{studentGrade.testPaperId}
+      </if>
+    ORDER BY studentNum
+      <if test="page !=null and size!=null">
+        limit #{page},#{size}
+      </if>
+
+
+  </select>
+
+  <select id="getStudentGradesTotal" resultType="Long">
+    select count(*) from student_grade sg
+    <where>
+      <if test="studentGrade.classId !=null">
+        and sg.classId =#{studentGrade.classId}
+      </if>
+    </where>
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
   <sql id="Base_Column_List" >
     id, studentNum, studentName, courseId, testPaperId, totalGrade, classId
   </sql>
@@ -39,7 +86,7 @@
     delete from student_grade
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zzti.epa.model.StudentGrade" >
+  <insert id="insert" parameterType="com.zzti.epa.model.StudentGrade" useGeneratedKeys="true" keyProperty="id">
     insert into student_grade (id, studentNum, studentName, 
       courseId, testPaperId, totalGrade,
        classId)
@@ -47,7 +94,7 @@
       #{courseId,jdbcType=INTEGER}, #{testPaperId,jdbcType=INTEGER}, #{totalGrade,jdbcType=REAL},
       #{classId,jdbcType=INTEGER} )
   </insert>
-  <insert id="insertSelective" parameterType="com.zzti.epa.model.StudentGrade" >
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.StudentGrade"  useGeneratedKeys="true" keyProperty="id">
     insert into student_grade
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

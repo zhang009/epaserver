@@ -34,6 +34,11 @@ public class StudentController {
 
         return studentService.getStudentByPage(page,size,student);
     }
+    @GetMapping("/getAllStudentByClassId")
+    public List<Student> getAllStudentByClassId(@RequestParam("classId") Integer classId){
+
+        return studentService.getAllStudentByClassId(classId);
+    }
 
     @DeleteMapping("/{id}")
     public RespBean deleteStuById(@PathVariable Integer id){

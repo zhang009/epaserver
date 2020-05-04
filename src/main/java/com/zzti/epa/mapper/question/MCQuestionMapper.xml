@@ -80,7 +80,7 @@ where mc.teacherId=t.id
       and mc.id=#{id}
   </select>
   <select id="getMCQuestionByCourseId" resultMap="MCQuestionWithOption">
-    select mc.*,mco.id as oid, mco.optionNum, mco.optionContentfrom mc_question mc,mc_option mco
+    select mc.*,mco.id as oid, mco.optionNum, mco.optionContent from mc_question mc,mc_option mco
     where mc.id=mco.mcId
       and mc.courseId=#{id}
   </select>

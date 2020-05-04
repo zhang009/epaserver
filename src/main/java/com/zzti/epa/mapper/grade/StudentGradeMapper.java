@@ -18,9 +18,18 @@ public interface StudentGradeMapper {
 
     int updateByPrimaryKey(StudentGrade record);
 
+
     //    write by writer start
     //    write by writer start
     List<com.zzti.epa.model.analysis.StudentGrade> getStudentGradeOfListByTestPaperId(@Param("testPaperId")Integer testPaperId);
     //    write by writer end
     //    write by writer end
+
+    //
+    List<StudentGrade> getStudentGrades(@Param("page") Integer page,
+                                        @Param("size") Integer size,
+                                        @Param("studentGrade") StudentGrade studentGrade);
+
+    Long getStudentGradesTotal(@Param("studentGrade")StudentGrade studentGrade);
+
 }
