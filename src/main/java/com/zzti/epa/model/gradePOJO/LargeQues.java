@@ -10,7 +10,8 @@ import java.util.List;
  **/
 public class LargeQues {
     private String queType;//大题题型
-    private Float largeQueScore;//大题总分（这里字段数据库里面没有，主要起到前端显示作用）
+    private Float largeQueScore;//大题试卷总分（这里字段数据库里面没有，主要起到前端显示作用）
+    private Float largeQueGrade;//大题成绩得分（这里字段数据库里面没有，主要起到前端显示作用）
     private List<SmallQueGrade> smallQueGrade;
 
     public String getQueType() {
@@ -32,6 +33,14 @@ public class LargeQues {
                 ", largeQueScore='" + largeQueScore + '\'' +
                 ", smallQueGrade=" + smallQueGrade +
                 '}';
+    }
+
+    public Float getLargeQueGrade() {
+        return largeQueGrade;
+    }
+
+    public void setLargeQueGrade(Float largeQueGrade) {
+        this.largeQueGrade = largeQueGrade;
     }
 
     public void setQueType(String queType) {

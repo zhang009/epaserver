@@ -36,6 +36,11 @@ public class GradeController {
                                         TestPaper testPaper){
         return testPaperService.getAllTestPaperByPage(page,size,testPaper);
     }
+    //查询所有学生成绩（没有小题信息）
+    @GetMapping("/input/allOnlyStudentGrades")
+    public List<StudentGrade> allOnlyStudentGrades(StudentGrade studentGrade){
+        return gradeService.allOnlyStudentGrades(studentGrade);
+    }
 
     //获取该试卷下的班级
     @GetMapping("/input/allTestPaperClass")
@@ -71,6 +76,14 @@ public class GradeController {
         }
         return RespBean.error("添加失败！");
     }
+    //添加成绩
+    @PutMapping("/input/updateStudentGrade")
+    public RespBean updateStudentGrade(@RequestBody StudentGrade studentGrade){
+        if(gradeService.updateStudentGrade(studentGrade)){
+            return RespBean.ok("添加成功！");
+        }
+        return RespBean.error("添加失败！");
+    }
 
     //批量导入成绩数据
     @PostMapping("/input/import")
@@ -96,6 +109,13 @@ public class GradeController {
 
         StudentGrade studentGrade=gradeService.exportData(testPaperId,courseId,classId);
         return POIUtils.studentGrade2Excel(studentGrade);
+    }
+    @DeleteMapping("/input/{id}")
+    public RespBean deleteStudentById(@PathVariable Integer id){
+        if(gradeService.deleteStudentById(id)==1){
+            return RespBean.ok("删除成功！");
+        }
+        return RespBean.error("删除成功！");
     }
 
 

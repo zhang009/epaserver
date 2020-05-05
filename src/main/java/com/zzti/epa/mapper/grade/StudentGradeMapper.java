@@ -33,4 +33,5 @@ public interface StudentGradeMapper {
 
     Long getStudentGradesTotal(@Param("studentGrade")StudentGrade studentGrade);
 
+    List<StudentGrade> allOnlyStudentGrades(@Param("studentGrade")StudentGrade studentGrade);
 }
