@@ -1,10 +1,9 @@
 package com.zzti.epa.utils;
 
+import com.zzti.epa.model.*;
 import com.zzti.epa.model.Class;
-import com.zzti.epa.model.Department;
-import com.zzti.epa.model.JobLevel;
-import com.zzti.epa.model.Student;
-import com.zzti.epa.model.Teacher;
+import com.zzti.epa.model.gradePOJO.LargeQues;
+import com.zzti.epa.model.gradePOJO.SmallQueGrade;
 import org.apache.poi.hpsf.DocumentSummaryInformation;
 import org.apache.poi.hpsf.SummaryInformation;
 import org.apache.poi.hssf.usermodel.*;
@@ -472,5 +471,136 @@ public class POIUtils {
         }
       //  System.out.println(list.toString());
         return list;
+    }
+
+    //导出成绩模板
+    public static ResponseEntity<byte[]> studentGrade2Excel(StudentGrade studentGrade) {
+        //1、创建一个Excel文档
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        //2.创建文档摘要
+        workbook.createInformationProperties();
+        //3.获取并配置文档信息
+        DocumentSummaryInformation docInfo = workbook.getDocumentSummaryInformation();
+        docInfo.setCategory("学生成绩导入模板");//文档类别
+        docInfo.setManager("admin");//文档管理员
+        docInfo.setCompany("www.zzti.edu.cn");//组织结构
+        //4.获取文档摘要信息
+        SummaryInformation summaryInfo = workbook.getSummaryInformation();
+        summaryInfo.setAuthor("zhang009");//文档作者
+        summaryInfo.setComments("本文档由zhang009提供");//备注
+        //5.创建样式
+        //创建标题行样式
+        HSSFCellStyle headerStyle=workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.YELLOW.index);//加入背景颜色
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        /* headerStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);*/ //下边框
+        headerStyle.setBorderBottom(BorderStyle.THIN); //下边框
+        headerStyle.setBorderLeft(BorderStyle.THIN);//左边框
+        headerStyle.setBorderTop(BorderStyle.THIN);//上边框
+        headerStyle.setBorderRight(BorderStyle.THIN);//右边框
+        HSSFFont font = workbook.createFont();
+        font.setFontName("宋体");
+        font.setFontHeightInPoints((short) 10);//设置字体大小
+        /*font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示*/
+        font.setBold(true);
+        headerStyle.setFont(font);//选择需要用到的字体格式
+        //    headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 居中
+        headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);//垂直
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);//水平
+
+        //创建表单
+        HSSFSheet sheet = workbook.createSheet("学生成绩表");//参数为表单的名字Style
+        //定义列的宽度
+        sheet.setColumnWidth(0,20*256);//第一个参数为第几列，第二个参数为宽度
+
+        sheet.setColumnWidth(1,15*256);
+        sheet.setColumnWidth(2,10*256);
+
+        //6.创建标题行（表头）
+        HSSFRow r0 = sheet.createRow(0);
+        r0.setHeightInPoints(18);//设置单元格行高
+        //工号增加批注
+      /*  Drawing draw = sheet.createDrawingPatriarch();
+        //(int dx1, int dy1, int dx2, int dy2, short col1, int row1, short col2, int row2)
+        //前四个参数是坐标点,后四个参数是编辑和显示批注时的大小.
+        Comment comment = draw.createCellComment(new HSSFClientAnchor(0,0,0,0,(short)1,1,(short)2,3));
+        comment.setString(new HSSFRichTextString("教师工号为4位数字（文本类型）"));//设置批注内容
+        Drawing draw2 = sheet.createDrawingPatriarch();
+        //(int dx1, int dy1, int dx2, int dy2, short col1, int row1, short col2, int row2)
+        //前四个参数是坐标点,后四个参数是编辑和显示批注时的大小.
+        Comment comment2 = draw.createCellComment(new HSSFClientAnchor(0,0,0,0,(short)1,1,(short)2,3));
+        comment.setString(new HSSFRichTextString("手机号码为文本类型"));//设置批注内容*/
+
+
+        HSSFCell c0 = r0.createCell(0);
+        c0.setCellValue("学号");
+        c0.setCellStyle(headerStyle);
+        //创建第二列
+        HSSFCell c1=r0.createCell(1);
+        c1.setCellStyle(headerStyle);
+       /* c1.setCellComment(comment);*///设置工号批注
+        c1.setCellValue("姓名");
+
+        HSSFCell c2=r0.createCell(2);
+        c2.setCellStyle(headerStyle);
+        c2.setCellValue("总成绩");
+
+        HSSFCell c3=r0.createCell(3);
+        c3.setCellStyle(headerStyle);
+        c3.setCellValue("");
+
+        List<LargeQues> largeQuesList=studentGrade.getLargeQues();//大题集合
+        System.out.println(largeQuesList.toString());
+        int indexNum=3;
+        for (int i = 0; i < largeQuesList.size(); i++) {
+            LargeQues largeQues=largeQuesList.get(i);
+            List<SmallQueGrade> smallQueGradeList=largeQues.getSmallQueGrade();//小题集合
+
+            for (int j = 0; j < smallQueGradeList.size(); j++) {
+               /* sheet.autoSizeColumn(indexNum+1);//设置自适应列宽*/
+
+                HSSFCell cell=r0.createCell(indexNum+1);
+
+                cell.setCellStyle(headerStyle);
+                //设置试题题型加编号和分值，如单选题1（1分）
+                String value=largeQues.getQueType()+((smallQueGradeList.get(j).getSortNum()))+"("+(smallQueGradeList.get(j).getInitScore())+"分)";
+                sheet.setColumnWidth(indexNum+1, value.getBytes().length * 256);//设置列宽
+                cell.setCellValue(value);
+                indexNum++;
+            }
+        }
+
+        //创建工号为文本格式
+        for(int i = 0;i < 500;i++)
+        {
+            HSSFRow row = sheet.createRow(i + 1);
+            //创建第i个单元格
+            HSSFCell cell = row.createCell(0);
+            if(cell.getCellType()!=CellType.STRING){
+                cell.setCellType(CellType.STRING);
+            }
+            //新增的四句话，设置CELL格式为文本格式
+            HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+            HSSFDataFormat format = workbook.createDataFormat();
+            cellStyle2.setDataFormat(format.getFormat("@"));
+            cell.setCellStyle(cellStyle2);
+            cell.setCellType(CellType.STRING);
+        }
+
+
+
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        HttpHeaders headers=new HttpHeaders();
+
+        try {
+            headers.setContentDispositionFormData("attachment",new String("学生成绩导入模板.xls".getBytes("UTF-8"),"ISO-8859-1"));
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            workbook.write(bos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<byte[]>(bos.toByteArray(),headers, HttpStatus.CREATED);
     }
 }

@@ -37,6 +37,8 @@ public class StudentGrade {
 
     private List<LargeQues> largeQues;//这里主要用来传递前端的试题成绩信息
 
+
+
     public List<LargeQues> getLargeQues() {
         return largeQues;
     }

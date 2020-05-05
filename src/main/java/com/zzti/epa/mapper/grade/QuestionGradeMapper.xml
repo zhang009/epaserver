@@ -22,6 +22,11 @@
       )
     </foreach>
   </insert>
+  <select id="getQuestionGradeByStudentGradeId" resultType="com.zzti.epa.model.QuestionGrade">
+        select * from
+            question_grade where
+            studentGradeId=#{studentGradeId}
+  </select>
   
   
 

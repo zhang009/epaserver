@@ -1,12 +1,15 @@
 package com.zzti.epa.controller.grade;
 
-import com.zzti.epa.model.*;
 import com.zzti.epa.model.Class;
+import com.zzti.epa.model.*;
 import com.zzti.epa.service.baseinfo.ClassService;
 import com.zzti.epa.service.grade.GradeService;
 import com.zzti.epa.service.testpaper.TestPaperService;
+import com.zzti.epa.utils.POIUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -67,6 +70,32 @@ public class GradeController {
             return RespBean.ok("添加成功！");
         }
         return RespBean.error("添加失败！");
+    }
+
+    //批量导入成绩数据
+    @PostMapping("/input/import")
+    public RespBean importStudentData(@RequestParam(value = "testPaperId")Integer testPaperId,
+                                  @RequestParam(value = "courseId") Integer courseId,
+                                  @RequestParam(value = "classId") Integer classId,
+                                  MultipartFile file){
+      /*  testPaperId:'',
+                courseId:'',
+                classId:'',*/
+        StudentGrade studentGrade=gradeService.exportData(testPaperId,courseId,classId);
+        if(gradeService.importStudentData(studentGrade,file)){
+            return RespBean.ok("试题上传成功！");
+        };
+        return RespBean.error("上传失败");
+
+    }
+    //下载模板
+    @GetMapping("/input/getTem")
+    public ResponseEntity<byte[]> exportData(@RequestParam(value = "testPaperId")Integer testPaperId,
+                                             @RequestParam(value = "courseId") Integer courseId,
+                                             @RequestParam(value = "classId") Integer classId){
+
+        StudentGrade studentGrade=gradeService.exportData(testPaperId,courseId,classId);
+        return POIUtils.studentGrade2Excel(studentGrade);
     }
 
 

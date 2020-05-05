@@ -205,7 +205,13 @@
           and isTemplate=0
           and tp.id=#{testPaperId}
   </select>
-
+  <select id="getAllTestPaperById" resultType="com.zzti.epa.model.TestPaper">
+    select *
+          FROM
+          test_paper
+          where
+           id=#{testPaperId}
+  </select>
   <!--write by yifang end-->
 
   <!--write by writer start-->

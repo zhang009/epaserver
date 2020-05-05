@@ -59,7 +59,8 @@ public interface TestPaperMapper {
 
     Long getAllTestPaperTotal( @Param("tp")TestPaper testPaper);
 
-
+    //获取试卷信息，（包括试卷和试卷模板）
+    TestPaper getAllTestPaperById(@Param("testPaperId") Integer testpaperId);
     //write by yifang end
 
 }
