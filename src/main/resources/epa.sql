@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2020-05-03 23:35:53
+Date: 2020-05-05 18:32:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -420,7 +420,7 @@ CREATE TABLE `menu` (
   PRIMARY KEY (`id`),
   KEY `parentId` (`parentId`),
   CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `menu` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -456,6 +456,8 @@ INSERT INTO `menu` VALUES ('36', '/analysis/all/**', '/ana/scoredistribution', '
 INSERT INTO `menu` VALUES ('37', '/analysis/all/**', '/ana/scoredistribution', 'AnaScoreDistribution', '整体成绩分析', null, null, '1', '5', '1');
 INSERT INTO `menu` VALUES ('38', '/analysis/all/**', '/ana/outstandingandpassrate', 'AnaOutstandingAndPassRate', '优秀率、及格率', null, null, '1', '5', '1');
 INSERT INTO `menu` VALUES ('39', '/analysis/all/**', '/ana/anascoringrateofquestiontype', 'AnaScoringRateOfQuestionType', '题型得分率', null, null, '1', '5', '1');
+INSERT INTO `menu` VALUES ('40', '/analysis/all/**', '/ana/anascoresofallchapters', 'AnaScoresOfAllChapters', '章节得分率', null, null, '1', '5', '1');
+INSERT INTO `menu` VALUES ('41', '/analysis/all/**', '/ana/anascoreoftestpaperknowledgepoints', 'AnaScoreOfTestpaperKnowledgePoints', '知识点得分率', null, null, '1', '5', '1');
 
 -- ----------------------------
 -- Table structure for `menu_role`
@@ -470,7 +472,7 @@ CREATE TABLE `menu_role` (
   KEY `rid` (`rid`),
   CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`),
   CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=345 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=347 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu_role
@@ -527,10 +529,10 @@ INSERT INTO `menu_role` VALUES ('337', '25', '2');
 INSERT INTO `menu_role` VALUES ('338', '26', '2');
 INSERT INTO `menu_role` VALUES ('339', '27', '2');
 INSERT INTO `menu_role` VALUES ('340', '34', '2');
-INSERT INTO `menu_role` VALUES ('341', '36', '3');
-INSERT INTO `menu_role` VALUES ('342', '36', '3');
 INSERT INTO `menu_role` VALUES ('343', '37', '3');
 INSERT INTO `menu_role` VALUES ('344', '38', '3');
+INSERT INTO `menu_role` VALUES ('345', '39', '3');
+INSERT INTO `menu_role` VALUES ('346', '40', '3');
 
 -- ----------------------------
 -- Table structure for `paper_check`
@@ -646,7 +648,7 @@ CREATE TABLE `question_grade` (
   PRIMARY KEY (`id`),
   KEY `studentGradeId` (`studentGradeId`),
   CONSTRAINT `question_grade_ibfk_1` FOREIGN KEY (`studentGradeId`) REFERENCES `student_grade` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=461 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=515 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question_grade
@@ -975,6 +977,60 @@ INSERT INTO `question_grade` VALUES ('457', '24', '266', '简答题', '4', '10')
 INSERT INTO `question_grade` VALUES ('458', '24', '267', '简答题', '5', '10');
 INSERT INTO `question_grade` VALUES ('459', '24', '268', '简答题', '6', '10');
 INSERT INTO `question_grade` VALUES ('460', '24', '269', '简答题', '7', '10');
+INSERT INTO `question_grade` VALUES ('461', '30', '243', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('462', '30', '244', '单选题', '2', '1');
+INSERT INTO `question_grade` VALUES ('463', '30', '245', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('464', '30', '246', '单选题', '4', '1');
+INSERT INTO `question_grade` VALUES ('465', '30', '247', '单选题', '5', '1');
+INSERT INTO `question_grade` VALUES ('466', '30', '248', '单选题', '6', '1');
+INSERT INTO `question_grade` VALUES ('467', '30', '249', '单选题', '7', '1');
+INSERT INTO `question_grade` VALUES ('468', '30', '250', '单选题', '8', '1');
+INSERT INTO `question_grade` VALUES ('469', '30', '251', '单选题', '9', '1');
+INSERT INTO `question_grade` VALUES ('470', '30', '252', '单选题', '10', '1');
+INSERT INTO `question_grade` VALUES ('471', '30', '243', '单选题', '1', '2');
+INSERT INTO `question_grade` VALUES ('472', '30', '244', '单选题', '2', '2');
+INSERT INTO `question_grade` VALUES ('473', '30', '245', '单选题', '3', '2');
+INSERT INTO `question_grade` VALUES ('474', '30', '246', '单选题', '4', '2');
+INSERT INTO `question_grade` VALUES ('475', '30', '247', '单选题', '5', '2');
+INSERT INTO `question_grade` VALUES ('476', '30', '248', '单选题', '6', '2');
+INSERT INTO `question_grade` VALUES ('477', '30', '249', '单选题', '7', '2');
+INSERT INTO `question_grade` VALUES ('478', '30', '250', '单选题', '8', '2');
+INSERT INTO `question_grade` VALUES ('479', '30', '251', '单选题', '9', '2');
+INSERT INTO `question_grade` VALUES ('480', '30', '252', '单选题', '10', '2');
+INSERT INTO `question_grade` VALUES ('481', '30', '243', '单选题', '1', '10');
+INSERT INTO `question_grade` VALUES ('482', '30', '244', '单选题', '2', '10');
+INSERT INTO `question_grade` VALUES ('483', '30', '245', '单选题', '3', '10');
+INSERT INTO `question_grade` VALUES ('484', '30', '246', '单选题', '4', '10');
+INSERT INTO `question_grade` VALUES ('485', '30', '247', '单选题', '5', '10');
+INSERT INTO `question_grade` VALUES ('486', '30', '248', '单选题', '6', '0');
+INSERT INTO `question_grade` VALUES ('487', '30', '249', '单选题', '7', '0');
+INSERT INTO `question_grade` VALUES ('488', '31', '243', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('489', '31', '244', '单选题', '2', '1');
+INSERT INTO `question_grade` VALUES ('490', '31', '245', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('491', '31', '246', '单选题', '4', '1');
+INSERT INTO `question_grade` VALUES ('492', '31', '247', '单选题', '5', '1');
+INSERT INTO `question_grade` VALUES ('493', '31', '248', '单选题', '6', '1');
+INSERT INTO `question_grade` VALUES ('494', '31', '249', '单选题', '7', '1');
+INSERT INTO `question_grade` VALUES ('495', '31', '250', '单选题', '8', '1');
+INSERT INTO `question_grade` VALUES ('496', '31', '251', '单选题', '9', '1');
+INSERT INTO `question_grade` VALUES ('497', '31', '252', '单选题', '10', '1');
+INSERT INTO `question_grade` VALUES ('498', '31', '243', '单选题', '1', '2');
+INSERT INTO `question_grade` VALUES ('499', '31', '244', '单选题', '2', '2');
+INSERT INTO `question_grade` VALUES ('500', '31', '245', '单选题', '3', '2');
+INSERT INTO `question_grade` VALUES ('501', '31', '246', '单选题', '4', '2');
+INSERT INTO `question_grade` VALUES ('502', '31', '247', '单选题', '5', '2');
+INSERT INTO `question_grade` VALUES ('503', '31', '248', '单选题', '6', '2');
+INSERT INTO `question_grade` VALUES ('504', '31', '249', '单选题', '7', '2');
+INSERT INTO `question_grade` VALUES ('505', '31', '250', '单选题', '8', '2');
+INSERT INTO `question_grade` VALUES ('506', '31', '251', '单选题', '9', '2');
+INSERT INTO `question_grade` VALUES ('507', '31', '252', '单选题', '10', '2');
+INSERT INTO `question_grade` VALUES ('508', '31', '243', '单选题', '1', '10');
+INSERT INTO `question_grade` VALUES ('509', '31', '244', '单选题', '2', '10');
+INSERT INTO `question_grade` VALUES ('510', '31', '245', '单选题', '3', '10');
+INSERT INTO `question_grade` VALUES ('511', '31', '246', '单选题', '4', '10');
+INSERT INTO `question_grade` VALUES ('512', '31', '247', '单选题', '5', '10');
+INSERT INTO `question_grade` VALUES ('513', '31', '248', '单选题', '6', '2');
+INSERT INTO `question_grade` VALUES ('514', '31', '249', '单选题', '7', '0');
 
 -- ----------------------------
 -- Table structure for `question_score`
@@ -1319,7 +1375,7 @@ CREATE TABLE `student_grade` (
   `totalGrade` float DEFAULT NULL,
   `classId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student_grade
@@ -1336,6 +1392,8 @@ INSERT INTO `student_grade` VALUES ('21', '201619040101', '曹媛媛', '6', '19'
 INSERT INTO `student_grade` VALUES ('22', '201619040109', '孙威', '6', '19', '85', '5');
 INSERT INTO `student_grade` VALUES ('23', '201619040120', '岳鹏帆', '6', '19', '90', '5');
 INSERT INTO `student_grade` VALUES ('24', '201619040133', '李伟华', '6', '19', '84', '5');
+INSERT INTO `student_grade` VALUES ('30', '201619040111', '赵晓阳', '6', '19', '80', '5');
+INSERT INTO `student_grade` VALUES ('31', '201619040103', '闫莹莹', '6', '19', '82', '5');
 
 -- ----------------------------
 -- Table structure for `teacher`
