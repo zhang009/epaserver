@@ -72,6 +72,17 @@
       </if>
     </where>
   </select>
+  <select id="allOnlyStudentGrades" resultType="com.zzti.epa.model.StudentGrade">
+    select * from student_grade sg
+    <where>
+      <if test="studentGrade.classId !=null">
+        and sg.classId =#{studentGrade.classId}
+      </if>
+      <if test="studentGrade.testPaperId !=null">
+        and sg.testPaperId =#{studentGrade.testPaperId}
+      </if>
+    </where>
+  </select>
 
 
 

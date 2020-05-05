@@ -52,7 +52,7 @@ public class KnowsController {
             knowsTree2.setIcon("fa fa-circle");
             for(Knows knows: knowsInfo){
 
-                if(chapter.getId()==knows.getChapterId()){//判断该知识点是否属于该章节
+                if(chapter.getId().equals(knows.getChapterId())){//判断该知识点是否属于该章节
                     KnowsTree knowsTree3=new KnowsTree();//第三层
                     knowsTree3.setId(knows.getId());
                     knowsTree3.setName(knows.getName());

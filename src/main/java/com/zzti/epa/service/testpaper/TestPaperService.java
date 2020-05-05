@@ -321,7 +321,7 @@ public class TestPaperService {
             for (int j=0;j<knowIds2.length;j++){
                 Integer scknow=Integer.parseInt(knowIds2[j]);//将字符串数组id转化为int类型
                 for (int k = 0; k < allKnowIds.length; k++) {
-                    if (allKnowIds[k]==scknow){
+                    if (allKnowIds[k].equals(scknow)){
                         sclist2.add(scQuestion);
                     }
                 }
@@ -334,7 +334,7 @@ public class TestPaperService {
             for (int j=0;j<knowIds2.length;j++){
                 Integer mcknow=Integer.parseInt(knowIds2[j]);//将字符串数组id转化为int类型
                 for (int k = 0; k < allKnowIds.length; k++) {
-                    if (allKnowIds[k]==mcknow){
+                    if (allKnowIds[k].equals(mcknow)){
                         mclist2.add(mcQuestion);
                     }
                 }
@@ -347,7 +347,7 @@ public class TestPaperService {
             for (int j=0;j<knowIds2.length;j++){
                 Integer tfknow=Integer.parseInt(knowIds2[j]);//将字符串数组id转化为int类型
                 for (int k = 0; k < allKnowIds.length; k++) {
-                    if (allKnowIds[k]==tfknow){
+                    if (allKnowIds[k].equals(tfknow)){
                         tflist2.add(tfQuestion);
                     }
                 }
@@ -360,7 +360,7 @@ public class TestPaperService {
             for (int j=0;j<knowIds2.length;j++){
                 Integer fbknow=Integer.parseInt(knowIds2[j]);//将字符串数组id转化为int类型
                 for (int k = 0; k < allKnowIds.length; k++) {
-                    if (allKnowIds[k]==fbknow){
+                    if (allKnowIds[k].equals(fbknow)){
                         fblist2.add(fbQuestion);
                     }
                 }
@@ -373,7 +373,7 @@ public class TestPaperService {
             for (int j=0;j<knowIds2.length;j++){
                 Integer qaknow=Integer.parseInt(knowIds2[j]);//将字符串数组id转化为int类型
                 for (int k = 0; k < allKnowIds.length; k++) {
-                    if (allKnowIds[k]==qaknow){
+                    if (allKnowIds[k].equals(qaknow)){
                         qalist2.add(qaQuestion);
                     }
                 }
@@ -1145,7 +1145,7 @@ public class TestPaperService {
                 for (int i = 0; i < intRandom.length; i++) {
                     boolean flag=false;//检查是否有重复id
                     for (int j = 0; j < endSclist.size(); j++) {
-                        if((sclist2.get(intRandom[i]).getId())==endSclist.get(j).getId()){
+                        if((sclist2.get(intRandom[i]).getId()).equals(endSclist.get(j).getId())){
                             flag=true;
                         }
                     }
@@ -1177,7 +1177,7 @@ public class TestPaperService {
                 for (int i = 0; i < intRandom.length; i++) {
                     boolean flag=false;//检查是否有重复id
                     for (int j = 0; j < endMclist.size(); j++) {
-                        if((mclist2.get(intRandom[i]).getId())==endMclist.get(j).getId()){
+                        if((mclist2.get(intRandom[i]).getId()).equals(endMclist.get(j).getId())){
                             flag=true;
                         }
                     }
@@ -1212,7 +1212,7 @@ public class TestPaperService {
                 for (int i = 0; i < intRandom.length; i++) {
                     boolean flag=false;//检查是否有重复id
                     for (int j = 0; j < endTflist.size(); j++) {
-                        if((tflist2.get(intRandom[i]).getId())==endTflist.get(j).getId()){
+                        if((tflist2.get(intRandom[i]).getId()).equals(endTflist.get(j).getId())){
                             flag=true;
                         }
                     }
@@ -1247,7 +1247,7 @@ public class TestPaperService {
                 for (int i = 0; i < intRandom.length; i++) {
                     boolean flag=false;//检查是否有重复id
                     for (int j = 0; j < endFblist.size(); j++) {
-                        if((fblist2.get(intRandom[i]).getId())==endFblist.get(j).getId()){
+                        if((fblist2.get(intRandom[i]).getId()).equals(endFblist.get(j).getId())){
                             flag=true;
                         }
                     }
@@ -1281,7 +1281,7 @@ public class TestPaperService {
                 for (int i = 0; i < intRandom.length; i++) {
                     boolean flag=false;//检查是否有重复id
                     for (int j = 0; j < endQalist.size(); j++) {
-                        if((qalist2.get(intRandom[i]).getId())==endQalist.get(j).getId()){
+                        if((qalist2.get(intRandom[i]).getId()).equals(endQalist.get(j).getId())){
                             flag=true;
                         }
                     }
@@ -1775,4 +1775,6 @@ public class TestPaperService {
         bean.setTotal(total);//放入总记录数
         return bean;
     }
+
+
 }

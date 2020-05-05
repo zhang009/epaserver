@@ -27,6 +27,9 @@
             question_grade where
             studentGradeId=#{studentGradeId}
   </select>
+  <delete id="deleteQuestionGradeByStudentGradeId" >
+    delete from question_grade where studentGradeId=#{studentGradeId}
+  </delete>
   
   
 

@@ -88,6 +88,7 @@ public class GradeService {
                     LargeQues largeQue=new LargeQues();
                     largeQue.setQueType(queTypes[i]);//设置大题的题型
                     largeQue.setLargeQueScore(Float.valueOf(0));//大题分数初试为0，后面进行计算
+                    largeQue.setLargeQueGrade(Float.valueOf(0));//大题成绩置0
                     largeQue.setSmallQueGrade(new ArrayList<>());//设置大题中小题的数组
                     largeQues.add(largeQue);
                 }
@@ -139,6 +140,7 @@ public class GradeService {
 
                             if((questionGrade.getQuestionScoreId().equals(smallQueGrade.getQuestionScoreId()))&&(questionGrade.getSortNum()==smallQueGrade.getSortNum())){//这里使用id的比较要使用equals
                                 smallQueGrade.setQueGrade(questionGrade.getQueGrade());//设置小题得分
+                                largeQues.setLargeQueGrade(largeQues.getLargeQueGrade()+questionGrade.getQueGrade());//累加大题得分
 
                             }
                         }
@@ -160,6 +162,7 @@ public class GradeService {
         return testPaperClassMapper.insertSelective(testPaperClass);
     }
 
+    //添加学生成绩信息
     @Transactional
     public Boolean addStudentGrade(StudentGrade studentGrade) {
         //这里需要把小题成绩解析出来，存到小题成绩表
@@ -404,5 +407,55 @@ public class GradeService {
 
 
 
+    }
+
+    //更新学生的信息
+    @Transactional
+    public boolean updateStudentGrade(StudentGrade studentGrade) {
+        //这里需要把小题成绩解析出来，存到小题成绩表
+        System.out.println("studentGrade:"+studentGrade.toString());
+
+       /* StudentGrade studentGrade1=new StudentGrade();
+        studentGrade1.setStudentName(studentGrade.getStudentName());//设置学生姓名
+        studentGrade1.setStudentNum(studentGrade.getStudentNum());//设置学生学号
+        studentGrade1.setCourseId(studentGrade.getCourseId());//设置课程id
+        studentGrade1.setClassId(studentGrade.getClassId());//设置班级id
+        studentGrade1.setTotalGrade(studentGrade.getTotalGrade());//设置总成绩*/
+        //修改学生成绩表
+        studentGradeMapper.updateByPrimaryKeySelective(studentGrade);//更新成绩信息
+        //从largeQues中解析出小题的成绩
+        List<LargeQues> largeQues=studentGrade.getLargeQues();
+
+        List<QuestionGrade> questionGrades=new ArrayList<>();//设置小题成绩数组
+        for (int i = 0; i < largeQues.size(); i++) {
+            LargeQues largeQues1=largeQues.get(i);
+
+            //小题成绩表需要设置的字段为：studentGradeId、questionScoreId、queType、sortNum、queGrade、
+            for (int j = 0; j < largeQues1.getSmallQueGrade().size(); j++) {
+                SmallQueGrade smallQueGrade=largeQues1.getSmallQueGrade().get(j);//获取小题成绩
+                QuestionGrade questionGrade=new QuestionGrade();//新建对象
+                questionGrade.setQueType(largeQues1.getQueType());//设置试题类型
+                questionGrade.setQueGrade(smallQueGrade.getQueGrade());//设置成绩值
+                questionGrade.setQuestionScoreId(smallQueGrade.getQuestionScoreId());//设置试题分数id
+                questionGrade.setSortNum(smallQueGrade.getSortNum());//设置试题的排序号
+                questionGrade.setStudentGradeId(studentGrade.getId());//设置总成绩表id
+                questionGrades.add(questionGrade);//加入到数组中
+            }
+
+        }
+        questionGradeMapper.deleteQuestionGradeByStudentGradeId(studentGrade.getId());//删除该学生小题成绩
+
+        return questionGradeMapper.addQuestonGradeList(questionGrades)==questionGrades.size();//添加该学生成绩
+
+    }
+
+
+    public List<StudentGrade> allOnlyStudentGrades(StudentGrade studentGrade) {
+
+        return studentGradeMapper.allOnlyStudentGrades(studentGrade);
+    }
+
+    public int deleteStudentById(Integer id) {
+        return studentGradeMapper.deleteByPrimaryKey(id);
     }
 }

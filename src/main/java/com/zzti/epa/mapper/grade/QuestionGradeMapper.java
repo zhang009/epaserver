@@ -18,7 +18,10 @@ public interface QuestionGradeMapper {
 
     int updateByPrimaryKey(QuestionGrade record);
 
+    //
     Integer addQuestonGradeList(@Param("list") List<QuestionGrade> questionGrades);
 
     List<QuestionGrade> getQuestionGradeByStudentGradeId(@Param("studentGradeId")Integer studentGradeId);
+
+    int deleteQuestionGradeByStudentGradeId(@Param("studentGradeId")Integer studentGradeId);
 }
