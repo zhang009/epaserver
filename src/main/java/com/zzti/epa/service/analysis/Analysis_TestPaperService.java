@@ -17,6 +17,44 @@ public class Analysis_TestPaperService {
     TestPaperMapper testPaperMapper;
     @Autowired
     StudentGradeMapper studentGradeMapper;
+
+
+    //根据班级id和试卷id获取，及格人数，不及格人数，优秀人数，其他人数，总人数
+    public PassStudentNumAndOutstandingStudentNum getPassStudentNumAndOutstandingStudentNum(int classId,int testpaperId){
+        //根据卷子id得到及格分数
+        TestPaperForAnalysis testPaper = getTestPaperById(testpaperId);
+        float passScore = testPaper.getPassScore();
+        //根据班级id和试卷id，查询出这个班级的所有试卷分数（ScoreOfListByClassId）
+        List<StudentGrade> studentGrades = scoreOfListByClassId(classId,testpaperId);
+        //根据及格分数和studentGrades统计出，总人数，不及格人数，及格人数，优秀人数和其他人数,封装后返回
+        PassStudentNumAndOutstandingStudentNum passStudentNumAndOutstandingStudentNum = new PassStudentNumAndOutstandingStudentNum();
+        passStudentNumAndOutstandingStudentNum.setTotalStudentNum(studentGrades.size());
+        int passStudentNum=0;   //及格人数
+        int outstandingStudentNum=0;//优秀人数
+        float OutstandingScore = passScore*0.85f;//优秀标准，大于这个分数判断为优秀
+        for(int i=0;i<studentGrades.size();i++){
+            //及格人数
+            if(studentGrades.get(i).getTotalScore() > passScore){
+                passStudentNum++;
+            }
+            //优秀人数
+            if(studentGrades.get(i).getTotalScore() > OutstandingScore){
+                outstandingStudentNum++;
+            }
+        }
+        passStudentNumAndOutstandingStudentNum.setPassStudentNum(passStudentNum);
+        passStudentNumAndOutstandingStudentNum.setOutstandingStudentNum(outstandingStudentNum);
+        passStudentNumAndOutstandingStudentNum.setFailStudentNum(studentGrades.size()-passStudentNum);
+        passStudentNumAndOutstandingStudentNum.setOtherStudentNum(studentGrades.size()-outstandingStudentNum);
+        return passStudentNumAndOutstandingStudentNum;
+    }
+
+    //根据班级id和试卷id，查询出这个班级的所有试卷分数
+    public List<StudentGrade> scoreOfListByClassId(int classId,int testpaperId){
+        return studentGradeMapper.getStudentGradeOfListByClassIdAndTestpaperId(classId,testpaperId);
+    }
+
+
     //得到试卷列表
     public List<ListOfTestPaperForWeb> getListOfTestPaper(){
         List<ListOfTestPaper> list = testPaperMapper.select_ListOfTestPaper();

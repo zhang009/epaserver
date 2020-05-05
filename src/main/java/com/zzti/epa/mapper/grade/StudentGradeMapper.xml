@@ -22,8 +22,13 @@
     <result column="totalGrade" property="totalScore" jdbcType="REAL" />
     <result column="classId" property="classId" jdbcType="INTEGER" />
   </resultMap>
+<!--  根据试卷id查询成绩表-->
 <select id="getStudentGradeOfListByTestPaperId" resultMap="StudentGradeMap" parameterType="java.lang.Integer">
   select * from student_grade where testPaperId = #{testPaperId}
+</select>
+<!--  根据班级id和试卷id查询成绩表-->
+<select id="getStudentGradeOfListByClassIdAndTestpaperId"  resultMap="StudentGradeMap" parameterType="java.lang.Integer">
+    select * from student_grade where classId=#{classId} and testPaperId=#{testpaperId}
 </select>
 <!--write by writer end-->
 <!--write by writer end-->

@@ -22,6 +22,7 @@ public interface StudentGradeMapper {
     //    write by writer start
     //    write by writer start
     List<com.zzti.epa.model.analysis.StudentGrade> getStudentGradeOfListByTestPaperId(@Param("testPaperId")Integer testPaperId);
+    List<com.zzti.epa.model.analysis.StudentGrade> getStudentGradeOfListByClassIdAndTestpaperId(@Param("classId")Integer classId,@Param("testpaperId")Integer testpaperId);
     //    write by writer end
     //    write by writer end
 
