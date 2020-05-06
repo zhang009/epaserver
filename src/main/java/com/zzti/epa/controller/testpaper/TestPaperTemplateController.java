@@ -58,7 +58,7 @@ public class TestPaperTemplateController {
 
     //添加试卷模板
     @PostMapping("/addTemplate")
-    public RespBean addTestPaperTemplate(@RequestBody TempTestPaper2 tempTestPaper2){//添加题型
+    public RespBean addTestPaperTemplate(@RequestBody TempTestPaper2 tempTestPaper2){
 
         System.out.println(tempTestPaper2.toString());
 

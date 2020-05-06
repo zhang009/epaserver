@@ -82,6 +82,8 @@ public class TestPaperTemplateService {
         testPaper.setRemark(tempTestPaper2.getRemark());//备注
         testPaper.setTotalScore(tempTestPaper2.getTotalScore());//总分
         testPaper.setPassScore(tempTestPaper2.getPassScore());//及格分
+        testPaper.setChapterIds(tempTestPaper2.getChapterIds());//设置章节id
+        testPaper.setKnowIds(tempTestPaper2.getKnowIds());//设置知识点
 
         testPaper.setCreateTime(new Date());//日期
         testPaper.setPostTeacherId(TeacherUtils.getTeacher().getId());//提交教师的id编号
@@ -101,8 +103,12 @@ public class TestPaperTemplateService {
         testPaperMapper.insertSelective(testPaper);//添加试卷模板到数据库，获取试卷模板的id
         Integer testPaperId=testPaper.getId();//获取试卷模板的id
 
-        List<QuestionScore> questionScores=new ArrayList<>();//存储试卷模板中的试题集合
+        List<QuestionScore> questionScores=new ArrayList<>();//新建存储试卷模板中的试题集合
         List<TemplateQuestions> largeQuestions=tempTestPaper2.getQuestions();// 获取大题集合
+       /* List<Integer> chapterList=new ArrayList<Integer>();//存储章节id
+        List<Integer> knowIdsList=new ArrayList<Integer>();//存储知识点id
+        String chapterIds="";
+        String knowIds2="";*/
         for (int i = 0; i < largeQuestions.size(); i++) {
             TemplateQuestions largeQuestion=largeQuestions.get(i);//获取大题信息
 
@@ -115,10 +121,22 @@ public class TestPaperTemplateService {
 
                 questionScore.setSortNum(j+1);//设置试题排序序号，这里序号为试题下标+1
                 questionScore.setQueScore(queInfo.getScore());//设置分数
-                questionScore.setChapterId(queInfo.getChapterId());
+                questionScore.setChapterId(queInfo.getChapterId());//设置章节id
+
+                //计算出整个试卷的章节id
+               /* if(!chapterList.contains(queInfo.getChapterId())){//如果章节不重复，则加入集合
+                    chapterList.add(queInfo.getChapterId());
+                    chapterIds+=queInfo.getChapterId()+"@";
+                }*/
                 //遍历知识点数组，组合成字符串，中间以@分割
                 if(queInfo.getKnowIds()!=null){
                     Integer knowIds[]=queInfo.getKnowIds();
+                   /* for (int k=0; k<knowIds.length; k++) {
+                        if(!knowIdsList.contains(knowIds[k])) {//如果知识点不重复，则加入集合
+                            knowIdsList.add(knowIds[k]);
+                            knowIds2+=knowIds[k]+"@";
+                        }
+                    }*/
                     String strKnows= StringUtils.join(knowIds,"@");
                     questionScore.setKnowIds(strKnows);
                 }
@@ -146,7 +164,8 @@ public class TestPaperTemplateService {
         testPaper.setTotalScore(tempTestPaper2.getTotalScore());
         testPaper.setPassScore(tempTestPaper2.getPassScore());
         testPaper.setId(tempTestPaper2.getId());
-
+        testPaper.setChapterIds(tempTestPaper2.getChapterIds());//设置章节id
+        testPaper.setKnowIds(tempTestPaper2.getKnowIds());//设置知识点
         String queTypes="";
         //这里需要遍历一次大题集合，获取题型，封装到一起
         List<TemplateQuestions> templateQuestions=tempTestPaper2.getQuestions();//大题集合
@@ -164,6 +183,10 @@ public class TestPaperTemplateService {
 
         List<QuestionScore> questionScores=new ArrayList<>();//存储试卷模板中的试题集合
         List<TemplateQuestions> largeQuestions=tempTestPaper2.getQuestions();// 获取大题集合
+       /* List<Integer> chapterList=new ArrayList<Integer>();//存储章节id
+        List<Integer> knowIdsList=new ArrayList<Integer>();//存储知识点id
+        String chapterIds="";
+        String knowIds2="";*/
         for (int i = 0; i < largeQuestions.size(); i++) {
             TemplateQuestions largeQuestion=largeQuestions.get(i);//获取大题信息
 
@@ -177,9 +200,20 @@ public class TestPaperTemplateService {
                 questionScore.setSortNum(j+1);//设置试题排序序号，这里序号为试题下标+1
                 questionScore.setQueScore(queInfo.getScore());//设置分数
                 questionScore.setChapterId(queInfo.getChapterId());
+                //计算出整个试卷的章节id
+               /* if(!chapterList.contains(queInfo.getChapterId())){//如果章节不重复，则加入集合
+                    chapterList.add(queInfo.getChapterId());
+                    chapterIds+=queInfo.getChapterId()+"@";
+                }*/
                 //遍历知识点数组，组合成字符串，中间以@分割
                 if(queInfo.getKnowIds()!=null){
                     Integer knowIds[]=queInfo.getKnowIds();
+                   /* for (int k=0; k<knowIds.length; k++) {
+                        if(!knowIdsList.contains(knowIds[k])) {//如果知识点不重复，则加入集合
+                            knowIdsList.add(knowIds[k]);
+                            knowIds2+=knowIds[k]+"@";
+                        }
+                    }*/
                     String strKnows= StringUtils.join(knowIds,"@");
                     questionScore.setKnowIds(strKnows);
                 }

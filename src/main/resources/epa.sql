@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2020-05-06 08:37:06
+Date: 2020-05-06 22:53:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1048,7 +1048,7 @@ CREATE TABLE `question_score` (
   PRIMARY KEY (`id`),
   KEY `testPaperId` (`testPaperId`),
   CONSTRAINT `question_score_ibfk_1` FOREIGN KEY (`testPaperId`) REFERENCES `test_paper` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=270 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=297 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question_score
@@ -1166,33 +1166,33 @@ INSERT INTO `question_score` VALUES ('234', null, null, '简答题', '3', '5', '
 INSERT INTO `question_score` VALUES ('235', null, null, '简答题', '4', '6', '22', '10');
 INSERT INTO `question_score` VALUES ('236', null, null, '简答题', '5', '7', '20', '10');
 INSERT INTO `question_score` VALUES ('237', null, null, '简答题', '6', '11', '41', '10');
-INSERT INTO `question_score` VALUES ('243', '19', null, '单选题', '1', '4', '17', '1');
-INSERT INTO `question_score` VALUES ('244', '19', null, '单选题', '2', '6', '17@18@19', '1');
-INSERT INTO `question_score` VALUES ('245', '19', null, '单选题', '3', '3', '20', '1');
-INSERT INTO `question_score` VALUES ('246', '19', null, '单选题', '4', '2', '17@18@19', '1');
-INSERT INTO `question_score` VALUES ('247', '19', null, '单选题', '5', '4', '17@18@19', '1');
-INSERT INTO `question_score` VALUES ('248', '19', null, '单选题', '6', '4', '20', '1');
-INSERT INTO `question_score` VALUES ('249', '19', null, '单选题', '7', '3', '20', '1');
-INSERT INTO `question_score` VALUES ('250', '19', null, '单选题', '8', '5', '25', '1');
-INSERT INTO `question_score` VALUES ('251', '19', null, '单选题', '9', '3', '22', '1');
-INSERT INTO `question_score` VALUES ('252', '19', null, '单选题', '10', '5', '23@24@25', '1');
-INSERT INTO `question_score` VALUES ('253', '19', null, '多选题', '1', '3', '20', '2');
-INSERT INTO `question_score` VALUES ('254', '19', null, '多选题', '2', '3', '20', '2');
-INSERT INTO `question_score` VALUES ('255', '19', null, '多选题', '3', '5', '17@18@19', '2');
-INSERT INTO `question_score` VALUES ('256', '19', null, '多选题', '4', '2', '20', '2');
-INSERT INTO `question_score` VALUES ('257', '19', null, '多选题', '5', '4', '20', '2');
-INSERT INTO `question_score` VALUES ('258', '19', null, '多选题', '6', '7', '20', '2');
-INSERT INTO `question_score` VALUES ('259', '19', null, '多选题', '7', '6', '35@36@37@38', '2');
-INSERT INTO `question_score` VALUES ('260', '19', null, '多选题', '8', '3', '21@22', '2');
-INSERT INTO `question_score` VALUES ('261', '19', null, '多选题', '9', '6', '21@22', '2');
-INSERT INTO `question_score` VALUES ('262', '19', null, '多选题', '10', '7', '30@31@32', '2');
-INSERT INTO `question_score` VALUES ('263', '19', null, '简答题', '1', '2', '17@18@19', '10');
-INSERT INTO `question_score` VALUES ('264', '19', null, '简答题', '2', '3', '20', '10');
-INSERT INTO `question_score` VALUES ('265', '19', null, '简答题', '3', '4', '20', '10');
-INSERT INTO `question_score` VALUES ('266', '19', null, '简答题', '4', '5', '22', '10');
-INSERT INTO `question_score` VALUES ('267', '19', null, '简答题', '5', '6', '29', '10');
-INSERT INTO `question_score` VALUES ('268', '19', null, '简答题', '6', '7', '23@24@25', '10');
-INSERT INTO `question_score` VALUES ('269', '19', null, '简答题', '7', '6', '29', '10');
+INSERT INTO `question_score` VALUES ('270', '19', null, '单选题', '1', '4', '17', '1');
+INSERT INTO `question_score` VALUES ('271', '19', null, '单选题', '2', '6', '17@18@19', '1');
+INSERT INTO `question_score` VALUES ('272', '19', null, '单选题', '3', '3', '20', '1');
+INSERT INTO `question_score` VALUES ('273', '19', null, '单选题', '4', '2', '17@18@19', '1');
+INSERT INTO `question_score` VALUES ('274', '19', null, '单选题', '5', '4', '17@18@19', '1');
+INSERT INTO `question_score` VALUES ('275', '19', null, '单选题', '6', '4', '20', '1');
+INSERT INTO `question_score` VALUES ('276', '19', null, '单选题', '7', '3', '20', '1');
+INSERT INTO `question_score` VALUES ('277', '19', null, '单选题', '8', '5', '25', '1');
+INSERT INTO `question_score` VALUES ('278', '19', null, '单选题', '9', '3', '22', '1');
+INSERT INTO `question_score` VALUES ('279', '19', null, '单选题', '10', '5', '23@24@25', '1');
+INSERT INTO `question_score` VALUES ('280', '19', null, '多选题', '1', '3', '20', '2');
+INSERT INTO `question_score` VALUES ('281', '19', null, '多选题', '2', '3', '20', '2');
+INSERT INTO `question_score` VALUES ('282', '19', null, '多选题', '3', '5', '17@18@19', '2');
+INSERT INTO `question_score` VALUES ('283', '19', null, '多选题', '4', '2', '20', '2');
+INSERT INTO `question_score` VALUES ('284', '19', null, '多选题', '5', '4', '20', '2');
+INSERT INTO `question_score` VALUES ('285', '19', null, '多选题', '6', '7', '20', '2');
+INSERT INTO `question_score` VALUES ('286', '19', null, '多选题', '7', '6', '35@36@37@38', '2');
+INSERT INTO `question_score` VALUES ('287', '19', null, '多选题', '8', '3', '21@22', '2');
+INSERT INTO `question_score` VALUES ('288', '19', null, '多选题', '9', '6', '21@22', '2');
+INSERT INTO `question_score` VALUES ('289', '19', null, '多选题', '10', '7', '30@31@32', '2');
+INSERT INTO `question_score` VALUES ('290', '19', null, '简答题', '1', '2', '17@18@19', '10');
+INSERT INTO `question_score` VALUES ('291', '19', null, '简答题', '2', '3', '20', '10');
+INSERT INTO `question_score` VALUES ('292', '19', null, '简答题', '3', '4', '20', '10');
+INSERT INTO `question_score` VALUES ('293', '19', null, '简答题', '4', '5', '22', '10');
+INSERT INTO `question_score` VALUES ('294', '19', null, '简答题', '5', '6', '29', '10');
+INSERT INTO `question_score` VALUES ('295', '19', null, '简答题', '6', '7', '23@24@25', '10');
+INSERT INTO `question_score` VALUES ('296', '19', null, '简答题', '7', '6', '29', '10');
 
 -- ----------------------------
 -- Table structure for `que_type`
@@ -1537,7 +1537,7 @@ CREATE TABLE `test_paper` (
 INSERT INTO `test_paper` VALUES ('1', '期末测试', '1', '1', '2018-2019学年第一学期', '2020-04-24', '2020-04-29 22:31:32', '6', '2@3@7@6@1@5@4@12@8', '', '3', '3', '0', '0', '', '36', '36', '单选题@多选题@判断题@填空题@', '0', null);
 INSERT INTO `test_paper` VALUES ('12', '自动测试222', '1', '1', '2018-2019学年第一学期', '2020-05-02', null, '6', '', '15@16@17@18@19@20@21@22@23@24@25@26@27@28@29@30@31@32@33@34@35@36@37@38@39@40@41@42', '3', null, '0', '1', '', '100', '60', '单选题@多选题@判断题@填空题@简答题@', '0', null);
 INSERT INTO `test_paper` VALUES ('13', '期末测试001', '1', '1', '2018-2019学年第一学期', '2020-05-03', null, '6', '', '15@16@17@18@19@20@21@22@23@24@25@26@27@28@29@30@31@32@33@34@35@36@37@38@39@40@41@42', '3', '3', '0', '1', '', '100', '60', '单选题@多选题@判断题@填空题@简答题@', '0', null);
-INSERT INTO `test_paper` VALUES ('19', '给葛文杰测试', '1', '1', '2019-2020学年第二学期', '2020-05-03', null, '6', null, null, '3', null, '1', null, '', '100', '60', '单选题@多选题@简答题@', '1', null);
+INSERT INTO `test_paper` VALUES ('19', '给葛文杰测试', '1', '1', '2019-2020学年第二学期', '2020-05-03', '2020-05-06 22:51:05', '6', '4@6@3@2@5@7', '17@18@19@20@25@22@23@24@35@36@37@38@21@30@31@32@29', '3', null, '1', null, '', '100', '60', '单选题@多选题@简答题@', '1', null);
 
 -- ----------------------------
 -- Table structure for `tf_question`

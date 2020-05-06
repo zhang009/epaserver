@@ -18,8 +18,25 @@ public class TempTestPaper2 {
     private float totalScore;
     private float passScore;
     private String remark;
+    private String chapterIds;
+    private String knowIds;
     private List<TemplateQuestions> questions;
 
+    public String getChapterIds() {
+        return chapterIds;
+    }
+
+    public void setChapterIds(String chapterIds) {
+        this.chapterIds = chapterIds;
+    }
+
+    public String getKnowIds() {
+        return knowIds;
+    }
+
+    public void setKnowIds(String knowIds) {
+        this.knowIds = knowIds;
+    }
 
     public Integer getId() {
         return id;
