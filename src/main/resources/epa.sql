@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2020-05-05 18:32:27
+Date: 2020-05-06 08:37:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -824,7 +824,7 @@ INSERT INTO `question_grade` VALUES ('304', '19', '248', '单选题', '6', '1');
 INSERT INTO `question_grade` VALUES ('305', '19', '249', '单选题', '7', '1');
 INSERT INTO `question_grade` VALUES ('306', '19', '250', '单选题', '8', '1');
 INSERT INTO `question_grade` VALUES ('307', '19', '251', '单选题', '9', '1');
-INSERT INTO `question_grade` VALUES ('308', '19', '252', '单选题', '10', null);
+INSERT INTO `question_grade` VALUES ('308', '19', '252', '单选题', '10', '1');
 INSERT INTO `question_grade` VALUES ('309', '19', '253', '多选题', '1', '2');
 INSERT INTO `question_grade` VALUES ('310', '19', '254', '多选题', '2', '2');
 INSERT INTO `question_grade` VALUES ('311', '19', '255', '多选题', '3', '2');
