@@ -1,6 +1,7 @@
 package com.zzti.epa.controller.analysis;
 
 import com.zzti.epa.model.analysis.ScoringRateOfAllChapters;
+import com.zzti.epa.model.analysis.ScoringRateOfKnowledgePoints;
 import com.zzti.epa.model.analysis.ScoringRateOfQuestionType;
 import com.zzti.epa.service.analysis.Analysis_TeachingFeedback;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,14 @@ public class Teacher_TeachingFeedback {
     @PostMapping("/getScoringRateOfAllChapters")
     public ScoringRateOfAllChapters getScoringRateOfAllChapters(@RequestParam int id){
         //根据试卷id，返回章节得分率
-        analysis_teachingFeedback.getScoringRateOfAllChapters(id);
-        return null;
+        return analysis_teachingFeedback.getScoringRateOfAllChapters(id);
     }
+
+    //根据试卷id，获取知识点得分率
+    @PostMapping("/getScoringRateOfKnowledgePoints")
+    public ScoringRateOfKnowledgePoints getScoringRateOfKnowledgePoints(@RequestParam int id){
+        //根据试卷id，返回知识点得分率
+        return analysis_teachingFeedback.getScoringRateOfKnowledgePoints(id);
+    }
+
 }
