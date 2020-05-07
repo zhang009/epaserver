@@ -1556,7 +1556,7 @@ public class TestPaperService {
     }
 
 
-    //获取试卷列表
+    //获取试卷列表（试卷库管理中获取所有的试卷）
     public RespPageBean getTestPaperByPage(Integer page, Integer size, TestPaper testPaper) {
         if(page!=null&& size!=null){
             page=(page-1)*size;
