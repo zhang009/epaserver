@@ -221,6 +221,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(sclist.get(i).getId());//设置单选题id
                 questionScore.setQueType("单选题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(sclist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(sclist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getScScore());//设置单选题分数
                 questionScores.add(questionScore);//加入集合
             }
@@ -234,6 +236,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(mclist.get(i).getId());//设置多选题id
                 questionScore.setQueType("多选题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(mclist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(mclist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getMcScore());//设置单选题分数
                 questionScores.add(questionScore);//加入集合
             }
@@ -247,6 +251,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(tflist.get(i).getId());//设置单选题id
                 questionScore.setQueType("判断题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(tflist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(tflist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getTfScore());//设置单选题分数
                 questionScores.add(questionScore);//加入集合
             }
@@ -260,6 +266,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(fblist.get(i).getId());//设置单选题id
                 questionScore.setQueType("填空题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(fblist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(fblist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getFbScore()[i]);//设置填空题分数
                 questionScores.add(questionScore);//加入集合
             }
@@ -273,6 +281,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(qalist.get(i).getId());//设置单选题id
                 questionScore.setQueType("简答题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(qalist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(qalist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getQaScore()[i]);//设置单选题分数
                 questionScores.add(questionScore);//加入集合
             }
@@ -297,6 +307,7 @@ public class TestPaperService {
         return testPaper;
     }
 
+    //自动组卷解析组卷规则，返回试卷
     public TestPaper getTestPaperByAutoReg(TestPaperReg testPaperReg) {
         //
         Integer[] allKnowIds=testPaperReg.getKnowIds();//知识点数组
@@ -1474,6 +1485,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(sclist.get(i).getId());//设置单选题id
                 questionScore.setQueType("单选题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(sclist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(sclist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getScScore());//设置单选题分数
                 questionScores.add(questionScore);//加入集合
             }
@@ -1487,6 +1500,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(mclist.get(i).getId());//设置多选题id
                 questionScore.setQueType("多选题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(mclist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(mclist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getMcScore());//设置单选题分数
                 questionScores.add(questionScore);//加入集合
             }
@@ -1500,6 +1515,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(tflist.get(i).getId());//设置单选题id
                 questionScore.setQueType("判断题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(tflist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(tflist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getTfScore());//设置单选题分数
                 questionScores.add(questionScore);//加入集合
             }
@@ -1513,6 +1530,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(fblist.get(i).getId());//设置单选题id
                 questionScore.setQueType("填空题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(fblist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(fblist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getFbScore2());//设置填空题分数
                 questionScores.add(questionScore);//加入集合
             }
@@ -1526,6 +1545,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(qalist.get(i).getId());//设置单选题id
                 questionScore.setQueType("简答题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(qalist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(qalist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getQaScore2());//设置单选题分数
                 questionScores.add(questionScore);//加入集合
             }
@@ -1639,6 +1660,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(sclist.get(i).getId());//设置单选题id
                 questionScore.setQueType("单选题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(sclist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(sclist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getScScore());
                 questionScores.add(questionScore);//加入集合
             }
@@ -1652,6 +1675,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(mclist.get(i).getId());//设置多选题id
                 questionScore.setQueType("多选题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(mclist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(mclist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getMcScore());
                 questionScores.add(questionScore);//加入集合
             }
@@ -1665,6 +1690,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(tflist.get(i).getId());
                 questionScore.setQueType("判断题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(tflist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(tflist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getTfScore());
                 questionScores.add(questionScore);//加入集合
             }
@@ -1678,6 +1705,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(fblist.get(i).getId());//设置单选题id
                 questionScore.setQueType("填空题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(fblist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(fblist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getFbScore()[i]);
                 questionScores.add(questionScore);//加入集合
             }
@@ -1691,6 +1720,8 @@ public class TestPaperService {
                 questionScore.setQuestionId(qalist.get(i).getId());//设置单选题id
                 questionScore.setQueType("简答题");
                 questionScore.setSortNum(i+1);//设置排序号
+                questionScore.setChapterId(qalist.get(i).getChapterId());//设置章节id
+                questionScore.setKnowIds(qalist.get(i).getKnowIds());//设置知识点id
                 questionScore.setQueScore(testPaper.getQaScore()[i]);
                 questionScores.add(questionScore);//加入集合
             }
