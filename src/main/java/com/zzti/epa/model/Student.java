@@ -1,6 +1,14 @@
 package com.zzti.epa.model;
 
-public class Student {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+public class Student implements UserDetails {
     private Integer id;
 
     private String name;
@@ -23,6 +31,8 @@ public class Student {
 
     private Class clazz;
 
+    private List<Role> roles;
+
     @Override
     public String toString() {
         return "Student{" +
@@ -41,6 +51,14 @@ public class Student {
     }
 
     public Student() {
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public Class getClazz() {
@@ -71,8 +89,37 @@ public class Student {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>(roles.size());
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;//返回用户的角色
     }
 
     public String getPassword() {

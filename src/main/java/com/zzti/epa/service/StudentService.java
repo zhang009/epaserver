@@ -5,6 +5,9 @@ import com.zzti.epa.model.RespPageBean;
 import com.zzti.epa.model.Student;
 import com.zzti.epa.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +19,7 @@ import java.util.List;
  * @Date 2020-04-01 20:56
  **/
 @Service
-public class StudentService {
+public class StudentService implements UserDetailsService {
 
 
     @Autowired
@@ -59,5 +62,10 @@ public class StudentService {
     //根据班级id获取学生数据集合
     public List<Student> getAllStudentByClassId(Integer classId) {
         return studentMapper.getAllStudentByClassId(classId);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return null;
     }
 }

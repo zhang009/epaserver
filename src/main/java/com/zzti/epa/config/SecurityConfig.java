@@ -91,6 +91,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                         PrintWriter out=resp.getWriter();
                         Teacher teacher=(Teacher)authentication.getPrincipal();//获取登录成功的hr对象
+                        System.out.println("@@@@"+authentication.getPrincipal());
+                        System.out.println("@@@@"+authentication.getPrincipal().toString());
                        // System.out.println("hr:"+hr.toString());
                         teacher.setPassword(null);//避免密码泄露
                         RespBean ok = RespBean.ok("登录成功！", teacher);

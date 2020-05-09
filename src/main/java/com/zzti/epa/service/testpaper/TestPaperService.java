@@ -1572,9 +1572,11 @@ public class TestPaperService {
 
         for (int i = 0; i < data.size(); i++) {//遍历试卷
             TestPaper testPaper1=data.get(i);
-            System.out.println("aaaaaaaaaaaa:"+testPaper1.getId());
+           /* System.out.println("aaaaaaaaaaaa:"+testPaper1.getId());*/
+            //这里获取的是非试卷模板的试卷
             List<QuestionScore> questionScoreList=questionScoreMapper.getQuestionScoreByTestPaperId2(testPaper1.getId());
-            System.out.println("1111111111111111111111111111"+questionScoreList);
+           /* System.out.println("1111111111111111111111111111"+questionScoreList);
+            System.out.println("1111111111111111111111111111"+questionScoreList.size());*/
             for (int j = 0; j < questionScoreList.size(); j++) {
                 QuestionScore questionScore=questionScoreList.get(j);
                 //
@@ -1597,13 +1599,18 @@ public class TestPaperService {
                 }
             }
 
-           // System.out.println(">>>>questionScoreList:"+questionScoreList);
+           /* System.out.println(">>>>questionScoreList:"+questionScoreList);*/
             testPaper1.setQuestionScores(questionScoreList);
             testPaper1.setSclist(sclist);
+            /*System.out.println(">>>>sclist.size:"+sclist.size());*/
             testPaper1.setMclist(mclist);
+           /* System.out.println(">>>>mclist.size:"+mclist.size());*/
             testPaper1.setTflist(tflist);
+            /*System.out.println(">>>>tflist.size:"+tflist.size());*/
             testPaper1.setFblist(fblist);
+           /* System.out.println(">>>>fblist.size:"+fblist.size());*/
             testPaper1.setQalist(qalist);
+            /*System.out.println(">>>>qalist.size:"+qalist.size());*/
 
         }
 
