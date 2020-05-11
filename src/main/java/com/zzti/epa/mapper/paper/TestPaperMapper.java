@@ -23,7 +23,8 @@ public interface TestPaperMapper {
 
     //write by writer start
     //write by writer start
-
+    //试卷的模糊查询
+    List<ListOfTestPaper> select_ListOfTestPaperByName(@Param("name") String name);
     //查询试卷列表
     List<ListOfTestPaper> select_ListOfTestPaper();
     //根据id查询试卷

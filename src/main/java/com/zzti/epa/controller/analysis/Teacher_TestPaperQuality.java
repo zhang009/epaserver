@@ -1,9 +1,6 @@
 package com.zzti.epa.controller.analysis;
 
-import com.zzti.epa.model.analysis.ListOfTestPaper;
-import com.zzti.epa.model.analysis.ListOfTestPaperForWeb;
-import com.zzti.epa.model.analysis.TestPaperForAnalysis;
-import com.zzti.epa.model.analysis.TotalScoreDistribution;
+import com.zzti.epa.model.analysis.*;
 import com.zzti.epa.service.analysis.Analysis_TestPaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +14,21 @@ public class Teacher_TestPaperQuality {
 
     @Autowired
     Analysis_TestPaperService analysis_testPaperService;
+    //根据试卷名称进行模糊查询，返回试卷列表
+    @GetMapping("/getListOfTestPaperByName")
+    public List<ListOfTestPaperForWeb> getListOfTestPaperByName(@RequestParam String name){
+        return analysis_testPaperService.getListOfTestPaperByName(name);
+    }
+    //根据试卷id，计算出试卷知识点分值分布后，将其返回
+    @GetMapping("/getScoreDistributionOfKnowledgePointsInTestPaper")
+    public ScoreDistributionOfKnowledgePointsInTestPaper getScoreDistributionOfKnowledgePointsInTestPaper(@RequestParam int id){
+        return analysis_testPaperService.getScoreDistributionOfKnowledgePointsInTestPaper(id);
+    }
+    //根据试卷id，计算出试卷章节分值分布后，将其返回
+    @GetMapping("/getScoreDistributionOfTestPaperChapters")
+    public ScoreDistributionOfTestPaperChapters getScoreDistributionOfTestPaperChapters(@RequestParam int id){
+        return analysis_testPaperService.getScoreDistributionOfTestPaperChapters(id);
+    }
     //得到试卷列表
     @GetMapping("/getListOfTestPaper")
     public List<ListOfTestPaperForWeb> getListOfTestPaper(){
