@@ -28,4 +28,8 @@ public interface StudentMapper {
     Integer addStus(@Param("list")List<Student> list);
 
     List<Student> getAllStudentByClassId(Integer classId);
+
+    Student loadUserByUsername(String username);
+
+    int modifyPass(String sno,String rePassword);
 }

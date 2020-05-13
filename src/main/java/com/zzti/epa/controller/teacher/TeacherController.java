@@ -168,7 +168,7 @@ public class TeacherController {
         //file当成excel文件来解析
         // file.transferTo(new File("E:\\javatest.xls"));
         List<Teacher> list=POIUtils.excel2Teacher(file,departmentService.getAllDepartments2(),jobLevelService.getAllJobLevels());
-      /*  for (Employee employee : list) {
+        /*for (Employee employee : list) {
             System.out.println(employee.toString());
         }*/
         //将解析的数据插入到数据库

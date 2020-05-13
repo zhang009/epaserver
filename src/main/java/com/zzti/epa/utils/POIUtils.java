@@ -1,7 +1,7 @@
 package com.zzti.epa.utils;
 
-import com.zzti.epa.model.*;
 import com.zzti.epa.model.Class;
+import com.zzti.epa.model.*;
 import com.zzti.epa.model.gradePOJO.LargeQues;
 import com.zzti.epa.model.gradePOJO.SmallQueGrade;
 import org.apache.poi.hpsf.DocumentSummaryInformation;
@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
@@ -276,6 +277,11 @@ public class POIUtils {
                     }
 
                     teacher.setEnabled(true);
+                    BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+                    String encode=bCryptPasswordEncoder.encode(teacher.getWorkID());//教师密码和教师工号相同，在这里进行工号加密
+                    //System.out.println("encode:"+encode);
+                    teacher.setUsername(teacher.getWorkID());
+                    teacher.setPassword(encode);
                     list.add(teacher);
 
 
@@ -457,7 +463,11 @@ public class POIUtils {
                     }else{
                         break;
                     }
-
+                    BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+                    String encode=bCryptPasswordEncoder.encode(student.getStudentNum());//学生密码和学生学号相同，在这里进行学号加密
+                    //System.out.println("encode:"+encode);
+                    student.setUsername(student.getStudentNum());//默认用户名为学号
+                    student.setPassword(encode);
                    // System.out.println(student.toString());
                     list.add(student);
 

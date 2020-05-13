@@ -88,5 +88,14 @@ public class StudentController {
         }
         return RespBean.error("上传失败");
     }
+    @PutMapping("/modifyPass")
+    public RespBean modifyPass(String sno,String password,String rePassword) {
+        if(studentService.modifyPass(sno,password,rePassword)){
+            return RespBean.ok("修改成功");
+        }else{
+            return RespBean.error("修改失败,原密码错误");
+        }
+    }
+
 
 }

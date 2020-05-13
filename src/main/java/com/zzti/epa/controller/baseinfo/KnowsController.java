@@ -27,6 +27,11 @@ public class KnowsController {
     CourseService courseService;
 
     //根据课程id获取知识点
+    /**
+    * @Description:根据课程id获取知识点
+    * @Param id: 课程ID
+    * @return: java.util.List<com.zzti.epa.model.KnowsTree>
+    **/
     @GetMapping("/all")
     public List<KnowsTree> getKnows(@RequestParam("courseId") Integer id){
         System.out.println(id);

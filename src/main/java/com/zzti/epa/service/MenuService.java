@@ -3,6 +3,7 @@ package com.zzti.epa.service;
 import com.zzti.epa.mapper.MenuMapper;
 import com.zzti.epa.mapper.MenuRoleMapper;
 import com.zzti.epa.model.Menu;
+import com.zzti.epa.model.Student;
 import com.zzti.epa.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,8 +26,18 @@ public class MenuService {
     @Autowired
     MenuRoleMapper menuRoleMapper;
     public List<Menu> getMenusByHrId() {//根据用户的id，获取能够访问的资源（菜单）
-        Teacher teacher= ((Teacher) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        List<Menu> menus=menuMapper.getMenusByTeacherId(teacher.getId());
+       // System.out.println("***"+ SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        List<Menu> menus=null;
+        Object o=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(o instanceof Teacher){
+            System.out.println(o instanceof Teacher);
+            Teacher teacher= ((Teacher) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+            menus=menuMapper.getMenusByTeacherId(teacher.getId());
+        }else if(o instanceof Student){
+            Student student= ((Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+            System.out.println(student.getId());
+            menus=menuMapper.getMenusByStudentId(student.getId());
+        }
         System.out.println("menus:"+menus);
         return menus;
     }

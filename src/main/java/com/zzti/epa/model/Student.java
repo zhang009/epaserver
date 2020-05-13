@@ -91,22 +91,22 @@ public class Student implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public void setUsername(String username) {
@@ -162,9 +162,6 @@ public class Student implements UserDetails {
         this.userface = userface == null ? null : userface.trim();
     }
 
-    public Byte getEnabled() {
-        return enabled;
-    }
 
     public void setEnabled(Byte enabled) {
         this.enabled = enabled;

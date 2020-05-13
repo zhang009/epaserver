@@ -36,6 +36,13 @@ public class TestPaperTemplateService {
     @Autowired
     KnowsMapper knowsMapper;
 
+    /**
+    * @Description:获取试卷模板数据
+    * @Param page: 页码
+     * @Param size: 每页多少行
+     * @Param testPaper:
+    * @return: com.zzti.epa.model.RespPageBean
+    **/
     public RespPageBean getTestPaperTemplateByPage(Integer page, Integer size, TestPaper testPaper) {
         if(page!=null&& size!=null){
             page=(page-1)*size;
@@ -70,7 +77,11 @@ public class TestPaperTemplateService {
         bean.setTotal(total);//放入总记录数
         return bean;
     }
-
+    /**
+    * @Description:添加试卷模板
+    * @Param tempTestPaper2: 试卷模板数据
+    * @return: boolean //返回boolean值
+    **/
     @Transactional
     public boolean addPaperTemplate(TempTestPaper2 tempTestPaper2) {//添加试卷模板
         TestPaper testPaper=new TestPaper();//新建试卷对象

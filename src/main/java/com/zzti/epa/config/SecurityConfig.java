@@ -2,12 +2,15 @@ package com.zzti.epa.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zzti.epa.model.RespBean;
+import com.zzti.epa.model.Student;
 import com.zzti.epa.model.Teacher;
+import com.zzti.epa.service.MyUserDetailService;
 import com.zzti.epa.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +24,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.servlet.ServletException;
@@ -37,17 +41,35 @@ import java.io.PrintWriter;
  **/
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    MyUserDetailService myUserDetailService;
     @Autowired
     TeacherService teacherService;
+
+    public AuthenticationProvider authProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(myUserDetailService);
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
+    //SpringSecurity5之后才有
+    @Autowired
+     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+                 auth.authenticationProvider(authProvider());
+             }
 
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-    @Override
+   /* @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(teacherService);
-    }
+        //
+        //System.out.println(auth.toString());
+        //auth.userDetailsService(myUserDetailService);//对userDetailService进行修该
+        auth.authenticationProvider(authProvider());
+    }*/
     @Autowired
     CustomFilterInvocationSecurityMetadataSource customFilterInvocationSecurityMetadataSource;
     @Autowired
@@ -60,10 +82,85 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/login","/css/**","/js/**","/index.html","/img/**","/font/**","/favicon.ico");//如果要访问login登录页面，不用经过spirngSecurity拦截
     }
 
+
+   public MyUsernamePasswordAuthenticationFilter myAuthenticationFilter() throws Exception {
+       System.out.println("执行了没啊");
+        MyUsernamePasswordAuthenticationFilter filter = new MyUsernamePasswordAuthenticationFilter();
+        filter.setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                //登录成功，前提工作-》在model里面封装自定义返回实体类RespBean
+                //resp.setContentType("application/json:charset=utf-8");
+                response.setContentType("application/json;charset=utf-8");
+
+                PrintWriter out=response.getWriter();
+                String s="";
+                if("student".equals(request.getParameter("userType"))){//学生登录
+                    request.getSession().setAttribute("userType", "student");//在session中设置登录用户类型
+                    Student student=(Student) authentication.getPrincipal();//获取登录成功的hr对象
+                    student.setPassword(null);//避免密码泄露
+                    RespBean ok = RespBean.ok("登录成功！", student);
+                     s = new ObjectMapper().writeValueAsString(ok);
+                }else{
+                    request.getSession().setAttribute("userType", "teacher");//在session中设置登录用户类型
+                    Teacher teacher=(Teacher)authentication.getPrincipal();//获取登录成功的hr对象
+                    teacher.setPassword(null);//避免密码泄露
+                    RespBean ok = RespBean.ok("登录成功！", teacher);
+                    s = new ObjectMapper().writeValueAsString(ok);
+                }
+
+             //   System.out.println("@@@@"+authentication.getPrincipal());
+              //  System.out.println("@@@@"+authentication.getPrincipal().toString());
+                // System.out.println("hr:"+hr.toString());
+
+
+                out.write(s);
+                out.flush();
+                out.close();
+            }
+        });
+        filter.setAuthenticationFailureHandler(new AuthenticationFailureHandler() {
+            @Override
+            public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
+                //登录失败
+                response.setContentType("application/json;charset=utf-8");
+                PrintWriter out=response.getWriter();
+                RespBean respBean =RespBean.error("登录失败！");
+                if(e instanceof LockedException){
+                    respBean.setMsg("账户被锁定，请联系管理员");
+                }else if(e instanceof CredentialsExpiredException){
+                    respBean.setMsg("账户密码过期");
+                }else if(e instanceof AccountExpiredException){
+                    respBean.setMsg("账户过期");
+                }else if(e instanceof DisabledException){
+                    respBean.setMsg("账户被禁用");
+                }else if(e instanceof BadCredentialsException){
+                    respBean.setMsg("用户名或密码输入错误,请重新输入");
+                }
+                String s = new ObjectMapper().writeValueAsString(respBean);
+                out.write(s);
+                out.flush();
+                out.close();
+            }
+        });
+        filter.setAuthenticationManager(authenticationManagerBean());
+        filter.setFilterProcessesUrl("/doLogin");
+        return filter;
+    }
+    /*@Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        AuthenticationManager manager = super.authenticationManagerBean();
+        return manager;
+    }*/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+
+        http
+
+
+                .authorizeRequests()
                 .anyRequest().authenticated()//任何请求在认证之后才能访问
                 //这里加入动态权限
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
@@ -82,48 +179,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/doLogin")
                 .loginPage("/login")//本来默认是有登录页，但你这在里配置后，默认的就失效了
                                     //注意：但是我们后端不应该有页面跳转的，只应该返回json
+
                 .successHandler(new AuthenticationSuccessHandler() {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication authentication) throws IOException, ServletException {
-                        //登录成功，前提工作-》在model里面封装自定义返回实体类RespBean
-                        //resp.setContentType("application/json:charset=utf-8");
-                        resp.setContentType("application/json;charset=utf-8");
 
-                        PrintWriter out=resp.getWriter();
-                        Teacher teacher=(Teacher)authentication.getPrincipal();//获取登录成功的hr对象
-                        System.out.println("@@@@"+authentication.getPrincipal());
-                        System.out.println("@@@@"+authentication.getPrincipal().toString());
-                       // System.out.println("hr:"+hr.toString());
-                        teacher.setPassword(null);//避免密码泄露
-                        RespBean ok = RespBean.ok("登录成功！", teacher);
-                        String s = new ObjectMapper().writeValueAsString(ok);
-                        out.write(s);
-                        out.flush();
-                        out.close();
                     }
                 })
                 .failureHandler(new AuthenticationFailureHandler() {
                     @Override
                     public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse resp, AuthenticationException e) throws IOException, ServletException {
-                        //登录失败
-                        resp.setContentType("application/json;charset=utf-8");
-                        PrintWriter out=resp.getWriter();
-                        RespBean respBean =RespBean.error("登录失败！");
-                        if(e instanceof LockedException){
-                            respBean.setMsg("账户被锁定，请联系管理员");
-                        }else if(e instanceof CredentialsExpiredException){
-                            respBean.setMsg("账户密码过期");
-                        }else if(e instanceof AccountExpiredException){
-                            respBean.setMsg("账户过期");
-                        }else if(e instanceof DisabledException){
-                            respBean.setMsg("账户被禁用");
-                        }else if(e instanceof BadCredentialsException){
-                            respBean.setMsg("用户名或密码输入错误,请重新输入");
-                        }
-                        String s = new ObjectMapper().writeValueAsString(respBean);
-                        out.write(s);
-                        out.flush();
-                        out.close();
+
                     }
                 })
                 .permitAll()//跟登录相关的接口不需要认证即可访问
@@ -160,6 +226,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         out.close();
                     }
                 });
+        http.addFilterAt(myAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
 
     }
 }

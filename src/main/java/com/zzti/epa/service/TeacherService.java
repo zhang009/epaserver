@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,7 @@ public class TeacherService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Teacher teacher=teacherMapper.loadUserByUsername(username);
-        //这里传hr有可能为null，因为username有可能不对
+        //这里传teacher有可能为null，因为username有可能不对
         if(teacher==null){
             throw new UsernameNotFoundException("用户名不存在");
         }
@@ -105,6 +106,11 @@ public class TeacherService implements UserDetailsService {
     @Transactional
     public Integer addTea(Teacher teacher) {
         teacher.setEnabled(true);
+        BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+        String encode=bCryptPasswordEncoder.encode(teacher.getWorkID());//教师密码和教师工号相同，在这里进行工号加密
+        //System.out.println("encode:"+encode);
+        teacher.setUsername(teacher.getWorkID());
+        teacher.setPassword(encode);
         teacherMapper.insertSelective(teacher);
         //System.out.println(teacher.toString());
         return teacherRoleMapper.firstAddRole(teacher.getId());
