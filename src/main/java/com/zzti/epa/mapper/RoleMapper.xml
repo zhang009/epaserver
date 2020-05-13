@@ -8,7 +8,7 @@
   </resultMap>
 
   <select id="getAllRoles" resultMap="BaseResultMap">
-    select * from role
+    select * from role where id!=4
   </select>
 
 

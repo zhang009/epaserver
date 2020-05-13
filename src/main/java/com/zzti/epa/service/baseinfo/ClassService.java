@@ -63,4 +63,17 @@ public class ClassService {
     public List<String> getAllClassWithName() {
         return classMapper.getAllClassWithName();
     }
+
+    public RespPageBean getClassBySchoolIdAndMajorId(Integer page, Integer size, Class clazz) {
+        if(page!=null&& size!=null){
+            page=(page-1)*size;
+        }
+        List<Teacher> data=classMapper.getClassBySchoolIdAndMajorId(page,size,clazz);
+        Long total=classMapper.getTotal2(clazz);
+        RespPageBean bean = new RespPageBean();
+        bean.setData(data);
+        bean.setTotal(total);
+        return bean;
+
+    }
 }

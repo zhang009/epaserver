@@ -82,27 +82,27 @@ public class POIUtils {
         Drawing draw = sheet.createDrawingPatriarch();
         //(int dx1, int dy1, int dx2, int dy2, short col1, int row1, short col2, int row2)
         //前四个参数是坐标点,后四个参数是编辑和显示批注时的大小.
-        Comment comment = draw.createCellComment(new HSSFClientAnchor(0,0,0,0,(short)1,1,(short)2,3));
-        comment.setString(new HSSFRichTextString("教师工号为4位数字（文本类型）"));//设置批注内容
+        Comment workIdcomment = draw.createCellComment(new HSSFClientAnchor(0,0,0,0,(short)1,1,(short)2,3));
+        workIdcomment.setString(new HSSFRichTextString("教师工号为4位数字（文本类型）"));//设置批注内容
         Drawing draw2 = sheet.createDrawingPatriarch();
         //(int dx1, int dy1, int dx2, int dy2, short col1, int row1, short col2, int row2)
         //前四个参数是坐标点,后四个参数是编辑和显示批注时的大小.
         Comment comment2 = draw.createCellComment(new HSSFClientAnchor(0,0,0,0,(short)1,1,(short)2,3));
-        comment.setString(new HSSFRichTextString("手机号码为文本类型"));//设置批注内容
+        comment2.setString(new HSSFRichTextString("手机号码为文本类型"));//设置批注内容
 
 
         HSSFCell c0 = r0.createCell(0);
-        c0.setCellValue("姓名");
+        c0.setCellValue("姓名（必填）");
         c0.setCellStyle(headerStyle);
         //创建第二列
         HSSFCell c1=r0.createCell(1);
         c1.setCellStyle(headerStyle);
-        c1.setCellComment(comment);//设置工号批注
-        c1.setCellValue("工号");
+        c1.setCellComment(workIdcomment);//设置工号批注
+        c1.setCellValue("工号（必填）");
         HSSFCell c2=r0.createCell(2);
         c2.setCellStyle(headerStyle);
 
-        c2.setCellValue("性别");
+        c2.setCellValue("性别（必填）");
         HSSFCell c3=r0.createCell(3);
         c3.setCellStyle(headerStyle);
         c3.setCellValue("电子邮箱");
@@ -112,10 +112,10 @@ public class POIUtils {
         c4.setCellValue("手机号码");
         HSSFCell c5=r0.createCell(5);
         c5.setCellStyle(headerStyle);
-        c5.setCellValue("所属部门");
+        c5.setCellValue("所属部门（必填）");
         HSSFCell c6=r0.createCell(6);
         c6.setCellStyle(headerStyle);
-        c6.setCellValue("职称");
+        c6.setCellValue("职称（必填）");
         //创建工号为文本格式
         for(int i = 0;i < 500;i++)
         {
@@ -177,7 +177,10 @@ public class POIUtils {
         return new ResponseEntity<byte[]>(bos.toByteArray(),headers, HttpStatus.CREATED);
     }
 
+    //从excel中解析出教师用户
     public static List<Teacher> excel2Teacher(MultipartFile file, List<Department> allDepartments, List<JobLevel> allJobLevels) {
+       // System.out.println("部门allDepartments"+allDepartments.size());
+      //  System.out.println("职称allJobLevels"+allJobLevels.size());
         List<Teacher> list=new ArrayList<>();
         Teacher teacher=null;
         Department department=null;
@@ -194,7 +197,7 @@ public class POIUtils {
                 HSSFSheet sheet = workbook.getSheetAt(0);
                 //4.获取表单有多少行
                 int physicalNumberOfRows = sheet.getPhysicalNumberOfRows();
-            //    System.out.println("physicalNumberOfRows:"+physicalNumberOfRows);
+             //   System.out.println("physicalNumberOfRows行数:"+physicalNumberOfRows);
                 for (int j = 0; j < physicalNumberOfRows; j++) {
                     if (j == 0) {
                         continue;//5.标题行不解析
@@ -208,34 +211,45 @@ public class POIUtils {
                     int physicalNumberOfCells = row.getPhysicalNumberOfCells();
                   //  System.out.println("列数：" + physicalNumberOfCells);
                     teacher = new Teacher();
-                    if (physicalNumberOfCells == 7) {
-                        for (int k = 0; k < physicalNumberOfCells; k++) {
-                            HSSFCell cell = row.getCell(k);
+                    if (physicalNumberOfCells==5||physicalNumberOfCells == 7) {
+                        for (int k = 0; k < 7; k++) {
+                            HSSFCell cell = row.getCell(k);//获取列单元格
                             //字符串格式、日期格式
                           /*  switch (cell.getCellType()) {
                                 case STRING:*/
-                                    cell.setCellType(CellType.STRING);
-                                    String cellValue = cell.getStringCellValue();
-                                    //System.out.println("k:" + k + ",cellValue:" + cellValue);
-                                    switch (k) {
-                                        //根据列数决定如何处理
-                                        case 0:
-                                            teacher.setName(cellValue);//姓名
-                                            break;
-                                        case 1:
-                                            teacher.setWorkID(cellValue);
-                                            teacher.setUsername(cellValue);//用户名设置和工号相同
-                                            break;
-                                        case 2:
-                                            teacher.setGender(cellValue);
-                                            break;
-                                        case 3:
-                                            teacher.setEmail(cellValue);
-                                            break;
-                                        case 4:
-                                            teacher.setPhone(cellValue);
-                                            break;
-                                        case 5:
+
+                                    if(cell!=null){
+                                        cell.setCellType(CellType.STRING);
+                                        String cellValue = cell.getStringCellValue();//获取列的内容
+                                      //  System.out.println("k:" + k + ",cellValue:" + cellValue);
+                                        switch (k) {
+                                            //根据列数决定如何处理
+                                            case 0:
+                                                if(cellValue!=null&&cellValue!=""){
+                                                    teacher.setName(cellValue);//姓名
+                                                }
+                                                break;
+                                            case 1:
+                                                if(cellValue!=null&&cellValue!=""){
+                                                    teacher.setWorkID(cellValue);
+                                                }
+                                                break;
+                                            case 2:
+                                                if(cellValue!=null&&cellValue!=""){
+                                                    teacher.setGender(cellValue);
+                                                }
+                                                break;
+                                            case 3:
+                                                if(cellValue!=null&&cellValue!=""){
+                                                    teacher.setEmail(cellValue);
+                                                }
+                                                break;
+                                            case 4:
+                                                if(cellValue!=null&&cellValue!=""){
+                                                    teacher.setPhone(cellValue);
+                                                }
+                                                break;
+                                            case 5:
                                            /* for(int d=0;d<allDepartments.size();d++){
                                                 department=allDepartments.get(d);
                                                 System.out.println("allDepartments.size()"+allDepartments.size()+"department.getName()："+department.getName());
@@ -243,34 +257,30 @@ public class POIUtils {
                                                     teacher.setDepartmentId(department.getId());
                                                 }
                                             }*/
-                                            int departmentIndex = allDepartments.indexOf(new Department(cellValue));
-                                           // System.out.println("departmentIndex:"+departmentIndex);
-                                            teacher.setDepartmentId(allDepartments.get(departmentIndex).getId());
-                                            break;
-                                        case 6:
+                                                System.out.println("第五列"+cellValue);
+                                                if(cellValue!=null&&cellValue!=""){
+                                                    int departmentIndex = allDepartments.indexOf(new Department(cellValue));
+                                                    System.out.println("departmentIndex"+departmentIndex);
+                                                    teacher.setDepartmentId(allDepartments.get(departmentIndex).getId());
+                                                }
+
+                                                break;
+                                            case 6:
                                             /*for(int b=0;b<allJobLevels.size();b++){
                                                 jobLevel=allJobLevels.get(b);
                                                 if(cellValue.equals(jobLevel.getName())){
                                                     teacher.setJobLevelId(jobLevel.getId());
                                                 }
                                             }*/
-                                            int joblevelIndex = allJobLevels.indexOf(new JobLevel(cellValue));
-                                            //System.out.println("joblevelIndex:"+joblevelIndex);
-                                            teacher.setJobLevelId(allJobLevels.get(joblevelIndex).getId());
-                                            break;
+                                                if(cellValue!=null&&cellValue!=""){
+                                                    int joblevelIndex = allJobLevels.indexOf(new JobLevel(cellValue));
+                                                    //System.out.println("joblevelIndex:"+joblevelIndex);
+                                                    teacher.setJobLevelId(allJobLevels.get(joblevelIndex).getId());
+                                                }
+
+                                                break;
+                                        }
                                     }
-                              /*  default: {//类型不是string,
-                                   *//* switch (k){
-                                        case 1:
-                                            teacher.setWorkID(cell.getNumericCellValue());
-                                            teacher.setUsername(cellValue);//用户名设置和工号相同
-                                            break;
-
-                                    }*//*
-                                }*/
-
-                           // }
-
                         }
                     }else{
                         break;

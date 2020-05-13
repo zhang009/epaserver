@@ -33,4 +33,9 @@ public interface ClassMapper {
     List<String> getAllClassWithName();
 
     List<Class> getAllClassByMajorId(@Param("majorId") Integer majorId);
+
+    //根据学院和专业获取班级列表
+    List<Teacher> getClassBySchoolIdAndMajorId(@Param("page")Integer page,@Param("size") Integer size, @Param("cla")Class clazz);
+
+    Long getTotal2(@Param("cla")Class clazz);
 }

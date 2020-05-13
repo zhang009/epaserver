@@ -95,13 +95,13 @@ public class StudentService implements UserDetailsService {
      * @param rePassword
      * @return
      */
-    public boolean modifyPass(String sno,String password,String rePassword) {
-        Student student = studentMapper.selectByPrimaryKey(Integer.valueOf(sno));
+    public boolean modifyPass(Integer id,String password,String rePassword) {
+        Student student = studentMapper.selectByPrimaryKey(Integer.valueOf(id));
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if(encoder.matches(password,student.getPassword())) {
             String encode = encoder.encode(rePassword);
             rePassword = encode;
-            studentMapper.modifyPass(sno,rePassword);
+            studentMapper.modifyPass(id,rePassword);
             return true;
         }else {
             return false;

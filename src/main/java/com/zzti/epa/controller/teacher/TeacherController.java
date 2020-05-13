@@ -44,8 +44,8 @@ public class TeacherController {
     @GetMapping("/")
     public RespPageBean getTeacherByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10")
             Integer size, Teacher teacher){/*这里teacher存储为条件搜索内容*/
-        System.out.println(">>>>>>>>>>>>角色rid:"+teacher.getrId());
-        System.out.println(">>>>>>>>>>>>关键词name:"+teacher.getName());
+       /* System.out.println(">>>>>>>>>>>>角色rid:"+teacher.getrId());
+        System.out.println(">>>>>>>>>>>>关键词name:"+teacher.getName());*/
         return teacherService.getTeacherByPage(page,size,teacher);
     }
     /**
@@ -68,7 +68,7 @@ public class TeacherController {
         return departmentService.getAllDepartments();
     }
     @GetMapping("/roles")
-    public List<Role> getAllRoles(){
+    public List<Role> getAllRoles(){//查询教师用户的所有角色
         System.out.println("getAllRoles:");
         return roleService.getAllRoles();
     }
@@ -85,9 +85,9 @@ public class TeacherController {
     @PutMapping("/role")
     public RespBean updateTeaRole(Integer tid,Integer[] rids){
         if(teacherService.updateTeaRole(tid,rids)){
-            return RespBean.ok("更新成功！");
+            return RespBean.ok("角色更新成功！");
         }
-        return RespBean.error("更新失败！");
+        return RespBean.error("角色更新失败！");
     }
     @PutMapping("/")
     public RespBean updateTea(@RequestBody Teacher teacher){
@@ -168,9 +168,10 @@ public class TeacherController {
         //file当成excel文件来解析
         // file.transferTo(new File("E:\\javatest.xls"));
         List<Teacher> list=POIUtils.excel2Teacher(file,departmentService.getAllDepartments2(),jobLevelService.getAllJobLevels());
-        /*for (Employee employee : list) {
-            System.out.println(employee.toString());
+       /* for (Teacher teacher : list) {
+            System.out.println(teacher.toString());
         }*/
+        System.out.println(list.size());
         //将解析的数据插入到数据库
         if(teacherService.addTeas(list)==list.size()) {
             return RespBean.ok("上传成功！");

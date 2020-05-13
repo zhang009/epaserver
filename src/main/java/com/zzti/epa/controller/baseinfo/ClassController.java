@@ -20,11 +20,14 @@ import java.util.List;
 public class ClassController {
     @Autowired
     ClassService classService;
+
+    //获取专业下的班级
     @GetMapping("/all")
     public List<Class> getClassByMid(@RequestParam(value = "majorId") Integer majorId){
         System.out.println("schoolId:"+majorId);
         return classService.getClassByMid(majorId);
     }
+    //获取所有的班级
     @GetMapping("/all2")
     public List<Class> getAllClass(){
 
@@ -37,10 +40,16 @@ public class ClassController {
     }
 
 
+    //根据条件获取班级（学院，专业）
     @GetMapping("/")
     public RespPageBean getClassByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10")
             Integer size, String keyword){
         return classService.getClassByPage(page,size,keyword);
+    }
+    @GetMapping("/all3")
+    public RespPageBean getClassBySchoolIdAndMajorId(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10")
+            Integer size, Class clazz){
+        return classService.getClassBySchoolIdAndMajorId(page,size,clazz);
     }
     @PostMapping("/")
     public RespBean addClass(@RequestBody Class clazz){

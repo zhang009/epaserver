@@ -92,7 +92,12 @@
     m3.`name` as name3
 
     from menu m1,menu m2,menu m3
-    where m1.id=m2.parentId and m2.id=m3.parentId and m3.enabled=TRUE
+    where
+     m1.id=m2.parentId
+     and m2.id=m3.parentId
+     	and m2.id!=45
+			and m3.parentId!=45
+      and m3.enabled=TRUE
 
     ORDER BY m1.id,m2.id,m3.id
   </select>

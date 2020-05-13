@@ -36,12 +36,50 @@
         limit #{page},#{size}
       </if>
   </select>
+  <select id="getClassBySchoolIdAndMajorId" resultMap="ClassWithMajor">
+    select c.*,m.id as mid,m.`name` as mname from class c,major m
+    where c.majorId=m.id
+    <if test="cla.name!=null and cla.name!=''">
+      and c.name like concat('%',#{cla.name},'%')
+    </if>
+    <if test="cla.schoolId !=null ">
+      and c.schoolId=#{cla.schoolId}
+    </if>
+    <if test="cla.majorId !=null ">
+      and c.majorId=#{cla.majorId}
+    </if>
+    <if test="cla.grade !=null ">
+      and c.grade=#{cla.grade}
+    </if>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+
+  </select>
 
   <select id="getTotal" resultType="Long">
     select count(*) from class c
     <where>
       <if test="keyword!=null and keyword!=''">
         and c.name like concat('%',#{keyword},'%')
+      </if>
+    </where>
+  </select>
+  <select id="getTotal2" resultType="Long">
+    select count(*) from class c
+    <where>
+      <if test="cla.name!=null and cla.name!=''">
+        and c.name like concat('%',#{cla.name},'%')
+      </if>
+      <if test="cla.schoolId !=null ">
+        and c.schoolId=#{cla.schoolId}
+      </if>
+      <if test="cla.majorId !=null ">
+        and c.majorId=#{cla.majorId}
+      </if>
+
+      <if test="cla.grade !=null ">
+        and c.grade=#{cla.grade}
       </if>
     </where>
   </select>
