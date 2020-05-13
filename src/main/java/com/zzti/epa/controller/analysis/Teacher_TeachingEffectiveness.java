@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class Teacher_TeachingEffectiveness {
     @Autowired
     Analysis_TestPaperService analysis_testPaperService;
+
+    //班级优秀率+班级及格率
     @PostMapping("/getPassStudentNumAndOutstandingStudentNum")
     public PassStudentNumAndOutstandingStudentNum getPassStudentNumAndOutstandingStudentNum(@RequestParam int classId, @RequestParam int testpaperId){
         return analysis_testPaperService.getPassStudentNumAndOutstandingStudentNum(classId,testpaperId);

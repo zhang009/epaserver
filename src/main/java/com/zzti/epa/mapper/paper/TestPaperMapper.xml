@@ -223,6 +223,12 @@
     <result column="tname" property="teacher" jdbcType="VARCHAR" />
   </resultMap>
 
+  <select id="select_ListOfTestPaperByName" resultMap="ListOfTestPaper" parameterType="java.lang.String">
+    select
+    test_paper.id,test_paper.name,test_paper.createTime,teacher.name "tname"
+    from test_paper inner join teacher
+    where test_paper.postTeacherId=teacher.id and test_paper.name like #{name};
+  </select>
   <select id="select_ListOfTestPaper" resultMap="ListOfTestPaper" >
     select
     test_paper.id,test_paper.name,test_paper.createTime,teacher.name "tname"

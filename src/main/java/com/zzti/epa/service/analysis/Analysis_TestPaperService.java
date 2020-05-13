@@ -1,11 +1,20 @@
 package com.zzti.epa.service.analysis;
 
+import com.zzti.epa.mapper.baseinfo.ChapterMapper;
+import com.zzti.epa.mapper.baseinfo.KnowsMapper;
 import com.zzti.epa.mapper.grade.StudentGradeMapper;
+import com.zzti.epa.mapper.paper.QuestionScoreMapper;
 import com.zzti.epa.mapper.paper.TestPaperMapper;
+import com.zzti.epa.model.Chapter;
+import com.zzti.epa.model.Knows;
+import com.zzti.epa.model.QuestionScore;
 import com.zzti.epa.model.analysis.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +26,114 @@ public class Analysis_TestPaperService {
     TestPaperMapper testPaperMapper;
     @Autowired
     StudentGradeMapper studentGradeMapper;
+    @Autowired
+    ChapterMapper chapterMapper;
+    @Autowired
+    Analysis_TestPaperService analysis_testPaperService;
+    @Autowired
+    QuestionScoreMapper questionScoreMapper;
+    @Autowired
+    KnowsMapper knowsMapper;
 
+    //根据试卷id，计算出试卷知识点分值分布后，将其返回
+    public ScoreDistributionOfKnowledgePointsInTestPaper getScoreDistributionOfKnowledgePointsInTestPaper(int id){
+        ScoreDistributionOfKnowledgePointsInTestPaper scoreDistributionOfKnowledgePointsInTestPaper = new ScoreDistributionOfKnowledgePointsInTestPaper();
+//        2，通过试卷id，查出testpaper
+        TestPaperForAnalysis testpaper = analysis_testPaperService.getTestPaperById(id);
+//                通过testpaper得到知识点id字符串,通过分割函数将知识点id字符串分割成一个知识点id数组arr
+        String[] knowledgePointsId = testpaper.getKnowIds().split("@");
+//        通过知识点id数组arr查询出知识点名称数组，赋值给ScoringRateOfKnowledgePoints
+        String[] knowledgePointsName = new String[knowledgePointsId.length];
+        for(int i=0;i<knowledgePointsId.length;i++){
+            Knows knows = knowsMapper.selectByPrimaryKey(Integer.parseInt(knowledgePointsId[i]));
+            knowledgePointsName[i] = knows.getName();
+        }
+        scoreDistributionOfKnowledgePointsInTestPaper.setNames(knowledgePointsName);
+//        3，通过试卷id，查询试题分数表（quesiotn_score）得到一个List<QuestionScore>
+        List<QuestionScore> questionScoreList = questionScoreMapper.getQuestionScoreByTestPaperId2(id);
+//        循环每个小题，统计每个知识点的满分,若是一道题设计多个知识点，则这道题的满分分数被这几个知识点平分
+        float[] fullMarks = new float[knowledgePointsId.length];
+        for(int i=0;i<questionScoreList.size();i++){
+            for(int j=0;j<knowledgePointsId.length;j++){
+                String[] knowsledgePointsId2 = questionScoreList.get(i).getKnowIds().split("@");
+                for(int k=0;k<knowsledgePointsId2.length;k++){
+                    //如果知识点id相等，则
+                    if(knowledgePointsId[j].equals(knowsledgePointsId2[k])){
+                        fullMarks[j] += questionScoreList.get(i).getQueScore()/knowsledgePointsId2.length;
+                    }
+                }
+            }
+        }
+        //4，计算知识点得分率
+        float[] scoreDistribution = new float[knowledgePointsId.length];
+        for(int i=0;i<scoreDistribution.length;i++){
+            scoreDistribution[i] = fullMarks[i]/testpaper.getTotalScore();
+        }
+        //让知识点分值占比精确到小数点后两位小数
+        DecimalFormat decimalFormat = new DecimalFormat("#.0000");
+        for(int i=0;i<scoreDistribution.length;i++){
+            scoreDistribution[i] = Float.parseFloat(decimalFormat.format(scoreDistribution[i]));
+        }
+        scoreDistributionOfKnowledgePointsInTestPaper.setScoreDistribution(scoreDistribution);
+        return scoreDistributionOfKnowledgePointsInTestPaper;
+    }
+    //根据试卷id，计算出试卷章节分值分布后，将其返回
+    public ScoreDistributionOfTestPaperChapters getScoreDistributionOfTestPaperChapters(int id){
+        ScoreDistributionOfTestPaperChapters scoreDistributionOfTestPaperChapters = new ScoreDistributionOfTestPaperChapters();
+//        2，根据试卷id查询出，试卷
+        TestPaperForAnalysis testpaper = analysis_testPaperService.getTestPaperById(id);
+//        通过试卷对象得到章节id（数组）
+        String[] chapterIds = testpaper.getChapterIds().split("@");
+        String[] chapterNames = new String[chapterIds.length];
+//          通过章节id查询出，具体的章节对象，新建变量保存章节名称数组
+        for(int i=0;i<chapterIds.length;i++){
+            Chapter chapter = chapterMapper.selectByPrimaryKey(Integer.parseInt(chapterIds[i]));
+            chapterNames[i] = chapter.getName();
+        }
+//            将章节名称放到ScoringRateOfAllChapter中
+        scoreDistributionOfTestPaperChapters.setNames(chapterNames);
+//        3，根据试卷id查询试卷分数表，获得所有的小题（List<QuestionScore>）
+        List<QuestionScore> questionScoreList = questionScoreMapper.getQuestionScoreByTestPaperId2(id);
+//        通过questionScoreList获取，每个章节的满分
+        float[] fullMarks = new float[chapterIds.length];
+        for(int i=0;i<questionScoreList.size();i++){
+            for(int j=0;j<chapterNames.length;j++){
+                if(chapterIds[j].equals(""+questionScoreList.get(i).getChapterId())){
+                    fullMarks[j] += questionScoreList.get(i).getQueScore();
+                }
+            }
+        }
+        //4，计算出试卷的分值占比
+        float[] scoreDistribution = new float[chapterIds.length];
+        for(int i=0;i<scoreDistribution.length;i++){
+            scoreDistribution[i] = fullMarks[i]/testpaper.getTotalScore();
+        }
+        //让章节分值占比精确到小数点后两位小数
+        DecimalFormat decimalFormat = new DecimalFormat("#.0000");
+        for(int i=0;i<scoreDistribution.length;i++){
+            scoreDistribution[i] = Float.parseFloat(decimalFormat.format(scoreDistribution[i]));
+        }
+        scoreDistributionOfTestPaperChapters.setScoreDistribution(scoreDistribution);
+        return scoreDistributionOfTestPaperChapters;
+    }
+
+    //根据试卷名称进行模糊查询，返回试卷列表
+    public List<ListOfTestPaperForWeb> getListOfTestPaperByName(String name){
+        List<ListOfTestPaper> list = testPaperMapper.select_ListOfTestPaperByName("%"+name+"%");
+        List<ListOfTestPaperForWeb> listOfTestPaperForWebs= new ArrayList<ListOfTestPaperForWeb>();
+        for(int i=0;i<list.size();i++){
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String createTime = formatter.format(list.get(i).getCreateTime());
+            ListOfTestPaperForWeb listOfTestPaperForWeb=new ListOfTestPaperForWeb();
+            //将数据放到List<ListOfTestPaperForWeb>中，返回给前端
+            listOfTestPaperForWeb.setId(list.get(i).getId());
+            listOfTestPaperForWeb.setName(list.get(i).getName());
+            listOfTestPaperForWeb.setTeacher(list.get(i).getTeacher());
+            listOfTestPaperForWeb.setCreateTime(createTime);
+            listOfTestPaperForWebs.add(listOfTestPaperForWeb);
+        }
+        return  listOfTestPaperForWebs;
+    }
 
     //根据班级id和试卷id获取，及格人数，不及格人数，优秀人数，其他人数，总人数
     public PassStudentNumAndOutstandingStudentNum getPassStudentNumAndOutstandingStudentNum(int classId,int testpaperId){

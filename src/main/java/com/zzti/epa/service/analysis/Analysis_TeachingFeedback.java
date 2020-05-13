@@ -99,7 +99,7 @@ public class Analysis_TeachingFeedback {
         for(int i=0;i<scoreRate.length;i++){
             scoreRate[i] = studentScoreOfSmallQuestion[i]/(fullMarks[i]*studentGrades.size());
         }
-        //让题型得分率精确到小数点后两位小数
+        //让知识点得分率精确到小数点后两位小数
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         for(int i=0;i<scoreRate.length;i++){
             scoreRate[i] = Float.parseFloat(decimalFormat.format(scoreRate[i]));
@@ -168,7 +168,7 @@ public class Analysis_TeachingFeedback {
         for(int i=0;i<scoreRate.length;i++){
             scoreRate[i] = studentScoreOfSmallQuestion[i]/(fullMarks[i]*studentGrades.size());
         }
-        //让题型得分率精确到小数点后两位小数
+        //让章节得分率精确到小数点后两位小数
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         for(int i=0;i<scoreRate.length;i++){
             scoreRate[i] = Float.parseFloat(decimalFormat.format(scoreRate[i]));
