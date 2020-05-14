@@ -32,4 +32,6 @@ public interface StudentMapper {
     Student loadUserByUsername(String username);
 
     int modifyPass(Integer sno,String rePassword);
+
+    Integer isExistStudentNum(String studentNum);
 }

@@ -6,7 +6,14 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="term" property="term" jdbcType="VARCHAR" />
     <result column="classId" property="classId" jdbcType="INTEGER" />
+    <result column="majorId" property="majorId" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="CourseWithClass" type="map" extends="BaseResultMap">
+
+      <result column="className" property="className" jdbcType="VARCHAR"/>
+
+  </resultMap>
+
   <select id="getAllCourse" resultType="com.zzti.epa.model.Course">
     select * from course c where id in (select max(id) from course group by name)
     <if test="classId!=null">
@@ -37,6 +44,9 @@
       <if test="course.name!=null and course.name!=''">
         and c.name like concat('%',#{course.name},'%')
       </if>
+      <if test="course.majorId!=null">
+        and c.majorId= #{course.majorId}
+      </if>
       <if test="course.classId!=null">
         and c.id in(select courseId from class_course where classId =#{course.classId})
       </if>
@@ -45,15 +55,41 @@
       limit #{page},#{size}
     </if>
   </select>
+  <!--三表联查，多对多关系-->
+  <select id="getCourseWithClass" resultMap="CourseWithClass">
+    select t2.*,t3.name as className, t3.schoolId as schoolId from (class_course t1 INNER JOIN course t2 on t1.courseId =t2.id)
+    INNER JOIN class t3 on t1.classId=t3.id
+
+    <where>
+      <if test="course.name!=null and course.name!=''">
+        and t2.name like concat('%',#{course.name},'%')
+      </if>
+      <if test="course.majorId!=null">
+        and t2.majorId= #{course.majorId}
+      </if>
+      <if test="course.classId!=null">
+        and t3.id =#{course.classId}
+      </if>
+    </where>
+    order by t3.name
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <!-- select count(*) from course c where id in (select max(id) from course group by name)-->
   <select id="getTotal" resultType="Long">
-    select count(*) from course c where id in (select max(id) from course group by name)
+    select count(*) from (class_course t1 INNER JOIN course t2 on t1.courseId =t2.id)
+    INNER JOIN class t3 on t1.classId=t3.id
     <where>
       <if test="course!=null">
-        <if test="course.name !=null and course.name!=''">
-          and c.name like concat('%',#{course.name},'%')
+        <if test="course.name!=null and course.name!=''">
+          and t2.name like concat('%',#{course.name},'%')
+        </if>
+        <if test="course.majorId!=null">
+          and t2.majorId= #{course.majorId}
         </if>
         <if test="course.classId!=null">
-          and c.classId=#{course.classId}
+          and t3.id =#{course.classId}
         </if>
       </if>
     </where>
@@ -71,7 +107,7 @@
 
 
   <sql id="Base_Column_List" >
-    id, name, term, classId
+    id, name, term, classId,majorId
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -85,9 +121,9 @@
   </delete>
   <insert id="insert" parameterType="com.zzti.epa.model.Course" useGeneratedKeys="true" keyProperty="id" >
     insert into course (id, name, term, 
-      classId)
+      classId,majorId)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{term,jdbcType=VARCHAR}, 
-      #{classId,jdbcType=INTEGER})
+      #{classId,jdbcType=INTEGER},#{majorId,jdbcType=INTEGER}))
   </insert>
   <insert id="insertSelective" parameterType="com.zzti.epa.model.Course" useGeneratedKeys="true" keyProperty="id" >
     insert into course
@@ -104,6 +140,9 @@
       <if test="classId != null" >
         classId,
       </if>
+      <if test="majorId != null" >
+        majorId
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -117,6 +156,9 @@
       </if>
       <if test="classId != null" >
         #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="majorId != null" >
+        #{majorId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -132,6 +174,9 @@
       <if test="classId != null" >
         classId = #{classId,jdbcType=INTEGER},
       </if>
+      <if test="majorId != null" >
+        majorId = #{majorId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -139,7 +184,8 @@
     update course
     set name = #{name,jdbcType=VARCHAR},
       term = #{term,jdbcType=VARCHAR},
-      classId = #{classId,jdbcType=INTEGER}
+      classId = #{classId,jdbcType=INTEGER},
+       majorId = #{majorId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

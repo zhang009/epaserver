@@ -27,6 +27,9 @@ public class Student implements UserDetails {
 
     private Integer classId;
 
+    private Integer majorId;//为了前端获取数据
+    private Integer schoolId;//为了前端获取数据
+
     private String remark;
 
     private Class clazz;
@@ -48,6 +51,22 @@ public class Student implements UserDetails {
                 ", remark='" + remark + '\'' +
                 ", clazz=" + clazz +
                 '}';
+    }
+
+    public Integer getMajorId() {
+        return majorId;
+    }
+
+    public void setMajorId(Integer majorId) {
+        this.majorId = majorId;
+    }
+
+    public Integer getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(Integer schoolId) {
+        this.schoolId = schoolId;
     }
 
     public Student() {

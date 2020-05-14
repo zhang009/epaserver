@@ -24,7 +24,7 @@ public class ClassController {
     //获取专业下的班级
     @GetMapping("/all")
     public List<Class> getClassByMid(@RequestParam(value = "majorId") Integer majorId){
-        System.out.println("schoolId:"+majorId);
+        System.out.println("majorId:"+majorId);
         return classService.getClassByMid(majorId);
     }
     //获取所有的班级

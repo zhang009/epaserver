@@ -15,6 +15,8 @@
   </resultMap>
 
   <resultMap id="AllStudentInfo" type="map" extends="BaseResultMap">
+    <result column="majorId" property="majorId" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
     <association property="clazz" javaType="com.zzti.epa.model.Class">
       <id column="cid" property="id"/>
       <result column="cname" property="name"></result>
@@ -22,7 +24,7 @@
   </resultMap>
 
   <select id="getStudentByPage" resultMap="AllStudentInfo">
-    select c.id as cid, c.name as cname,s.* from student s,class c
+    select c.id as cid, c.name as cname,c.majorId as majorId ,c.schoolId as schoolId,s.* from student s,class c
     where s.classId=c.id
     <if test="stu.name !=null and stu.name!=''">
       and s.name like concat('%',#{stu.name},'%')
@@ -72,7 +74,9 @@
   <update id="modifyPass" parameterType="com.zzti.epa.model.Student">
         update student set password = #{rePassword} where id=#{sno}
     </update>
-
+  <select id="isExistStudentNum" resultType="Integer">
+     select count(*) from student where studentNum=#{studentNum}
+  </select>
 
 
 

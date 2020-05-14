@@ -19,6 +19,8 @@ public interface CourseMapper {
     int updateByPrimaryKey(Course record);
 
     List<Course> getCourse(@Param("page")Integer page, @Param("size") Integer size, @Param("course")Course course);
+    List<Course> getCourseWithClass(@Param("page")Integer page, @Param("size") Integer size, @Param("course")Course course);
+
 
     Long getTotal(@Param("course")Course course);
 

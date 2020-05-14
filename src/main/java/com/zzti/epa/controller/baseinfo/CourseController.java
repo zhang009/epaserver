@@ -23,9 +23,15 @@ public class CourseController {
     //根据班级获取所有的课程列表，没有分页
     @GetMapping("/")
     public RespPageBean getCourse(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10")
-                                  Integer size,Course course){
-        System.out.println("getCourseByClassId.classId:"+course.toString());
+                                  Integer size, Course course){//这里前端 传来的字段可能有：课程名、majorId、classId
+      //  System.out.println("========getCourse:"+course.toString());
         return courseService.getCourse(page,size,course);
+    }
+    @GetMapping("/withClass")
+    public RespPageBean getCourseWithClass(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10")
+                                  Integer size, Course course){//这里前端 传来的字段可能有：课程名、majorId、classId
+        //System.out.println("========getCourseWithClass:"+course.toString());
+        return courseService.getCourseWithClass(page,size,course);
     }
     @GetMapping("/all")
     public List<Course> getAllCourse(@RequestParam("classId") Integer id){

@@ -37,12 +37,25 @@ public class CourseService {
         bean.setTotal(total);
         return bean;
     }
+    public RespPageBean getCourseWithClass(Integer page, Integer size, Course course) {
+        if(page!=null&& size!=null){
+            page=(page-1)*size;
+        }
+        List<Course> data=courseMapper.getCourseWithClass(page,size,course);
+     /*   System.out.println(data.size());
+        System.out.println(data.toString());*/
+        Long total=courseMapper.getTotal(course);
+        RespPageBean bean = new RespPageBean();
+        bean.setData(data);
+        bean.setTotal(total);
+        return bean;
+    }
 
     //添加课程
     @Transactional
     public Integer addCourse(Course course) {
         //这里当添加完课程之后，需要在班级_课程里添加，删除时表关联自动删除
-        courseMapper.insertSelective(course);
+        courseMapper.insertSelective(course);//执行添加操作，获取课程添加后的id
         ClassCourse classCourse=new ClassCourse();
         classCourse.setClassId(course.getClassId());
         classCourse.setCourseId(course.getId());

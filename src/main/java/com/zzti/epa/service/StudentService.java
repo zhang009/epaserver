@@ -109,4 +109,8 @@ public class StudentService implements UserDetailsService {
     }
 
 
+    //判断学号是否存在
+    public boolean isExistStudentNum(String studentNum) {
+        return studentMapper.isExistStudentNum(studentNum)>=1;
+    }
 }

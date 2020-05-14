@@ -9,7 +9,34 @@ public class Course {
 
     private Integer classId;//这里的classId只是为了接受前端的classId才在这里定义，
                             // 注意班级和课程是多对多的关系，之间的联系靠关系表来实现
+    private Integer majorId;
 
+    private String className;
+    private Integer schoolId;
+
+    public Integer getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(Integer schoolId) {
+        this.schoolId = schoolId;
+    }
+
+    public Integer getMajorId() {
+        return majorId;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public void setMajorId(Integer majorId) {
+        this.majorId = majorId;
+    }
 
     public Integer getId() {
         return id;
@@ -50,6 +77,7 @@ public class Course {
                 ", name='" + name + '\'' +
                 ", term='" + term + '\'' +
                 ", classId=" + classId +
+                ", majorId=" + majorId +
                 '}';
     }
 }

@@ -443,42 +443,53 @@ public class POIUtils {
                     int physicalNumberOfCells = row.getPhysicalNumberOfCells();
                     //  System.out.println("列数：" + physicalNumberOfCells);
                     student = new Student();
-                    if (physicalNumberOfCells == 4) {
-                        for (int k = 0; k < physicalNumberOfCells; k++) {
+                    if (physicalNumberOfCells == 4||physicalNumberOfCells==3) {
+                        for (int k = 0; k < 4; k++) {
                             HSSFCell cell = row.getCell(k);
                             //字符串格式、日期格式
-                          /*  switch (cell.getCellType()) {
-                                case STRING:*/
-                            cell.setCellType(CellType.STRING);
-                            String cellValue = cell.getStringCellValue();
-                            //System.out.println("k:" + k + ",cellValue:" + cellValue);
-                            switch (k) {
-                                //根据列数决定如何处理
-                                case 0:
-                                    student.setName(cellValue);//姓名
-                                    break;
-                                case 1:
-                                    student.setStudentNum(cellValue);
-                                    student.setUsername(cellValue);//用户名设置和学号相同
-                                    break;
-                                case 2:
-                                    student.setGender(cellValue);
-                                    break;
-                                case 3:
-                                   int classIndex=allClass.indexOf(new Class(cellValue));
-                                   student.setClassId(allClass.get(classIndex).getId());
-                                    break;
+                            if(cell!=null){
+                                cell.setCellType(CellType.STRING);
+                                String cellValue = cell.getStringCellValue();
+                                //System.out.println("k:" + k + ",cellValue:" + cellValue);
+                                switch (k) {
+                                    //根据列数决定如何处理
+                                    case 0:
+                                        if(cellValue!=null&&cellValue!=""){
+                                            student.setName(cellValue);//姓名
+                                        }
+
+                                        break;
+                                    case 1:
+                                        if(cellValue!=null&&cellValue!=""){//学号
+                                            student.setStudentNum(cellValue);
+                                        }
+                                        break;
+                                    case 2:
+                                        if(cellValue!=null&&cellValue!=""){//性别
+                                            student.setGender(cellValue);
+                                        }
+                                        break;
+                                    case 3:
+                                        if(cellValue!=null&&cellValue!=""){//班级
+                                            int classIndex=allClass.indexOf(new Class(cellValue));
+                                            student.setClassId(allClass.get(classIndex).getId());
+                                        }
+
+                                        break;
+                                }
                             }
+
+
+
                         }
                     }else{
                         break;
                     }
                     BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
                     String encode=bCryptPasswordEncoder.encode(student.getStudentNum());//学生密码和学生学号相同，在这里进行学号加密
-                    //System.out.println("encode:"+encode);
                     student.setUsername(student.getStudentNum());//默认用户名为学号
-                    student.setPassword(encode);
-                   // System.out.println(student.toString());
+                    student.setPassword(encode);//设置加密密码
+
                     list.add(student);
 
 
