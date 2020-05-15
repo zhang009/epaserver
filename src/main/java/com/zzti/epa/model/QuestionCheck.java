@@ -34,6 +34,27 @@ public class QuestionCheck {
     public QuestionCheck() {
     }
 
+    @Override
+    public String toString() {
+        return "QuestionCheck{" +
+                "id=" + id +
+                ", questionId=" + questionId +
+                ", postTeacherId=" + postTeacherId +
+                ", checkTeacherId=" + checkTeacherId +
+                ", checkStatus=" + checkStatus +
+                ", questionType='" + questionType + '\'' +
+                ", refuseReason='" + refuseReason + '\'' +
+                ", postTeacher=" + postTeacher +
+                ", checkTeacher=" + checkTeacher +
+                ", scQuestion=" + scQuestion +
+                ", mcQuestion=" + mcQuestion +
+                ", tfQuestion=" + tfQuestion +
+                ", fbQuestion=" + fbQuestion +
+                ", qaQuestion=" + qaQuestion +
+                ", postTime=" + postTime +
+                '}';
+    }
+
     public Teacher getPostTeacher() {
         return postTeacher;
     }

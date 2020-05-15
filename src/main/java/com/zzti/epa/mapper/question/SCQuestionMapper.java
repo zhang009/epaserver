@@ -22,7 +22,8 @@ public interface SCQuestionMapper {
 
     Long getTotal(@Param("sc")SCQuestion scQuestion);
 
-    SCQuestion getSCQuestionById(@Param("id") Integer questionId);
+    SCQuestion getSCQuestionById(@Param("id") Integer questionId);//带章节
+    SCQuestion getSCQuestionById2(@Param("id") Integer questionId);//不带章节
     //根据课程id获取题目列表
     List<SCQuestion> getSCQuestionByCourseId(@Param("id") Integer id);
 }

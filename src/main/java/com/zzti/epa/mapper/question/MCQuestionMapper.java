@@ -24,6 +24,9 @@ public interface MCQuestionMapper {
     Long getTotal(@Param("mc")MCQuestion mcQuestion);
 
     MCQuestion getMCQuestionById(@Param("id") Integer questionId);
+    MCQuestion getMCQuestionById2(@Param("id") Integer questionId);
 
     List<MCQuestion> getMCQuestionByCourseId(@Param("id") Integer id);
+
+
 }

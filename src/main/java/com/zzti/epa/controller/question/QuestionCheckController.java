@@ -1,5 +1,6 @@
 package com.zzti.epa.controller.question;
 
+import com.zzti.epa.model.QuestionCheck;
 import com.zzti.epa.model.RespBean;
 import com.zzti.epa.model.RespPageBean;
 import com.zzti.epa.service.question.QuestionCheckService;
@@ -36,10 +37,10 @@ public class QuestionCheckController {
             Integer size){
         return questionCheckService.getSubmitCheck(page,size);
     }
-    @PostMapping("/pass")
-    public RespBean passQuestionCheck(@RequestParam("id")Integer id){
-        if(questionCheckService.passQuestionCheck(id)==1){
-            return RespBean.ok("更新成功！");
+    @PostMapping("/")
+    public RespBean updateQuestionCheck(@RequestBody QuestionCheck questionCheck){
+        if(questionCheckService.updateQuestionCheck(questionCheck)==1){
+            return RespBean.ok("保存成功！");
         }
         return RespBean.error("保存失败！");
 

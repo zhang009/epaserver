@@ -25,9 +25,10 @@ public class SCQuestionController {
         System.out.println(scQuestion.toString());
         return scQuestionService.getSCQuestionByPage(page,size,scQuestion);
     }
-
+    //添加试题
     @PostMapping("/add")
     public RespBean AddSCQuestion(@RequestBody SCQuestion scQuestion){
+        System.out.println(scQuestion.toString());
         if(scQuestionService.AddSCQuestion(scQuestion)==1){
             return RespBean.ok("添加成功！");
         }

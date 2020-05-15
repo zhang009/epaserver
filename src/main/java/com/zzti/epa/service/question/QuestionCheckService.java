@@ -119,7 +119,9 @@ public class QuestionCheckService {
 
     }
 
+    //通过审核
     public Integer passQuestionCheck(Integer id) {
+        //1.获取到试题id,和试题类型
         return questionCheckMapper.passQuestionCheck(id);
     }
 
@@ -129,5 +131,34 @@ public class QuestionCheckService {
 
     public Integer refuseQuestionCheck(Integer id, String refuseReason) {
         return questionCheckMapper.refuseQuestionCheck(id,refuseReason);
+    }
+
+    public int updateQuestionCheck(QuestionCheck questionCheck) {
+        //1.获取到试题id,和试题类型,更新试题状态
+        System.out.println("QuestionCheck:"+questionCheck.toString());
+        if(questionCheck.getQuestionType().equals("sc")){//初始化试题信息
+            SCQuestion scQuestion=scQuestionMapper.getSCQuestionById2(questionCheck.getQuestionId());
+            scQuestion.setStatus(questionCheck.getCheckStatus());
+            scQuestionMapper.updateByPrimaryKeySelective(scQuestion);//更新单选题试题状态
+
+        }else if(questionCheck.getQuestionType().equals("mc")){
+            MCQuestion mcQuestion=mcQuestionMapper.getMCQuestionById2(questionCheck.getQuestionId());
+            mcQuestion.setStatus(questionCheck.getCheckStatus());
+            mcQuestionMapper.updateByPrimaryKeySelective(mcQuestion);
+        }else if(questionCheck.getQuestionType().equals("tf")){
+            TFQuestion tfQuestion=tfQuestionMapper.getTFQuestionById2(questionCheck.getQuestionId());
+            tfQuestion.setStatus(questionCheck.getCheckStatus());
+            tfQuestionMapper.updateByPrimaryKeySelective(tfQuestion);
+
+        }else if(questionCheck.getQuestionType().equals("fb")){
+            FBQuestion fbQuestion=fbQuestionMapper.getFBQuestionById2(questionCheck.getQuestionId());
+            fbQuestion.setStatus(questionCheck.getCheckStatus());
+            fbQuestionMapper.updateByPrimaryKeySelective(fbQuestion);
+        }else if(questionCheck.getQuestionType().equals("qa")){
+            QAQuestion qaQuestion=qaQuestionMapper.getQAQuestionById2(questionCheck.getQuestionId());
+            qaQuestion.setStatus(questionCheck.getCheckStatus());
+            qaQuestionMapper.updateByPrimaryKeySelective(qaQuestion);
+        }
+        return questionCheckMapper.updateByPrimaryKeySelective(questionCheck);
     }
 }

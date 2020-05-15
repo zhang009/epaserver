@@ -68,6 +68,9 @@ where fb.teacherId=t.id
   <select id="getFBQuestionByCourseId"  resultType="com.zzti.epa.model.FBQuestion" >
     select * from fb_question  where   courseId=#{id}
   </select>
+  <select id="getFBQuestionById2" resultType="com.zzti.epa.model.FBQuestion">
+    select * from fb_question where id=#{id}
+  </select>
 
 
 

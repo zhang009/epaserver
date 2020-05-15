@@ -72,7 +72,9 @@ where tf.teacherId=t.id
   select * from tf_question where courseId=#{id}
 </select>
 
-
+  <select id="getTFQuestionById2" resultType="com.zzti.epa.model.TFQuestion">
+    select * from tf_question where id=#{id}
+  </select>
 
 
 

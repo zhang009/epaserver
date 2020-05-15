@@ -47,18 +47,20 @@ public class SCQuestionService {
     @Transactional
     public Integer AddSCQuestion(SCQuestion scQuestion) {
         Authentication authentication = authenticationFacade.getAuthentication();
-        Teacher teacher=(Teacher)authentication.getPrincipal();//获取user信息
-        scQuestion.setTeacherId(teacher.getId());
-        scQuestionMapper.insertSelective(scQuestion);
+        Teacher teacher=(Teacher)authentication.getPrincipal();//获取当前教师信息
+        scQuestion.setTeacherId(teacher.getId());//设置提交教师id
+        scQuestionMapper.insertSelective(scQuestion);//插入单选试题（试题状态字段默认为0（未审核））
         int scQuestionId=scQuestion.getId();
-        QuestionCheck questionCheck=new QuestionCheck();
+        QuestionCheck questionCheck=new QuestionCheck();//新建试题审核对象
 
 
-        questionCheck.setPostTeacherId(teacher.getId());
-        questionCheck.setCheckTeacherId(scQuestion.getCheckTeacherId());
-        questionCheck.setQuestionId(scQuestionId);
+        questionCheck.setPostTeacherId(teacher.getId());//设置提交教师id
+        questionCheck.setCheckTeacherId(scQuestion.getCheckTeacherId());//设置审核教师id
+        questionCheck.setQuestionId(scQuestionId);//设置试题id
+        //审核状态默认为0，这里不再设置
         questionCheck.setQuestionType("sc");//设置试题类型
         questionCheck.setPostTime(new Date());
+        System.out.println(questionCheck.getPostTime());
         return  questionCheckMapper.insertSelective(questionCheck);
     }
 

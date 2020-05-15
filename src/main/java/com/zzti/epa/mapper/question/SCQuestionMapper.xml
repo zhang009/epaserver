@@ -78,6 +78,9 @@
         from sc_question sc ,chapter c
         where sc.chapterId=c.id and sc.id=#{id}
   </select>
+  <select id="getSCQuestionById2" resultType="com.zzti.epa.model.SCQuestion">
+    select * from sc_question where id=#{id}
+  </select>
   <!--<select id="getSCQuestionByIdWithChapter" resultMap="SCQuestionWithChapter">
     select sc.* from sc_question where sc_question.chapterId=c.id and id=#{id}
   </select>-->

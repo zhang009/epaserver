@@ -23,6 +23,7 @@ public interface FBQuestionMapper {
     Long getTotal(@Param("fb") FBQuestion fbQuestion);
 
     FBQuestion getFBQuestionById(@Param("id") Integer questionId);
+    FBQuestion getFBQuestionById2(@Param("id") Integer questionId);
 
     List<FBQuestion> getFBQuestionByCourseId(@Param("id") Integer id);
 }

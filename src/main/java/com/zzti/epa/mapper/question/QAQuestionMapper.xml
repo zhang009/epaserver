@@ -70,6 +70,9 @@ where qa.teacherId=t.id
 <select id="getQAQuestionByCourseId" resultType="com.zzti.epa.model.QAQuestion">
   select * from qa_question where courseId=#{id}
 </select>
+  <select id="getQAQuestionById2" resultType="com.zzti.epa.model.QAQuestion">
+    select * from qa_question where id=#{id}
+  </select>
 
 
 

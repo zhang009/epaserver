@@ -23,6 +23,7 @@ public interface QAQuestionMapper {
     Long getTotal(@Param("qa") QAQuestion qaQuestion);
 
     QAQuestion getQAQuestionById(@Param("id") Integer questionId);
+    QAQuestion getQAQuestionById2(@Param("id") Integer questionId);
 
     List<QAQuestion> getQAQuestionByCourseId(@Param("id") Integer id);
 }
