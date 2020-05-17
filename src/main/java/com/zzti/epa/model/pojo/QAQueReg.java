@@ -18,6 +18,17 @@ public class QAQueReg {
     //难题难度数量
     private Integer dot4Num;
 
+    @Override
+    public String toString() {
+        return "QAQueReg{" +
+                "qaQueNum=" + qaQueNum +
+                ", dot1Num=" + dot1Num +
+                ", dot2Num=" + dot2Num +
+                ", dot3Num=" + dot3Num +
+                ", dot4Num=" + dot4Num +
+                '}';
+    }
+
     public Integer getQaQueNum() {
         return qaQueNum;
     }

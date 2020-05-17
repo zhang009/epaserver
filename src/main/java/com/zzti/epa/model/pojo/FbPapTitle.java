@@ -11,6 +11,16 @@ public class FbPapTitle {
     private Integer fbTotalScore;
 
     private String  fbAnswer;
+
+    @Override
+    public String toString() {
+        return "FbPapTitle{" +
+                "fbLength=" + fbLength +
+                ", fbTotalScore=" + fbTotalScore +
+                ", fbAnswer='" + fbAnswer + '\'' +
+                '}';
+    }
+
     public Integer getFbLength() {
         return fbLength;
     }

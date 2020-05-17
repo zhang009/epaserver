@@ -132,10 +132,10 @@ and #{rId} in (select r.id from role r,teacher_role tr where r.id=tr.rid and tr.
   </delete>
   
   <insert id="addTeas" >
-    insert into teacher(name,gender,username,departmentId,email,jobLevelId,workID,phone)
+    insert into teacher(name,gender,username,password,departmentId,email,jobLevelId,workID,phone)
     values
     <foreach collection="list" separator="," item="tea">
-      (#{tea.name,jdbcType=VARCHAR},#{tea.gender,jdbcType=CHAR},#{tea.username,jdbcType=VARCHAR},
+      (#{tea.name,jdbcType=VARCHAR},#{tea.gender,jdbcType=CHAR},#{tea.username,jdbcType=VARCHAR}, #{tea.password,jdbcType=VARCHAR},
       #{tea.departmentId,jdbcType=INTEGER}, #{tea.email,jdbcType=VARCHAR},
       #{tea.jobLevelId,jdbcType=INTEGER}, #{tea.workID,jdbcType=CHAR},#{tea.phone,jdbcType=VARCHAR}
       )

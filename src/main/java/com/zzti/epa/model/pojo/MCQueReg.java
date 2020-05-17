@@ -18,6 +18,17 @@ public class MCQueReg {
     //难题难度数量
     private Integer dot4Num;
 
+    @Override
+    public String toString() {
+        return "MCQueReg{" +
+                "mcQueNum=" + mcQueNum +
+                ", dot1Num=" + dot1Num +
+                ", dot2Num=" + dot2Num +
+                ", dot3Num=" + dot3Num +
+                ", dot4Num=" + dot4Num +
+                '}';
+    }
+
     public Integer getMcQueNum() {
         return mcQueNum;
     }

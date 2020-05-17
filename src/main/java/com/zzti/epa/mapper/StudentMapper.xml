@@ -57,12 +57,13 @@
   </delete>
 
 <insert id="addStus">
-  insert into student(name,gender,username,studentNum,classId)
+  insert into student(name,gender,username,password,studentNum,classId)
   values
   <foreach collection="list" separator="," item="stu">
     (#{stu.name,jdbcType=VARCHAR},
     #{stu.gender,jdbcType=CHAR},
     #{stu.username,jdbcType=VARCHAR},
+    #{stu.password,jdbcType=VARCHAR},
     #{stu.studentNum,jdbcType=VARCHAR},
     #{stu.classId,jdbcType=INTEGER}
     )

@@ -57,6 +57,7 @@ public class QuestionService {
     @Autowired
     QAQuestionService qaQuestionService;
 
+    //导入试题
     @Transactional
     public Integer importQueData(Integer courseId, Integer checkTeacherId, MultipartFile file) {
         Authentication authentication = authenticationFacade.getAuthentication();
@@ -154,10 +155,10 @@ public class QuestionService {
 
                         scQuestionMapper.insertSelective(scQuestion);//插入数据库
                         int scQuestionId=scQuestion.getId();
-
+                        //提交到试题审核记录表
                         QuestionCheck questionCheck=new QuestionCheck();
-                        questionCheck.setPostTeacherId(teacher.getId());
-                        questionCheck.setCheckTeacherId(checkTeacherId);
+                        questionCheck.setPostTeacherId(teacher.getId());//提交者
+                        questionCheck.setCheckTeacherId(checkTeacherId);//审核者
                         questionCheck.setQuestionId(scQuestionId);
                         questionCheck.setQuestionType("sc");//设置试题类型
                         questionCheck.setPostTime(new Date());

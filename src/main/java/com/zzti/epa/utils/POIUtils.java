@@ -441,16 +441,16 @@ public class POIUtils {
                     }
                     //7.获取列数
                     int physicalNumberOfCells = row.getPhysicalNumberOfCells();
-                    //  System.out.println("列数：" + physicalNumberOfCells);
+                    System.out.println("列数：" + physicalNumberOfCells);
                     student = new Student();
-                    if (physicalNumberOfCells == 4||physicalNumberOfCells==3) {
+                    if (physicalNumberOfCells == 4||physicalNumberOfCells==3||physicalNumberOfCells==5) {
                         for (int k = 0; k < 4; k++) {
                             HSSFCell cell = row.getCell(k);
                             //字符串格式、日期格式
-                            if(cell!=null){
+                            if(cell!=null&&cell.getStringCellValue()!=""){
                                 cell.setCellType(CellType.STRING);
                                 String cellValue = cell.getStringCellValue();
-                                //System.out.println("k:" + k + ",cellValue:" + cellValue);
+                                System.out.println("k:" + k + ",cellValue:" + cellValue);
                                 switch (k) {
                                     //根据列数决定如何处理
                                     case 0:
@@ -486,11 +486,14 @@ public class POIUtils {
                         break;
                     }
                     BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
-                    String encode=bCryptPasswordEncoder.encode(student.getStudentNum());//学生密码和学生学号相同，在这里进行学号加密
-                    student.setUsername(student.getStudentNum());//默认用户名为学号
-                    student.setPassword(encode);//设置加密密码
+                    if(student!=null&&student.getStudentNum()!=null){
+                        String encode=bCryptPasswordEncoder.encode(student.getStudentNum());//学生密码和学生学号相同，在这里进行学号加密
+                        student.setUsername(student.getStudentNum());//默认用户名为学号
+                        student.setPassword(encode);//设置加密密码
+                        System.out.println(student.toString());
+                        list.add(student);
+                    }
 
-                    list.add(student);
 
 
                 }

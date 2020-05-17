@@ -22,9 +22,9 @@ public class FBQuestionController {
     @PostMapping("/add")
     public RespBean AddFBQuestion(@RequestBody FBQuestion fbQuestion){
         if(fbQuestionService.AddFBQuestion(fbQuestion)==1){
-            return RespBean.ok("添加成功！");
+            return RespBean.ok("提交成功！");
         }
-        return RespBean.ok("添加成功！");
+        return RespBean.error("提交失败！");
     }
 
     @GetMapping("/")

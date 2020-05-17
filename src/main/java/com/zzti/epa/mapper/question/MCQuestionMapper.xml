@@ -22,12 +22,11 @@
       <result column="tname" property="name"></result>
     </association>
 
-    <collection property="options" ofType="com.zzti.epa.model.MCOption">
-      <id column="oid" property="id"/>
-      <result column="optionNum" property="optionNum"/>
-      <result column="optionContent" property="optionContent"/>
+    <collection property="options" ofType="com.zzti.epa.model.MCOption" column="id"
+        select="com.zzti.epa.mapper.question.MCOptionMapper.getOptionByMCQuestionId">
     </collection>
   </resultMap>
+
   <resultMap id="MCQuestionWithOption" type="com.zzti.epa.model.MCQuestion" extends="BaseResultMap">
     <association property="chapter" javaType="com.zzti.epa.model.Chapter">
       <result column="cid" property="id" jdbcType="INTEGER"/>
@@ -40,11 +39,14 @@
     </collection>
   </resultMap>
 <select id="getMCQuestionByPage" resultMap="AllMCQuestionInfo">
-  select mc.*,t.id as tid,t.name as tname,mco.id as oid, mco.optionNum, mco.optionContent from mc_question mc,teacher t,mc_option mco
+  select mc.*,t.id as tid,t.name as tname from mc_question mc,teacher t
 where mc.teacherId=t.id
-			and mc.id=mco.mcId
-  <if test="mc.courseId !=null and mc.chapterId!=null">
-    and mc.courseId=#{mc.courseId}
+			 and mc.status=1
+  <if test="mc.stem !=null and mc.stem!=''">
+    and mc.stem like concat('%',#{mc.stem},'%')
+  </if>
+  <if test="mc.chapterId !=null ">
+
     and mc.chapterId =#{mc.chapterId}
   </if>
   <if test="mc.courseId !=null">
@@ -60,9 +62,10 @@ where mc.teacherId=t.id
   <select id="getTotal" resultType="Long">
     select count(*) from mc_question mc
     <where>
-
-      <if test="mc.courseId !=null and mc.chapterId!=null">
-        and mc.courseId=#{mc.courseId}
+      <if test="mc.stem !=null and mc.stem!=''">
+        and mc.stem like concat('%',#{mc.stem},'%')
+      </if>
+      <if test="mc.chapterId !=null ">
         and mc.chapterId =#{mc.chapterId}
       </if>
       <if test="mc.courseId !=null">
@@ -88,6 +91,11 @@ where mc.teacherId=t.id
     select * from mc_question where id=#{id}
   </select>
 
+  <select id="getMCQuestionById3" resultMap="MCQuestionWithOption">
+      select mc.*,mco.id as oid, mco.optionNum, mco.optionContent  from mc_question mc,mc_option mco
+    where mc.id=mco.mcId
+      and mc.id=#{id}
+  </select>
 
 
   <sql id="Base_Column_List" >

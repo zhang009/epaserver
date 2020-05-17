@@ -91,7 +91,9 @@ public class MCQuestionService {
             }
             mcQuestion1.setKnows(listKnows);
         }
-
+        for (int i = 0; i < data.size(); i++) {
+            System.out.println(data.get(i).toString());
+        }
 
 
         Long total=mcQuestionMapper.getTotal(mcQuestion);//总记录数
@@ -106,10 +108,11 @@ public class MCQuestionService {
     }
 
     public Integer updateMCQuestion(MCQuestion mcQuestion) {
-        if(mcQuestion.getStatus()==2){//如果是处于审核不通过状态，状态码为2，则把更新过后的状态码调整为0，未审核状态
+        //如果是处于审核不通过状态，状态码为2，则把更新过后的状态码调整为0，未审核状态
             mcQuestion.setStatus(0);
+            mcQuestion.setUpdateTime(new Date());//设置最新的时间
             questionCheckMapper.updateStatusByQueIdAndType("mc",mcQuestion.getId());
-        }
+
         return mcQuestionMapper.updateByPrimaryKeySelective(mcQuestion);
     }
     public MCQuestion getMCQuestionById(Integer id){

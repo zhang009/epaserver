@@ -82,11 +82,12 @@ public class TFQuestionService {
     @Transactional
     public Integer updateTFQuestion(TFQuestion tfQuestion) {
         System.out.println(tfQuestion.toString());
-        if(tfQuestion.getStatus()==2){//这里是审核拒绝后的更新操作，需要在审核表里改变试题的状态
+       //这里是审核拒绝后的更新操作，需要在审核表里改变试题的状态
             tfQuestion.setStatus(0);
+            tfQuestion.setUpdateTime(new Date());//设置最新的时间
             questionCheckMapper.updateStatusByQueIdAndType("tf",tfQuestion.getId());
 
-        }
+
         return tfQuestionMapper.updateByPrimaryKeySelective(tfQuestion);
     }
     public TFQuestion getTFQuestionById(Integer id){//带有章节和知识点信息的单选试题

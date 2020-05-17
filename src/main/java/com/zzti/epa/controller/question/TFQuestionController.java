@@ -21,9 +21,9 @@ public class TFQuestionController {
     @PostMapping("/add")
     public RespBean AddTFQuestion(@RequestBody TFQuestion tfQuestion){
         if(tfQuestionService.AddTFQuestion(tfQuestion)==1){
-            return RespBean.ok("添加成功！");
+            return RespBean.ok("提交成功！");
         }
-        return RespBean.ok("添加成功！");
+        return RespBean.error("提交失败！");
     }
     @GetMapping("/")
     public RespPageBean getTFQuestionByPage(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "10")
@@ -36,7 +36,7 @@ public class TFQuestionController {
         if(tfQuestionService.deleteTFQuestionById(id)==1){
             return RespBean.ok("删除成功！");
         }
-        return RespBean.error("删除成功！");
+        return RespBean.error("删除失败！");
     }
     @PutMapping("/update")
     public RespBean updateTFQuestion(@RequestBody TFQuestion tfQuestion){

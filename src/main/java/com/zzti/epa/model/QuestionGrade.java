@@ -13,6 +13,18 @@ public class QuestionGrade {
 
     private Float queGrade;
 
+    @Override
+    public String toString() {
+        return "QuestionGrade{" +
+                "id=" + id +
+                ", studentGradeId=" + studentGradeId +
+                ", questionScoreId=" + questionScoreId +
+                ", queType='" + queType + '\'' +
+                ", sortNum=" + sortNum +
+                ", queGrade=" + queGrade +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

@@ -29,10 +29,11 @@
   </resultMap>
   <select id="getFBQuestionByPage" resultMap="AllFBQuestionInfo">
 select fb.*,t.id as tid,t.name as tname from fb_question fb ,teacher t
-where fb.teacherId=t.id
-
-    <if test="fb.courseId !=null and fb.chapterId!=null">
-      and fb.courseId=#{fb.courseId}
+where fb.teacherId=t.id and fb.status=1
+    <if test="fb.stem !=null and fb.stem!=''">
+      and fb.stem like concat('%',#{fb.stem},'%')
+    </if>
+    <if test="fb.chapterId !=null ">
       and fb.chapterId =#{fb.chapterId}
     </if>
     <if test="fb.courseId !=null">

@@ -30,16 +30,16 @@ public class SCQuestionController {
     public RespBean AddSCQuestion(@RequestBody SCQuestion scQuestion){
         System.out.println(scQuestion.toString());
         if(scQuestionService.AddSCQuestion(scQuestion)==1){
-            return RespBean.ok("添加成功！");
+            return RespBean.ok("提交成功！");
         }
-        return RespBean.ok("添加成功！");
+        return RespBean.error("添加失败！");
     }
     @DeleteMapping("/{id}")
     public RespBean deleteSCQuestionByCid(@PathVariable Integer id){
         if(scQuestionService.deleteSCQuestionByCid(id)==1){
             return RespBean.ok("删除成功！");
         }
-        return RespBean.error("删除成功！");
+        return RespBean.error("删除失败！");
     }
     @PutMapping("/update")
     public RespBean updateSCQuestion(@RequestBody SCQuestion scQuestion){

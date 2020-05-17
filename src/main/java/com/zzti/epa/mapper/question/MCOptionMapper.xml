@@ -8,6 +8,15 @@
     <result column="optionContent" property="optionContent" jdbcType="VARCHAR" />
   </resultMap>
 
+  <resultMap id="OptionResultMap"  type="com.zzti.epa.model.MCOption">
+    <id column="id" property="id"/>
+    <result column="optionNum" property="optionNum"/>
+    <result column="optionContent" property="optionContent"/>
+  </resultMap>
+  <select id="getOptionByMCQuestionId" parameterType="Integer" resultMap="OptionResultMap">
+    select id,optionNum,optionContent from mc_option
+        where mcId=#{id}
+  </select>
 
 
 

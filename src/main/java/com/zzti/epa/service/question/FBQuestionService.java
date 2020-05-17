@@ -83,10 +83,11 @@ public class FBQuestionService {
     }
 
     public Integer updateFBQuestion(FBQuestion fbQuestion) {
-        if(fbQuestion.getStatus()==2){//如果是处于审核不通过状态，状态码为2，则把更新过后的状态码调整为0，未审核状态
+        //如果是处于审核不通过状态，状态码为2，则把更新过后的状态码调整为0，未审核状态
             fbQuestion.setStatus(0);
+            fbQuestion.setUpdateTime(new Date());//设置最新的时间
             questionCheckMapper.updateStatusByQueIdAndType("fb",fbQuestion.getId());
-        }
+
         return fbQuestionMapper.updateByPrimaryKeySelective(fbQuestion);
     }
     public FBQuestion getFBQuestionById(Integer id){//带有章节和知识点信息的单选试题

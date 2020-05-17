@@ -39,31 +39,60 @@ public class QuestionCheckService {
         Teacher teacher=TeacherUtils.getTeacher();//获取当前用户信息
         Integer teacherId= teacher.getId();
         List<QuestionCheck> qclist=questionCheckMapper.getQuestionCheckByCheckTId(teacherId,page,size);
+        System.out.println("==========================================================");
+        System.out.println(qclist.toString());
+        for (int i = 0; i < qclist.size(); i++) {
+            System.out.println(qclist.get(i).toString());
+        }
+        System.out.println(qclist.size());
         QuestionCheck questionCheck=null;
         for (int i=0;i<qclist.size();i++){
             questionCheck=qclist.get(i);
 
             if(questionCheck.getQuestionType().equals("sc")){//初始化试题信息
                 SCQuestion scQuestion=scQuestionMapper.getSCQuestionById(questionCheck.getQuestionId());
+                //这里需要进行判断，原因是因为，如果试题时由批量导入的，那么就没有章节和知识点信息，此时查询到的试题就为空，而实际上试题时存在的
+                //如果试题为空，就重新查询
+                if(scQuestion==null){
+                    scQuestion=scQuestionMapper.getSCQuestionById3(questionCheck.getQuestionId());
+                }
                 questionCheck.setScQuestion(scQuestion);
+                questionCheck.setPostTime(scQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
 
             }else if(questionCheck.getQuestionType().equals("mc")){
                 MCQuestion mcQuestion=mcQuestionMapper.getMCQuestionById(questionCheck.getQuestionId());
+                if(mcQuestion==null){
+                    mcQuestion=mcQuestionMapper.getMCQuestionById3(questionCheck.getQuestionId());
+                }
                 questionCheck.setMcQuestion(mcQuestion);
+                questionCheck.setPostTime(mcQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
 
             }else if(questionCheck.getQuestionType().equals("tf")){
                 TFQuestion tfQuestion=tfQuestionMapper.getTFQuestionById(questionCheck.getQuestionId());
+                if(tfQuestion==null){
+                    tfQuestion=tfQuestionMapper.getTFQuestionById2(questionCheck.getQuestionId());
+                }
                 questionCheck.setTfQuestion(tfQuestion);
+                questionCheck.setPostTime(tfQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
             }else if(questionCheck.getQuestionType().equals("fb")){
                 FBQuestion fbQuestion=fbQuestionMapper.getFBQuestionById(questionCheck.getQuestionId());
+                if(fbQuestion==null){
+                    fbQuestion=fbQuestionMapper.getFBQuestionById2(questionCheck.getQuestionId());
+                }
                 questionCheck.setFbQuestion(fbQuestion);
+                questionCheck.setPostTime(fbQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
             }else if(questionCheck.getQuestionType().equals("qa")){
                 QAQuestion qaQuestion=qaQuestionMapper.getQAQuestionById(questionCheck.getQuestionId());
+                if(qaQuestion==null){
+                    qaQuestion=qaQuestionMapper.getQAQuestionById2(questionCheck.getQuestionId());
+                }
                 questionCheck.setQaQuestion(qaQuestion);
+                questionCheck.setPostTime(qaQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
             }
             //初始化用户个人信息,提交者信息已经初始化完毕
             questionCheck.setCheckTeacher(teacher);
         }
+        System.out.println("============================end==============================");
         Long total=questionCheckMapper.getTotal(teacherId);//总记录数
         RespPageBean bean = new RespPageBean();
         bean.setData(qclist);//放入数据
@@ -92,21 +121,43 @@ public class QuestionCheckService {
             questionCheck=qclist.get(i);
             if(questionCheck.getQuestionType().equals("sc")){//初始化试题信息
                 SCQuestion scQuestion=scQuestionMapper.getSCQuestionById(questionCheck.getQuestionId());
+                //这里需要进行判断，原因是因为，如果试题时由批量导入的，那么就没有章节和知识点信息，此时查询到的试题就为空，而实际上试题时存在的
+                //如果试题为空，就重新查询
+                if(scQuestion==null){
+                    scQuestion=scQuestionMapper.getSCQuestionById3(questionCheck.getQuestionId());
+                }
                 questionCheck.setScQuestion(scQuestion);
+                questionCheck.setPostTime(scQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
 
             }else if(questionCheck.getQuestionType().equals("mc")){
                 MCQuestion mcQuestion=mcQuestionMapper.getMCQuestionById(questionCheck.getQuestionId());
+                if(mcQuestion==null){
+                    mcQuestion=mcQuestionMapper.getMCQuestionById3(questionCheck.getQuestionId());
+                }
                 questionCheck.setMcQuestion(mcQuestion);
+                questionCheck.setPostTime(mcQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
 
             }else if(questionCheck.getQuestionType().equals("tf")){
                 TFQuestion tfQuestion=tfQuestionMapper.getTFQuestionById(questionCheck.getQuestionId());
+                if(tfQuestion==null){
+                    tfQuestion=tfQuestionMapper.getTFQuestionById2(questionCheck.getQuestionId());
+                }
                 questionCheck.setTfQuestion(tfQuestion);
+                questionCheck.setPostTime(tfQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
             }else if(questionCheck.getQuestionType().equals("fb")){
                 FBQuestion fbQuestion=fbQuestionMapper.getFBQuestionById(questionCheck.getQuestionId());
+                if(fbQuestion==null){
+                    fbQuestion=fbQuestionMapper.getFBQuestionById2(questionCheck.getQuestionId());
+                }
                 questionCheck.setFbQuestion(fbQuestion);
+                questionCheck.setPostTime(fbQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
             }else if(questionCheck.getQuestionType().equals("qa")){
                 QAQuestion qaQuestion=qaQuestionMapper.getQAQuestionById(questionCheck.getQuestionId());
+                if(qaQuestion==null){
+                    qaQuestion=qaQuestionMapper.getQAQuestionById2(questionCheck.getQuestionId());
+                }
                 questionCheck.setQaQuestion(qaQuestion);
+                questionCheck.setPostTime(qaQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
             }
             //初始化用户个人信息,提交者信息已经初始化完毕
             questionCheck.setPostTeacher(teacher);
@@ -141,6 +192,8 @@ public class QuestionCheckService {
             scQuestion.setStatus(questionCheck.getCheckStatus());
             scQuestionMapper.updateByPrimaryKeySelective(scQuestion);//更新单选题试题状态
 
+
+
         }else if(questionCheck.getQuestionType().equals("mc")){
             MCQuestion mcQuestion=mcQuestionMapper.getMCQuestionById2(questionCheck.getQuestionId());
             mcQuestion.setStatus(questionCheck.getCheckStatus());
@@ -161,4 +214,6 @@ public class QuestionCheckService {
         }
         return questionCheckMapper.updateByPrimaryKeySelective(questionCheck);
     }
+
+
 }

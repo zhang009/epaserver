@@ -94,11 +94,11 @@ public class GradeController {
       /*  testPaperId:'',
                 courseId:'',
                 classId:'',*/
-        StudentGrade studentGrade=gradeService.exportData(testPaperId,courseId,classId);
+        StudentGrade studentGrade=gradeService.exportData(testPaperId,courseId,classId);//先获取试卷的分数信息
         if(gradeService.importStudentData(studentGrade,file)){
-            return RespBean.ok("试题上传成功！");
+            return RespBean.ok("成绩数据成功！");
         };
-        return RespBean.error("上传失败");
+        return RespBean.error("导入失败");
 
     }
     //下载模板

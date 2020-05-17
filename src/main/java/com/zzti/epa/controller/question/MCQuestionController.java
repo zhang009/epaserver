@@ -22,9 +22,9 @@ public class MCQuestionController {
     public RespBean AddMCQuestion(@RequestBody MCQuestion mcQuestion){
         System.out.println("mcQuestion"+mcQuestion.toString());
         if(mcQuestionService.AddMCQuestion(mcQuestion)==1){
-            return RespBean.ok("添加成功！");
+            return RespBean.ok("提交成功！");
         }
-        return RespBean.ok("添加成功！");
+        return RespBean.error("提价失败！");
     }
 
     @GetMapping("/")

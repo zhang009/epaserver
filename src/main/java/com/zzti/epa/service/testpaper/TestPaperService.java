@@ -1,6 +1,7 @@
 package com.zzti.epa.service.testpaper;
 
 import com.zzti.epa.mapper.baseinfo.KnowsMapper;
+import com.zzti.epa.mapper.paper.PaperCheckMapper;
 import com.zzti.epa.mapper.paper.QuestionScoreMapper;
 import com.zzti.epa.mapper.paper.TestPaperMapper;
 import com.zzti.epa.mapper.question.*;
@@ -54,12 +55,16 @@ public class TestPaperService {
     FBQuestionService fbQuestionService;
     @Autowired
     QAQuestionService qaQuestionService;
+    @Autowired
+    PaperCheckMapper paperCheckMapper;
 
 
 
     String []charNum= {"A.","B.","C.","D.","E.","F.","G.","H.","I.","J."};
     //为了将试卷导出到word,将前端传来的临时试卷对象数据处理，添加一些参数
     public TempTestPaper handleTempTestPaper(TempTestPaper tempTestPaper) {
+
+
         //设置单选题的总分
         if(tempTestPaper.getSclist()!=null&&tempTestPaper.getScScore()!=null){
             ScPapTitle scPapTitle=new ScPapTitle();
@@ -183,6 +188,11 @@ public class TestPaperService {
     //添加试卷（手动组卷）
     @Transactional
     public boolean addTestPaper(TestPaper testPaper) {
+        //这里的任务有三个
+        //1.添加试卷信息
+        //2.添加试题审核信息
+        //3.添加试题分数信息
+
 
         //1.设置基本参数：创建时间，提交教师id,试卷状态，试题类型
         testPaper.setCreateTime(new Date());
@@ -209,7 +219,15 @@ public class TestPaperService {
         testPaper.setQueTypes(queTypes);//设置试卷中试题的类型
         testPaperMapper.insertSelective(testPaper);
         Integer testPaperId=testPaper.getId();
-
+        //2.添加试卷审核信息
+        PaperCheck paperCheck=new PaperCheck();
+        paperCheck.setPostTeacherId(TeacherUtils.getTeacher().getId());//设置提交教师id
+        paperCheck.setCheckTeacherId(testPaper.getCheckTeacherId());//设置审核教师id
+        paperCheck.setTestPaperType(0);//手动组卷
+        paperCheck.setTestPaperId(testPaper.getId());//s设置试卷id
+        paperCheck.setCheckStatus(0);//未审核状态
+        paperCheck.setPostTime(new Date());//时间
+        paperCheckMapper.insertSelective(paperCheck);
         //添加试卷分数表
         List<QuestionScore> questionScores=new ArrayList<>();
         //设置单选题
@@ -311,7 +329,8 @@ public class TestPaperService {
     public TestPaper getTestPaperByAutoReg(TestPaperReg testPaperReg) {
         //
         Integer[] allKnowIds=testPaperReg.getKnowIds();//知识点数组
-        //首先获取所有满足这些知识点的试题题型
+
+        //首先获取所有满足这些课程的试题题型list1表示
         Integer courseId=testPaperReg.getCourseId();
         List<SCQuestion> sclist1=scQuestionMapper.getSCQuestionByCourseId(courseId);
         List<MCQuestion> mclist1=mcQuestionMapper.getMCQuestionByCourseId(courseId);
@@ -324,7 +343,7 @@ public class TestPaperService {
         List<TFQuestion> tflist2=new ArrayList<>();
         List<FBQuestion> fblist2=new ArrayList<>();
         List<QAQuestion> qalist2=new ArrayList<>();
-
+        //获取满足这些知识点的试题集合list2表示
         for (int i = 0; i < sclist1.size(); i++) {//遍历单选题
             SCQuestion scQuestion=sclist1.get(i);
             String knowIds=scQuestion.getKnowIds();
@@ -338,6 +357,7 @@ public class TestPaperService {
                 }
             }
         }
+
         for (int i = 0; i < mclist1.size(); i++) {//遍历多选题
             MCQuestion mcQuestion=mclist1.get(i);
             String knowIds=mcQuestion.getKnowIds();
@@ -1314,14 +1334,6 @@ public class TestPaperService {
         testPaper.setFblist(endFblist);
         testPaper.setQalist(endQalist);
 
-
-
-
-
-
-
-
-
         return testPaper;
 
     }
@@ -1473,6 +1485,16 @@ public class TestPaperService {
 
         testPaperMapper.insertSelective(testPaper);
         Integer testPaperId=testPaper.getId();
+
+        //2.添加试卷审核信息
+        PaperCheck paperCheck=new PaperCheck();
+        paperCheck.setPostTeacherId(TeacherUtils.getTeacher().getId());//设置提交教师id
+        paperCheck.setCheckTeacherId(testPaper.getCheckTeacherId());//设置审核教师id
+        paperCheck.setTestPaperType(0);//手动组卷
+        paperCheck.setTestPaperId(testPaper.getId());//s设置试卷id
+        paperCheck.setCheckStatus(0);//未审核状态
+        paperCheck.setPostTime(new Date());//时间
+        paperCheckMapper.insertSelective(paperCheck);
 
         //添加试卷分数表
         List<QuestionScore> questionScores=new ArrayList<>();

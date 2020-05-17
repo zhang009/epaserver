@@ -127,6 +127,7 @@ public class GradeService {
             System.out.println("/*-----------第三步.封装list<LargeQues>----start---------------*/");
             for (int i = 0; i < questionGradesList.size(); i++) {
                 QuestionGrade questionGrade=questionGradesList.get(i);//获取小题成绩
+                System.out.println((i+1)+":"+questionGrade.getQueGrade());
                 List<LargeQues> largeQuesList=studentGrade1.getLargeQues();//获取大题集合
 
                 for (int j = 0; j <largeQuesList.size() ; j++) {
@@ -227,14 +228,18 @@ public class GradeService {
                         continue;//标题行不解析
                     }
                     //6.获取行
-                 /*   System.out.println("第"+(j+1)+"行");*/
+                    //System.out.println("第"+(j+1)+"行");
                     HSSFRow row = sheet.getRow(j);
                     if (row == null) {
                         continue;//防止中间有空行
                     }
                     //7.获取列数
                     int physicalNumberOfCells = row.getPhysicalNumberOfCells();
-                  /*  System.out.println("列数：" + physicalNumberOfCells);*///这里的列数没有包括空格的列，实际的列数应+1
+
+                  //  System.out.println("列数：" + physicalNumberOfCells);///这里的列数没有包括空格的列，实际的列数应+1
+                    if(physicalNumberOfCells<3){
+                        continue;
+                    }
                     StudentGrade studentGrade1 = new StudentGrade();//保存每一行的成绩数据
                     studentGrade1.setTestPaperId(studentGrade.getTestPaperId());//设置试卷
                     studentGrade1.setCourseId(studentGrade.getCourseId());//设置课程
@@ -263,13 +268,16 @@ public class GradeService {
 
                     //这里需要注意的是大题和小题的信息是从返回的studentGrade对象中获取
                     List<LargeQues> largeQuesList = studentGrade.getLargeQues();//获取大题集合
+
                     List<QuestionGrade> questionGrades = new ArrayList<>();//新建小题成绩对象集合
 
                     int totalQueNum = 3;// //累计试题数量，这里是累积下标，因为列下标从0开始
                     for (int k = 0; k < largeQuesList.size(); k++) {
 
-                        LargeQues largeQue = largeQuesList.get(i);//获取该大题的对象
+                        LargeQues largeQue = largeQuesList.get(k);//获取该大题的对象
+
                         //从大题的对象中获取小题
+
                         for (int l = 0; l < largeQue.getSmallQueGrade().size(); l++) {
                             if(totalQueNum<physicalNumberOfCells){//如果不超过列数
                                 SmallQueGrade smallQueGrade = largeQue.getSmallQueGrade().get(l);//获取小题对象

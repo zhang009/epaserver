@@ -32,10 +32,11 @@
 
   <select id="getTFQuestionByPage" resultMap="AllTFQuestionInfo">
 select tf.*,t.id as tid,t.name as tname from tf_question tf,teacher t
-where tf.teacherId=t.id
-
-    <if test="tf.courseId !=null and tf.chapterId!=null">
-      and tf.courseId=#{tf.courseId}
+where tf.teacherId=t.id and tf.status=1
+    <if test="tf.stem !=null and tf.stem!=''">
+      and tf.stem like concat('%',#{tf.stem},'%')
+    </if>
+    <if test="tf.chapterId !=null">
       and tf.chapterId =#{tf.chapterId}
     </if>
     <if test="tf.courseId !=null">

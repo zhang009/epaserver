@@ -24,6 +24,7 @@ public interface TFQuestionMapper {
 
     TFQuestion getTFQuestionById(@Param("id")Integer questionId);
     TFQuestion getTFQuestionById2(@Param("id")Integer questionId);
+    TFQuestion getTFQuestionById3(@Param("id")Integer questionId);
 
     List<TFQuestion> getTFQuestionByCourseId(@Param("id") Integer id);
 }

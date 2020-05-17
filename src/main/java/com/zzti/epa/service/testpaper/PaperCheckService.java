@@ -8,6 +8,7 @@ import com.zzti.epa.service.question.*;
 import com.zzti.epa.utils.TeacherUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,5 +171,17 @@ public class PaperCheckService {
             bean.setData(paperChecks);//放入数据
             bean.setTotal(total);//放入总记录数
             return bean;
+    }
+
+    @Transactional
+    public int updateTestPaperCheck(PaperCheck paperCheck) {
+        //1.获取到试题id,和试题类型,更新试题状态
+        System.out.println("PaperCheck:"+paperCheck.toString());
+        //2.获取到试卷id，更新试卷的审核状态
+        TestPaper testPaper=testPaperMapper.getAllTestPaperById(paperCheck.getTestPaperId());
+        testPaper.setStatus(paperCheck.getCheckStatus());//设置状态
+        testPaperMapper.updateByPrimaryKeySelective(testPaper);//更新试卷的状态
+        return paperCheckMapper.updateByPrimaryKeySelective(paperCheck);
+
     }
 }

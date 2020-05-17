@@ -18,6 +18,17 @@ public class FBQueReg {
     //难题难度数量
     private Integer dot4Num;
 
+    @Override
+    public String toString() {
+        return "FBQueReg{" +
+                "fbQueNum=" + fbQueNum +
+                ", dot1Num=" + dot1Num +
+                ", dot2Num=" + dot2Num +
+                ", dot3Num=" + dot3Num +
+                ", dot4Num=" + dot4Num +
+                '}';
+    }
+
     public Integer getFbQueNum() {
         return fbQueNum;
     }

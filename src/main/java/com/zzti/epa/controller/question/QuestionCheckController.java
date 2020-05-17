@@ -32,11 +32,13 @@ public class QuestionCheckController {
         System.out.println("page:"+page+"size:"+size);
         return questionCheckService.getReceiveCheck(page,size);
     }
+    //
     @GetMapping("/submit")
     public RespPageBean getSubmitCheck(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "10")
             Integer size){
         return questionCheckService.getSubmitCheck(page,size);
     }
+    //审核
     @PostMapping("/")
     public RespBean updateQuestionCheck(@RequestBody QuestionCheck questionCheck){
         if(questionCheckService.updateQuestionCheck(questionCheck)==1){
@@ -45,14 +47,7 @@ public class QuestionCheckController {
         return RespBean.error("保存失败！");
 
     }
-    @PostMapping("/refuse")
-    public RespBean refuseQuestionCheck(@RequestParam("id")Integer id,@RequestParam("reason")String refuseReason){
-        if(questionCheckService.refuseQuestionCheck(id,refuseReason)==1){
-            return RespBean.ok("保存成功！");
-        }
-        return RespBean.error("保存失败！");
 
-    }
     @DeleteMapping("/{id}")
     public RespBean deleteQuestionCheckById(@PathVariable Integer id){
         if(questionCheckService.deleteQuestionCheckById(id)==1){

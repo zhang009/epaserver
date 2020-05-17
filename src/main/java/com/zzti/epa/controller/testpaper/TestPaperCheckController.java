@@ -1,5 +1,6 @@
 package com.zzti.epa.controller.testpaper;
 
+import com.zzti.epa.model.PaperCheck;
 import com.zzti.epa.model.RespBean;
 import com.zzti.epa.model.RespPageBean;
 import com.zzti.epa.service.testpaper.PaperCheckService;
@@ -30,6 +31,14 @@ public class TestPaperCheckController {
     @PostMapping("/refuse")
     public RespBean refuseQuestionCheck(@RequestParam("id")Integer id, @RequestParam("reason")String refuseReason){
         if(paperCheckService.refuseTestPaperCheck(id,refuseReason)==1){
+            return RespBean.ok("保存成功！");
+        }
+        return RespBean.error("保存失败！");
+
+    }
+    @PostMapping("/")
+    public RespBean updateTestPaperCheck(@RequestBody PaperCheck paperCheck){
+        if(paperCheckService.updateTestPaperCheck(paperCheck)==1){
             return RespBean.ok("保存成功！");
         }
         return RespBean.error("保存失败！");

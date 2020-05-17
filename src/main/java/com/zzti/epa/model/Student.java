@@ -134,11 +134,16 @@ public class Student implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>(roles.size());
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        if(roles!=null){
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>(roles.size());
+            for (Role role : roles) {
+                authorities.add(new SimpleGrantedAuthority(role.getName()));
+            }
+            return authorities;//返回用户的角色
         }
-        return authorities;//返回用户的角色
+        return null;
+
+
     }
 
     public String getPassword() {

@@ -22,9 +22,9 @@ public class QAQuestionController {
     @PostMapping("/add")
     public RespBean AddQAQuestion(@RequestBody QAQuestion qaQuestion){
         if(qaQuestionService.AddQAQuestion(qaQuestion)==1){
-            return RespBean.ok("添加成功！");
+            return RespBean.ok("提交成功！");
         }
-        return RespBean.ok("添加成功！");
+        return RespBean.error("提交失败！");
     }
     @GetMapping("/")
     public RespPageBean getQAQuestionByPage(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "10")

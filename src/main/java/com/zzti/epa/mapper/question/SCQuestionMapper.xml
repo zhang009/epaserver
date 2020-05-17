@@ -38,10 +38,11 @@
     </resultMap>
   <select id="getSCQuestionByPage" resultMap="AllSCQuestionInfo">
     select sc.*,t.id as tid,t.name as tname from sc_question sc,teacher t
-    where sc.teacherId=t.id
-
-    <if test="sc.courseId !=null and sc.chapterId!=null">
-        and sc.courseId=#{sc.courseId}
+    where sc.teacherId=t.id and sc.status=1
+    <if test="sc.stem !=null and sc.stem!=''">
+      and sc.stem like concat('%',#{sc.stem},'%')
+    </if>
+    <if test="sc.chapterId !=null ">
       and sc.chapterId =#{sc.chapterId}
     </if>
     <if test="sc.courseId !=null">
@@ -79,6 +80,9 @@
         where sc.chapterId=c.id and sc.id=#{id}
   </select>
   <select id="getSCQuestionById2" resultType="com.zzti.epa.model.SCQuestion">
+    select * from sc_question where id=#{id}
+  </select>
+  <select id="getSCQuestionById3" resultType="com.zzti.epa.model.SCQuestion">
     select * from sc_question where id=#{id}
   </select>
   <!--<select id="getSCQuestionByIdWithChapter" resultMap="SCQuestionWithChapter">
