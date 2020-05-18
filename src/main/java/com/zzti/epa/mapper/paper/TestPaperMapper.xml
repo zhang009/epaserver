@@ -214,7 +214,7 @@
            id=#{testPaperId}
   </select>
   <select id="getAllTestPaperById2" resultMap="TestPaperAllInfo">
-    select DISTINCT tp.*,t.id as tid, t.name as tname,c.id as cid,c.name as cname,s.id as sid,s.name as sname,m.id as mid,m.name as mname
+    select  tp.*,t.id as tid, t.name as tname,c.id as cid,c.name as cname,s.id as sid,s.name as sname,m.id as mid,m.name as mname
     FROM
     test_paper tp,teacher t,school s,course c,major m
     where tp.postTeacherId=t.id

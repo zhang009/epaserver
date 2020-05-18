@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2020-05-18 00:24:45
+Date: 2020-05-19 00:21:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `chapter` (
   PRIMARY KEY (`id`),
   KEY `courseId` (`courseId`),
   CONSTRAINT `chapter_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `course` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of chapter
@@ -45,6 +45,13 @@ INSERT INTO `chapter` VALUES ('11', '结构体和共用体', '6');
 INSERT INTO `chapter` VALUES ('12', '文件操作', '6');
 INSERT INTO `chapter` VALUES ('17', '第一章', '1');
 INSERT INTO `chapter` VALUES ('18', '链表', '6');
+INSERT INTO `chapter` VALUES ('19', '第一章 软件工程简介', '8');
+INSERT INTO `chapter` VALUES ('20', '第二章 软件过程', '8');
+INSERT INTO `chapter` VALUES ('21', '第三章 需求和建模', '8');
+INSERT INTO `chapter` VALUES ('22', '第四章 软件设计', '8');
+INSERT INTO `chapter` VALUES ('23', '第五章 软件测试', '8');
+INSERT INTO `chapter` VALUES ('24', '第六章 项目管理', '8');
+INSERT INTO `chapter` VALUES ('25', '测试章节', '6');
 
 -- ----------------------------
 -- Table structure for `class`
@@ -57,7 +64,7 @@ CREATE TABLE `class` (
   `majorId` int(11) DEFAULT NULL COMMENT '专业id',
   `schoolId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of class
@@ -71,9 +78,9 @@ INSERT INTO `class` VALUES ('6', 'RB软工网162', '2016', '1', '1');
 INSERT INTO `class` VALUES ('7', 'RB软工网171', '2017', '1', '1');
 INSERT INTO `class` VALUES ('8', 'RB软工网172', '2017', '1', '1');
 INSERT INTO `class` VALUES ('9', 'RB软工网181', '2018', '1', '1');
-INSERT INTO `class` VALUES ('10', 'RB软工网181', '2018', '1', '1');
+INSERT INTO `class` VALUES ('10', 'RB软工网182', '2018', '1', '1');
 INSERT INTO `class` VALUES ('11', 'RB软工网191', '2019', '1', '1');
-INSERT INTO `class` VALUES ('12', 'RB软工网191', '2019', '1', '1');
+INSERT INTO `class` VALUES ('12', 'RB软工网192', '2019', '1', '1');
 INSERT INTO `class` VALUES ('14', 'RB软工互161', '2016', '3', '1');
 INSERT INTO `class` VALUES ('15', 'RB软工互162', '2016', '3', '1');
 INSERT INTO `class` VALUES ('16', 'RB软工互163', '2016', '3', '1');
@@ -134,7 +141,6 @@ INSERT INTO `class` VALUES ('70', 'RB软工数193', '2019', '6', '1');
 INSERT INTO `class` VALUES ('71', 'RB软工数194', '2019', '6', '1');
 INSERT INTO `class` VALUES ('72', 'RB软工数195', '2019', '6', '1');
 INSERT INTO `class` VALUES ('73', 'RB软工数196', '2019', '6', '1');
-INSERT INTO `class` VALUES ('75', '测试班级', '2019', '1', '1');
 INSERT INTO `class` VALUES ('76', '33', '2016', '13', '2');
 INSERT INTO `class` VALUES ('77', 'RB软工网151', '2015', '1', '1');
 
@@ -151,7 +157,7 @@ CREATE TABLE `class_course` (
   KEY `class_course_ibfk_2` (`classId`),
   CONSTRAINT `class_course_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `class_course_ibfk_2` FOREIGN KEY (`classId`) REFERENCES `class` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of class_course
@@ -162,6 +168,8 @@ INSERT INTO `class_course` VALUES ('5', '3', '5');
 INSERT INTO `class_course` VALUES ('6', '4', '5');
 INSERT INTO `class_course` VALUES ('8', '6', '11');
 INSERT INTO `class_course` VALUES ('9', '1', '2');
+INSERT INTO `class_course` VALUES ('10', '7', '10');
+INSERT INTO `class_course` VALUES ('11', '8', '9');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -176,7 +184,7 @@ CREATE TABLE `course` (
   PRIMARY KEY (`id`),
   KEY `course_ibfk_1` (`classId`),
   CONSTRAINT `course_ibfk_1` FOREIGN KEY (`classId`) REFERENCES `class` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of course
@@ -186,6 +194,8 @@ INSERT INTO `course` VALUES ('2', '编译原理', '2018-2019学年第二学期',
 INSERT INTO `course` VALUES ('3', '局域网组网技术', '2018-2019学年第二学期', '5', '1');
 INSERT INTO `course` VALUES ('4', '网络安全技术', '2018-2019学年第二学期', '5', '1');
 INSERT INTO `course` VALUES ('6', 'C语言程序设计', '2018-2019学年第一学期', '11', '1');
+INSERT INTO `course` VALUES ('7', '软件工程', '2019-2020学年第二学期', '10', '1');
+INSERT INTO `course` VALUES ('8', '软件工程', '2019-2020学年第二学期', '9', '1');
 
 -- ----------------------------
 -- Table structure for `department`
@@ -199,7 +209,7 @@ CREATE TABLE `department` (
   `enabled` tinyint(1) DEFAULT '1',
   `isParent` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of department
@@ -246,7 +256,7 @@ CREATE TABLE `fb_question` (
   PRIMARY KEY (`id`),
   KEY `chapterId` (`chapterId`),
   CONSTRAINT `fb_question_ibfk_1` FOREIGN KEY (`chapterId`) REFERENCES `chapter` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fb_question
@@ -267,6 +277,25 @@ INSERT INTO `fb_question` VALUES ('19', '25', 'while循环和do……while循环
 INSERT INTO `fb_question` VALUES ('20', '28', '调用C语言对字符串处理的库函数时，在# include命令行中应包含的头文件是____________。', 'string.h', '', '3', '3', '6', '1', '1', '1', '2020-05-16 15:27:55');
 INSERT INTO `fb_question` VALUES ('21', '44', '单向链表的尾节点next指针应赋值__________。', 'NULL', '', '3', '3', '6', '18', '1', '1', '2020-05-16 15:33:17');
 INSERT INTO `fb_question` VALUES ('22', '42', '在使用文件前必须打开文件，函数 ____用来打开文件', 'fopen()', '', '3', '3', '6', '12', '1', '1', '2020-05-16 15:33:52');
+INSERT INTO `fb_question` VALUES ('25', '17', '若有定义：int a=7;float x=2.5,y=4.7;则表达式x+a%3*(int)(x+y)%2/4的值为 _____。', '2.5', '', '1557', '3', '6', '2', '1', '1', '2020-05-18 21:39:18');
+INSERT INTO `fb_question` VALUES ('26', '33', '有程序段：int a[10]={1,2,3,4,5,6,7,8,9,10},*p=&a[3],b; b=p[5]; 则b中的值是_____。', '9', '', '1557', '3', '6', '8', '1', '1', '2020-05-18 21:39:48');
+INSERT INTO `fb_question` VALUES ('27', '26', '函数swap(int x,int y)实现对x和y值的交换。则执行语句{int a[2]={1,2};  swap(a[0],a[1]);}后，a[0]= _____。,a[1]= _____。', '1  2', '', '1557', '3', '6', '6', '1', '1', '2020-05-18 21:40:27');
+INSERT INTO `fb_question` VALUES ('28', '16', '设有以下宏定义：#define f(z)  z*z，执行赋值语句k=f(4＋4)/f(2＋2)；（k为int型变量）后，k的值是 _____ 。', '28', '4+4*4+4/2+2*2+2,没有括号，按数学法则算。', '1557', '3', '6', '1', '2', '1', '2020-05-18 21:41:24');
+INSERT INTO `fb_question` VALUES ('29', '17', '若x为int型变量，则执行x=7; x＋=x－=x＋x; 语句后，x的值是______。', '-14', '', '1557', '3', '6', '1', '1', '1', '2020-05-18 21:42:20');
+INSERT INTO `fb_question` VALUES ('30', '25', '结构化程序设计中的三种基本结构是 _____ 、_____、______。', '顺序结构、选择结构、循环结构。', '', '1557', '3', '6', '5', '1', '1', '2020-05-18 21:44:33');
+INSERT INTO `fb_question` VALUES ('31', '26', 'C源程序的基本单位是【 】。', '函数', '', '1557', '3', '6', '6', '1', '1', '2020-05-18 22:00:52');
+INSERT INTO `fb_question` VALUES ('32', '26', '一个C源程序中至少应包括一个【 】。', 'main()函数', '', '1557', '3', '6', '6', '1', '1', '2020-05-18 22:01:07');
+INSERT INTO `fb_question` VALUES ('33', '20', '在C语言中，输入操作是由库函数_____完成的，输出操作是由库函数______完成的。', 'scanf printf', '', '1557', '3', '6', '3', '1', '1', '2020-05-18 22:01:57');
+INSERT INTO `fb_question` VALUES ('34', '15', '在C语言中（以16位PC机为例），一个char型数据在内存中所占的字节数为______。', '1', '', '1557', '3', '6', '3', '1', '1', '2020-05-18 22:02:37');
+INSERT INTO `fb_question` VALUES ('35', '15', 'C语言所提供的基本数据类型包括：单精度型、双精度型、______、______、_______。', '字符型 整型  枚举', '', '1557', '3', '6', '1', '2', '1', '2020-05-18 22:03:23');
+INSERT INTO `fb_question` VALUES ('36', '17', '若s是int型变量，则表达式s%2+(s+1)%2的值为_____。', '1', '无论s是奇数还是偶数表达式的值只能是1。', '1557', '3', '6', '2', '1', '1', '2020-05-18 22:04:13');
+INSERT INTO `fb_question` VALUES ('37', '17', '若有定义:int b=7;float a=2.5,c=4.7;则表达式a+(int)(b/3*(int)(a+c)/2)%4的值为', '5.5', '', '1557', '3', '6', '2', '2', '1', '2020-05-18 22:05:21');
+INSERT INTO `fb_question` VALUES ('38', '17', '若有定义:int a=2,b=3;float x=3.5,y=2.5;则表达式(float)(a+b)/2+(int)x%(int)y的值为_____。', '3.5', '', '1557', '3', '6', '2', '2', '1', '2020-05-18 22:05:44');
+INSERT INTO `fb_question` VALUES ('39', '15', '若有定义：char c=\'\\010\';则变量c中包含的字符个数为_____。', '1', '', '1557', '3', '6', '1', '1', '1', '2020-05-18 22:06:17');
+INSERT INTO `fb_question` VALUES ('40', '15', '已知字母a的ASCII码为十进制数97，且设ch为字符型变量，则表达式ch=\'a\'+\'8\'-\'3\'的值为_____。', 'f', '', '1557', '3', '6', '1', '1', '1', '2020-05-18 22:06:44');
+INSERT INTO `fb_question` VALUES ('41', '17', '假设m是一个三位数，从左到右用a、b、c表示各位的数字，则从左到右各个数字是bac的三位数表达式是\n_______。', 'm/10%10*100+m/100*10+m%10', '数字各个位的分离可以先整除再取余，也可以先取余再整除。', '1557', '3', '6', '2', '1', '1', '2020-05-18 22:07:39');
+INSERT INTO `fb_question` VALUES ('42', '25', '下面程序的运行结果是______。\n#include<stdio.h>\nmain()\n{int a,s,n,count;\n a=2;s=0;n=1;count=1;\n while(count<=7) {n=n*a;s=s+n;++count;}\n printf(\"s=%d\\n\",s);\n}', 's=254', '', '1557', '3', '6', '5', '2', '1', '2020-05-18 22:08:36');
+INSERT INTO `fb_question` VALUES ('43', '26', '在C语言中，一个函数一般由两个部分组成，它们是_____和______。', '函数声明、函数体', '', '1557', '3', '6', '6', '2', '1', '2020-05-18 22:09:33');
 
 -- ----------------------------
 -- Table structure for `grade`
@@ -319,7 +348,7 @@ CREATE TABLE `knows` (
   PRIMARY KEY (`id`),
   KEY `chapterId` (`chapterId`),
   CONSTRAINT `knows_ibfk_1` FOREIGN KEY (`chapterId`) REFERENCES `chapter` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of knows
@@ -355,6 +384,44 @@ INSERT INTO `knows` VALUES ('41', '结构体定义和使用', '11');
 INSERT INTO `knows` VALUES ('42', '文件的存储', '12');
 INSERT INTO `knows` VALUES ('43', '链表定义', '18');
 INSERT INTO `knows` VALUES ('44', '链表基本操作', '18');
+INSERT INTO `knows` VALUES ('45', '什么是软件工程', '19');
+INSERT INTO `knows` VALUES ('46', '软件危机', '19');
+INSERT INTO `knows` VALUES ('47', '软件工程的层次', '19');
+INSERT INTO `knows` VALUES ('48', '瀑布模型', '20');
+INSERT INTO `knows` VALUES ('49', '增量过程模型', '20');
+INSERT INTO `knows` VALUES ('50', 'RAD模型（快速应用程序开发）', '20');
+INSERT INTO `knows` VALUES ('51', '演化过程模型', '20');
+INSERT INTO `knows` VALUES ('52', '原型开发', '20');
+INSERT INTO `knows` VALUES ('53', '螺旋模型', '20');
+INSERT INTO `knows` VALUES ('54', '基于构件的开发', '20');
+INSERT INTO `knows` VALUES ('55', '形式化方法模型', '20');
+INSERT INTO `knows` VALUES ('56', '面向方面的软件开发', '20');
+INSERT INTO `knows` VALUES ('57', '统一过程', '20');
+INSERT INTO `knows` VALUES ('58', '敏捷原则', '20');
+INSERT INTO `knows` VALUES ('59', '极限编程', '20');
+INSERT INTO `knows` VALUES ('60', '需求工程', '21');
+INSERT INTO `knows` VALUES ('61', '需求工程任务', '21');
+INSERT INTO `knows` VALUES ('62', '数据流图', '21');
+INSERT INTO `knows` VALUES ('63', '实体-关系图 ER图', '21');
+INSERT INTO `knows` VALUES ('64', '用例场景', '21');
+INSERT INTO `knows` VALUES ('65', '面向对象分析', '21');
+INSERT INTO `knows` VALUES ('66', '软件设计目标', '22');
+INSERT INTO `knows` VALUES ('67', '数据设计', '22');
+INSERT INTO `knows` VALUES ('68', '体系结构设计', '22');
+INSERT INTO `knows` VALUES ('69', '构建设计/过程设计', '22');
+INSERT INTO `knows` VALUES ('70', '接口设计', '22');
+INSERT INTO `knows` VALUES ('71', '软件测试步骤', '23');
+INSERT INTO `knows` VALUES ('72', '单元测试', '23');
+INSERT INTO `knows` VALUES ('73', '集成测试', '23');
+INSERT INTO `knows` VALUES ('74', '面向对象软件测试', '23');
+INSERT INTO `knows` VALUES ('75', '有效性测试', '23');
+INSERT INTO `knows` VALUES ('76', '系统测试', '23');
+INSERT INTO `knows` VALUES ('77', '测试技术', '23');
+INSERT INTO `knows` VALUES ('78', '软件项目管理', '24');
+INSERT INTO `knows` VALUES ('79', '过程和项目度量', '24');
+INSERT INTO `knows` VALUES ('80', '软件项目估算', '24');
+INSERT INTO `knows` VALUES ('81', '项目进度安排', '24');
+INSERT INTO `knows` VALUES ('82', '风险管理', '24');
 
 -- ----------------------------
 -- Table structure for `major`
@@ -393,7 +460,7 @@ CREATE TABLE `mc_option` (
   `optionNum` int(11) NOT NULL COMMENT '选项排序号',
   `optionContent` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mc_option
@@ -510,6 +577,18 @@ INSERT INTO `mc_option` VALUES ('137', '35', '1', 'continue语句的作用是重
 INSERT INTO `mc_option` VALUES ('138', '35', '2', '只能在循环体内和switch语句体内使用break语句');
 INSERT INTO `mc_option` VALUES ('139', '35', '3', '在循环体内使用break语句和continue语句的作用相同');
 INSERT INTO `mc_option` VALUES ('140', '35', '4', '从多重循环嵌套中退出是,只能使用goto语句');
+INSERT INTO `mc_option` VALUES ('141', '36', '1', '10110');
+INSERT INTO `mc_option` VALUES ('142', '36', '2', '386');
+INSERT INTO `mc_option` VALUES ('143', '36', '3', '0Xffa');
+INSERT INTO `mc_option` VALUES ('144', '36', '4', 'x2a2');
+INSERT INTO `mc_option` VALUES ('145', '37', '1', 'a=b=c=d=100;');
+INSERT INTO `mc_option` VALUES ('146', '37', '2', 'd++;');
+INSERT INTO `mc_option` VALUES ('147', '37', '3', 'c+b;');
+INSERT INTO `mc_option` VALUES ('148', '37', '4', 'd=(c=22)-(b++);');
+INSERT INTO `mc_option` VALUES ('149', '38', '1', 'oxff');
+INSERT INTO `mc_option` VALUES ('150', '38', '2', '0Xabc');
+INSERT INTO `mc_option` VALUES ('151', '38', '3', '0x01');
+INSERT INTO `mc_option` VALUES ('152', '38', '4', '0X9X');
 
 -- ----------------------------
 -- Table structure for `mc_question`
@@ -531,7 +610,7 @@ CREATE TABLE `mc_question` (
   PRIMARY KEY (`id`),
   KEY `chapterId` (`chapterId`),
   CONSTRAINT `mc_question_ibfk_1` FOREIGN KEY (`chapterId`) REFERENCES `chapter` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mc_question
@@ -583,7 +662,7 @@ CREATE TABLE `menu` (
   PRIMARY KEY (`id`),
   KEY `parentId` (`parentId`),
   CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `menu` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -603,10 +682,10 @@ INSERT INTO `menu` VALUES ('14', '/exampaper/template/**', '/pap/template', 'Pap
 INSERT INTO `menu` VALUES ('15', '/exampaper/library/**', '/pap/library', 'PaperLib', '试卷库管理', null, null, '1', '4', '1');
 INSERT INTO `menu` VALUES ('16', '/exampaper/create/**', '/pap/create', 'PaperCre', '试卷组建', null, null, '1', '4', '1');
 INSERT INTO `menu` VALUES ('17', '/exampaper/check/**', '/pap/check', 'PaperCheck', '试卷审核', null, null, '1', '4', '1');
-INSERT INTO `menu` VALUES ('19', '/analysis/all/**', '/ana/all', 'AnaAll', '试卷数据分析', null, null, '1', '5', '1');
-INSERT INTO `menu` VALUES ('20', '/analysis/score/**', '/ana/score', 'StaScore', '试题数据分析', null, null, '1', '5', '1');
-INSERT INTO `menu` VALUES ('21', '/analysis/personnel/**', '/ana/pers', 'StaPers', '成绩信息统计', null, null, '1', '5', '1');
-INSERT INTO `menu` VALUES ('22', '/analysis/recored/**', '/ana/record', 'StaRecord', '学习效果分析', null, null, '1', '5', '1');
+INSERT INTO `menu` VALUES ('19', '/analysis/all/**', '/ana/all', 'AnaAll', '试卷数据分析', null, null, '1', '5', '0');
+INSERT INTO `menu` VALUES ('20', '/analysis/score/**', '/ana/score', 'StaScore', '试题数据分析', null, null, '1', '5', '0');
+INSERT INTO `menu` VALUES ('21', '/analysis/personnel/**', '/ana/pers', 'StaPers', '成绩信息统计', null, null, '1', '5', '0');
+INSERT INTO `menu` VALUES ('22', '/analysis/recored/**', '/ana/record', 'StaRecord', '学习效果分析', null, null, '1', '5', '0');
 INSERT INTO `menu` VALUES ('23', '/system/user/**', '/sys/user', 'SysUserMan', '用户管理', null, null, '1', '6', '1');
 INSERT INTO `menu` VALUES ('24', '/system/authority/**', '/sys/aut', 'SysAuth', '权限管理', null, null, '1', '6', '1');
 INSERT INTO `menu` VALUES ('25', '/baseinfo/department/**', '/baseinfo/dep', 'BasDep', '部门管理', null, null, '1', '33', '1');
@@ -624,6 +703,7 @@ INSERT INTO `menu` VALUES ('42', '/analysis/all/**', '/ana/scoredistributionofte
 INSERT INTO `menu` VALUES ('43', '/analysis/all/**', '/ana/scoredistributionofknowledgepointsIntestpaper', 'AnaScoreDistributionOfKnowledgePointsInTestPaper', '知识点分值分布', null, null, '1', '5', '1');
 INSERT INTO `menu` VALUES ('44', '/student/all/**', '/stu/analysis', 'StuAnalysis', '我的考试', null, null, '1', '45', '1');
 INSERT INTO `menu` VALUES ('45', '/', '/home', 'Home', '我的考试', 'fa fa-bar-chart', null, '1', '1', '1');
+INSERT INTO `menu` VALUES ('46', '/analysis/all/**', '/ana/testdifficultyandtestpaperdifficulty', 'AnaTestDifficultyAndTestPaperDifficulty', '试题难度和试卷难度', null, null, '1', '5', '1');
 
 -- ----------------------------
 -- Table structure for `menu_role`
@@ -638,26 +718,11 @@ CREATE TABLE `menu_role` (
   KEY `rid` (`rid`),
   CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`),
   CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=404 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=470 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu_role
 -- ----------------------------
-INSERT INTO `menu_role` VALUES ('309', '7', '1');
-INSERT INTO `menu_role` VALUES ('310', '8', '1');
-INSERT INTO `menu_role` VALUES ('311', '9', '1');
-INSERT INTO `menu_role` VALUES ('312', '10', '1');
-INSERT INTO `menu_role` VALUES ('313', '14', '1');
-INSERT INTO `menu_role` VALUES ('314', '15', '1');
-INSERT INTO `menu_role` VALUES ('315', '16', '1');
-INSERT INTO `menu_role` VALUES ('316', '19', '1');
-INSERT INTO `menu_role` VALUES ('317', '20', '1');
-INSERT INTO `menu_role` VALUES ('318', '21', '1');
-INSERT INTO `menu_role` VALUES ('319', '22', '1');
-INSERT INTO `menu_role` VALUES ('320', '25', '1');
-INSERT INTO `menu_role` VALUES ('321', '26', '1');
-INSERT INTO `menu_role` VALUES ('322', '27', '1');
-INSERT INTO `menu_role` VALUES ('323', '34', '1');
 INSERT INTO `menu_role` VALUES ('324', '7', '2');
 INSERT INTO `menu_role` VALUES ('325', '8', '2');
 INSERT INTO `menu_role` VALUES ('326', '9', '2');
@@ -676,32 +741,51 @@ INSERT INTO `menu_role` VALUES ('338', '26', '2');
 INSERT INTO `menu_role` VALUES ('339', '27', '2');
 INSERT INTO `menu_role` VALUES ('340', '34', '2');
 INSERT INTO `menu_role` VALUES ('350', '44', '4');
-INSERT INTO `menu_role` VALUES ('378', '7', '3');
-INSERT INTO `menu_role` VALUES ('379', '8', '3');
-INSERT INTO `menu_role` VALUES ('380', '9', '3');
-INSERT INTO `menu_role` VALUES ('381', '10', '3');
-INSERT INTO `menu_role` VALUES ('382', '11', '3');
-INSERT INTO `menu_role` VALUES ('383', '14', '3');
-INSERT INTO `menu_role` VALUES ('384', '15', '3');
-INSERT INTO `menu_role` VALUES ('385', '16', '3');
-INSERT INTO `menu_role` VALUES ('386', '17', '3');
-INSERT INTO `menu_role` VALUES ('387', '19', '3');
-INSERT INTO `menu_role` VALUES ('388', '20', '3');
-INSERT INTO `menu_role` VALUES ('389', '21', '3');
-INSERT INTO `menu_role` VALUES ('390', '22', '3');
-INSERT INTO `menu_role` VALUES ('391', '37', '3');
-INSERT INTO `menu_role` VALUES ('392', '38', '3');
-INSERT INTO `menu_role` VALUES ('393', '39', '3');
-INSERT INTO `menu_role` VALUES ('394', '40', '3');
-INSERT INTO `menu_role` VALUES ('395', '41', '3');
-INSERT INTO `menu_role` VALUES ('396', '42', '3');
-INSERT INTO `menu_role` VALUES ('397', '43', '3');
-INSERT INTO `menu_role` VALUES ('398', '23', '3');
-INSERT INTO `menu_role` VALUES ('399', '24', '3');
-INSERT INTO `menu_role` VALUES ('400', '25', '3');
-INSERT INTO `menu_role` VALUES ('401', '26', '3');
-INSERT INTO `menu_role` VALUES ('402', '27', '3');
-INSERT INTO `menu_role` VALUES ('403', '34', '3');
+INSERT INTO `menu_role` VALUES ('425', '7', '3');
+INSERT INTO `menu_role` VALUES ('426', '8', '3');
+INSERT INTO `menu_role` VALUES ('427', '9', '3');
+INSERT INTO `menu_role` VALUES ('428', '10', '3');
+INSERT INTO `menu_role` VALUES ('429', '11', '3');
+INSERT INTO `menu_role` VALUES ('430', '14', '3');
+INSERT INTO `menu_role` VALUES ('431', '15', '3');
+INSERT INTO `menu_role` VALUES ('432', '16', '3');
+INSERT INTO `menu_role` VALUES ('433', '17', '3');
+INSERT INTO `menu_role` VALUES ('434', '37', '3');
+INSERT INTO `menu_role` VALUES ('435', '38', '3');
+INSERT INTO `menu_role` VALUES ('436', '39', '3');
+INSERT INTO `menu_role` VALUES ('437', '40', '3');
+INSERT INTO `menu_role` VALUES ('438', '41', '3');
+INSERT INTO `menu_role` VALUES ('439', '42', '3');
+INSERT INTO `menu_role` VALUES ('440', '43', '3');
+INSERT INTO `menu_role` VALUES ('441', '46', '3');
+INSERT INTO `menu_role` VALUES ('442', '23', '3');
+INSERT INTO `menu_role` VALUES ('443', '24', '3');
+INSERT INTO `menu_role` VALUES ('444', '25', '3');
+INSERT INTO `menu_role` VALUES ('445', '26', '3');
+INSERT INTO `menu_role` VALUES ('446', '27', '3');
+INSERT INTO `menu_role` VALUES ('447', '34', '3');
+INSERT INTO `menu_role` VALUES ('448', '7', '1');
+INSERT INTO `menu_role` VALUES ('449', '8', '1');
+INSERT INTO `menu_role` VALUES ('450', '9', '1');
+INSERT INTO `menu_role` VALUES ('451', '10', '1');
+INSERT INTO `menu_role` VALUES ('452', '11', '1');
+INSERT INTO `menu_role` VALUES ('453', '14', '1');
+INSERT INTO `menu_role` VALUES ('454', '15', '1');
+INSERT INTO `menu_role` VALUES ('455', '16', '1');
+INSERT INTO `menu_role` VALUES ('456', '17', '1');
+INSERT INTO `menu_role` VALUES ('457', '37', '1');
+INSERT INTO `menu_role` VALUES ('458', '38', '1');
+INSERT INTO `menu_role` VALUES ('459', '39', '1');
+INSERT INTO `menu_role` VALUES ('460', '40', '1');
+INSERT INTO `menu_role` VALUES ('461', '41', '1');
+INSERT INTO `menu_role` VALUES ('462', '42', '1');
+INSERT INTO `menu_role` VALUES ('463', '43', '1');
+INSERT INTO `menu_role` VALUES ('464', '46', '1');
+INSERT INTO `menu_role` VALUES ('465', '25', '1');
+INSERT INTO `menu_role` VALUES ('466', '26', '1');
+INSERT INTO `menu_role` VALUES ('467', '27', '1');
+INSERT INTO `menu_role` VALUES ('468', '34', '1');
+INSERT INTO `menu_role` VALUES ('469', '8', '1');
 
 -- ----------------------------
 -- Table structure for `paper_check`
@@ -724,8 +808,6 @@ CREATE TABLE `paper_check` (
 -- ----------------------------
 -- Records of paper_check
 -- ----------------------------
-INSERT INTO `paper_check` VALUES ('3', '24', '0', '3', '3', '0', null, '2020-05-17');
-INSERT INTO `paper_check` VALUES ('5', '26', '0', '3', '3', '0', null, '2020-05-17');
 INSERT INTO `paper_check` VALUES ('6', '27', '0', '3', '3', '1', null, '2020-05-17');
 
 -- ----------------------------
@@ -748,7 +830,7 @@ CREATE TABLE `qa_question` (
   PRIMARY KEY (`id`),
   KEY `chapterId` (`chapterId`),
   CONSTRAINT `qa_question_ibfk_1` FOREIGN KEY (`chapterId`) REFERENCES `chapter` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of qa_question
@@ -758,6 +840,12 @@ INSERT INTO `qa_question` VALUES ('5', '23@25', '有一个分数数列  2/1 ，3
 INSERT INTO `qa_question` VALUES ('6', '32', '编写一个函数，对N个整型数排序。', 'void  sort(int a[],int n)                  \n{\n	int i,j,t;                               \n	for(i=0;i<n-1;i++)                       \n	{\n		for(j=0;j<n-i-1;j++)                  \n		{\n			if(a[j]>a[j+1])                   \n			{\n				t=a[j];\n				a[j]=a[j+1];\n				a[j+1]=t;\n			}\n		}\n	}\n}', '', '3', '7', '2', '3', '6', '1', '2020-05-16 13:37:40');
 INSERT INTO `qa_question` VALUES ('7', '38', '写一个函数，实现两个字符串的比较，即自己编写一个strcpm函数，函数原型为：int strcmp(char * str1,char *str2);', 'int strcmp(char * str1,char *str2)\n{\n	int i=0;                                      \n	while (str1[i]!=\'\\0\'&&str2[i]!=\'\\0\')          \n	{\n		if(str1[i]!=str2[i])                    \n			break;\n		i++;                                       \n	}\n	return str1[i]-str2[i];                       \n}', '', '3', '9', '3', '3', '6', '1', '2020-05-16 13:39:13');
 INSERT INTO `qa_question` VALUES ('8', '29', '打印出Fibonacci，数列的前20个数\n打开程序Cprong042.c，完成其中的fun()函数，使程序打印出Fibonacci，数列的前20个数。\n该数列{1，1，2，3，5，8，13，……}的第1，第2个数为1，从第3个数开始每个数等于\n前2个数之和。', '#include <stdio.h>\n#include <math.h>  \nvoid fun(int a[],int m)\n{\n /**/ \n	int i;\n        a[0] = 1;\n	a[1] = 1;\n	for(i=2; i<m; i++)\n	{\n		a[i] = a[i-1] + a[i-2];\n	}\n /**/\n}\n\nvoid main()\n{\n  int a[20],i;\n  fun(a,20);\n  for(i=0; i<20; i++)\n    printf(\"%d   \",a[i]);\n  printf(\"\\n\");\n  getch();\n}', '', '3', '6', '3', '3', '6', '1', '2020-05-16 17:00:37');
+INSERT INTO `qa_question` VALUES ('10', '35@36@38', '将三个字符串  a,b,c从小到大排序后输出.\nCprog 022.c,完成其中函数fun 2{char a[],char b[],char c[]),实现:将三个字符串  a,b,c从小到大排序后输出.\n     注意:字符串比较函数为strcmp{char*,char*},\n          字符串复制函数为strcpy{char*,char*}.', '#include <string.h>\n#include <conio.h>\n#include <math.h>\n#include <stdio.h>\nvoid fun2(char a[],char b[],char c[])\n{\n/**/\n	char t[10];\n	if( strcmp(a,b) > 0 )\n	{\n		strcpy(t,a);\n		strcpy(a,b);\n		strcpy(b,t);\n	}\n	if( strcmp(a,c) > 0 )\n	{\n		strcpy(t,a);\n		strcpy(a,c);\n		strcpy(c,t);\n	}\n	if( strcmp(b,c) > 0 )\n	{\n		strcpy(t,c);\n		strcpy(c,b);\n		strcpy(b,t);\n	}\n/**/\n}\nvoid main()\n{ char str1[15]=\"Fuzhou\",str2[15]=\"Fujian\",str3[15]=\"China\";\n  clrscr();\n  fun2(str1,str2,str3);\n  printf(\"The ordered strings is : %s, %s, %s\\n\",str1,str2,str3);\n  getch();\n}', '', '3', '9', '4', '3', '6', '1', '2020-05-18 20:59:59');
+INSERT INTO `qa_question` VALUES ('11', '30@33@36', '用指针和数组两种方法实现如下功能：将一个字符串按逆序存放。（18分）\n要求（1）主函数中完成输入和输出字符串。\n（2）逆序存放功能用子函数完成。', '(1)数组法\n#include <string.h>\n#include <stdio.h>\n#define N 20\nvoid inv(char str[],int n);\nvoid main()\n{char str[N];\n gets(str);\n inv(str,strlen(str));\n puts(str);\nvoid inv(char str[],int n)\n{int i,j,temp;\n for(i=0,j=n-1;i<=j;i++,j--)\n {temp=str[i];\n str[i]=str[j];\n str[j]=temp;}\n}\n2）指针法\n#include <string.h>\n#include <stdio.h>\n#define N 20\nvoid inv(char *str,int n);\nvoid main()\n{char str[N];\n gets(str);\n inv(str,strlen(str));\n puts(str);\n}\nvoid inv(char *str,int n)\n{char *i,*j,temp;\n for(i=str,j=str+n-1;i<=j;i++,j--)\n {temp=*i;\n *i=*j;\n *j=temp;}\n}', '', '1557', '7', '4', '3', '6', '1', '2020-05-18 21:35:48');
+INSERT INTO `qa_question` VALUES ('12', '31', '编写程序输出下列形式的杨辉三角形的前10行。\n    1\n    1  1\n    1  2  1\n    1  3  3  1\n    1  4  6  4  1\n     ……', 'main( )\n{\n   int a[10][10],i,j;\n   for(i=0;i<10;i++)\n    { for(j=0;j<=i;j++)\n       { if((j= =0)||(i= =j))   a[i][j]=1;\n        else   a[i][j]=a[i-1][j-1]+a[i-1][j];\n          printf(\"%d\",a[i][j]);\n       }\n       printf(\"\\n\");\n     }\n }', '', '1557', '6', '3', '3', '6', '1', '2020-05-18 21:53:55');
+INSERT INTO `qa_question` VALUES ('13', '25@29', '输入一行字符，分别统计求出其中英文字母、空格、数字和其他字符的个数并输出结果。', '#include<stdio.h>\nmain()\n{\n    int  i;\n    float sum,sign;\n    i=1;\n    sum=0;\n    sign=1.0;\n    while((1.0/i)>=1e-4)\n	{\n        sum += sign / i ;\n        i++;\n        sign = - sign;\n	}\n    printf(\"sum=%.4f\",sum);\n｝', '', '1557', '6', '2', '3', '6', '1', '2020-05-18 21:58:35');
+INSERT INTO `qa_question` VALUES ('14', '29', '任意从键盘输入10个整数，按从小到大的顺序排序，并输出结果。', '#include<stdio.h>\nmain()\n{ \n	int num[10];\n    int i,j,k;\n    int temp; \n    printf(\"Please enter 10 numbers :\\n\");\n    for(i=0;i<10;i++)\n        scanf(\"%d\",&num[i]);\n    for (i=0;i<9;i++)\n	{\n        k= i ;\n        for (j=i+1;j<10;j++)\n		{\n			if (num[k]>num[j])\n                  k=j;\n            if(k!=i)\n			{\n				temp=num[i];\n				num[i]=num[k];\n				num[k]=temp;\n			}\n		}\n        printf(\"After sorted :\\n\");\n        for (i=0;i<10;i++)\n            printf (\"%5d\",num[i]);\n	}\n}', '', '1557', '6', '3', '3', '6', '1', '2020-05-18 21:59:26');
+INSERT INTO `qa_question` VALUES ('15', '29', '计算1-1/2+1/3-1/4+…+1/99-1/100+…,直到最后一项的绝对值小于10-4为止。', '#include<stdio.h>\nmain()\n{\n    int  i;\n    float sum,sign;\n    i=1;\n    sum=0;\n    sign=1.0;\n    while((1.0/i)>=1e-4)\n	{\n        sum += sign / i ;\n        i++;\n        sign = - sign;\n	}\n    printf(\"sum=%.4f\",sum);\n｝', '', '1557', '6', '2', '3', '6', '1', '2020-05-18 22:00:05');
 
 -- ----------------------------
 -- Table structure for `question_check`
@@ -777,7 +865,7 @@ CREATE TABLE `question_check` (
   KEY `question_check_ibfk_2` (`checkTeacherId`),
   CONSTRAINT `question_check_ibfk_1` FOREIGN KEY (`postTeacherId`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `question_check_ibfk_2` FOREIGN KEY (`checkTeacherId`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=184 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=328 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question_check
@@ -911,7 +999,6 @@ INSERT INTO `question_check` VALUES ('171', '55', '3', '3', '1', 'tf', '', '2020
 INSERT INTO `question_check` VALUES ('172', '56', '3', '3', '1', 'tf', '', '2020-05-16 20:37:32');
 INSERT INTO `question_check` VALUES ('173', '57', '3', '3', '1', 'tf', '', '2020-05-16 20:36:59');
 INSERT INTO `question_check` VALUES ('174', '58', '3', '3', '1', 'tf', '', '2020-05-16 20:36:53');
-INSERT INTO `question_check` VALUES ('175', '59', '3', '3', '1', 'tf', '', '2020-05-16 20:36:50');
 INSERT INTO `question_check` VALUES ('176', '60', '3', '3', '1', 'tf', '', '2020-05-16 20:36:46');
 INSERT INTO `question_check` VALUES ('177', '61', '3', '3', '1', 'tf', '', '2020-05-16 20:36:43');
 INSERT INTO `question_check` VALUES ('178', '62', '3', '3', '1', 'tf', '', '2020-05-16 20:36:41');
@@ -920,6 +1007,149 @@ INSERT INTO `question_check` VALUES ('180', '64', '3', '3', '1', 'tf', '', '2020
 INSERT INTO `question_check` VALUES ('181', '65', '3', '3', '1', 'tf', '', '2020-05-16 20:36:34');
 INSERT INTO `question_check` VALUES ('182', '66', '3', '3', '1', 'tf', '', '2020-05-16 20:36:29');
 INSERT INTO `question_check` VALUES ('183', '67', '3', '3', '1', 'tf', '', '2020-05-16 20:36:27');
+INSERT INTO `question_check` VALUES ('184', '52', '3', '3', '1', 'sc', '', '2020-05-18 11:57:10');
+INSERT INTO `question_check` VALUES ('185', '53', '3', '3', '1', 'sc', '', '2020-05-18 11:57:12');
+INSERT INTO `question_check` VALUES ('186', '54', '3', '3', '1', 'sc', '', '2020-05-18 11:57:20');
+INSERT INTO `question_check` VALUES ('187', '55', '3', '3', '1', 'sc', '', '2020-05-18 11:57:22');
+INSERT INTO `question_check` VALUES ('188', '36', '3', '3', '1', 'mc', '', '2020-05-18 11:57:24');
+INSERT INTO `question_check` VALUES ('189', '37', '3', '3', '1', 'mc', '', '2020-05-18 11:57:26');
+INSERT INTO `question_check` VALUES ('190', '38', '3', '3', '1', 'mc', '', '2020-05-18 11:57:28');
+INSERT INTO `question_check` VALUES ('191', '68', '3', '3', '0', 'tf', '', '2020-05-18 16:36:13');
+INSERT INTO `question_check` VALUES ('192', '69', '3', '3', '1', 'tf', '', '2020-05-18 11:57:32');
+INSERT INTO `question_check` VALUES ('193', '70', '3', '3', '1', 'tf', '', '2020-05-18 11:57:33');
+INSERT INTO `question_check` VALUES ('194', '23', '3', '3', '1', 'fb', '', '2020-05-18 11:57:35');
+INSERT INTO `question_check` VALUES ('195', '24', '3', '3', '1', 'fb', '', '2020-05-18 11:57:37');
+INSERT INTO `question_check` VALUES ('196', '9', '3', '3', '1', 'qa', '', '2020-05-18 11:57:41');
+INSERT INTO `question_check` VALUES ('198', '57', '1557', '3', '1', 'sc', '', '2020-05-18 16:48:30');
+INSERT INTO `question_check` VALUES ('199', '58', '3', '3', '1', 'sc', '', '2020-05-18 17:27:18');
+INSERT INTO `question_check` VALUES ('200', '59', '3', '3', '1', 'sc', '', '2020-05-18 17:27:20');
+INSERT INTO `question_check` VALUES ('201', '60', '3', '3', '1', 'sc', '', '2020-05-18 17:27:23');
+INSERT INTO `question_check` VALUES ('202', '61', '3', '3', '1', 'sc', '', '2020-05-18 17:27:25');
+INSERT INTO `question_check` VALUES ('203', '62', '3', '3', '1', 'sc', '', '2020-05-18 17:27:27');
+INSERT INTO `question_check` VALUES ('204', '63', '3', '3', '1', 'sc', '', '2020-05-18 17:27:28');
+INSERT INTO `question_check` VALUES ('205', '64', '3', '3', '1', 'sc', '', '2020-05-18 17:27:30');
+INSERT INTO `question_check` VALUES ('206', '65', '3', '3', '1', 'sc', '', '2020-05-18 17:27:33');
+INSERT INTO `question_check` VALUES ('207', '66', '3', '3', '1', 'sc', '', '2020-05-18 17:27:34');
+INSERT INTO `question_check` VALUES ('208', '67', '3', '3', '1', 'sc', '', '2020-05-18 17:27:36');
+INSERT INTO `question_check` VALUES ('209', '68', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:38');
+INSERT INTO `question_check` VALUES ('210', '69', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:40');
+INSERT INTO `question_check` VALUES ('211', '70', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:46');
+INSERT INTO `question_check` VALUES ('212', '71', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:43');
+INSERT INTO `question_check` VALUES ('213', '72', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:48');
+INSERT INTO `question_check` VALUES ('214', '73', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:50');
+INSERT INTO `question_check` VALUES ('215', '74', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:52');
+INSERT INTO `question_check` VALUES ('216', '75', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:54');
+INSERT INTO `question_check` VALUES ('217', '76', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:58');
+INSERT INTO `question_check` VALUES ('218', '77', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:14');
+INSERT INTO `question_check` VALUES ('219', '78', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:17');
+INSERT INTO `question_check` VALUES ('220', '79', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:19');
+INSERT INTO `question_check` VALUES ('221', '80', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:21');
+INSERT INTO `question_check` VALUES ('222', '81', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:23');
+INSERT INTO `question_check` VALUES ('223', '82', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:25');
+INSERT INTO `question_check` VALUES ('224', '83', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:27');
+INSERT INTO `question_check` VALUES ('225', '84', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:30');
+INSERT INTO `question_check` VALUES ('226', '85', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:31');
+INSERT INTO `question_check` VALUES ('227', '86', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:33');
+INSERT INTO `question_check` VALUES ('228', '87', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:51');
+INSERT INTO `question_check` VALUES ('229', '88', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:53');
+INSERT INTO `question_check` VALUES ('230', '89', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:56');
+INSERT INTO `question_check` VALUES ('231', '90', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:58');
+INSERT INTO `question_check` VALUES ('232', '91', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:01');
+INSERT INTO `question_check` VALUES ('233', '92', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:03');
+INSERT INTO `question_check` VALUES ('234', '93', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:05');
+INSERT INTO `question_check` VALUES ('235', '94', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:07');
+INSERT INTO `question_check` VALUES ('236', '95', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:09');
+INSERT INTO `question_check` VALUES ('237', '96', '1557', '3', '1', 'sc', '', '2020-05-18 19:34:11');
+INSERT INTO `question_check` VALUES ('238', '97', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:30');
+INSERT INTO `question_check` VALUES ('239', '98', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:33');
+INSERT INTO `question_check` VALUES ('240', '99', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:35');
+INSERT INTO `question_check` VALUES ('241', '100', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:37');
+INSERT INTO `question_check` VALUES ('242', '101', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:39');
+INSERT INTO `question_check` VALUES ('243', '102', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:41');
+INSERT INTO `question_check` VALUES ('244', '103', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:43');
+INSERT INTO `question_check` VALUES ('245', '104', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:45');
+INSERT INTO `question_check` VALUES ('246', '105', '1557', '3', '1', 'sc', '', '2020-05-18 19:33:47');
+INSERT INTO `question_check` VALUES ('247', '71', '3', '3', '1', 'tf', '', '2020-05-18 21:28:07');
+INSERT INTO `question_check` VALUES ('248', '72', '3', '3', '1', 'tf', '', '2020-05-18 21:28:09');
+INSERT INTO `question_check` VALUES ('249', '73', '3', '3', '1', 'tf', '', '2020-05-18 21:28:10');
+INSERT INTO `question_check` VALUES ('250', '74', '3', '3', '1', 'tf', '', '2020-05-18 21:28:12');
+INSERT INTO `question_check` VALUES ('251', '75', '3', '3', '1', 'tf', '', '2020-05-18 21:28:13');
+INSERT INTO `question_check` VALUES ('252', '76', '3', '3', '1', 'tf', '', '2020-05-18 21:28:15');
+INSERT INTO `question_check` VALUES ('253', '77', '3', '3', '1', 'tf', '', '2020-05-18 21:28:19');
+INSERT INTO `question_check` VALUES ('254', '78', '3', '3', '1', 'tf', '', '2020-05-18 21:28:20');
+INSERT INTO `question_check` VALUES ('255', '79', '3', '3', '1', 'tf', '', '2020-05-18 21:28:24');
+INSERT INTO `question_check` VALUES ('256', '80', '3', '3', '1', 'tf', '', '2020-05-18 21:28:26');
+INSERT INTO `question_check` VALUES ('257', '81', '3', '3', '1', 'tf', '', '2020-05-18 21:28:31');
+INSERT INTO `question_check` VALUES ('258', '82', '3', '3', '1', 'tf', '', '2020-05-18 21:28:33');
+INSERT INTO `question_check` VALUES ('259', '83', '3', '3', '1', 'tf', '', '2020-05-18 21:28:36');
+INSERT INTO `question_check` VALUES ('260', '84', '3', '3', '1', 'tf', '', '2020-05-18 21:28:35');
+INSERT INTO `question_check` VALUES ('261', '85', '3', '3', '1', 'tf', '', '2020-05-18 21:28:38');
+INSERT INTO `question_check` VALUES ('262', '86', '3', '3', '1', 'tf', '', '2020-05-18 21:28:40');
+INSERT INTO `question_check` VALUES ('263', '87', '3', '3', '1', 'tf', '', '2020-05-18 21:28:41');
+INSERT INTO `question_check` VALUES ('264', '88', '3', '3', '1', 'tf', '', '2020-05-18 21:28:42');
+INSERT INTO `question_check` VALUES ('265', '89', '3', '3', '1', 'tf', '', '2020-05-18 21:28:44');
+INSERT INTO `question_check` VALUES ('266', '90', '3', '3', '1', 'tf', '', '2020-05-18 21:28:46');
+INSERT INTO `question_check` VALUES ('267', '91', '3', '3', '1', 'tf', '', '2020-05-18 21:28:49');
+INSERT INTO `question_check` VALUES ('268', '92', '3', '3', '1', 'tf', '', '2020-05-18 21:28:51');
+INSERT INTO `question_check` VALUES ('269', '93', '3', '3', '1', 'tf', '', '2020-05-18 21:28:53');
+INSERT INTO `question_check` VALUES ('270', '94', '3', '3', '1', 'tf', '', '2020-05-18 21:28:54');
+INSERT INTO `question_check` VALUES ('271', '95', '3', '3', '1', 'tf', '', '2020-05-18 21:28:56');
+INSERT INTO `question_check` VALUES ('272', '96', '3', '3', '1', 'tf', '', '2020-05-18 21:28:57');
+INSERT INTO `question_check` VALUES ('273', '97', '3', '3', '1', 'tf', '', '2020-05-18 21:28:59');
+INSERT INTO `question_check` VALUES ('274', '98', '3', '3', '1', 'tf', '', '2020-05-18 21:29:01');
+INSERT INTO `question_check` VALUES ('275', '99', '3', '3', '1', 'tf', '', '2020-05-18 21:29:03');
+INSERT INTO `question_check` VALUES ('276', '100', '3', '3', '1', 'tf', '', '2020-05-18 21:29:04');
+INSERT INTO `question_check` VALUES ('277', '101', '3', '3', '1', 'tf', '', '2020-05-18 21:29:08');
+INSERT INTO `question_check` VALUES ('278', '102', '3', '3', '1', 'tf', '', '2020-05-18 21:29:10');
+INSERT INTO `question_check` VALUES ('279', '103', '3', '3', '1', 'tf', '', '2020-05-18 21:29:12');
+INSERT INTO `question_check` VALUES ('280', '104', '3', '3', '1', 'tf', '', '2020-05-18 21:29:14');
+INSERT INTO `question_check` VALUES ('281', '105', '3', '3', '1', 'tf', '', '2020-05-18 21:29:15');
+INSERT INTO `question_check` VALUES ('282', '106', '3', '3', '1', 'tf', '', '2020-05-18 21:29:17');
+INSERT INTO `question_check` VALUES ('283', '10', '3', '3', '1', 'qa', '', '2020-05-18 21:29:20');
+INSERT INTO `question_check` VALUES ('284', '106', '3', '3', '1', 'sc', '答案在题干上啥', '2020-05-18 21:29:22');
+INSERT INTO `question_check` VALUES ('285', '107', '1557', '3', '1', 'sc', '', '2020-05-18 21:30:05');
+INSERT INTO `question_check` VALUES ('286', '108', '1557', '3', '1', 'sc', '', '2020-05-18 21:30:03');
+INSERT INTO `question_check` VALUES ('287', '109', '1557', '3', '1', 'sc', '题干不对', '2020-05-18 21:30:01');
+INSERT INTO `question_check` VALUES ('288', '110', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:57');
+INSERT INTO `question_check` VALUES ('289', '111', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:55');
+INSERT INTO `question_check` VALUES ('290', '112', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:53');
+INSERT INTO `question_check` VALUES ('291', '113', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:51');
+INSERT INTO `question_check` VALUES ('292', '114', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:49');
+INSERT INTO `question_check` VALUES ('293', '115', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:47');
+INSERT INTO `question_check` VALUES ('294', '116', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:46');
+INSERT INTO `question_check` VALUES ('295', '117', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:44');
+INSERT INTO `question_check` VALUES ('296', '118', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:43');
+INSERT INTO `question_check` VALUES ('297', '119', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:41');
+INSERT INTO `question_check` VALUES ('298', '120', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:37');
+INSERT INTO `question_check` VALUES ('299', '121', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:35');
+INSERT INTO `question_check` VALUES ('300', '122', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:34');
+INSERT INTO `question_check` VALUES ('301', '123', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:32');
+INSERT INTO `question_check` VALUES ('302', '124', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:30');
+INSERT INTO `question_check` VALUES ('303', '125', '1557', '3', '1', 'sc', '', '2020-05-18 21:29:29');
+INSERT INTO `question_check` VALUES ('304', '11', '1557', '3', '1', 'qa', '', '2020-05-18 22:10:24');
+INSERT INTO `question_check` VALUES ('305', '25', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:28');
+INSERT INTO `question_check` VALUES ('306', '26', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:29');
+INSERT INTO `question_check` VALUES ('307', '27', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:31');
+INSERT INTO `question_check` VALUES ('308', '28', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:34');
+INSERT INTO `question_check` VALUES ('309', '29', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:36');
+INSERT INTO `question_check` VALUES ('310', '30', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:38');
+INSERT INTO `question_check` VALUES ('311', '12', '1557', '3', '1', 'qa', '', '2020-05-18 22:10:40');
+INSERT INTO `question_check` VALUES ('312', '13', '1557', '3', '1', 'qa', '', '2020-05-18 22:10:41');
+INSERT INTO `question_check` VALUES ('313', '14', '1557', '3', '1', 'qa', '', '2020-05-18 22:10:44');
+INSERT INTO `question_check` VALUES ('314', '15', '1557', '3', '1', 'qa', '', '2020-05-18 22:10:46');
+INSERT INTO `question_check` VALUES ('315', '31', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:48');
+INSERT INTO `question_check` VALUES ('316', '32', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:50');
+INSERT INTO `question_check` VALUES ('317', '33', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:51');
+INSERT INTO `question_check` VALUES ('318', '34', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:54');
+INSERT INTO `question_check` VALUES ('319', '35', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:58');
+INSERT INTO `question_check` VALUES ('320', '36', '1557', '3', '1', 'fb', '', '2020-05-18 22:10:56');
+INSERT INTO `question_check` VALUES ('321', '37', '1557', '3', '1', 'fb', '', '2020-05-18 22:11:00');
+INSERT INTO `question_check` VALUES ('322', '38', '1557', '3', '1', 'fb', '', '2020-05-18 22:11:02');
+INSERT INTO `question_check` VALUES ('323', '39', '1557', '3', '1', 'fb', '', '2020-05-18 22:11:04');
+INSERT INTO `question_check` VALUES ('324', '40', '1557', '3', '1', 'fb', '', '2020-05-18 22:11:06');
+INSERT INTO `question_check` VALUES ('325', '41', '1557', '3', '1', 'fb', '', '2020-05-18 22:11:08');
+INSERT INTO `question_check` VALUES ('326', '42', '1557', '3', '1', 'fb', '', '2020-05-18 22:11:09');
+INSERT INTO `question_check` VALUES ('327', '43', '1557', '3', '1', 'fb', '', '2020-05-18 22:11:11');
 
 -- ----------------------------
 -- Table structure for `question_grade`
@@ -937,7 +1167,7 @@ CREATE TABLE `question_grade` (
   KEY `questionScoreId` (`questionScoreId`),
   CONSTRAINT `question_grade_ibfk_1` FOREIGN KEY (`studentGradeId`) REFERENCES `student_grade` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `question_grade_ibfk_2` FOREIGN KEY (`questionScoreId`) REFERENCES `question_score` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1818 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2093 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question_grade
@@ -1345,156 +1575,256 @@ INSERT INTO `question_grade` VALUES ('914', '46', '607', '编程题', '3', '10')
 INSERT INTO `question_grade` VALUES ('915', '46', '608', '编程题', '4', '6');
 INSERT INTO `question_grade` VALUES ('916', '46', '609', '编程题', '5', '4');
 INSERT INTO `question_grade` VALUES ('917', '46', '610', '编程题', '6', '0');
-INSERT INTO `question_grade` VALUES ('1668', '77', '586', '单选题', '1', '1');
-INSERT INTO `question_grade` VALUES ('1669', '77', '587', '单选题', '2', '1');
-INSERT INTO `question_grade` VALUES ('1670', '77', '588', '单选题', '3', '1');
-INSERT INTO `question_grade` VALUES ('1671', '77', '589', '单选题', '4', '1');
-INSERT INTO `question_grade` VALUES ('1672', '77', '590', '单选题', '5', '1');
-INSERT INTO `question_grade` VALUES ('1673', '77', '591', '单选题', '6', '1');
-INSERT INTO `question_grade` VALUES ('1674', '77', '592', '单选题', '7', '0');
-INSERT INTO `question_grade` VALUES ('1675', '77', '593', '单选题', '8', '0');
-INSERT INTO `question_grade` VALUES ('1676', '77', '594', '单选题', '9', '0');
-INSERT INTO `question_grade` VALUES ('1677', '77', '595', '单选题', '10', '0');
-INSERT INTO `question_grade` VALUES ('1678', '77', '596', '多选题', '1', '2');
-INSERT INTO `question_grade` VALUES ('1679', '77', '597', '多选题', '2', '2');
-INSERT INTO `question_grade` VALUES ('1680', '77', '598', '多选题', '3', '2');
-INSERT INTO `question_grade` VALUES ('1681', '77', '599', '多选题', '4', '2');
-INSERT INTO `question_grade` VALUES ('1682', '77', '600', '多选题', '5', '2');
-INSERT INTO `question_grade` VALUES ('1683', '77', '601', '填空题', '1', '5');
-INSERT INTO `question_grade` VALUES ('1684', '77', '602', '填空题', '2', '5');
-INSERT INTO `question_grade` VALUES ('1685', '77', '603', '填空题', '3', '5');
-INSERT INTO `question_grade` VALUES ('1686', '77', '604', '填空题', '4', '5');
-INSERT INTO `question_grade` VALUES ('1687', '77', '605', '编程题', '1', '10');
-INSERT INTO `question_grade` VALUES ('1688', '77', '606', '编程题', '2', '10');
-INSERT INTO `question_grade` VALUES ('1689', '77', '607', '编程题', '3', '10');
-INSERT INTO `question_grade` VALUES ('1690', '77', '608', '编程题', '4', '10');
-INSERT INTO `question_grade` VALUES ('1691', '77', '609', '编程题', '5', '10');
-INSERT INTO `question_grade` VALUES ('1692', '77', '610', '编程题', '6', '0');
-INSERT INTO `question_grade` VALUES ('1693', '78', '586', '单选题', '1', '1');
-INSERT INTO `question_grade` VALUES ('1694', '78', '587', '单选题', '2', '1');
-INSERT INTO `question_grade` VALUES ('1695', '78', '588', '单选题', '3', '1');
-INSERT INTO `question_grade` VALUES ('1696', '78', '589', '单选题', '4', '1');
-INSERT INTO `question_grade` VALUES ('1697', '78', '590', '单选题', '5', '1');
-INSERT INTO `question_grade` VALUES ('1698', '78', '591', '单选题', '6', '1');
-INSERT INTO `question_grade` VALUES ('1699', '78', '592', '单选题', '7', '1');
-INSERT INTO `question_grade` VALUES ('1700', '78', '593', '单选题', '8', '0');
-INSERT INTO `question_grade` VALUES ('1701', '78', '594', '单选题', '9', '0');
-INSERT INTO `question_grade` VALUES ('1702', '78', '595', '单选题', '10', '0');
-INSERT INTO `question_grade` VALUES ('1703', '78', '596', '多选题', '1', '2');
-INSERT INTO `question_grade` VALUES ('1704', '78', '597', '多选题', '2', '2');
-INSERT INTO `question_grade` VALUES ('1705', '78', '598', '多选题', '3', '2');
-INSERT INTO `question_grade` VALUES ('1706', '78', '599', '多选题', '4', '2');
-INSERT INTO `question_grade` VALUES ('1707', '78', '600', '多选题', '5', '0');
-INSERT INTO `question_grade` VALUES ('1708', '78', '601', '填空题', '1', '5');
-INSERT INTO `question_grade` VALUES ('1709', '78', '602', '填空题', '2', '5');
-INSERT INTO `question_grade` VALUES ('1710', '78', '603', '填空题', '3', '3');
-INSERT INTO `question_grade` VALUES ('1711', '78', '604', '填空题', '4', '2');
-INSERT INTO `question_grade` VALUES ('1712', '78', '605', '编程题', '1', '0');
-INSERT INTO `question_grade` VALUES ('1713', '78', '606', '编程题', '2', '2');
-INSERT INTO `question_grade` VALUES ('1714', '78', '607', '编程题', '3', '10');
-INSERT INTO `question_grade` VALUES ('1715', '78', '608', '编程题', '4', '10');
-INSERT INTO `question_grade` VALUES ('1716', '78', '609', '编程题', '5', '10');
-INSERT INTO `question_grade` VALUES ('1717', '78', '610', '编程题', '6', '10');
-INSERT INTO `question_grade` VALUES ('1718', '79', '586', '单选题', '1', '1');
-INSERT INTO `question_grade` VALUES ('1719', '79', '587', '单选题', '2', '0');
-INSERT INTO `question_grade` VALUES ('1720', '79', '588', '单选题', '3', '1');
-INSERT INTO `question_grade` VALUES ('1721', '79', '589', '单选题', '4', '0');
-INSERT INTO `question_grade` VALUES ('1722', '79', '590', '单选题', '5', '1');
-INSERT INTO `question_grade` VALUES ('1723', '79', '591', '单选题', '6', '0');
-INSERT INTO `question_grade` VALUES ('1724', '79', '592', '单选题', '7', '1');
-INSERT INTO `question_grade` VALUES ('1725', '79', '593', '单选题', '8', '0');
-INSERT INTO `question_grade` VALUES ('1726', '79', '594', '单选题', '9', '1');
-INSERT INTO `question_grade` VALUES ('1727', '79', '595', '单选题', '10', '0');
-INSERT INTO `question_grade` VALUES ('1728', '79', '596', '多选题', '1', '0');
-INSERT INTO `question_grade` VALUES ('1729', '79', '597', '多选题', '2', '0');
-INSERT INTO `question_grade` VALUES ('1730', '79', '598', '多选题', '3', '0');
-INSERT INTO `question_grade` VALUES ('1731', '79', '599', '多选题', '4', '0');
-INSERT INTO `question_grade` VALUES ('1732', '79', '600', '多选题', '5', '0');
-INSERT INTO `question_grade` VALUES ('1733', '79', '601', '填空题', '1', '5');
-INSERT INTO `question_grade` VALUES ('1734', '79', '602', '填空题', '2', '0');
-INSERT INTO `question_grade` VALUES ('1735', '79', '603', '填空题', '3', '5');
-INSERT INTO `question_grade` VALUES ('1736', '79', '604', '填空题', '4', '0');
-INSERT INTO `question_grade` VALUES ('1737', '79', '605', '编程题', '1', '0');
-INSERT INTO `question_grade` VALUES ('1738', '79', '606', '编程题', '2', '0');
-INSERT INTO `question_grade` VALUES ('1739', '79', '607', '编程题', '3', '6');
-INSERT INTO `question_grade` VALUES ('1740', '79', '608', '编程题', '4', '10');
-INSERT INTO `question_grade` VALUES ('1741', '79', '609', '编程题', '5', '10');
-INSERT INTO `question_grade` VALUES ('1742', '79', '610', '编程题', '6', '10');
-INSERT INTO `question_grade` VALUES ('1743', '80', '586', '单选题', '1', '1');
-INSERT INTO `question_grade` VALUES ('1744', '80', '587', '单选题', '2', '1');
-INSERT INTO `question_grade` VALUES ('1745', '80', '588', '单选题', '3', '1');
-INSERT INTO `question_grade` VALUES ('1746', '80', '589', '单选题', '4', '1');
-INSERT INTO `question_grade` VALUES ('1747', '80', '590', '单选题', '5', '1');
-INSERT INTO `question_grade` VALUES ('1748', '80', '591', '单选题', '6', '1');
-INSERT INTO `question_grade` VALUES ('1749', '80', '592', '单选题', '7', '1');
-INSERT INTO `question_grade` VALUES ('1750', '80', '593', '单选题', '8', '1');
-INSERT INTO `question_grade` VALUES ('1751', '80', '594', '单选题', '9', '1');
-INSERT INTO `question_grade` VALUES ('1752', '80', '595', '单选题', '10', '0');
-INSERT INTO `question_grade` VALUES ('1753', '80', '596', '多选题', '1', '2');
-INSERT INTO `question_grade` VALUES ('1754', '80', '597', '多选题', '2', '2');
-INSERT INTO `question_grade` VALUES ('1755', '80', '598', '多选题', '3', '2');
-INSERT INTO `question_grade` VALUES ('1756', '80', '599', '多选题', '4', '2');
-INSERT INTO `question_grade` VALUES ('1757', '80', '600', '多选题', '5', '2');
-INSERT INTO `question_grade` VALUES ('1758', '80', '601', '填空题', '1', '2');
-INSERT INTO `question_grade` VALUES ('1759', '80', '602', '填空题', '2', '2');
-INSERT INTO `question_grade` VALUES ('1760', '80', '603', '填空题', '3', '5');
-INSERT INTO `question_grade` VALUES ('1761', '80', '604', '填空题', '4', '5');
-INSERT INTO `question_grade` VALUES ('1762', '80', '605', '编程题', '1', '10');
-INSERT INTO `question_grade` VALUES ('1763', '80', '606', '编程题', '2', '10');
-INSERT INTO `question_grade` VALUES ('1764', '80', '607', '编程题', '3', '10');
-INSERT INTO `question_grade` VALUES ('1765', '80', '608', '编程题', '4', '10');
-INSERT INTO `question_grade` VALUES ('1766', '80', '609', '编程题', '5', '10');
-INSERT INTO `question_grade` VALUES ('1767', '80', '610', '编程题', '6', '0');
-INSERT INTO `question_grade` VALUES ('1768', '81', '586', '单选题', '1', '1');
-INSERT INTO `question_grade` VALUES ('1769', '81', '587', '单选题', '2', '0');
-INSERT INTO `question_grade` VALUES ('1770', '81', '588', '单选题', '3', '1');
-INSERT INTO `question_grade` VALUES ('1771', '81', '589', '单选题', '4', '1');
-INSERT INTO `question_grade` VALUES ('1772', '81', '590', '单选题', '5', '0');
-INSERT INTO `question_grade` VALUES ('1773', '81', '591', '单选题', '6', '1');
-INSERT INTO `question_grade` VALUES ('1774', '81', '592', '单选题', '7', '0');
-INSERT INTO `question_grade` VALUES ('1775', '81', '593', '单选题', '8', '1');
-INSERT INTO `question_grade` VALUES ('1776', '81', '594', '单选题', '9', '1');
-INSERT INTO `question_grade` VALUES ('1777', '81', '595', '单选题', '10', '1');
-INSERT INTO `question_grade` VALUES ('1778', '81', '596', '多选题', '1', '0');
-INSERT INTO `question_grade` VALUES ('1779', '81', '597', '多选题', '2', '2');
-INSERT INTO `question_grade` VALUES ('1780', '81', '598', '多选题', '3', '0');
-INSERT INTO `question_grade` VALUES ('1781', '81', '599', '多选题', '4', '2');
-INSERT INTO `question_grade` VALUES ('1782', '81', '600', '多选题', '5', '2');
-INSERT INTO `question_grade` VALUES ('1783', '81', '601', '填空题', '1', '5');
-INSERT INTO `question_grade` VALUES ('1784', '81', '602', '填空题', '2', '5');
-INSERT INTO `question_grade` VALUES ('1785', '81', '603', '填空题', '3', '0');
-INSERT INTO `question_grade` VALUES ('1786', '81', '604', '填空题', '4', '5');
-INSERT INTO `question_grade` VALUES ('1787', '81', '605', '编程题', '1', '5');
-INSERT INTO `question_grade` VALUES ('1788', '81', '606', '编程题', '2', '0');
-INSERT INTO `question_grade` VALUES ('1789', '81', '607', '编程题', '3', '0');
-INSERT INTO `question_grade` VALUES ('1790', '81', '608', '编程题', '4', '10');
-INSERT INTO `question_grade` VALUES ('1791', '81', '609', '编程题', '5', '10');
-INSERT INTO `question_grade` VALUES ('1792', '81', '610', '编程题', '6', '10');
-INSERT INTO `question_grade` VALUES ('1793', '82', '586', '单选题', '1', '1');
-INSERT INTO `question_grade` VALUES ('1794', '82', '587', '单选题', '2', '1');
-INSERT INTO `question_grade` VALUES ('1795', '82', '588', '单选题', '3', '1');
-INSERT INTO `question_grade` VALUES ('1796', '82', '589', '单选题', '4', '1');
-INSERT INTO `question_grade` VALUES ('1797', '82', '590', '单选题', '5', '1');
-INSERT INTO `question_grade` VALUES ('1798', '82', '591', '单选题', '6', '1');
-INSERT INTO `question_grade` VALUES ('1799', '82', '592', '单选题', '7', '1');
-INSERT INTO `question_grade` VALUES ('1800', '82', '593', '单选题', '8', '1');
-INSERT INTO `question_grade` VALUES ('1801', '82', '594', '单选题', '9', '1');
-INSERT INTO `question_grade` VALUES ('1802', '82', '595', '单选题', '10', '1');
-INSERT INTO `question_grade` VALUES ('1803', '82', '596', '多选题', '1', '2');
-INSERT INTO `question_grade` VALUES ('1804', '82', '597', '多选题', '2', '2');
-INSERT INTO `question_grade` VALUES ('1805', '82', '598', '多选题', '3', '2');
-INSERT INTO `question_grade` VALUES ('1806', '82', '599', '多选题', '4', '0');
-INSERT INTO `question_grade` VALUES ('1807', '82', '600', '多选题', '5', '0');
-INSERT INTO `question_grade` VALUES ('1808', '82', '601', '填空题', '1', '0');
-INSERT INTO `question_grade` VALUES ('1809', '82', '602', '填空题', '2', '5');
-INSERT INTO `question_grade` VALUES ('1810', '82', '603', '填空题', '3', '5');
-INSERT INTO `question_grade` VALUES ('1811', '82', '604', '填空题', '4', '5');
-INSERT INTO `question_grade` VALUES ('1812', '82', '605', '编程题', '1', '5');
-INSERT INTO `question_grade` VALUES ('1813', '82', '606', '编程题', '2', '10');
-INSERT INTO `question_grade` VALUES ('1814', '82', '607', '编程题', '3', '10');
-INSERT INTO `question_grade` VALUES ('1815', '82', '608', '编程题', '4', '5');
-INSERT INTO `question_grade` VALUES ('1816', '82', '609', '编程题', '5', '5');
-INSERT INTO `question_grade` VALUES ('1817', '82', '610', '编程题', '6', '0');
+INSERT INTO `question_grade` VALUES ('1818', null, '586', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('1819', null, '587', '单选题', '2', '1');
+INSERT INTO `question_grade` VALUES ('1820', null, '588', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('1821', null, '589', '单选题', '4', '1');
+INSERT INTO `question_grade` VALUES ('1822', null, '590', '单选题', '5', '1');
+INSERT INTO `question_grade` VALUES ('1823', null, '591', '单选题', '6', '1');
+INSERT INTO `question_grade` VALUES ('1824', null, '592', '单选题', '7', '1');
+INSERT INTO `question_grade` VALUES ('1825', null, '593', '单选题', '8', '1');
+INSERT INTO `question_grade` VALUES ('1826', null, '594', '单选题', '9', '1');
+INSERT INTO `question_grade` VALUES ('1827', null, '595', '单选题', '10', '0');
+INSERT INTO `question_grade` VALUES ('1828', null, '596', '多选题', '1', '2');
+INSERT INTO `question_grade` VALUES ('1829', null, '597', '多选题', '2', '2');
+INSERT INTO `question_grade` VALUES ('1830', null, '598', '多选题', '3', '2');
+INSERT INTO `question_grade` VALUES ('1831', null, '599', '多选题', '4', '2');
+INSERT INTO `question_grade` VALUES ('1832', null, '600', '多选题', '5', '2');
+INSERT INTO `question_grade` VALUES ('1833', null, '601', '填空题', '1', '5');
+INSERT INTO `question_grade` VALUES ('1834', null, '602', '填空题', '2', '5');
+INSERT INTO `question_grade` VALUES ('1835', null, '603', '填空题', '3', '5');
+INSERT INTO `question_grade` VALUES ('1836', null, '604', '填空题', '4', '5');
+INSERT INTO `question_grade` VALUES ('1837', null, '605', '编程题', '1', '10');
+INSERT INTO `question_grade` VALUES ('1838', null, '606', '编程题', '2', '5');
+INSERT INTO `question_grade` VALUES ('1839', null, '607', '编程题', '3', '10');
+INSERT INTO `question_grade` VALUES ('1840', null, '608', '编程题', '4', '6');
+INSERT INTO `question_grade` VALUES ('1841', null, '609', '编程题', '5', '4');
+INSERT INTO `question_grade` VALUES ('1842', null, '610', '编程题', '6', '0');
+INSERT INTO `question_grade` VALUES ('1843', '83', '586', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('1844', '83', '587', '单选题', '2', '1');
+INSERT INTO `question_grade` VALUES ('1845', '83', '588', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('1846', '83', '589', '单选题', '4', '1');
+INSERT INTO `question_grade` VALUES ('1847', '83', '590', '单选题', '5', '1');
+INSERT INTO `question_grade` VALUES ('1848', '83', '591', '单选题', '6', '1');
+INSERT INTO `question_grade` VALUES ('1849', '83', '592', '单选题', '7', '0');
+INSERT INTO `question_grade` VALUES ('1850', '83', '593', '单选题', '8', '0');
+INSERT INTO `question_grade` VALUES ('1851', '83', '594', '单选题', '9', '0');
+INSERT INTO `question_grade` VALUES ('1852', '83', '595', '单选题', '10', '0');
+INSERT INTO `question_grade` VALUES ('1853', '83', '596', '多选题', '1', '2');
+INSERT INTO `question_grade` VALUES ('1854', '83', '597', '多选题', '2', '2');
+INSERT INTO `question_grade` VALUES ('1855', '83', '598', '多选题', '3', '2');
+INSERT INTO `question_grade` VALUES ('1856', '83', '599', '多选题', '4', '2');
+INSERT INTO `question_grade` VALUES ('1857', '83', '600', '多选题', '5', '2');
+INSERT INTO `question_grade` VALUES ('1858', '83', '601', '填空题', '1', '5');
+INSERT INTO `question_grade` VALUES ('1859', '83', '602', '填空题', '2', '5');
+INSERT INTO `question_grade` VALUES ('1860', '83', '603', '填空题', '3', '5');
+INSERT INTO `question_grade` VALUES ('1861', '83', '604', '填空题', '4', '5');
+INSERT INTO `question_grade` VALUES ('1862', '83', '605', '编程题', '1', '10');
+INSERT INTO `question_grade` VALUES ('1863', '83', '606', '编程题', '2', '10');
+INSERT INTO `question_grade` VALUES ('1864', '83', '607', '编程题', '3', '10');
+INSERT INTO `question_grade` VALUES ('1865', '83', '608', '编程题', '4', '10');
+INSERT INTO `question_grade` VALUES ('1866', '83', '609', '编程题', '5', '10');
+INSERT INTO `question_grade` VALUES ('1867', '83', '610', '编程题', '6', '0');
+INSERT INTO `question_grade` VALUES ('1868', '84', '586', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('1869', '84', '587', '单选题', '2', '1');
+INSERT INTO `question_grade` VALUES ('1870', '84', '588', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('1871', '84', '589', '单选题', '4', '1');
+INSERT INTO `question_grade` VALUES ('1872', '84', '590', '单选题', '5', '1');
+INSERT INTO `question_grade` VALUES ('1873', '84', '591', '单选题', '6', '1');
+INSERT INTO `question_grade` VALUES ('1874', '84', '592', '单选题', '7', '1');
+INSERT INTO `question_grade` VALUES ('1875', '84', '593', '单选题', '8', '0');
+INSERT INTO `question_grade` VALUES ('1876', '84', '594', '单选题', '9', '0');
+INSERT INTO `question_grade` VALUES ('1877', '84', '595', '单选题', '10', '0');
+INSERT INTO `question_grade` VALUES ('1878', '84', '596', '多选题', '1', '2');
+INSERT INTO `question_grade` VALUES ('1879', '84', '597', '多选题', '2', '2');
+INSERT INTO `question_grade` VALUES ('1880', '84', '598', '多选题', '3', '2');
+INSERT INTO `question_grade` VALUES ('1881', '84', '599', '多选题', '4', '2');
+INSERT INTO `question_grade` VALUES ('1882', '84', '600', '多选题', '5', '0');
+INSERT INTO `question_grade` VALUES ('1883', '84', '601', '填空题', '1', '5');
+INSERT INTO `question_grade` VALUES ('1884', '84', '602', '填空题', '2', '5');
+INSERT INTO `question_grade` VALUES ('1885', '84', '603', '填空题', '3', '3');
+INSERT INTO `question_grade` VALUES ('1886', '84', '604', '填空题', '4', '2');
+INSERT INTO `question_grade` VALUES ('1887', '84', '605', '编程题', '1', '0');
+INSERT INTO `question_grade` VALUES ('1888', '84', '606', '编程题', '2', '2');
+INSERT INTO `question_grade` VALUES ('1889', '84', '607', '编程题', '3', '10');
+INSERT INTO `question_grade` VALUES ('1890', '84', '608', '编程题', '4', '10');
+INSERT INTO `question_grade` VALUES ('1891', '84', '609', '编程题', '5', '10');
+INSERT INTO `question_grade` VALUES ('1892', '84', '610', '编程题', '6', '10');
+INSERT INTO `question_grade` VALUES ('1893', '85', '586', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('1894', '85', '587', '单选题', '2', '0');
+INSERT INTO `question_grade` VALUES ('1895', '85', '588', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('1896', '85', '589', '单选题', '4', '0');
+INSERT INTO `question_grade` VALUES ('1897', '85', '590', '单选题', '5', '1');
+INSERT INTO `question_grade` VALUES ('1898', '85', '591', '单选题', '6', '0');
+INSERT INTO `question_grade` VALUES ('1899', '85', '592', '单选题', '7', '1');
+INSERT INTO `question_grade` VALUES ('1900', '85', '593', '单选题', '8', '0');
+INSERT INTO `question_grade` VALUES ('1901', '85', '594', '单选题', '9', '1');
+INSERT INTO `question_grade` VALUES ('1902', '85', '595', '单选题', '10', '0');
+INSERT INTO `question_grade` VALUES ('1903', '85', '596', '多选题', '1', '0');
+INSERT INTO `question_grade` VALUES ('1904', '85', '597', '多选题', '2', '0');
+INSERT INTO `question_grade` VALUES ('1905', '85', '598', '多选题', '3', '0');
+INSERT INTO `question_grade` VALUES ('1906', '85', '599', '多选题', '4', '0');
+INSERT INTO `question_grade` VALUES ('1907', '85', '600', '多选题', '5', '0');
+INSERT INTO `question_grade` VALUES ('1908', '85', '601', '填空题', '1', '5');
+INSERT INTO `question_grade` VALUES ('1909', '85', '602', '填空题', '2', '0');
+INSERT INTO `question_grade` VALUES ('1910', '85', '603', '填空题', '3', '5');
+INSERT INTO `question_grade` VALUES ('1911', '85', '604', '填空题', '4', '0');
+INSERT INTO `question_grade` VALUES ('1912', '85', '605', '编程题', '1', '0');
+INSERT INTO `question_grade` VALUES ('1913', '85', '606', '编程题', '2', '0');
+INSERT INTO `question_grade` VALUES ('1914', '85', '607', '编程题', '3', '6');
+INSERT INTO `question_grade` VALUES ('1915', '85', '608', '编程题', '4', '10');
+INSERT INTO `question_grade` VALUES ('1916', '85', '609', '编程题', '5', '10');
+INSERT INTO `question_grade` VALUES ('1917', '85', '610', '编程题', '6', '10');
+INSERT INTO `question_grade` VALUES ('1943', '87', '586', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('1944', '87', '587', '单选题', '2', '0');
+INSERT INTO `question_grade` VALUES ('1945', '87', '588', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('1946', '87', '589', '单选题', '4', '1');
+INSERT INTO `question_grade` VALUES ('1947', '87', '590', '单选题', '5', '0');
+INSERT INTO `question_grade` VALUES ('1948', '87', '591', '单选题', '6', '1');
+INSERT INTO `question_grade` VALUES ('1949', '87', '592', '单选题', '7', '0');
+INSERT INTO `question_grade` VALUES ('1950', '87', '593', '单选题', '8', '1');
+INSERT INTO `question_grade` VALUES ('1951', '87', '594', '单选题', '9', '1');
+INSERT INTO `question_grade` VALUES ('1952', '87', '595', '单选题', '10', '1');
+INSERT INTO `question_grade` VALUES ('1953', '87', '596', '多选题', '1', '0');
+INSERT INTO `question_grade` VALUES ('1954', '87', '597', '多选题', '2', '2');
+INSERT INTO `question_grade` VALUES ('1955', '87', '598', '多选题', '3', '0');
+INSERT INTO `question_grade` VALUES ('1956', '87', '599', '多选题', '4', '2');
+INSERT INTO `question_grade` VALUES ('1957', '87', '600', '多选题', '5', '2');
+INSERT INTO `question_grade` VALUES ('1958', '87', '601', '填空题', '1', '5');
+INSERT INTO `question_grade` VALUES ('1959', '87', '602', '填空题', '2', '5');
+INSERT INTO `question_grade` VALUES ('1960', '87', '603', '填空题', '3', '0');
+INSERT INTO `question_grade` VALUES ('1961', '87', '604', '填空题', '4', '5');
+INSERT INTO `question_grade` VALUES ('1962', '87', '605', '编程题', '1', '5');
+INSERT INTO `question_grade` VALUES ('1963', '87', '606', '编程题', '2', '0');
+INSERT INTO `question_grade` VALUES ('1964', '87', '607', '编程题', '3', '0');
+INSERT INTO `question_grade` VALUES ('1965', '87', '608', '编程题', '4', '10');
+INSERT INTO `question_grade` VALUES ('1966', '87', '609', '编程题', '5', '10');
+INSERT INTO `question_grade` VALUES ('1967', '87', '610', '编程题', '6', '10');
+INSERT INTO `question_grade` VALUES ('1968', '88', '586', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('1969', '88', '587', '单选题', '2', '1');
+INSERT INTO `question_grade` VALUES ('1970', '88', '588', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('1971', '88', '589', '单选题', '4', '1');
+INSERT INTO `question_grade` VALUES ('1972', '88', '590', '单选题', '5', '1');
+INSERT INTO `question_grade` VALUES ('1973', '88', '591', '单选题', '6', '1');
+INSERT INTO `question_grade` VALUES ('1974', '88', '592', '单选题', '7', '1');
+INSERT INTO `question_grade` VALUES ('1975', '88', '593', '单选题', '8', '1');
+INSERT INTO `question_grade` VALUES ('1976', '88', '594', '单选题', '9', '1');
+INSERT INTO `question_grade` VALUES ('1977', '88', '595', '单选题', '10', '1');
+INSERT INTO `question_grade` VALUES ('1978', '88', '596', '多选题', '1', '2');
+INSERT INTO `question_grade` VALUES ('1979', '88', '597', '多选题', '2', '2');
+INSERT INTO `question_grade` VALUES ('1980', '88', '598', '多选题', '3', '2');
+INSERT INTO `question_grade` VALUES ('1981', '88', '599', '多选题', '4', '0');
+INSERT INTO `question_grade` VALUES ('1982', '88', '600', '多选题', '5', '0');
+INSERT INTO `question_grade` VALUES ('1983', '88', '601', '填空题', '1', '0');
+INSERT INTO `question_grade` VALUES ('1984', '88', '602', '填空题', '2', '5');
+INSERT INTO `question_grade` VALUES ('1985', '88', '603', '填空题', '3', '5');
+INSERT INTO `question_grade` VALUES ('1986', '88', '604', '填空题', '4', '5');
+INSERT INTO `question_grade` VALUES ('1987', '88', '605', '编程题', '1', '5');
+INSERT INTO `question_grade` VALUES ('1988', '88', '606', '编程题', '2', '10');
+INSERT INTO `question_grade` VALUES ('1989', '88', '607', '编程题', '3', '10');
+INSERT INTO `question_grade` VALUES ('1990', '88', '608', '编程题', '4', '5');
+INSERT INTO `question_grade` VALUES ('1991', '88', '609', '编程题', '5', '5');
+INSERT INTO `question_grade` VALUES ('1992', '88', '610', '编程题', '6', '0');
+INSERT INTO `question_grade` VALUES ('1993', null, '586', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('1994', null, '587', '单选题', '2', '1');
+INSERT INTO `question_grade` VALUES ('1995', null, '588', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('1996', null, '589', '单选题', '4', '1');
+INSERT INTO `question_grade` VALUES ('1997', null, '590', '单选题', '5', '1');
+INSERT INTO `question_grade` VALUES ('1998', null, '591', '单选题', '6', '1');
+INSERT INTO `question_grade` VALUES ('1999', null, '592', '单选题', '7', '1');
+INSERT INTO `question_grade` VALUES ('2000', null, '593', '单选题', '8', '1');
+INSERT INTO `question_grade` VALUES ('2001', null, '594', '单选题', '9', '1');
+INSERT INTO `question_grade` VALUES ('2002', null, '595', '单选题', '10', '0');
+INSERT INTO `question_grade` VALUES ('2003', null, '596', '多选题', '1', '2');
+INSERT INTO `question_grade` VALUES ('2004', null, '597', '多选题', '2', '2');
+INSERT INTO `question_grade` VALUES ('2005', null, '598', '多选题', '3', '2');
+INSERT INTO `question_grade` VALUES ('2006', null, '599', '多选题', '4', '2');
+INSERT INTO `question_grade` VALUES ('2007', null, '600', '多选题', '5', '2');
+INSERT INTO `question_grade` VALUES ('2008', null, '601', '填空题', '1', '5');
+INSERT INTO `question_grade` VALUES ('2009', null, '602', '填空题', '2', '5');
+INSERT INTO `question_grade` VALUES ('2010', null, '603', '填空题', '3', '5');
+INSERT INTO `question_grade` VALUES ('2011', null, '604', '填空题', '4', '5');
+INSERT INTO `question_grade` VALUES ('2012', null, '605', '编程题', '1', '10');
+INSERT INTO `question_grade` VALUES ('2013', null, '606', '编程题', '2', '10');
+INSERT INTO `question_grade` VALUES ('2014', null, '607', '编程题', '3', '10');
+INSERT INTO `question_grade` VALUES ('2015', null, '608', '编程题', '4', '10');
+INSERT INTO `question_grade` VALUES ('2016', null, '609', '编程题', '5', '10');
+INSERT INTO `question_grade` VALUES ('2017', null, '610', '编程题', '6', '0');
+INSERT INTO `question_grade` VALUES ('2018', null, '586', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('2019', null, '587', '单选题', '2', '1');
+INSERT INTO `question_grade` VALUES ('2020', null, '588', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('2021', null, '589', '单选题', '4', '1');
+INSERT INTO `question_grade` VALUES ('2022', null, '590', '单选题', '5', '1');
+INSERT INTO `question_grade` VALUES ('2023', null, '591', '单选题', '6', '1');
+INSERT INTO `question_grade` VALUES ('2024', null, '592', '单选题', '7', '1');
+INSERT INTO `question_grade` VALUES ('2025', null, '593', '单选题', '8', '1');
+INSERT INTO `question_grade` VALUES ('2026', null, '594', '单选题', '9', '1');
+INSERT INTO `question_grade` VALUES ('2027', null, '595', '单选题', '10', '0');
+INSERT INTO `question_grade` VALUES ('2028', null, '596', '多选题', '1', '2');
+INSERT INTO `question_grade` VALUES ('2029', null, '597', '多选题', '2', '2');
+INSERT INTO `question_grade` VALUES ('2030', null, '598', '多选题', '3', '2');
+INSERT INTO `question_grade` VALUES ('2031', null, '599', '多选题', '4', '2');
+INSERT INTO `question_grade` VALUES ('2032', null, '600', '多选题', '5', '2');
+INSERT INTO `question_grade` VALUES ('2033', null, '601', '填空题', '1', '5');
+INSERT INTO `question_grade` VALUES ('2034', null, '602', '填空题', '2', '5');
+INSERT INTO `question_grade` VALUES ('2035', null, '603', '填空题', '3', '5');
+INSERT INTO `question_grade` VALUES ('2036', null, '604', '填空题', '4', '5');
+INSERT INTO `question_grade` VALUES ('2037', null, '605', '编程题', '1', '10');
+INSERT INTO `question_grade` VALUES ('2038', null, '606', '编程题', '2', '10');
+INSERT INTO `question_grade` VALUES ('2039', null, '607', '编程题', '3', '10');
+INSERT INTO `question_grade` VALUES ('2040', null, '608', '编程题', '4', '10');
+INSERT INTO `question_grade` VALUES ('2041', null, '609', '编程题', '5', '10');
+INSERT INTO `question_grade` VALUES ('2042', null, '610', '编程题', '6', '0');
+INSERT INTO `question_grade` VALUES ('2043', null, '586', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('2044', null, '587', '单选题', '2', '1');
+INSERT INTO `question_grade` VALUES ('2045', null, '588', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('2046', null, '589', '单选题', '4', '1');
+INSERT INTO `question_grade` VALUES ('2047', null, '590', '单选题', '5', '1');
+INSERT INTO `question_grade` VALUES ('2048', null, '591', '单选题', '6', '1');
+INSERT INTO `question_grade` VALUES ('2049', null, '592', '单选题', '7', '1');
+INSERT INTO `question_grade` VALUES ('2050', null, '593', '单选题', '8', '1');
+INSERT INTO `question_grade` VALUES ('2051', null, '594', '单选题', '9', '1');
+INSERT INTO `question_grade` VALUES ('2052', null, '595', '单选题', '10', '0');
+INSERT INTO `question_grade` VALUES ('2053', null, '596', '多选题', '1', '2');
+INSERT INTO `question_grade` VALUES ('2054', null, '597', '多选题', '2', '2');
+INSERT INTO `question_grade` VALUES ('2055', null, '598', '多选题', '3', '2');
+INSERT INTO `question_grade` VALUES ('2056', null, '599', '多选题', '4', '2');
+INSERT INTO `question_grade` VALUES ('2057', null, '600', '多选题', '5', '2');
+INSERT INTO `question_grade` VALUES ('2058', null, '601', '填空题', '1', '5');
+INSERT INTO `question_grade` VALUES ('2059', null, '602', '填空题', '2', '5');
+INSERT INTO `question_grade` VALUES ('2060', null, '603', '填空题', '3', '5');
+INSERT INTO `question_grade` VALUES ('2061', null, '604', '填空题', '4', '5');
+INSERT INTO `question_grade` VALUES ('2062', null, '605', '编程题', '1', '10');
+INSERT INTO `question_grade` VALUES ('2063', null, '606', '编程题', '2', '10');
+INSERT INTO `question_grade` VALUES ('2064', null, '607', '编程题', '3', '10');
+INSERT INTO `question_grade` VALUES ('2065', null, '608', '编程题', '4', '10');
+INSERT INTO `question_grade` VALUES ('2066', null, '609', '编程题', '5', '10');
+INSERT INTO `question_grade` VALUES ('2067', null, '610', '编程题', '6', '0');
+INSERT INTO `question_grade` VALUES ('2068', '86', '586', '单选题', '1', '1');
+INSERT INTO `question_grade` VALUES ('2069', '86', '587', '单选题', '2', '1');
+INSERT INTO `question_grade` VALUES ('2070', '86', '588', '单选题', '3', '1');
+INSERT INTO `question_grade` VALUES ('2071', '86', '589', '单选题', '4', '1');
+INSERT INTO `question_grade` VALUES ('2072', '86', '590', '单选题', '5', '1');
+INSERT INTO `question_grade` VALUES ('2073', '86', '591', '单选题', '6', '1');
+INSERT INTO `question_grade` VALUES ('2074', '86', '592', '单选题', '7', '1');
+INSERT INTO `question_grade` VALUES ('2075', '86', '593', '单选题', '8', '1');
+INSERT INTO `question_grade` VALUES ('2076', '86', '594', '单选题', '9', '1');
+INSERT INTO `question_grade` VALUES ('2077', '86', '595', '单选题', '10', '0');
+INSERT INTO `question_grade` VALUES ('2078', '86', '596', '多选题', '1', '2');
+INSERT INTO `question_grade` VALUES ('2079', '86', '597', '多选题', '2', '2');
+INSERT INTO `question_grade` VALUES ('2080', '86', '598', '多选题', '3', '2');
+INSERT INTO `question_grade` VALUES ('2081', '86', '599', '多选题', '4', '2');
+INSERT INTO `question_grade` VALUES ('2082', '86', '600', '多选题', '5', '2');
+INSERT INTO `question_grade` VALUES ('2083', '86', '601', '填空题', '1', '5');
+INSERT INTO `question_grade` VALUES ('2084', '86', '602', '填空题', '2', '5');
+INSERT INTO `question_grade` VALUES ('2085', '86', '603', '填空题', '3', '5');
+INSERT INTO `question_grade` VALUES ('2086', '86', '604', '填空题', '4', '5');
+INSERT INTO `question_grade` VALUES ('2087', '86', '605', '编程题', '1', '10');
+INSERT INTO `question_grade` VALUES ('2088', '86', '606', '编程题', '2', '10');
+INSERT INTO `question_grade` VALUES ('2089', '86', '607', '编程题', '3', '10');
+INSERT INTO `question_grade` VALUES ('2090', '86', '608', '编程题', '4', '10');
+INSERT INTO `question_grade` VALUES ('2091', '86', '609', '编程题', '5', '10');
+INSERT INTO `question_grade` VALUES ('2092', '86', '610', '编程题', '6', '0');
 
 -- ----------------------------
 -- Table structure for `question_score`
@@ -1544,29 +1874,6 @@ INSERT INTO `question_score` VALUES ('293', '19', null, '简答题', '4', '5', '
 INSERT INTO `question_score` VALUES ('294', '19', null, '简答题', '5', '6', '29', '10');
 INSERT INTO `question_score` VALUES ('295', '19', null, '简答题', '6', '7', '23@24@25', '10');
 INSERT INTO `question_score` VALUES ('296', '19', null, '简答题', '7', '6', '29', '10');
-INSERT INTO `question_score` VALUES ('459', '24', '16', '单选题', '1', '6', '28', '7');
-INSERT INTO `question_score` VALUES ('460', '24', '17', '单选题', '2', '1', '17', '7');
-INSERT INTO `question_score` VALUES ('461', '24', '18', '单选题', '3', '3', '17', '7');
-INSERT INTO `question_score` VALUES ('531', '26', '16', '单选题', '1', '6', '28', '1');
-INSERT INTO `question_score` VALUES ('532', '26', '17', '单选题', '2', '1', '17', '1');
-INSERT INTO `question_score` VALUES ('533', '26', '18', '单选题', '3', '3', '17', '1');
-INSERT INTO `question_score` VALUES ('534', '26', '19', '单选题', '4', '2', '17', '1');
-INSERT INTO `question_score` VALUES ('535', '26', '20', '单选题', '5', '5', '25', '1');
-INSERT INTO `question_score` VALUES ('536', '26', '21', '单选题', '6', '5', '25', '1');
-INSERT INTO `question_score` VALUES ('537', '26', '22', '单选题', '7', '7', '30', '1');
-INSERT INTO `question_score` VALUES ('538', '26', '23', '单选题', '8', '6', '26', '1');
-INSERT INTO `question_score` VALUES ('539', '26', '8', '多选题', '1', '1', '15', '2');
-INSERT INTO `question_score` VALUES ('540', '26', '9', '多选题', '2', '1', '16', '2');
-INSERT INTO `question_score` VALUES ('541', '26', '10', '多选题', '3', '1', '15', '2');
-INSERT INTO `question_score` VALUES ('542', '26', '15', '判断题', '1', '8', '33', '1');
-INSERT INTO `question_score` VALUES ('543', '26', '16', '判断题', '2', '6', '26', '1');
-INSERT INTO `question_score` VALUES ('544', '26', '17', '判断题', '3', '1', '15', '1');
-INSERT INTO `question_score` VALUES ('545', '26', '18', '判断题', '4', '1', '15', '1');
-INSERT INTO `question_score` VALUES ('546', '26', '7', '填空题', '1', '4', '23@24@25', '2');
-INSERT INTO `question_score` VALUES ('547', '26', '8', '填空题', '2', '6', '29', '4');
-INSERT INTO `question_score` VALUES ('548', '26', '4', '简答题', '1', '5', '25', '1');
-INSERT INTO `question_score` VALUES ('549', '26', '5', '简答题', '2', '5', '23@25', '2');
-INSERT INTO `question_score` VALUES ('550', '26', '6', '简答题', '3', '7', '32', '1');
 INSERT INTO `question_score` VALUES ('551', '27', '16', '单选题', '1', '6', '28', '1');
 INSERT INTO `question_score` VALUES ('552', '27', '17', '单选题', '2', '1', '17', '1');
 INSERT INTO `question_score` VALUES ('553', '27', '18', '单选题', '3', '3', '17', '1');
@@ -1721,7 +2028,7 @@ CREATE TABLE `sc_question` (
   PRIMARY KEY (`id`),
   KEY `chapterId` (`chapterId`),
   CONSTRAINT `sc_question_ibfk_1` FOREIGN KEY (`chapterId`) REFERENCES `chapter` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sc_question
@@ -1762,6 +2069,76 @@ INSERT INTO `sc_question` VALUES ('48', '41', '设有定义:\nstruct complex\n{ 
 INSERT INTO `sc_question` VALUES ('49', '41', '已知：\n struct person \n{ char name[10]；\n int age；\n }class[10]={\"LiMing\",29,\"ZhangHong\",21,\"WangFang\",22}； \n下述表达式中，值为72的一个是___。', 'class[0]->age + class[1]->age+ class[2]->age', 'class[1].name[5]', 'person[1].name[5]', 'clase->name[5]', 'A', '', '3', '3', '6', '11', '4', '1', '2020-05-16 15:25:01');
 INSERT INTO `sc_question` VALUES ('50', '41', '设有以下定义语句：\nstruct student{\nint num；\nchar name[10]；\nfloat score;\n}wang，zhang；的变量wang所占的内存字节是（  ）', '14', '16', '18', '9', 'B', '', '3', '3', '6', '11', '2', '1', '2020-05-16 15:42:10');
 INSERT INTO `sc_question` VALUES ('51', '42', '以下叙述正确的是（  ）', 'C语言中的文件是流式文件，因此只能顺序存取数据', '打开一个已存在的文件进行了写操作后，原有文件中的全部数据必定被覆盖', '在一个程序中当对文件进行了写操作后，必须先关闭该文件然后再打开，才能读到第一个数据', '当对文件的写操作完成之后，必须将它关闭，否则可能导致数据丢失', 'D', '', '3', '3', '6', '12', '2', '1', '2020-05-16 15:43:08');
+INSERT INTO `sc_question` VALUES ('52', '23', '有如下程序\n main()\n{ \n  int i,sum;\n  for(i=1;i<=3;sum++) sum+=i;\n  printf(“%d\\n”,sum);\n}\n该程序的执行结果是( )', '6', '3', '死循环', '0', 'C', '', '3', '3', '6', '5', '1', '1', '2020-05-18 11:43:48');
+INSERT INTO `sc_question` VALUES ('57', '17', '设有程序段：\n int x=11,y=3,z；\n printf(“%d\\n”,z=(x%y,x/y))；\n输出结果是( )', '2', '0', '3', '1', 'C', '', '1557', '3', '6', '2', '1', '1', '2020-05-18 16:09:17');
+INSERT INTO `sc_question` VALUES ('58', '17', '设变量x为float型且已赋值，则以下语句中能将x中的数值保留到小数点后两位，并将第三位四舍五入的是( )', 'x=x*100+0.5/100.0;', 'x=(x*100+0.5)/100.0;', 'x=(int)(x*100+0.5)/100.0;', 'x=(x/100+0.5)*100.0;', 'C', '', '3', '3', '6', '2', '1', '1', '2020-05-18 17:12:16');
+INSERT INTO `sc_question` VALUES ('59', '31', '有以下程序\n  int f(int b[][4])\n   { int i,j,s=0;\n     for(j=0;j<4;j++)\n   { i=j;\n     if(i>2) i=3-j;\n     s+=b[j];\n    }\n    return s;\n   }\n    main( )\n   { int a[4][4]={{1,2,3,4},{0,2,4,5},{3,6,9,12},{3,2,1,0}};\n     printf(“%d\\n”,f(a));\n    }\n    执行后的输出结果是（ ）', '12', '11', '18', '16', 'D', '', '3', '3', '6', '6', '3', '1', '2020-05-18 17:15:38');
+INSERT INTO `sc_question` VALUES ('60', '30', '有以下程序\n void sum(int *a)\n { \n  a[0]=a[1];\n  }\n main( )\n { \n  int aa[10]={1,2,3,4,5,6,7,8,9,10},i;\n   for(i=2;i>=0;i--) sum(&aa);\n     printf(“%d\\n”,aa[0]);\n  } 执行后的输出结果是（ ）', '4', '3', '2', '1', 'A', '', '3', '3', '6', '7', '2', '1', '2020-05-18 17:17:01');
+INSERT INTO `sc_question` VALUES ('61', '28', '有以下程序\nvoid swap1(int c[])\n{ int t;\n  t=c[0];c[0]=c[1];c[1]=t;\n}\nvoid swap2(int c0,int c1)\n{ int t;\n  t=c0;c0=c1;c1=t;\n}\nmain( )\n{ int a[2]={3,5},b[2]={3,5};\n  swap1(a); swap2(b[0],b[1]);\n  printf(“%d %d %d %d\\n”,a[0],a[1],b[0],b[1]);\n} 其输出结果是（ ）', '5 3 5 3', '5 3 3 5', '3 5 3 5', '3 5 5 3', 'B', '', '3', '3', '6', '6', '2', '1', '2020-05-18 17:18:24');
+INSERT INTO `sc_question` VALUES ('62', '36', '有以下程序\nmain( )\n{ char a[]=”abcdefg”,b[10]=”abcdefg”;\n  printf(“%d %d\\n”,sizeof(a),sizeof(b));\n} 执行后输出结果是（ ）', '7 7', '8 8', '8 10', '10 10', 'C', '', '3', '3', '6', '9', '2', '1', '2020-05-18 17:19:44');
+INSERT INTO `sc_question` VALUES ('63', '33', '有以下程序段\n int a[10]={1,2,3,4,5,6,7,8,9,10},*p=&a[3],b;\n b=p[5];\n b中的值是（ ）', '5', '6', '8', '9', 'D', '', '3', '3', '6', '8', '2', '1', '2020-05-18 17:20:34');
+INSERT INTO `sc_question` VALUES ('64', '22', '有以下程序\nvoid f(int v , int w)\n{ int t;\n  t=v;v=w;w=t;\n}\nmain( )\n{ int x=1,y=3,z=2;\n  if(x>y) f(x,y);\n  else if(y>z) f(y,z);\n  else f(x,z);\n  printf(“%d,%d,%d\\n”,x,y,z);\n} 执行后输出结果是（ ）', '1,2,3', '3,1,2', '1,3,2', '2,3,1', 'C', '', '3', '3', '6', '4', '2', '1', '2020-05-18 17:21:52');
+INSERT INTO `sc_question` VALUES ('65', '33', '设有定义：int n=0,*p=&n,**q=&p;则以下选项中，正确的赋值语句是（ ）', 'p=1;', '*q=2;', 'q=p;', 'A)*p=5;', 'D', '', '3', '3', '6', '8', '2', '1', '2020-05-18 17:23:17');
+INSERT INTO `sc_question` VALUES ('66', '16', '若有如下程序段，其中s、a、b、c均已定义为整型变量,且a、c均已赋值（c大于0）\ns=a;\nfor(b=1;b<=c;b++) s=s+1;\n则与上述程序段功能等价的赋值语句是( )　', 's=a+b;', 's=a+c;', 's=s+c;', 's=b+c;', 'B', '', '3', '3', '6', '1', '2', '1', '2020-05-18 17:24:34');
+INSERT INTO `sc_question` VALUES ('67', '26', '若程序中定义了以下函数\ndouble myadd(double a,double b)\n{ return (a+b);\n}\n并将其放在调用语句之后，则在调用之前应该对该函数进行说明，以下选项中错误的说明是（ ）', 'double myadd(double a,b);', 'double myadd(double,double);', 'double myadd(double b,double a);', 'double myadd(double x,double y);', 'A', '', '3', '3', '6', '6', '1', '1', '2020-05-18 17:26:07');
+INSERT INTO `sc_question` VALUES ('68', '25', '有以下程序\nmain( )\n{ int i,n=0;\n for(i=2;i<5;i++)\n { \n   do\n   { if(i%3) continue;\n     n++;\n   } while(!i);\n   n++;\n }\n printf(“n=%d\\n”,n);\n} 程序执行后的输出结果是（ ）', 'n=5', 'n=2', 'n=3', 'n=4', 'D', '', '1557', '3', '6', '5', '1', '1', '2020-05-18 18:08:12');
+INSERT INTO `sc_question` VALUES ('69', '23', '有以下程序\nmain( )\n{ int i,s=0;\n for(i=1;i<10;i+=2) s+=i+1;\n printf(“%d\\n”,s);\n} 程序执行后的输出结果是（ ）', '自然数1～9的累加和', '自然数1～10的累加和', '自然数1～9中的奇数之和', '自然数1～10中的偶数之和', 'D', '', '1557', '3', '6', '5', '2', '1', '2020-05-18 18:09:15');
+INSERT INTO `sc_question` VALUES ('70', '23@25', '有以下程序\nmain( )\n{ int x=0,y=5,z=3;\n  while(z-->0&&++x<5) y=y-1;\n  printf(“%d,%d,%d\\n”,x,y,z);\n} 程序执行后的输出结果是（ ）', '3,2,0', '3,2,-1', '4,3,-1', '5,-2,-5', 'B', '', '1557', '3', '6', '5', '1', '1', '2020-05-18 18:16:39');
+INSERT INTO `sc_question` VALUES ('71', '20', '设有如下程序段：\nint x=2002, y=2003;\nprintf(\"%dn\",(x,y));\n则以下叙述中正确的是( )', '输出语句中格式说明符的个数少于输出项的个数，不能正确输出', '运行时产生出错信息', '输出值为2002', '输出值为2003', 'D', '', '1557', '3', '6', '3', '1', '1', '2020-05-18 18:17:38');
+INSERT INTO `sc_question` VALUES ('72', '25', '以下程序段中与语句k=a>b?(b>c?1:0):0；功能等价的是（ ）', 'if((a>b)&&(b>c)) k=1; ', 'if((a>b)||(b>c)) k=1;else k=0; else k=0;', 'if(a<=b) k=0;', 'if(a>b) k=1; else if(b<=c) k=1; else if(b>c) k=1; else k=0;', 'A', '', '1557', '3', '6', '5', '1', '1', '2020-05-18 18:25:38');
+INSERT INTO `sc_question` VALUES ('73', '34', '设有定义：int a,*pa=&a;以下scanf语句中能正确为变量a读入数据的是（ ）', 'scanf(“%d”,pa);', 'scanf(“%d”,a);', 'scanf(“%d”,&pa);', 'scanf(“%d”,*pa);', 'A', '', '1557', '3', '6', '8', '2', '1', '2020-05-18 18:26:29');
+INSERT INTO `sc_question` VALUES ('74', '17', '以下4个选项中，不能看作一条语句的是（ ）', '{;}', 'a=0,b=0,c=0;', 'if(a>0);', 'if(b==0) m=1;n=2;', 'D', '', '1557', '3', '6', '2', '1', '1', '2020-05-18 18:27:21');
+INSERT INTO `sc_question` VALUES ('75', '20', '有以下程序\nmain( )\n{\n int x=102，y=012;\n printf(“%2d,%2d\\n”,x,y);\n} 执行后输出结果是（ ）', '10,01', '002,12', '102,10', '02,10', 'C', '', '1557', '3', '6', '3', '1', '1', '2020-05-18 18:28:09');
+INSERT INTO `sc_question` VALUES ('76', '17', '设有定义：float a=2,b=4,h=3;,以下C语言表达式与代数式 计算结果不相\n符的是（ ）', '(a+b)*h/2', '(1/2)*(a+b)*h', '(a+b)*h*1/2', 'h/2*(a+b)', 'B', '', '1557', '3', '6', '2', '1', '1', '2020-05-18 18:29:02');
+INSERT INTO `sc_question` VALUES ('77', '16', '设有以下定义\nint a=0;\ndouble b=1.25;\nchar c=’A’;\n#define d 2\n则下面语句中错误的是（ ）', 'a++;', 'b++;', 'c++;', 'd++;', 'D', '', '1557', '3', '6', '1', '1', '1', '2020-05-18 18:30:48');
+INSERT INTO `sc_question` VALUES ('78', '16', '若以下选项中的变量已正确定义，则正确的赋值语句是（ ）', 'x1=26.8%3', '1+2=x2', 'x3=0x12', 'x4=1+2=3;', 'C', '', '1557', '3', '6', '1', '2', '1', '2020-05-18 18:33:39');
+INSERT INTO `sc_question` VALUES ('79', '15', '以下4组用户定义标识符中，全部合法的一组是（ ）', '_hain', 'if', '8txt', 'int', 'A', '', '1557', '3', '6', '1', '1', '1', '2020-05-18 18:36:03');
+INSERT INTO `sc_question` VALUES ('80', '15', '以下叙述中正确的是（ ）', 'C语言的源程序不必通过编译就可以直接运行', 'C语言中的每条可执行语句最终都将被转换成二进制的机器指令', 'C源程序经编译形成的二进制代码可以直接运行', 'C语言中的函数不可以单独进行编译', 'B', '', '1557', '3', '6', '1', '1', '1', '2020-05-18 18:52:06');
+INSERT INTO `sc_question` VALUES ('81', '28', '有以下程序\nviod fun (int a,int b,int c)\n{a=456;b=567;c=678;}\nmain()\n{ int x=10,y=20,z=30;\nfun (x,y,z);\nprintf(\"%d,%d.%d\",x,y,z);}\n输出结果是( )', '30,20,10', '10,20,30', '456,567,678', '678,567,456', 'A', '', '1557', '3', '6', '6', '1', '1', '2020-05-18 18:52:57');
+INSERT INTO `sc_question` VALUES ('82', '15', '下面四个选项中，均是C语言关键字的是：( )', 'auto enum include', 'swith typedef continue', 'signed union scanf', 'if struct type', 'B', '', '1557', '3', '6', '1', '1', '1', '2020-05-18 18:58:53');
+INSERT INTO `sc_question` VALUES ('83', '20', '若执行下面的程序时从键盘上输入3和4，则输出是( )\nmain()\n{ int a,b,s;\nscanf(\"%d %d\",&a,&b);\ns=a;\nif(a<b)s=b;\ns=s*s;\nprintf(\"%d\\n\",s);}', '14', '16', '18', '20', 'B', '', '1557', '3', '6', '3', '1', '1', '2020-05-18 18:59:23');
+INSERT INTO `sc_question` VALUES ('84', '20@34', '设有如下函数定义:\nint f(char *s)\n{ char *p=s;\nwhile(*p!=\'\\0\') p++;\nreturn(p-s); }\n如果在主程序中用下面的语句调用上述函数,则输出结果为( )\nprintf(\"%d\\n\",f(\"goodbey!\"));', '3', '6', '8', '0', 'C', '', '1557', '3', '6', '3', '3', '1', '2020-05-18 19:00:14');
+INSERT INTO `sc_question` VALUES ('85', '25', '以下程序的输出结果是( )\nmain( )\n{ int x=10，y=10，I；\nfor(i=0；x>8；y=++i)\nprintf(\"%d，%d \"，x--，y)；}', '10 1 9 2', '9 8 7 6 ', '10 9 9 0', '10 10 9 1', 'D', '', '1557', '3', '6', '5', '1', '1', '2020-05-18 19:01:23');
+INSERT INTO `sc_question` VALUES ('86', '38', '设有static char str[ ]=\"Beijing\";\n则执行printf(\"%d\\n\", strlen(strcpy(str,\"China\")));\n后的输出结果为( )', '5', '7', '12', '14', 'A', '', '1557', '3', '6', '9', '1', '1', '2020-05-18 19:03:06');
+INSERT INTO `sc_question` VALUES ('87', '34', '若x是整型变量，pb是基类型为整型的指针变量，则正确的赋值表达式是( )', 'pb=&x', 'pb=x;', '*pb=&x;', '*pb=*x', 'A', '', '1557', '3', '6', '8', '2', '1', '2020-05-18 19:03:50');
+INSERT INTO `sc_question` VALUES ('88', '20', '程序片段执行后输出结果是（ ）\nint x=100, y=200;\nprintf (\"% d\", (x, y));', '100', '200', '100,200', '编译出错', 'B', '', '1557', '3', '6', '3', '1', '1', '2020-05-18 19:04:35');
+INSERT INTO `sc_question` VALUES ('89', '20', '下面程序的输出是( )\nmain( )\n{ int a=-1, b=4,k;\nk=(a++<=0)&&(!(b--<=0));\nprintf(\"%d %d %d\\n\",k,a,b);}', '0 0 3', '0 1 2', '1 0 3', '1 1 2', 'C', '', '1557', '3', '6', '3', '1', '1', '2020-05-18 19:05:21');
+INSERT INTO `sc_question` VALUES ('90', '20', '数字字符0的ASCII值为48,若有以下程序\nmain()\n{ char a=\'1\',b=\'2\';\nprintf(\"%c,\",b++);\nprintf(\"%d\\n\",b-a);\n}', '3,2', '50,2', '2,2', '2,50', 'C', '', '1557', '3', '6', '3', '2', '1', '2020-05-18 19:08:09');
+INSERT INTO `sc_question` VALUES ('91', '33@34', '设p1和p2是指向同一个int型一维数组的指针变量,k为int型变量,则不能正确执行的语句是( )', 'k=*p1+*p2;', 'p2=k;', 'p1=p2;', 'k=*p1 *(*p2);', 'B', '', '1557', '3', '6', '8', '2', '1', '2020-05-18 19:09:11');
+INSERT INTO `sc_question` VALUES ('92', '34@42', '若fp是指向某文件的指针，且已读到该文件的末尾，则C语言函数feof(fp)的返回值是( )', 'EOF', '-1', '非零值', 'NULL', 'D', '', '1557', '3', '6', '12', '1', '1', '2020-05-18 19:10:00');
+INSERT INTO `sc_question` VALUES ('93', '36', '下面各语句行中，能正确进行赋字符串操作的语句行是( )', 'char st[4][5]={\"ABCDE\"};', 'char s[5]={\'A\',\'B\',\'C\',\'D\',\'E\'};', 'char *s; s=\"ABCDE\"; ', 'char *s; scanf(\"%s\",s);', 'C', '', '1557', '3', '6', '9', '2', '1', '2020-05-18 19:10:52');
+INSERT INTO `sc_question` VALUES ('94', '22', '若要求在if后一对圆括号中表示a不等于0的关系,则能正确表示这一关系的表达式为( )', 'a<>0', '!a', 'a=0', 'a', 'D', '', '1557', '3', '6', '4', '1', '1', '2020-05-18 19:11:29');
+INSERT INTO `sc_question` VALUES ('95', '23', '以下程序的输出结果是( )\nmain( )\n{ int i，x[3][3]={9，8，7，6，5，4，3，2，1}，*p=&x[1][1]；\n   for(i=0；i<4；i+=2)\n      printf(\"%d \"，p[i])； \n }', '5 2', '5 1', '5 3', '9 7', 'C', '', '1557', '3', '6', '5', '1', '1', '2020-05-18 19:13:07');
+INSERT INTO `sc_question` VALUES ('96', '35', '下面能正确进行字符串赋值操作的语句是( )', 'char s[5]={\"ABCDE\"};', 'char s[5]={\'A\'、\'B\'、\'C\'、\'D\'、\'E\'};', 'char *s;s=\"ABCDEF\";', 'char *s; scanf(\"%s\"，s);', 'C', '', '1557', '3', '6', '9', '2', '1', '2020-05-18 19:13:59');
+INSERT INTO `sc_question` VALUES ('97', '25', '下面的程序\nmain()\n{ int x=3;\ndo {printf(\"%d\\n\",X-=2);\n}while(!(--x));}\n输出结果为（ ）', '输出的是1', '输出的是1和-2', '输出的是3和0', '是死循环', 'B', '', '1557', '3', '6', '5', '2', '1', '2020-05-18 19:14:35');
+INSERT INTO `sc_question` VALUES ('98', '15', '以下说法中正确的是( )', '#define和printf都是C语句', '#define是C语句，而printf不是', 'printf是C语句，但#define不是', '#define和printf都不是C语句', 'D', '', '1557', '3', '6', '1', '1', '1', '2020-05-18 19:25:37');
+INSERT INTO `sc_question` VALUES ('99', '34', '有以下程序\nmain()\n{char a[]=\"programming\",b[]=\"language\";\nchar *p1,*p2;\nint i;\np1=a;p2=b;\nfor(i=0;i<7;i++)\nif(*(p1+i)==*(p2+i))\nprintf(\"％c\",*(p1+i));\n}输出结果是( )', 'gm', 'rg', 'or', 'ga', 'D', '', '1557', '3', '6', '8', '3', '1', '2020-05-18 19:27:56');
+INSERT INTO `sc_question` VALUES ('100', '23', '以下的for循环( )\nfor(x=0,y=0; (y!=123)&&(x<4); x + + );', '是无限循环', '循环次数不定', '执行4次', '执行3次', 'C', '', '1557', '3', '6', '5', '2', '1', '2020-05-18 19:28:45');
+INSERT INTO `sc_question` VALUES ('101', '20', '以下程序的输出结果是( )\nmain( )\n{int a=12，b=12;\nprintf(\"%d %d\\n\"，--a，++b);}', '10 10', '12 12', '11 10', '11 13', 'D', '', '1557', '3', '6', '3', '1', '1', '2020-05-18 19:29:53');
+INSERT INTO `sc_question` VALUES ('102', '17', '表示关系x≤y≤z的c语言表达式为( )', '(X<=Y)&&(Y<=Z)', '(X<=Y)AND(Y<=Z)', '(X<=Y<=Z)', '(X<=Y)&(Y<=Z)', 'A', '', '1557', '3', '6', '2', '1', '1', '2020-05-18 19:30:27');
+INSERT INTO `sc_question` VALUES ('103', '20', '分别输入5和6，程序运行结果正确的是( )\nmain()\n{\nint x；\nscanf(“%d”,&x)；\nif(x-->5) printf(“%d”,x)；\nelse printf(“%d”,x)；\n}', '5 5', '4 5', '5 4 ', '4 4', 'B', '', '1557', '3', '6', '3', '1', '1', '2020-05-18 19:31:06');
+INSERT INTO `sc_question` VALUES ('104', '20', 'C语言中，对于由do…while语句构成的循环，以下说法正确的是（ ）', '不能由其他语句代替', '无论循环条件是否满足，程序都至少执行一次循环', '在某些情况下不能与while语句互换', '“ do {语句；} while(表达式) ”书写格式正确无误', 'B', '', '1557', '3', '6', '5', '2', '1', '2020-05-18 19:31:44');
+INSERT INTO `sc_question` VALUES ('105', '25', '有如下程序\nmain()\n{ int x=23;\n  do\n  { \n    printf(“%d”,x--);\n  }while(!x);\n}\n该程序的执行结果是( )', '321', '23', '不输出任何内容', '陷入死循环', 'C', '', '1557', '3', '6', '5', '2', '1', '2020-05-18 19:32:54');
+INSERT INTO `sc_question` VALUES ('106', '20', '已知char a；使用scanf（）函数输入一个字符给变量a，不正确的函数调用是（  ）', 'scanf（“%d”，＆a）;', 'scanf（“%lf”，＆a）;', 'scanf（“%c，＆a）;', 'scanf（”%u”，＆a）;', 'B', '', '3', '3', '6', '3', '1', '1', '2020-05-18 21:06:06');
+INSERT INTO `sc_question` VALUES ('107', '26', 'C语言的函数体由(  )括起来', '( )', '{}', '［］', '／* *／', 'B', '', '1557', '3', '6', '6', '1', '1', '2020-05-18 21:07:40');
+INSERT INTO `sc_question` VALUES ('108', '26', '如下fun函数的类型是（  ）\nfun(float x)\n{\n  double y;\n  int z;\n  y=x*x;\n  z=(int)y;\n  return(z);\n}', 'void', 'double', 'int', 'float', 'C', '', '1557', '3', '6', '6', '2', '1', '2020-05-18 21:08:27');
+INSERT INTO `sc_question` VALUES ('109', '34', '设有如下函数定义:\nint fun(char *str) \n{\nchar *p;p=str;\nif(p!=‘\\0’) \np++;\nreturn (p-str);\n}\n则以下语句执行后的输出结果是(  )\nprintf(“%d\\n”,fun(“student”));', '7', '8', '9', '10', 'A', '', '1557', '3', '6', '8', '2', '1', '2020-05-18 21:12:05');
+INSERT INTO `sc_question` VALUES ('110', '20', '以下程序的屏幕输出为(  )\n#include<stdio.h>\nvoid f（int i）\n{\nint a=2；\na=i++；\nprintf（“%d”，a）；\n}\nmain（）\n{\nint a=1 ，c=3；\nf（c）；\na=c++;\nprintf（“%d”，a）；\n}', '4，3', '3，3', '4，5', '3，5', 'B', '', '1557', '3', '6', '3', '1', '1', '2020-05-18 21:13:07');
+INSERT INTO `sc_question` VALUES ('111', '31', '以下程序运行的结果是（  ）\nint fun (int array[4][4])\n{\nint j;\nfor(j=0;j＜4;j++)\nprintf(“%2d”,array[2][j]);\nprintf(“\\n”);\n}\nmain()\n{\nint a[4][4]={0,1,2,0,1,0,0,4,2,0,0,5,0,4,5,0};\nfun(a);\n}', '2005', '1004', '0120', '0450', 'A', '', '1557', '3', '6', '7', '2', '1', '2020-05-18 21:14:00');
+INSERT INTO `sc_question` VALUES ('112', '25', '对于整型变量x，与while（！x）等价的是（ ）', 'while（x！=0）', 'while（x==0）', 'while（x！=1）', 'while（～x）', 'B', '', '1557', '3', '6', '5', '1', '1', '2020-05-18 21:15:28');
+INSERT INTO `sc_question` VALUES ('113', '23', '以下程序运行后，循环体运行的次数为（  ）\nint i=10,x;\nfor( ;i<10;i++)\n       x=x+i;', '10', '0', '1', '无限', 'B', '', '1557', '3', '6', '5', '2', '1', '2020-05-18 21:16:15');
+INSERT INTO `sc_question` VALUES ('114', '25', '设有整型变量x，下述语句（  ）不会出现死循环', 'for( ; ; x+=1);', 'for(; (x=getchar( ))!=‘\\n’; );', 'while (1) {x++;}', 'for(x=10; ; x--);', 'B', '', '1557', '3', '6', '5', '2', '1', '2020-05-18 21:17:10');
+INSERT INTO `sc_question` VALUES ('115', '25', '在C语言中while循环和do—while循环的主要区别是（ ）', 'do—while 循环体内可以使用break语句， while循环体内不能使用break语句', 'do—while的循环至少无条件执行一次，while的循环体不是', 'do—while 循环体内可以使用continue语句，while循环体内不能使用continue语句', 'while的循环体至少无条件执行一次，do—while的循环体不是', 'B', '', '1557', '3', '6', '5', '1', '1', '2020-05-18 21:17:58');
+INSERT INTO `sc_question` VALUES ('116', '23', '对于整型变量x和y，语句for (x=0, y=0 ; (y!=123) ＆＆(x<4); x++) y++;中的“y++;”被执行（  ）', '4次', '0次', '123次', '3次', 'A', '', '1557', '3', '6', '5', '1', '1', '2020-05-18 21:18:42');
+INSERT INTO `sc_question` VALUES ('117', '25', '以下程序段运行后变量n的值为（ D ）\nint i=1,n=1;\nfor( ; i<3;i++)\n    {\n     continue;\n     n=n+i;\n     }', '4', '3', '2', '1', 'D', '', '1557', '3', '6', '5', '1', '1', '2020-05-18 21:19:13');
+INSERT INTO `sc_question` VALUES ('118', '31', '设有如下程序段：\nint a[3][3]={1,0,2,1,0,2,1,0,1},i,j,s=0; \nfor(i=0;i<3;i++)\n    for(j=0;j<i;j++)\n        s=s+a[i][j];\n则执行该程序段后，s的值是（  ）', '0', '1', '2', '3', 'C', '', '1557', '3', '6', '7', '3', '1', '2020-05-18 21:20:17');
+INSERT INTO `sc_question` VALUES ('119', '23@30', '下面程序运行结果是(  )\nint  i=0,a[] ={1,2,3,4,5};\ndo{\na[i]+=10;\n}while(a[++i]＞2);\nfor(i=0;i<5;i++)\nprintf(“%d”,a[i]);', '11 2 3 4 5', '1 2 3 4 5', '11 12 13 14 15', '11 12 3 4 5', 'A', '', '1557', '3', '6', '5', '1', '1', '2020-05-18 21:21:08');
+INSERT INTO `sc_question` VALUES ('120', '31', '若有定义:int i=0,x=0; int a[3][3]={1,2,3,4,5,6,7,8,9}则以下程序段运行后x的值为(  )\n  for( ;i＜3;i++) x+=a[i][2-i]；', '0', '12', '15', '18', 'C', '', '1557', '3', '6', '7', '3', '1', '2020-05-18 21:22:35');
+INSERT INTO `sc_question` VALUES ('121', '30', '有如下定义  int a[ ][3]={1，2，3，4，5，6，7，8，}；则数组a的行数（ ）', '2', '3', '4', '无法确定', 'B', '', '1557', '3', '6', '7', '1', '1', '2020-05-18 21:23:13');
+INSERT INTO `sc_question` VALUES ('122', '31', '以下数组定义中，正确的是（ ）', 'int a[2] [3]={1，2，3，4，5，6，7}；', 'int a[] []={{1，2，3}，{4，5，6}，{7，8，9}}；', 'int a[2] []={1，2，3，4，5，6}；', 'int a[] [4]={6}；', 'B', '', '1557', '3', '6', '7', '2', '1', '2020-05-18 21:24:43');
+INSERT INTO `sc_question` VALUES ('123', '17', '若有定义:int a=6,b=2;ch1ar C1=‘a’，C2=‘b’；则表达式a+b%5+C2-C1的值是（  ）', '7', '8', '9', '表达式错误', 'C', '', '1557', '3', '6', '2', '1', '1', '2020-05-18 21:25:31');
+INSERT INTO `sc_question` VALUES ('124', '30', '以下能对一维数组a进行正确初始化的语句是（  ）', 'int a[5]=（0，0，0，0，0，）', 'int a[5]=[0]', 'int a[5]={1，2，3，4，5，6，7}', 'int a[]={0}', 'D', '', '1557', '3', '6', '7', '2', '1', '2020-05-18 21:26:28');
+INSERT INTO `sc_question` VALUES ('125', '30', '设有如下定义：char str[8]={“Fujian”}；则分配给数组str的存储空间是（ ）字节', '6', '7', '8', '9', 'C', '', '1557', '3', '6', '7', '1', '1', '2020-05-18 21:27:00');
 
 -- ----------------------------
 -- Table structure for `semester`
@@ -1799,7 +2176,7 @@ CREATE TABLE `student` (
   PRIMARY KEY (`id`),
   KEY `classId` (`classId`),
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`classId`) REFERENCES `class` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=186 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=225 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
@@ -1877,45 +2254,6 @@ INSERT INTO `student` VALUES ('143', '张启鹏', '201619040219', '$2a$10$swrcwm
 INSERT INTO `student` VALUES ('144', '刘海洋', '201619040230', '$2a$10$ITT57onlRzFprUmqWB8BUO4h9thYcrmjEfS9ZMdSjYCEpm63T8sl2', '201619040230', '男', 'http://img.yifang009.com/img/userface.png', '1', '6', null);
 INSERT INTO `student` VALUES ('145', '崔永发', '201619040209', '$2a$10$iBrO0mXcEGghRwbMthtEQ.mSYJVF.nSpWFSEIbLrKfGZYUZIqJMj.', '201619040209', '男', 'http://img.yifang009.com/img/userface.png', '1', '6', null);
 INSERT INTO `student` VALUES ('146', '赵啸天', '201619040220', '$2a$10$ze.Avz2t3hsxWynZrGkfjuUD/Ctnh2KsvkLYiY81oVz1BeHUKxie6', '201619040220', '男', 'http://img.yifang009.com/img/userface.png', '1', '6', null);
-INSERT INTO `student` VALUES ('147', '刘渊博', '201560040121', '$2a$10$qKMLEi6I.eCBVWjarrJk2.twq1VmEklY.tSPkvvkDUaYTZ51tpr8m', '201560040121', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('148', '李国兴', '201560040131', '$2a$10$01ogPc2oYo1O7z.WO0QbgeKNvrYeJ829/lItJ6fSGASPPjCwL/Vne', '201560040131', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('149', '崔小同', '201560040110', '$2a$10$XAH5qdzOSCDill.MSYOC6efe7I8CvRaZJVLk2JLDLgHXWXx.Y01ty', '201560040110', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('150', '周剑恩', '201560040122', '$2a$10$baHkt3q.TR7nIiP3sbqTdOsKnO/eHQ8ALlPbfEo02jEnv51mRnsz2', '201560040122', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('151', '袁昊乐', '201560040132', '$2a$10$dPSB3iSpVk8i.XUKRSJW2OOto0icfkf/iuMlO4xwOCKhvQM1uR1ue', '201560040132', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('152', '朱越', '201407104116', '$2a$10$gsk8ZoTMSYi58Tcg6mqMIOgdxKIMSpQU.CcS.IyBpxTG4XFMyoIqq', '201407104116', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('153', '刘旭东', '201560040112', '$2a$10$J0F.wKYC4afdQDDKzN62.OCICrKXHk9oBnOOUIZ0nvGWhvHU/20tu', '201560040112', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('154', '赵海鸿', '201560040123', '$2a$10$w649PBBaK3JZFnEHohWX9eGL8bUIEc3MZ/GNCAyUiHnQ66cs5owqS', '201560040123', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('155', '王晨', '201560040134', '$2a$10$RE31EdHY3saHKTL0eG5j/.vPOdxfX3Ar1IwAAE5b3YZx/8h9X49j.', '201560040134', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('156', '朱相阳', '201560040113', '$2a$10$kpIn4M05YA8zQKGh2xr8keIGKxdsvfGcujRN21JTGAUxWpYJSGbx2', '201560040113', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('157', '周靖淞', '201560040124', '$2a$10$yVtpyb.QVAWWOU90svWYhOxY.8zBDFFpEu1DYz0eYZpQ27Er1Nfum', '201560040124', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('158', '朱金伟', '201560040135', '$2a$10$Rccxsk.M7H1kDYlKINxdvemKxgbfzjLSwMAKVkB7Sya19f89jz/sG', '201560040135', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('159', '路璐', '201560040101', '$2a$10$AFLiZTZRBEftOBrV2LCeRuP/N.4a7NmoDxqJEK8Ho/XWyMgFyPQay', '201560040101', '女', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('160', '刘继承', '201560040114', '$2a$10$Drx79ytPeR58/PBJMqAl2uZ7XCMkdQ3/SpH0xs43iYt4466xZk2Rm', '201560040114', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('161', '陈凯松', '201560040136', '$2a$10$zMUXCWw8KlQ1DQLyZ2lAEumTG26TPkP5uJyG6kd6PZmlR.ri2mDFe', '201560040136', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('162', '龚婷', '201560040102', '$2a$10$JIcGImkGlBc2GPQ8xfTYyOdWdzDZehkBwpUZMah5jFf64cRC/vbzS', '201560040102', '女', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('163', '武唐建', '201560040115', '$2a$10$ByCXe20gEbv2ZTmplc.G6ufwymFgOKogCT4w5miHqJfviHGUupAwS', '201560040115', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('164', '孟子筠', '201560040125', '$2a$10$meM1dKpZj2Pbiw3bgWXM7.5A/NQKZFgEjX0Qxa1eLTiZUMdrwN/oq', '201560040125', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('165', '陶歌', '201560040137', '$2a$10$i9LloxCsK/Qbhx2ZdN1FEuWRyOF4E9AP4ycq0yDvE7P02yXOgFqvO', '201560040137', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('166', '赵蒙林', '201560040103', '$2a$10$k7jjGBnliMD585pl5f.jaedrRC6s/m/DY98LKHNumR/.61EkJE7rK', '201560040103', '女', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('167', '郭睿泽', '201560040116', '$2a$10$hx.cWk8veidOZmd8VuLZ6OViqhorxfPYL0C0ZRKQqRNgP5a2phVBC', '201560040116', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('168', '王耀', '201560040126', '$2a$10$rPtyg.qgoTAWZXs72i/TqOnn3fZlGzIcdLfz52g8S0MR34If5kiqK', '201560040126', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('169', '吕鹏辉', '201560040138', '$2a$10$A587SWBVnGZxy4LwxGdwwu5X8FmepdXaiVVZJnJz8Wku3AihHJs9W', '201560040138', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('170', '郭庚耀', '201407104123', '$2a$10$yzXl96RsebH1XxvFkuyCheBXpGTl4zKxkZJfe61vziwoHLubtNC.K', '201407104123', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('171', '许峰铭', '201560040105', '$2a$10$rARAFsvFSQzfjvY5NTeU3ej.2YTFiyuEfJuRDWnSYlQXDKvPINrxa', '201560040105', '女', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('172', '郝笑凡', '201560040117', '$2a$10$R6XlxQ0kRxeYp7sSsH6uau.k6tLQwqrV4mCI04.MDMMU5l9SLl6H.', '201560040117', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('173', '甘彩坤', '201560040127', '$2a$10$UJpzGgWqrOPvDTDAjFwTpu7zqJvhwzTKq.SWzrkVySVc6nR/vHoOW', '201560040127', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('174', '刘大位', '201560040140', '$2a$10$2At3zIyuNNa.vQmcw0SO/OZobPuu7g9YA4PX6lal42nqf8XTCykwq', '201560040140', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('175', '曹言然', '201560040106', '$2a$10$qmxi3Qyr9.rJQnT6cEBUJ.3pB9dtfeq2ZesrVFbQSSGw.zycDeszO', '201560040106', '女', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('176', '杨凯歌', '201407104137', '$2a$10$eTsZCbYSEW36PssWDh83Kesx03BJ3Q77WWRz/drwxGpnxt2pmL6fy', '201407104137', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('177', '韩昰旭', '201560040118', '$2a$10$T3SuzCv5bGfC4.K4PzV8KupcOJIjqcydF0.M3OrgD.0A0VYVhXPJa', '201560040118', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('178', '马港亮', '201560040128', '$2a$10$TC2LrYT7XStzb6XTBdXD3.AXshQUsp89yXLzCIDjdP8b5xcSYARTG', '201560040128', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('179', '程春萌', '201560040107', '$2a$10$3U/zwpfjEG7xVxthyn.rCeKgULVZWvemWc2FRnOBPdKqWMG0QJlS6', '201560040107', '女', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('180', '严东', '201560040119', '$2a$10$W9qylQL8eyydL0qXzU84uOylot0/UOJYApw4IsI7bLn/85MvSmxma', '201560040119', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('181', '王贺', '201560040129', '$2a$10$pGDGApP3/cWlB8WmaFFNcODa5VVmu4rhvFIcjy4jZSbUkzlNQzCZW', '201560040129', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('182', '原洪文', '201560040108', '$2a$10$HlLkHRSUdYI92LIeib.9Lut4eH2LDUgWjSytW.D6l8.Dmc.8BfvHO', '201560040108', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('183', '陈琦', '201560040120', '$2a$10$Dfag/J9XmWZ8.uu.3aTlfu8H5bUDcAfSk487YLBXHaw8QZ2AG2jHe', '201560040120', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('184', '范奎', '201560040130', '$2a$10$AmMoJ4VemVOwdnQ.31bhm.5CZEf71Df8Es3EpugsJJVHwnMerwZ5O', '201560040130', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
-INSERT INTO `student` VALUES ('185', '姜鉴超', '201560040109', '$2a$10$5HMuATJU.pO2OIZX0mx.b.T8b9ejUoZiekxrlfaRy8KLXDA7itvuW', '201560040109', '男', 'http://img.yifang009.com/img/userface.png', '1', '77', null);
 
 -- ----------------------------
 -- Table structure for `student_grade`
@@ -1930,7 +2268,7 @@ CREATE TABLE `student_grade` (
   `totalGrade` float DEFAULT NULL,
   `classId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student_grade
@@ -1950,12 +2288,12 @@ INSERT INTO `student_grade` VALUES ('43', '201619040133', '李伟华', '6', '19'
 INSERT INTO `student_grade` VALUES ('44', '201619040111', '赵晓阳', '6', '19', '80', '5');
 INSERT INTO `student_grade` VALUES ('45', '201619040112', '李无焱', '6', '19', '63', '5');
 INSERT INTO `student_grade` VALUES ('46', '201619040106', '王晨雨', '6', '28', '74', '5');
-INSERT INTO `student_grade` VALUES ('77', '201619040139', '张凯帆', '6', '28', '86', '5');
-INSERT INTO `student_grade` VALUES ('78', '201619040117', '史晓松', '6', '28', '72', '5');
-INSERT INTO `student_grade` VALUES ('79', '201619040129', '刘震', '6', '28', '51', '5');
-INSERT INTO `student_grade` VALUES ('80', '201619040140', '魏汉文', '6', '28', '89', '5');
-INSERT INTO `student_grade` VALUES ('81', '201619040130', '胡明乐', '6', '28', '63', '5');
-INSERT INTO `student_grade` VALUES ('82', '201619040108', '杜思尧', '6', '28', '71', '5');
+INSERT INTO `student_grade` VALUES ('83', '201619040139', '张凯帆', '6', '28', '86', '5');
+INSERT INTO `student_grade` VALUES ('84', '201619040117', '史晓松', '6', '28', '72', '5');
+INSERT INTO `student_grade` VALUES ('85', '201619040129', '刘震', '6', '28', '51', '5');
+INSERT INTO `student_grade` VALUES ('86', '201619040140', '魏汉文', '6', '28', '89', '5');
+INSERT INTO `student_grade` VALUES ('87', '201619040130', '胡明乐', '6', '28', '63', '5');
+INSERT INTO `student_grade` VALUES ('88', '201619040108', '杜思尧', '6', '28', '71', '5');
 
 -- ----------------------------
 -- Table structure for `student_role`
@@ -1998,7 +2336,7 @@ CREATE TABLE `teacher` (
   `rId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `workid` (`workID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1557 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1568 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of teacher
@@ -2007,22 +2345,10 @@ INSERT INTO `teacher` VALUES ('3', '系统管理员', '18568887789', '1', 'admin
 INSERT INTO `teacher` VALUES ('10', '韩愈', '18568123666', '1', 'hanyu', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517070040185&di=be0375e0c3db6c311b837b28c208f318&imgtype=0&src=http%3A%2F%2Fimg2.soyoung.com%2Fpost%2F20150213%2F6%2F20150213141918532.jpg', null, '2', '123@qq.com', '12', '男', '0003', null);
 INSERT INTO `teacher` VALUES ('11', '柳宗元', '18568123377', '1', 'liuzongyuan', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515233756&di=0856d923a0a37a87fd26604a2c871370&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2014-09-27%2F041716704.jpg', null, '2', '123@qq.com', '9', '男', '0004', null);
 INSERT INTO `teacher` VALUES ('12', '曾巩', '18568128888', '1', 'zenggong', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517070040185&di=be0375e0c3db6c311b837b28c208f318&imgtype=0&src=http%3A%2F%2Fimg2.soyoung.com%2Fpost%2F20150213%2F6%2F20150213141918532.jpg', null, '2', '123@qq.com', '9', '男', '0005', null);
-INSERT INTO `teacher` VALUES ('1540', '测试111', '18639694397', '1', '7878', null, null, null, '2', '123@qq.com', '9', '男', '7878', null);
-INSERT INTO `teacher` VALUES ('1541', '测试222', '18639694397', '1', '9696', null, null, null, '2', '123@qq.com', '10', '男', '9696', null);
-INSERT INTO `teacher` VALUES ('1542', '测试333', '18639694397', '1', '2525', null, null, null, '2', '123@qq.com', '12', '男', '2525', null);
-INSERT INTO `teacher` VALUES ('1543', '测试444', '18639694397', '1', '3355', null, null, null, '2', '123@qq.com', '13', '男', '3355', null);
-INSERT INTO `teacher` VALUES ('1544', '测试111', '18639694397', '1', '7811', null, null, null, '2', '123@qq.com', '9', '男', '7811', null);
-INSERT INTO `teacher` VALUES ('1546', '测试333', '18639694397', '1', '2511', null, null, null, '2', '123@qq.com', '12', '男', '2511', null);
-INSERT INTO `teacher` VALUES ('1547', '测试444', '18639694397', '1', '3311', null, null, null, '2', '123@qq.com', '13', '男', '3311', null);
-INSERT INTO `teacher` VALUES ('1548', '测试111', '18639694397', '1', '7822', null, null, null, '2', '123@qq.com', '9', '男', '7822', null);
-INSERT INTO `teacher` VALUES ('1549', '测试222', '18639694397', '1', '9622', null, null, null, '2', '123@qq.com', '10', '男', '9622', null);
-INSERT INTO `teacher` VALUES ('1550', '测试333', '18639694397', '1', '2522', null, null, null, '2', '123@qq.com', '12', '男', '2522', null);
-INSERT INTO `teacher` VALUES ('1551', '测试444', '18639694397', '1', '3322', null, null, null, '2', '123@qq.com', '13', '男', '3322', null);
-INSERT INTO `teacher` VALUES ('1552', '测试111', '18639694397', '1', '7833', null, null, null, '2', '123@qq.com', '9', '男', '7833', null);
-INSERT INTO `teacher` VALUES ('1553', '测试222', '18639694397', '1', '9633', null, null, null, '2', '123@qq.com', '10', '男', '9633', null);
-INSERT INTO `teacher` VALUES ('1554', '测试333', '18639694397', '1', '2533', null, null, null, '2', '123@qq.com', '12', '男', '2533', null);
-INSERT INTO `teacher` VALUES ('1555', '测试444', '18639694397', '1', '3333', null, null, null, '2', '123@qq.com', '13', '男', '3333', null);
-INSERT INTO `teacher` VALUES ('1556', '121111', '18639694397', '1', '1234', '$2a$10$GlI8amfuvo5mL/YVKasoXO2dHCpr1osummoA39K44K04kFDIXGvSS', 'http://img.yifang009.com/img/userface.png', null, '2', '123@qq.com', '9', '男', '1234', null);
+INSERT INTO `teacher` VALUES ('1557', '李白', '18639694395', '1', '0002', '$2a$10$Ap2kPpp2caJZkEN1tzhQ9.P9YS5SsCJ8AGLc3ftiAc2CSZT8z6x96', 'http://img.yifang009.com/img/userface.png', null, '2', '456@qq.com', '9', '男', '0002', null);
+INSERT INTO `teacher` VALUES ('1565', '张华', null, '1', '5781', '$2a$10$ioML/kAXz87m.XB4z5q6WuZP1PNtv6Fv7j1jcybfL6oYbbcFRZc1.', 'http://img.yifang009.com/img/userface.png', null, '2', null, '9', '女', '5781', null);
+INSERT INTO `teacher` VALUES ('1566', '贾晓风', null, '1', '3715', '$2a$10$7aekHzX7PJdZMGwsEWtbJu3nvclyHE9R7yMm3P.3IoQv83.VDR3Gm', 'http://img.yifang009.com/img/userface.png', null, '2', null, '9', '女', '3715', null);
+INSERT INTO `teacher` VALUES ('1567', '李志伟', null, '1', '5379', '$2a$10$Euzz9N50H3TFGiC/5Qt7oukGF67mcOnnGr0csJcrGHLo4cbGw3L/y', 'http://img.yifang009.com/img/userface.png', null, '2', null, '12', '男', '5379', null);
 
 -- ----------------------------
 -- Table structure for `teacher_role`
@@ -2037,33 +2363,22 @@ CREATE TABLE `teacher_role` (
   KEY `admin_role_ibfk_1` (`tid`),
   CONSTRAINT `teacher_role_ibfk_1` FOREIGN KEY (`tid`) REFERENCES `teacher` (`id`) ON DELETE CASCADE,
   CONSTRAINT `teacher_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of teacher_role
 -- ----------------------------
-INSERT INTO `teacher_role` VALUES ('3', '10', '1');
 INSERT INTO `teacher_role` VALUES ('4', '11', '2');
 INSERT INTO `teacher_role` VALUES ('5', '12', '3');
-INSERT INTO `teacher_role` VALUES ('18', '3', '3');
-INSERT INTO `teacher_role` VALUES ('19', '3', '2');
-INSERT INTO `teacher_role` VALUES ('24', '1540', '1');
-INSERT INTO `teacher_role` VALUES ('25', '1541', '1');
-INSERT INTO `teacher_role` VALUES ('26', '1542', '1');
-INSERT INTO `teacher_role` VALUES ('27', '1543', '1');
-INSERT INTO `teacher_role` VALUES ('28', '1544', '1');
-INSERT INTO `teacher_role` VALUES ('31', '1547', '1');
-INSERT INTO `teacher_role` VALUES ('32', '1548', '1');
-INSERT INTO `teacher_role` VALUES ('33', '1549', '1');
-INSERT INTO `teacher_role` VALUES ('34', '1550', '1');
-INSERT INTO `teacher_role` VALUES ('35', '1551', '1');
-INSERT INTO `teacher_role` VALUES ('36', '1552', '1');
-INSERT INTO `teacher_role` VALUES ('37', '1553', '1');
-INSERT INTO `teacher_role` VALUES ('38', '1554', '1');
-INSERT INTO `teacher_role` VALUES ('39', '1555', '1');
-INSERT INTO `teacher_role` VALUES ('40', '1556', '1');
-INSERT INTO `teacher_role` VALUES ('51', '1546', '1');
-INSERT INTO `teacher_role` VALUES ('52', '1546', '2');
+INSERT INTO `teacher_role` VALUES ('56', '1557', '1');
+INSERT INTO `teacher_role` VALUES ('68', '3', '1');
+INSERT INTO `teacher_role` VALUES ('69', '3', '2');
+INSERT INTO `teacher_role` VALUES ('70', '3', '3');
+INSERT INTO `teacher_role` VALUES ('73', '10', '1');
+INSERT INTO `teacher_role` VALUES ('74', '10', '2');
+INSERT INTO `teacher_role` VALUES ('75', '1565', '1');
+INSERT INTO `teacher_role` VALUES ('76', '1566', '1');
+INSERT INTO `teacher_role` VALUES ('77', '1567', '1');
 
 -- ----------------------------
 -- Table structure for `testpaper_class`
@@ -2118,10 +2433,8 @@ CREATE TABLE `test_paper` (
 -- ----------------------------
 -- Records of test_paper
 -- ----------------------------
-INSERT INTO `test_paper` VALUES ('19', '测试001', '1', '1', '2019-2020学年第二学期', '2020-05-03', '2020-05-10 23:05:34', '6', '4@6@3@2@5@7', '17@18@19@20@25@22@23@24@35@36@37@38@21@30@31@32@29', '3', null, '1', null, '', '100', '60', '单选题@多选题@简答题@', '1', null);
-INSERT INTO `test_paper` VALUES ('24', '测试', '1', '1', '2018-2019学年第一学期', '2020-05-17', null, '6', '6@1@3', '', '3', '3', '0', '0', null, '21', '21', '单选题@', '0', null);
-INSERT INTO `test_paper` VALUES ('26', '期末测试', '1', '1', '2019-2020学年第二学期', '2020-05-17', null, '6', '6@1@3@2@5@7@8@4', '', '3', '3', '0', '0', null, '28', '16.8', '单选题@多选题@判断题@填空题@简答题@', '0', null);
-INSERT INTO `test_paper` VALUES ('27', '测试2', '1', '2', '2019-2020学年第二学期', '2020-05-17', '2020-05-17 16:40:25', '6', '6@1@3@2@5@7@9@8@4', '', '3', '3', '1', '0', null, '100', '60', '单选题@多选题@判断题@填空题@简答题@', '0', null);
+INSERT INTO `test_paper` VALUES ('19', 'C语言期末考试', '1', '1', '2019-2020学年第二学期', '2020-05-03', '2020-05-18 10:34:44', '6', '4@6@3@2@5@7', '17@18@19@20@25@22@23@24@35@36@37@38@21@30@31@32@29', '3', null, '1', null, '', '100', '60', '单选题@多选题@简答题@', '1', null);
+INSERT INTO `test_paper` VALUES ('27', '19级C语言期末考试', '1', '2', '2019-2020学年第二学期', '2020-05-17', '2020-05-18 09:08:43', '6', '6@1@3@2@5@7@9@8@4', '', '3', '3', '1', '0', null, '100', '60', '单选题@多选题@判断题@填空题@简答题@', '0', null);
 INSERT INTO `test_paper` VALUES ('28', '16级软件工程期末测试', '1', '1', '2019-2020学年第二学期', '2020-05-17', null, '6', '1@2@3@4@5@6@9@7@8@', '15@17@19@20@21@25@28@27@35@26@30@33@31@29@23@32@34@38', '3', null, '1', null, '', '100', '60', '单选题@多选题@填空题@编程题@', '1', null);
 
 -- ----------------------------
@@ -2144,7 +2457,7 @@ CREATE TABLE `tf_question` (
   PRIMARY KEY (`id`),
   KEY `chapterId` (`chapterId`),
   CONSTRAINT `tf_question_ibfk_1` FOREIGN KEY (`chapterId`) REFERENCES `chapter` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tf_question
@@ -2202,6 +2515,43 @@ INSERT INTO `tf_question` VALUES ('64', '15', '变量的两个值 : 本身值和
 INSERT INTO `tf_question` VALUES ('65', '23@24@25', 'C语言的三种循环不可以互相嵌套。', '错', '', '3', '3', '6', '5', '1', '1', '2020-05-16 20:32:44');
 INSERT INTO `tf_question` VALUES ('66', '30', '在对数组全部元素赋初值时，可以省略行数，但不能省略列数', '对', '', '3', '3', '6', '7', '1', '1', '2020-05-16 20:33:36');
 INSERT INTO `tf_question` VALUES ('67', '28@33', '函数名代表该函数的入口地址。因此，可用函数名给指向函数的指针变量赋值', '对', '', '3', '3', '6', '6', '1', '1', '2020-05-16 20:34:20');
+INSERT INTO `tf_question` VALUES ('68', '26', '一个C源程序可以没有main函数( )', '对', null, '3', '3', '6', '6', '1', '0', '2020-05-18 16:36:14');
+INSERT INTO `tf_question` VALUES ('71', '17', '增1减1运算符的前缀运算和后缀运算的表达式值是相同的。', '错', '', '3', '3', '6', '2', '1', '1', '2020-05-18 20:26:26');
+INSERT INTO `tf_question` VALUES ('72', '30', '在C语言中能逐个地使用下标变量，也能一次引用整个数组。', '错', '', '3', '3', '6', '7', '1', '1', '2020-05-18 20:26:49');
+INSERT INTO `tf_question` VALUES ('73', '26', '函数返回值的类型是由在定义函数时所指定的函数类型', '对', '', '3', '3', '6', '6', '1', '1', '2020-05-18 20:27:40');
+INSERT INTO `tf_question` VALUES ('74', '41', '结构体成员的类型必须是基本数据类型。', '错', '', '3', '3', '6', '11', '1', '1', '2020-05-18 20:28:00');
+INSERT INTO `tf_question` VALUES ('75', '17', '逻辑表达式的值只能为1或0。', '对', '', '3', '3', '6', '2', '1', '1', '2020-05-18 20:28:23');
+INSERT INTO `tf_question` VALUES ('76', '15', '凡在函数中未指定存储类别的局部变量，其默认的存储类别为static', '错', '', '3', '3', '6', '1', '1', '1', '2020-05-18 20:28:42');
+INSERT INTO `tf_question` VALUES ('77', '33', '一个变量的地址称为该变量的指针', '对', '', '3', '3', '6', '8', '1', '1', '2020-05-18 20:29:04');
+INSERT INTO `tf_question` VALUES ('78', '33', '变量被定义后 , 它不仅有一个确定的地址值 , 而且还会有一个确定的本身值。', '错', '', '3', '3', '6', '1', '1', '1', '2020-05-18 20:29:24');
+INSERT INTO `tf_question` VALUES ('79', '33', '一个数组是由连续的一块内存单元组成的，指针变量就是这块连续内存单元的首地址', '错', '', '3', '3', '6', '8', '1', '1', '2020-05-18 20:29:45');
+INSERT INTO `tf_question` VALUES ('80', '41', '结构体数组中可以包含不同结构体类型的结构体变量。', '错', '', '3', '3', '6', '11', '1', '1', '2020-05-18 20:30:07');
+INSERT INTO `tf_question` VALUES ('81', '42', '以“r”方式打开一个文件时，文件指针指向文件首。', '对', '', '3', '3', '6', '12', '1', '1', '2020-05-18 20:30:42');
+INSERT INTO `tf_question` VALUES ('82', '15', 'C 语言程序实现与其他高级语言一样也要经过编辑、编译连接和运行这样的三步曲。', '对', '', '3', '3', '6', '1', '1', '1', '2020-05-18 20:31:06');
+INSERT INTO `tf_question` VALUES ('83', '15', '变量被定义后 , 它的作用域和寿命就被确定了 , 并且不可改变。', '对', '', '3', '3', '6', '1', '1', '1', '2020-05-18 20:31:21');
+INSERT INTO `tf_question` VALUES ('84', '23', 'break 可用于循环体中，不可用于switch语句中。', '错', '', '3', '3', '6', '5', '1', '1', '2020-05-18 20:31:37');
+INSERT INTO `tf_question` VALUES ('85', '34', '指针变量，只能作为函数的形参，不可以作函数的实参', '对', '', '3', '3', '6', '8', '1', '1', '2020-05-18 20:32:01');
+INSERT INTO `tf_question` VALUES ('86', '15', '在 C 语言程序中 , 凡是没有出现存储类说明符的变量都是自动类的。', '对', '', '3', '3', '6', '1', '1', '1', '2020-05-18 20:32:41');
+INSERT INTO `tf_question` VALUES ('87', '21', '在switch语句中，多个case可以共用一组执行语句。', '对', '', '3', '3', '6', '4', '1', '1', '2020-05-18 20:33:26');
+INSERT INTO `tf_question` VALUES ('88', '25', 'do-while语句先执行循环中的语句,然后再判断表达式是否为真, 如果为真则继续循环；如果为假, 则终止循环。', '对', '', '3', '3', '6', '5', '1', '1', '2020-05-18 20:33:46');
+INSERT INTO `tf_question` VALUES ('89', '42', '输入操作称为写操作，将输入流中的信息存到内存时，使用写函数。', '错', '', '3', '3', '6', '12', '1', '1', '2020-05-18 20:34:13');
+INSERT INTO `tf_question` VALUES ('90', '30', '数组元素通常也称为下标变量。必须先定义数组， 才能使用下标变量。', '对', '', '3', '3', '6', '7', '1', '1', '2020-05-18 20:34:32');
+INSERT INTO `tf_question` VALUES ('91', '26', '函数的形参可以是常量，变量或表达式', '对', '', '3', '3', '6', '6', '1', '1', '2020-05-18 20:34:55');
+INSERT INTO `tf_question` VALUES ('92', '34', '指针变量可以存放指针(地址)、数值和字符', '错', '', '3', '3', '6', '8', '1', '1', '2020-05-18 20:35:13');
+INSERT INTO `tf_question` VALUES ('93', '15', '在同一个作用域中不可定义同名变量 , 在不同的作用域中可以定义同名变量。', '对', '', '3', '3', '6', '1', '1', '1', '2020-05-18 20:37:03');
+INSERT INTO `tf_question` VALUES ('94', '30', '数组名能与其它变量名相同。数组名后是用方括号括起来的常量表达式，不能用圆括号。', '对', '', '3', '3', '6', '7', '1', '1', '2020-05-18 20:37:28');
+INSERT INTO `tf_question` VALUES ('95', '26', '函数的实参传递到形参有两种方式值传递和地址传递', '对', '', '3', '3', '6', '6', '1', '1', '2020-05-18 20:37:47');
+INSERT INTO `tf_question` VALUES ('96', '42', '文件的读函数是从输入文件中读取信息，并存放在内存中。', '对', '', '3', '3', '6', '12', '1', '1', '2020-05-18 20:52:06');
+INSERT INTO `tf_question` VALUES ('97', '27', '在一个函数内部调用另一个函数的调用方式称为嵌套调用', '对', '', '3', '3', '6', '6', '1', '1', '2020-05-18 20:52:43');
+INSERT INTO `tf_question` VALUES ('98', '15', '内存单元的地址与内存单元中的数据是两个完全相同的概念', '错', '', '3', '3', '6', '1', '1', '1', '2020-05-18 20:53:07');
+INSERT INTO `tf_question` VALUES ('99', '34', 'char *s=\"C Language\";表示s是一个指向字符串的指针变量，把字符串的首地址赋予s', '对', '', '3', '3', '6', '8', '1', '1', '2020-05-18 20:53:32');
+INSERT INTO `tf_question` VALUES ('100', '23', '循环体如包括有一个以上的语句，则必须用{}括起来，组成复合语句。', '对', '', '3', '3', '6', '5', '1', '1', '2020-05-18 20:53:56');
+INSERT INTO `tf_question` VALUES ('101', '34', '有指针变量p和数组a，指针变量和数组都可以实现本身的值的改变，如p++和a++', '错', '', '3', '3', '6', '8', '1', '1', '2020-05-18 20:54:28');
+INSERT INTO `tf_question` VALUES ('102', '15', 'C 语言规定 : 定义符号常量时必须用大写字母。', '错', '', '3', '3', '6', '1', '1', '1', '2020-05-18 20:55:07');
+INSERT INTO `tf_question` VALUES ('103', '23', 'for循环的三个表达式可以任意省略，while,do-while也是如此。', '错', '', '3', '3', '6', '5', '1', '1', '2020-05-18 20:55:29');
+INSERT INTO `tf_question` VALUES ('104', '34', '指针变量和它指向的变量之间的关系，可以用指针运算符“*”表示', '对', '', '3', '3', '6', '8', '1', '1', '2020-05-18 20:56:19');
+INSERT INTO `tf_question` VALUES ('105', '19', '一个变量的数据类型被强制转换后，它将保持被强制转换后的数据类型。', '错', '', '3', '3', '6', '1', '1', '1', '2020-05-18 20:57:07');
+INSERT INTO `tf_question` VALUES ('106', '36', '字符串在内存中的起始地址称为字符串的指针，可以定义一个字符指针变量指向一个字符串', '对', '', '3', '3', '6', '9', '1', '1', '2020-05-18 20:57:31');
 
 -- ----------------------------
 -- Procedure structure for `addDep`
