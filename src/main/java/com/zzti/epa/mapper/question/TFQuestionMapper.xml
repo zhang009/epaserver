@@ -52,7 +52,9 @@ where tf.teacherId=t.id and tf.status=1
   <select id="getTotal" resultType="Long">
     select count(*) from tf_question tf
     <where>
-
+      <if test="tf.stem !=null and tf.stem!=''">
+        and tf.stem like concat('%',#{tf.stem},'%')
+      </if>
       <if test="tf.courseId !=null and tf.chapterId!=null">
         and tf.courseId=#{tf.courseId}
         and tf.chapterId =#{tf.chapterId}

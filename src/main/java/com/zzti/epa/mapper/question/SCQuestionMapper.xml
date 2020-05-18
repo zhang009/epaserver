@@ -58,6 +58,9 @@
   <select id="getTotal" resultType="Long">
     select count(*) from sc_question sc
     <where>
+      <if test="sc.stem !=null and sc.stem!=''">
+        and sc.stem like concat('%',#{sc.stem},'%')
+      </if>
       <if test="sc.courseId !=null and sc.chapterId!=null">
         and sc.courseId=#{sc.courseId}
         and sc.chapterId =#{sc.chapterId}

@@ -56,38 +56,63 @@ public class QuestionCheckService {
                 if(scQuestion==null){
                     scQuestion=scQuestionMapper.getSCQuestionById3(questionCheck.getQuestionId());
                 }
-                questionCheck.setScQuestion(scQuestion);
-                questionCheck.setPostTime(scQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
+                if(scQuestion!=null){
+                    questionCheck.setScQuestion(scQuestion);
+                    questionCheck.setPostTime(scQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
+                }else{
+                    qclist.remove(i);
+                }
+
 
             }else if(questionCheck.getQuestionType().equals("mc")){
                 MCQuestion mcQuestion=mcQuestionMapper.getMCQuestionById(questionCheck.getQuestionId());
                 if(mcQuestion==null){
                     mcQuestion=mcQuestionMapper.getMCQuestionById3(questionCheck.getQuestionId());
                 }
-                questionCheck.setMcQuestion(mcQuestion);
-                questionCheck.setPostTime(mcQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
+                if(mcQuestion!=null){
+                    questionCheck.setMcQuestion(mcQuestion);
+                    questionCheck.setPostTime(mcQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
+                }else{
+                    qclist.remove(i);
+                }
+
 
             }else if(questionCheck.getQuestionType().equals("tf")){
                 TFQuestion tfQuestion=tfQuestionMapper.getTFQuestionById(questionCheck.getQuestionId());
                 if(tfQuestion==null){
                     tfQuestion=tfQuestionMapper.getTFQuestionById2(questionCheck.getQuestionId());
                 }
-                questionCheck.setTfQuestion(tfQuestion);
-                questionCheck.setPostTime(tfQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
+                if(tfQuestion!=null){
+                    questionCheck.setTfQuestion(tfQuestion);
+                    questionCheck.setPostTime(tfQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
+                }else{
+                    qclist.remove(i);
+                }
+
             }else if(questionCheck.getQuestionType().equals("fb")){
                 FBQuestion fbQuestion=fbQuestionMapper.getFBQuestionById(questionCheck.getQuestionId());
                 if(fbQuestion==null){
                     fbQuestion=fbQuestionMapper.getFBQuestionById2(questionCheck.getQuestionId());
                 }
-                questionCheck.setFbQuestion(fbQuestion);
-                questionCheck.setPostTime(fbQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
+                if(fbQuestion!=null){
+                    questionCheck.setFbQuestion(fbQuestion);
+                    questionCheck.setPostTime(fbQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
+                }else{
+                    qclist.remove(i);
+                }
+
             }else if(questionCheck.getQuestionType().equals("qa")){
                 QAQuestion qaQuestion=qaQuestionMapper.getQAQuestionById(questionCheck.getQuestionId());
                 if(qaQuestion==null){
                     qaQuestion=qaQuestionMapper.getQAQuestionById2(questionCheck.getQuestionId());
                 }
-                questionCheck.setQaQuestion(qaQuestion);
-                questionCheck.setPostTime(qaQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
+                if(qaQuestion!=null){
+                    questionCheck.setQaQuestion(qaQuestion);
+                    questionCheck.setPostTime(qaQuestion.getUpdateTime());//设置审核时间与试题修改时间一致
+                }else{
+                    qclist.remove(i);
+                }
+
             }
             //初始化用户个人信息,提交者信息已经初始化完毕
             questionCheck.setCheckTeacher(teacher);

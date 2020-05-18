@@ -36,6 +36,7 @@
       limit #{page},#{size}
     </if>
   </select>
+
   <select id="getTotal" resultType="Long">
     select count(*) from student s,class c
     where s.classId=c.id

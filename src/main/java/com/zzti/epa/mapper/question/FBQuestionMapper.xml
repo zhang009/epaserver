@@ -49,7 +49,9 @@ where fb.teacherId=t.id and fb.status=1
   <select id="getTotal" resultType="Long">
     select count(*) from fb_question fb
     <where>
-
+      <if test="fb.stem !=null and fb.stem!=''">
+        and fb.stem like concat('%',#{fb.stem},'%')
+      </if>
       <if test="fb.courseId !=null and fb.chapterId!=null">
         and fb.courseId=#{fb.courseId}
         and fb.chapterId =#{fb.chapterId}

@@ -146,17 +146,11 @@ and #{rId} in (select r.id from role r,teacher_role tr where r.id=tr.rid and tr.
 where tp.postTeacherId=t.id and tp.isTemplate=1;
   </select>
 
-
-
-
-
-
-  
-  
   <sql id="Base_Column_List" >
     id, name, phone, enabled, username, password, userface, remark, departmentId, email, 
     jobLevelId, gender, workID
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

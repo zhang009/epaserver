@@ -213,6 +213,21 @@
           where
            id=#{testPaperId}
   </select>
+  <select id="getAllTestPaperById2" resultMap="TestPaperAllInfo">
+    select DISTINCT tp.*,t.id as tid, t.name as tname,c.id as cid,c.name as cname,s.id as sid,s.name as sname,m.id as mid,m.name as mname
+    FROM
+    test_paper tp,teacher t,school s,course c,major m
+    where tp.postTeacherId=t.id
+    and tp.schoolId =s.id
+    and tp.courseId=c.id
+    and tp.majorId=m.id
+    and tp.isTemplate=0
+    and tp.status=1
+    <if test="testPaperId!=null">
+      and tp.id=#{testPaperId}
+    </if>
+
+  </select>
   <!--write by yifang end-->
 
   <!--write by writer start-->

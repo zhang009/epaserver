@@ -52,7 +52,9 @@ where qa.teacherId=t.id and qa.status=1
   <select id="getTotal" resultType="Long">
     select count(*) from qa_question qa
     <where>
-
+      <if test="qa.stem !=null and qa.stem!=''">
+        and qa.stem like concat('%',#{qa.stem},'%')
+      </if>
       <if test="qa.courseId !=null and qa.chapterId!=null">
         and qa.courseId=#{qa.courseId}
         and qa.chapterId =#{qa.chapterId}

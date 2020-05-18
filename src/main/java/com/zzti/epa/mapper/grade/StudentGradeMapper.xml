@@ -67,6 +67,9 @@
       <if test="studentGrade.classId !=null">
         and sg.classId =#{studentGrade.classId}
       </if>
+      <if test="studentGrade.testPaperId !=null">
+        and sg.testPaperId =#{studentGrade.testPaperId}
+      </if>
       <if test="studentGrade.studentName !=null">
         and sg.studentName  like concat('%',#{studentGrade.studentName},'%')
       </if>

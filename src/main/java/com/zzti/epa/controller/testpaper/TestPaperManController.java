@@ -28,6 +28,12 @@ public class TestPaperManController {
         System.out.println(testPaper.toString());
         return testPaperService.getTestPaperByPage(page,size,testPaper);
     }
+    @GetMapping("/getAllTestPaperById")
+    public RespBean getAllTestPaperById(@RequestParam("id") Integer id){
+        System.out.println(id);
+        return testPaperService.getAllTestPaperById(id);
+    }
+
     //获取组卷人信息（非试卷模板）
     @GetMapping("/getPostTeachers")
     public List<Teacher> getPostTeachers(){

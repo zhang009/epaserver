@@ -59,15 +59,18 @@ public class FBQuestionService {
         for (int i=0;i<data.size();i++){//遍历查询知识点,把“|”分割的知识点id查询出来赋值到List<Knows>数组中
             FBQuestion fbQuestion1=data.get(i);
             String knowIds=fbQuestion1.getKnowIds();
-            String [] knowIds2=knowIds.split("@");
-            List<Knows> listKnows=new ArrayList<>();//存放每个试题的知识点
-            for (int j=0;j<knowIds2.length;j++){
-                Knows knows=knowsMapper.getKnowsById(knowIds2[j]);
-                if(knows!=null){
-                    listKnows.add(knows);
+            if(knowIds!=null&&knowIds!=""){
+                String [] knowIds2=knowIds.split("@");
+                List<Knows> listKnows=new ArrayList<>();//存放每个试题的知识点
+                for (int j=0;j<knowIds2.length;j++){
+                    Knows knows=knowsMapper.getKnowsById(knowIds2[j]);
+                    if(knows!=null){
+                        listKnows.add(knows);
+                    }
                 }
+                fbQuestion1.setKnows(listKnows);
             }
-            fbQuestion1.setKnows(listKnows);
+
         }
 
         Long total=fbQuestionMapper.getTotal(fbQuestion);//总记录数

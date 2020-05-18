@@ -421,7 +421,7 @@ public class GradeService {
     @Transactional
     public boolean updateStudentGrade(StudentGrade studentGrade) {
         //这里需要把小题成绩解析出来，存到小题成绩表
-        System.out.println("studentGrade:"+studentGrade.toString());
+       // System.out.println("studentGrade:"+studentGrade.toString());
 
        /* StudentGrade studentGrade1=new StudentGrade();
         studentGrade1.setStudentName(studentGrade.getStudentName());//设置学生姓名
@@ -452,7 +452,7 @@ public class GradeService {
 
         }
         questionGradeMapper.deleteQuestionGradeByStudentGradeId(studentGrade.getId());//删除该学生小题成绩
-
+      //  System.out.println("questionGrades.size():"+questionGrades.size());
         return questionGradeMapper.addQuestonGradeList(questionGrades)==questionGrades.size();//添加该学生成绩
 
     }

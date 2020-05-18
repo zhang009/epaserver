@@ -76,13 +76,13 @@ public class GradeController {
         }
         return RespBean.error("添加失败！");
     }
-    //添加成绩
+    //修改成绩
     @PutMapping("/input/updateStudentGrade")
     public RespBean updateStudentGrade(@RequestBody StudentGrade studentGrade){
         if(gradeService.updateStudentGrade(studentGrade)){
-            return RespBean.ok("添加成功！");
+            return RespBean.ok("修改成功！");
         }
-        return RespBean.error("添加失败！");
+        return RespBean.error("修改失败！");
     }
 
     //批量导入成绩数据

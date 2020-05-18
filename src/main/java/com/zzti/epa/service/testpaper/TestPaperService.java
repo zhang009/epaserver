@@ -1837,4 +1837,61 @@ public class TestPaperService {
     }
 
 
+    public RespBean getAllTestPaperById(Integer id) {
+
+        TestPaper data=testPaperMapper.getAllTestPaperById2(id);
+        //这里把试题信息进行封装
+        //首先获取试卷中的试题类型，放到集合中
+        List<SCQuestion> sclist=new ArrayList<>();
+        List<MCQuestion> mclist=new ArrayList<>();
+        List<TFQuestion> tflist=new ArrayList<>();
+        List<FBQuestion> fblist=new ArrayList<>();
+        List<QAQuestion> qalist=new ArrayList<>();
+
+
+            //这里获取的是非试卷模板的试卷
+            List<QuestionScore> questionScoreList=questionScoreMapper.getQuestionScoreByTestPaperId2(data.getId());
+
+            for (int j = 0; j < questionScoreList.size(); j++) {
+                QuestionScore questionScore=questionScoreList.get(j);
+                //
+                if(questionScore.getQueType().equals("单选题")){
+                    SCQuestion scQuestion=scQuestionService.getSCQuestionById(questionScore.getQuestionId());
+                    sclist.add(scQuestion);
+                }else if(questionScore.getQueType().equals("多选题")){
+                    MCQuestion mcQuestion=mcQuestionService.getMCQuestionById(questionScore.getQuestionId());
+                    mclist.add(mcQuestion);
+                }else if(questionScore.getQueType().equals("判断题")){
+                    TFQuestion tfQuestion=tfQuestionService.getTFQuestionById(questionScore.getQuestionId());
+                    tflist.add(tfQuestion);
+                }else if(questionScore.getQueType().equals("填空题")){
+                    FBQuestion fbQuestion=fbQuestionService.getFBQuestionById(questionScore.getQuestionId());
+                    fblist.add(fbQuestion);
+
+                }else if(questionScore.getQueType().equals("简答题")){
+                    QAQuestion qaQuestion=qaQuestionService.getQAQuestionById(questionScore.getQuestionId());
+                    qalist.add(qaQuestion);
+                }
+            }
+
+            /* System.out.println(">>>>questionScoreList:"+questionScoreList);*/
+        data.setQuestionScores(questionScoreList);
+        data.setSclist(sclist);
+            /*System.out.println(">>>>sclist.size:"+sclist.size());*/
+        data.setMclist(mclist);
+            /* System.out.println(">>>>mclist.size:"+mclist.size());*/
+        data.setTflist(tflist);
+            /*System.out.println(">>>>tflist.size:"+tflist.size());*/
+        data.setFblist(fblist);
+            /* System.out.println(">>>>fblist.size:"+fblist.size());*/
+        data.setQalist(qalist);
+            /*System.out.println(">>>>qalist.size:"+qalist.size());*/
+
+
+
+
+
+
+        return  RespBean.ok("",data);
+    }
 }
