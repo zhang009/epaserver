@@ -117,6 +117,13 @@ public class GradeController {
         }
         return RespBean.error("删除成功！");
     }
+    @DeleteMapping("/input/")
+    public RespBean deleteGradeByIds(Integer [] ids){
+        if(gradeService.deleteGradeByIds(ids)==ids.length){
+            return RespBean.ok("删除成功!");
+        }
+        return RespBean.error("删除失败!");
+    }
 
 
 

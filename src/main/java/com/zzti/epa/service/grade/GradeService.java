@@ -466,4 +466,10 @@ public class GradeService {
     public int deleteStudentById(Integer id) {
         return studentGradeMapper.deleteByPrimaryKey(id);
     }
+
+
+
+    public int deleteGradeByIds(Integer[] ids) {
+        return studentGradeMapper.deleteGradeByIds(ids);
+    }
 }
