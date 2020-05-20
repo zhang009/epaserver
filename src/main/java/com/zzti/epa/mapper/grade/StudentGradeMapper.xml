@@ -90,7 +90,10 @@
     delete from student_grade where id in
     <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
   </delete>
-
+  <select id="selectGradeByStudentNumAndTestPaperId" resultType="Float">
+    select totalGrade from student_grade where studentNum=#{studentNum}
+    and testPaperId=#{testPaperId}
+  </select>
 
 
 

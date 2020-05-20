@@ -53,6 +53,8 @@ public class TestPaper {
 
     private Major major;
 
+    private Float studentTotalGrade;//存放学生的成绩
+
     private Float scScore;
     private Float mcScore;
     private Float tfScore;
@@ -72,8 +74,13 @@ public class TestPaper {
     private Teacher teacher;//试卷创建教师信息
 
 
+    public Float getStudentTotalGrade() {
+        return studentTotalGrade;
+    }
 
-
+    public void setStudentTotalGrade(Float studentTotalGrade) {
+        this.studentTotalGrade = studentTotalGrade;
+    }
 
     public Teacher getTeacher() {
         return teacher;

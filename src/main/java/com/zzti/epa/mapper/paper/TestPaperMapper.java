@@ -65,4 +65,9 @@ public interface TestPaperMapper {
     TestPaper getAllTestPaperById2(@Param("testPaperId") Integer testpaperId);
     //write by yifang end
 
+
+    //根据学号获取所有的试卷
+    List<TestPaper> getAllMyTestPaper(@Param("page")Integer page, @Param("size")Integer size, @Param("studentNum")String studentNum);
+
+    Long getAllMyTestPaperTotal(@Param("studentNum") String studentNum);
 }

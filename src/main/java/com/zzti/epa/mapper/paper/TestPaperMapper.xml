@@ -43,6 +43,13 @@
     </association>
 
   </resultMap>
+  <resultMap id="TestPaperWithCourse" type="com.zzti.epa.model.TestPaper" extends="BaseResultMap">
+    <association property="course" javaType="com.zzti.epa.model.Course">
+      <result column="cid" property="id" jdbcType="INTEGER"/>
+      <result column="cname" property="name" jdbcType="INTEGER"/>
+    </association>
+  </resultMap>
+
   <select id="getTestPaperByPage" resultMap="TestPaperAllInfo">
           select DISTINCT tp.*,t.id as tid, t.name as tname,c.id as cid,c.name as cname,s.id as sid,s.name as sname,m.id as mid,m.name as mname
       FROM
@@ -227,6 +234,23 @@
       and tp.id=#{testPaperId}
     </if>
 
+  </select>
+  <select id="getAllMyTestPaper" resultMap="TestPaperWithCourse">
+        select tp.*,c.id as cid,c.name as cname
+         from test_paper tp,course c
+         where tp.courseId=c.id
+         and  tp.id in
+         (select DISTINCT sg.testPaperId from student_grade sg where studentNum=#{studentNum})
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <select id="getAllMyTestPaperTotal" resultType="Long">
+      select count(*)
+         from test_paper tp
+         where
+          tp.id in
+         (select DISTINCT sg.testPaperId from student_grade sg where studentNum=#{studentNum})
   </select>
   <!--write by yifang end-->
 

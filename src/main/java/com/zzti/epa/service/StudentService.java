@@ -1,10 +1,9 @@
 package com.zzti.epa.service;
 
 import com.zzti.epa.mapper.StudentMapper;
-import com.zzti.epa.model.RespPageBean;
-import com.zzti.epa.model.Role;
-import com.zzti.epa.model.Student;
-import com.zzti.epa.model.Teacher;
+import com.zzti.epa.mapper.grade.StudentGradeMapper;
+import com.zzti.epa.mapper.paper.TestPaperMapper;
+import com.zzti.epa.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,6 +26,10 @@ public class StudentService implements UserDetailsService {
 
     @Autowired
     StudentMapper studentMapper;
+    @Autowired
+    TestPaperMapper testPaperMapper;
+    @Autowired
+    StudentGradeMapper studentGradeMapper;
     public RespPageBean getStudentByPage(Integer page, Integer size, Student student) {
         if(page!=null&& size!=null){
             page=(page-1)*size;
@@ -112,5 +115,26 @@ public class StudentService implements UserDetailsService {
     //判断学号是否存在
     public boolean isExistStudentNum(String studentNum) {
         return studentMapper.isExistStudentNum(studentNum)>=1;
+    }
+
+    public RespPageBean getAllMyTestPaper(Integer page, Integer size, String studentNum) {
+        if(page!=null&& size!=null){
+            page=(page-1)*size;
+        }
+
+        //1.根据学生学号查询出所有的试卷
+        List<TestPaper> testPapers=testPaperMapper.getAllMyTestPaper(page,size,studentNum);
+
+        //根据试卷的id和学生的学号再次到studentGrade中查询学生的成绩，封装到testPaper中的studentTotalGrade中
+        for (int i = 0; i < testPapers.size(); i++) {
+           Float grade= studentGradeMapper.selectGradeByStudentNumAndTestPaperId(testPapers.get(i).getId(),studentNum);
+            testPapers.get(i).setStudentTotalGrade(grade);
+
+        }
+        Long total=testPaperMapper.getAllMyTestPaperTotal(studentNum);//总记录数
+        RespPageBean bean = new RespPageBean();
+        bean.setData(testPapers);//放入数据
+        bean.setTotal(total);//放入总记录数
+        return bean;
     }
 }

@@ -38,4 +38,7 @@ public interface StudentGradeMapper {
 
 
     int deleteGradeByIds(@Param("ids")Integer[] ids);//批量删除
+
+    //根据试卷id和学生学号查询学生的成绩
+    Float selectGradeByStudentNumAndTestPaperId(@Param("testPaperId") Integer id, @Param("studentNum") String studentNum);
 }
