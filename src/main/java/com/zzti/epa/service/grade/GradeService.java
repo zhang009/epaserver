@@ -472,4 +472,98 @@ public class GradeService {
     public int deleteGradeByIds(Integer[] ids) {
         return studentGradeMapper.deleteGradeByIds(ids);
     }
+    //根据学号和试卷号获取该学生的成绩信息
+    public StudentGrade getStudentGradeByStudentNumAndTestPaperId(String studentNum, Integer testPaperId) {
+        StudentGrade studentGrade=studentGradeMapper.getStudentGradeByStudentNumAndTestPaperId(studentNum,testPaperId);
+        //下面这里把成绩信息进行封装，加入小题成绩数据
+
+           /* StudentGrade studentGrade1=data;*/
+            /*-----------第一步.封装list<QuestionScore>----start---------------*/
+
+            TestPaper testPaper=testPaperMapper.getAllTestPaperById(testPaperId);//获取试卷数据
+            //获取所有试题
+            List<QuestionScore> questionScoreList=questionScoreMapper.getQuestionScoreByTestPaperId2(testPaperId);
+
+            testPaper.setQuestionScores(questionScoreList);
+
+            /*-----------封装list<QuestionScore>--end-----------------*/
+            //把试卷中的试题信息进行解析,并封装到List<LargeQues>中
+            /*-----------第二步.封装list<LargeQues>----start---------------*/
+            if(questionScoreList.size()>0){
+                String []queTypes=testPaper.getQueTypes().split("@");//得到大题的题型（数组）
+                List<LargeQues> largeQues=new ArrayList<>();//存放大题信息
+                //从数组中遍历出大题题型，初始化大题List<LargeQues>集合
+                for (int i = 0; i < queTypes.length; i++) {
+                    LargeQues largeQue=new LargeQues();
+                    largeQue.setQueType(queTypes[i]);//设置大题的题型
+                    largeQue.setLargeQueScore(Float.valueOf(0));//大题分数初试为0，后面进行计算
+                    largeQue.setLargeQueGrade(Float.valueOf(0));//大题成绩置0
+                    largeQue.setSmallQueGrade(new ArrayList<>());//设置大题中小题的数组
+                    largeQues.add(largeQue);
+                }
+                System.out.println(largeQues.toString());
+                //遍历小题
+                for (int i = 0; i < questionScoreList.size(); i++) {
+                    QuestionScore questionScore=questionScoreList.get(i);//获取单个试题
+
+                    for (int j = 0; j < largeQues.size(); j++) {
+                        //遍历大题题型，把小题放到大题集合中
+
+                        if(questionScore.getQueType().equals(largeQues.get(j).getQueType())){//如果题型一致
+                            SmallQueGrade smallQueGrade=new SmallQueGrade();
+                            smallQueGrade.setInitScore(questionScore.getQueScore());//初始化分值
+                            smallQueGrade.setQuestionScoreId(questionScore.getId());
+                            smallQueGrade.setSortNum(questionScore.getSortNum());//初始化排序号
+
+
+                            largeQues.get(j).getSmallQueGrade().add(smallQueGrade);//把小题放入大题集合
+                            largeQues.get(j).setLargeQueScore(largeQues.get(j).getLargeQueScore()+questionScore.getQueScore());//累加大题得分
+
+                        }
+                    }
+                }
+                studentGrade.setLargeQues(largeQues);//把大题集合加入到成绩对象中
+
+            }
+            /*-----------封装list<LargeQues>----end---------------*/
+            //下面查找小题分数，封装小题的的实际得分
+            List<QuestionGrade> questionGradesList=questionGradeMapper.getQuestionGradeByStudentGradeId(studentGrade.getId());
+
+            //这里需要把小题的成绩放到上面已经格式化好的集合中
+            //思路，遍历大题-》找到大题的题型找到大题-》遍历大题中的小题-》根据小题中的questionScoreId和sortNum字段确定小题位置-》设置分数
+            /*-----------第三步.封装list<LargeQues>----start---------------*/
+            System.out.println("/*-----------第三步.封装list<LargeQues>----start---------------*/");
+            for (int i = 0; i < questionGradesList.size(); i++) {
+                QuestionGrade questionGrade=questionGradesList.get(i);//获取小题成绩
+                System.out.println((i+1)+":"+questionGrade.getQueGrade());
+                List<LargeQues> largeQuesList=studentGrade.getLargeQues();//获取大题集合
+
+                for (int j = 0; j <largeQuesList.size() ; j++) {
+                    LargeQues largeQues=largeQuesList.get(j);
+                    if(questionGrade.getQueType().equals(largeQues.getQueType())){
+                        List<SmallQueGrade> smallQueGradesList=largeQues.getSmallQueGrade();//获取小题集合
+
+                        for (int l = 0; l < smallQueGradesList.size(); l++) {
+                            SmallQueGrade smallQueGrade=smallQueGradesList.get(l);
+
+
+                            if((questionGrade.getQuestionScoreId().equals(smallQueGrade.getQuestionScoreId()))&&(questionGrade.getSortNum()==smallQueGrade.getSortNum())){//这里使用id的比较要使用equals
+                                smallQueGrade.setQueGrade(questionGrade.getQueGrade());//设置小题得分
+                                largeQues.setLargeQueGrade(largeQues.getLargeQueGrade()+questionGrade.getQueGrade());//累加大题得分
+
+                            }
+                        }
+                    }
+                }
+            }
+            /*-----------第三步.封装list<LargeQues>----end---------------*/
+
+
+
+        //总记录数
+
+
+
+        return studentGrade;
+    }
 }

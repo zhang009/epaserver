@@ -94,6 +94,10 @@
     select totalGrade from student_grade where studentNum=#{studentNum}
     and testPaperId=#{testPaperId}
   </select>
+  <select id="getStudentGradeByStudentNumAndTestPaperId" resultType="com.zzti.epa.model.StudentGrade">
+    select * from  student_grade where studentNum=#{studentNum}
+    and testPaperId=#{testPaperId}
+  </select>
 
 
 

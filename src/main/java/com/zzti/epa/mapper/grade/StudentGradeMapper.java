@@ -41,4 +41,6 @@ public interface StudentGradeMapper {
 
     //根据试卷id和学生学号查询学生的成绩
     Float selectGradeByStudentNumAndTestPaperId(@Param("testPaperId") Integer id, @Param("studentNum") String studentNum);
+    //根据学号和试卷号获取该学生的成绩信息
+    StudentGrade getStudentGradeByStudentNumAndTestPaperId(@Param("studentNum")String studentNum, @Param("testPaperId") Integer testPaperId);
 }

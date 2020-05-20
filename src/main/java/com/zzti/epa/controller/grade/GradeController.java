@@ -48,12 +48,20 @@ public class GradeController {
         return gradeService.getAllTestPaperClass(testPaperId);
     }
 
-    //获取该班级下的所有试卷列表
+    //获取该班级下的所有成绩列表
     @GetMapping("/input/allStudentGradesByClassId")
     public RespPageBean getStudentGrades(@RequestParam("page")Integer page,
                                          @RequestParam("size") Integer size,
                                          StudentGrade studentGrade){
         return gradeService.getStudentGrades(page,size,studentGrade);
+    }
+    //根据学号和试卷号获取该学生的成绩信息
+    @GetMapping("/input/getStudentGradeByStudentNumAndTestPaperId")
+    public RespBean getStudentGradeByStudentNumAndTestPaperId(@RequestParam("studentNum")String studentNum,
+                                                                  @RequestParam("testPaperId")Integer testPaperId){
+        StudentGrade studentGrade=gradeService.getStudentGradeByStudentNumAndTestPaperId(studentNum,testPaperId);
+
+        return RespBean.ok("",studentGrade);//放入数据
     }
     //根据专业id获取班级信息
     @GetMapping("/input/getAllClassByMajorId")
