@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RestController
-@RequestMapping(("/analysis"))
+@RequestMapping("/analysis")
 public class Teacher_TestPaperQuality {
 
     @Autowired
@@ -34,7 +34,9 @@ public class Teacher_TestPaperQuality {
     public List<ListOfTestPaperForWeb> getListOfTestPaper(){
         return analysis_testPaperService.getListOfTestPaper();
     }
-    //根据试卷id，得到这张试卷所有人的考试分数
+
+
+    //根据试卷id，得到成绩区间人数分布
     @PostMapping("/getTestPaperScoreById")
     public TotalScoreDistribution getTestPaperScoreById(@RequestParam int id){
         //根据id查询出试卷

@@ -198,7 +198,7 @@ public class Analysis_TestPaperService {
         float full_score = testPaperForAnalysis.getTotalScore();
         float pass_score = testPaperForAnalysis.getPassScore();
         String[] section = new String[10];
-        section[0] = pass_score+"以下";
+        section[0] = pass_score+"以上";
         int n=(int)pass_score,m=(int)pass_score,i=1;
         while (n<full_score){
             n+=9;
@@ -228,13 +228,13 @@ public class Analysis_TestPaperService {
         //获取所有成绩，统计到对应的分数区间中
         for(int i=0;i<studentGrades.size();i++){
             for(int j=1;j<totalScoreDistribution.getLength();j++){
-                float passscore = Float.parseFloat(section[0].split("以下")[0]);
+                float passscore = Float.parseFloat(section[0].split("以上")[0]);
                 float min = Float.parseFloat(section[j].split("-")[0]);
                 float max = Float.parseFloat(section[j].split("-")[1]);
                 //如果这个学生的分数在这个区间之内，这个区间的人数就+1
                 if(studentGrades.get(i).getTotalScore() - min >=0 && studentGrades.get(i).getTotalScore()-max <= 0 ){
                     paper_num[j]+=1;
-                }else if(studentGrades.get(i).getTotalScore()<passscore){
+                }else if(studentGrades.get(i).getTotalScore()>passscore){
                     paper_num[0]+=1;
                 }
             }

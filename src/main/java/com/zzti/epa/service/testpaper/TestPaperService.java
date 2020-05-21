@@ -1840,6 +1840,7 @@ public class TestPaperService {
     public RespBean getAllTestPaperById(Integer id) {
 
         TestPaper data=testPaperMapper.getAllTestPaperById2(id);
+        System.out.println(data);
         //这里把试题信息进行封装
         //首先获取试卷中的试题类型，放到集合中
         List<SCQuestion> sclist=new ArrayList<>();
