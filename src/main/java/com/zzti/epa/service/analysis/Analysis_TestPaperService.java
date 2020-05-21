@@ -176,6 +176,12 @@ public class Analysis_TestPaperService {
         List<ListOfTestPaper> list = testPaperMapper.select_ListOfTestPaper();
         List<ListOfTestPaperForWeb> listOfTestPaperForWebs= new ArrayList<ListOfTestPaperForWeb>();
         for(int i=0;i<list.size();i++){
+            //如果试卷没有被考试过，试卷成绩表中就不会有数据
+            List<StudentGrade> studentGrades = studentGradeMapper.getStudentGradeOfListByTestPaperId(list.get(i).getId());
+            System.out.println(studentGrades);
+            if(studentGrades == null){
+                continue;
+            }
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String createTime = formatter.format(list.get(i).getCreateTime());
             ListOfTestPaperForWeb listOfTestPaperForWeb=new ListOfTestPaperForWeb();

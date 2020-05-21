@@ -37,7 +37,7 @@ public class Analysis_LearningFeedbaek {
     @Autowired
     KnowsMapper knowsMapper;
     //通过卷子id获取个人章节得分率
-    public ScoringRateOfIndividualChapters grtScoringRateOfIndividualChapters(int testpaper_id,int student_id){
+    public ScoringRateOfIndividualChapters grtScoringRateOfIndividualChapters(int testpaper_id,String student_id){
         ScoringRateOfIndividualChapters scoringRateOfIndividualChapters = new ScoringRateOfIndividualChapters();
         //        2，根据卷子id获取卷子
         TestPaperForAnalysis testpaper = analysis_testPaperService.getTestPaperById(testpaper_id);
@@ -57,8 +57,8 @@ public class Analysis_LearningFeedbaek {
         List<StudentGrade> studentGrades = studentGradeMapper.getStudentGradeOfListByTestPaperId(testpaper_id);
         StudentGrade studentGrade = new StudentGrade();
         for(int i=0;i<studentGrades.size();i++){
-            if(studentGrades.get(i).getStuId().equals(""+student_id)){
-                studentGrade = studentGrades.get(i);
+            if(studentGrades.get(i).getStuId().equals(student_id)){
+                studentGrade.setId(studentGrades.get(i).getId());
             }
         }
 //        5，根据试卷成绩表id获取所有小题满分成绩
@@ -108,7 +108,7 @@ public class Analysis_LearningFeedbaek {
         return scoringRateOfIndividualChapters;
     }
     //通过卷子id获取个人知识点得分率
-    public ScoreRateOfPersonalKnowledgePoints getScoreRateOfPersonalKnowledgePoints(int testpaper_id,int student_id){
+    public ScoreRateOfPersonalKnowledgePoints getScoreRateOfPersonalKnowledgePoints(int testpaper_id,String student_id){
         ScoreRateOfPersonalKnowledgePoints scoreRateOfPersonalKnowledgePoints = new ScoreRateOfPersonalKnowledgePoints();
 //        2，根据卷子id获取卷子
         TestPaperForAnalysis testpaper = analysis_testPaperService.getTestPaperById(testpaper_id);
@@ -127,7 +127,7 @@ public class Analysis_LearningFeedbaek {
         List<StudentGrade> studentGrades = studentGradeMapper.getStudentGradeOfListByTestPaperId(testpaper_id);
         StudentGrade studentGrade = new StudentGrade();
         for(int i=0;i<studentGrades.size();i++){
-            if(studentGrades.get(i).getStuId().equals(""+student_id)){
+            if(studentGrades.get(i).getStuId().equals(student_id)){
                 studentGrade = studentGrades.get(i);
             }
         }

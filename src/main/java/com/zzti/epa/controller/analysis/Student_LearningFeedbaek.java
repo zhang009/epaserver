@@ -18,12 +18,12 @@ public class Student_LearningFeedbaek {
     Analysis_LearningFeedbaek analysis_learningFeedbaek;
     //通过卷子id获取个人章节得分率
     @GetMapping("/getScoringRateOfIndividualChapters")
-    public ScoringRateOfIndividualChapters grtScoringRateOfIndividualChapters(@RequestParam int testpaper_id,@RequestParam int student_id){
+    public ScoringRateOfIndividualChapters grtScoringRateOfIndividualChapters(@RequestParam int testpaper_id,@RequestParam String student_id){
         return analysis_learningFeedbaek.grtScoringRateOfIndividualChapters(testpaper_id,student_id);
     }
     //通过卷子id获取个人知识点得分率
     @GetMapping("/getScoreRateOfPersonalKnowledgePoints")
-    public ScoreRateOfPersonalKnowledgePoints getScoreRateOfPersonalKnowledgePoints(@RequestParam int testpaper_id,@RequestParam int student_id){
+    public ScoreRateOfPersonalKnowledgePoints getScoreRateOfPersonalKnowledgePoints(@RequestParam int testpaper_id,@RequestParam String student_id){
         return analysis_learningFeedbaek.getScoreRateOfPersonalKnowledgePoints(testpaper_id,student_id);
     }
 }
