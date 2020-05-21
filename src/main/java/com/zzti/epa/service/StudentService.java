@@ -1,6 +1,7 @@
 package com.zzti.epa.service;
 
 import com.zzti.epa.mapper.StudentMapper;
+import com.zzti.epa.mapper.StudentRoleMapper;
 import com.zzti.epa.mapper.grade.StudentGradeMapper;
 import com.zzti.epa.mapper.paper.TestPaperMapper;
 import com.zzti.epa.model.*;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ public class StudentService implements UserDetailsService {
     TestPaperMapper testPaperMapper;
     @Autowired
     StudentGradeMapper studentGradeMapper;
+    @Autowired
+    StudentRoleMapper studentRoleMapper;
     public RespPageBean getStudentByPage(Integer page, Integer size, Student student) {
         if(page!=null&& size!=null){
             page=(page-1)*size;
@@ -55,17 +59,30 @@ public class StudentService implements UserDetailsService {
         String encode=bCryptPasswordEncoder.encode(student.getStudentNum());//学生用户和学号相同，在这里进行密码加密
         student.setUsername(student.getStudentNum());//默认用户名为学号
         student.setPassword(encode);
+        studentMapper.insertSelective(student);
 
-
-        return studentMapper.insertSelective(student);//插入数据
+        return studentRoleMapper.firstAddRole(student.getId());//插入数据
     }
 
     public Integer deleteStuByIds(Integer[] ids) {
         return studentMapper.deleteStuByIds(ids);
     }
 
+    @Transactional
     public Integer addStus(List<Student> list) {
-       return studentMapper.addStus(list);
+
+        Student student=null;
+        int count=0;
+        //这里分条插入是为了在角色表里设置默认的学生角色
+        for(int i=0;i<list.size();i++){
+            student=list.get(i);
+            if(student!=null){
+                studentMapper.insertSelective(student);
+                studentRoleMapper.firstAddRole(student.getId());
+                count++;
+            }
+        }
+        return count;
 
     }
 

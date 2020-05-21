@@ -9,8 +9,17 @@ package com.zzti.epa.model.pojo;
 public class QaPapTitle {
     private Integer qaLength;
     private Integer qaTotalScore;
-
+    private Integer qaScore2;
     private String qaAnswer;
+
+    public Integer getQaScore2() {
+        return qaScore2;
+    }
+
+    public void setQaScore2(Integer qaScore2) {
+        this.qaScore2 = qaScore2;
+    }
+
     public Integer getQaLength() {
         return qaLength;
     }

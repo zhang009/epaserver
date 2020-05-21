@@ -14,4 +14,7 @@ public interface StudentRoleMapper {
     int updateByPrimaryKeySelective(StudentRole record);
 
     int updateByPrimaryKey(StudentRole record);
+
+    //
+    int firstAddRole(Integer id);
 }

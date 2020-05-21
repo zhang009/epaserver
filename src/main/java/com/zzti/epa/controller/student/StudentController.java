@@ -101,7 +101,7 @@ public class StudentController {
         }
         //将解析的数据插入到数据库
         System.out.println("size:"+list.size());
-        if(list.size()>=1&&studentService.addStus(list)==list.size()) {
+        if(studentService.addStus(list)==list.size()) {
             return RespBean.ok("学生数据导入成功！");
         }
         return RespBean.error("导入失败");

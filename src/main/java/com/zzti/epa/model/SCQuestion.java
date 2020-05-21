@@ -47,7 +47,7 @@ public class SCQuestion {
         this.chapter = chapter;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")//第二个参数为设置时区
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")//第二个参数为设置时区
     private Date updateTime;
 
     public Date getUpdateTime() {

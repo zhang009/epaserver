@@ -64,6 +64,7 @@ public class TestPaperService {
     //为了将试卷导出到word,将前端传来的临时试卷对象数据处理，添加一些参数
     public TempTestPaper handleTempTestPaper(TempTestPaper tempTestPaper) {
 
+        //这里给试卷添加格式，以便在试卷中显示序号和答案
 
         //设置单选题的总分
         if(tempTestPaper.getSclist()!=null&&tempTestPaper.getScScore()!=null){
@@ -103,13 +104,12 @@ public class TestPaperService {
         }
          //设置判断的总分
         if(tempTestPaper.getTflist()!=null&&tempTestPaper.getTfScore()!=null){
+
             TfPapTitle tfPapTitle=new TfPapTitle();
             tfPapTitle.setTfLength(tempTestPaper.getTflist().size());
             tfPapTitle.setTfTotalScore(tempTestPaper.getTflist().size()*tempTestPaper.getTfScore());
+            tfPapTitle.setTfScore(tempTestPaper.getTfScore());
             tempTestPaper.setTfPapTitle(tfPapTitle);
-
-
-
             //设置序号和答案
             String answer="";
             for (int i = 0; i < tempTestPaper.getTflist().size(); i++) {
@@ -128,7 +128,7 @@ public class TestPaperService {
             }
             FbPapTitle fbPapTitle=new FbPapTitle();
             fbPapTitle.setFbLength(tempTestPaper.getFblist().size());
-            fbPapTitle.setFbTotalScore(total);
+            fbPapTitle.setFbTotalScore(total);//设置填空题的总分
 
             tempTestPaper.setFbPapTitle(fbPapTitle);
             //设置序号和答案
@@ -150,7 +150,7 @@ public class TestPaperService {
             }
             QaPapTitle qaPapTitle=new QaPapTitle();
             qaPapTitle.setQaLength(tempTestPaper.getQalist().size());
-            qaPapTitle.setQaTotalScore(total);
+            qaPapTitle.setQaTotalScore(total);//设置简答题的总分
             tempTestPaper.setQaPapTitle(qaPapTitle);
 
             //设置序号和答案
@@ -1381,7 +1381,7 @@ public class TestPaperService {
             TfPapTitle tfPapTitle=new TfPapTitle();
             tfPapTitle.setTfLength(tempTestPaper.getTflist().size());
             tfPapTitle.setTfTotalScore(tempTestPaper.getTflist().size()*tempTestPaper.getTfScore());
-            tfPapTitle.setTfTotalScore(tempTestPaper.getTfScore());
+            tfPapTitle.setTfScore(tempTestPaper.getTfScore());
             tempTestPaper.setTfPapTitle(tfPapTitle);
 
 
@@ -1402,7 +1402,7 @@ public class TestPaperService {
             FbPapTitle fbPapTitle=new FbPapTitle();
             fbPapTitle.setFbLength(tempTestPaper.getFblist().size());
             fbPapTitle.setFbTotalScore(tempTestPaper.getFblist().size()*tempTestPaper.getFbScore2());
-            fbPapTitle.setFbTotalScore(tempTestPaper.getFbScore2());
+            fbPapTitle.setFbScore2(tempTestPaper.getFbScore2());
             tempTestPaper.setFbPapTitle(fbPapTitle);
             //设置序号和答案
             String [] tmp =new String[tempTestPaper.getFblist().size()];
@@ -1420,7 +1420,7 @@ public class TestPaperService {
             QaPapTitle qaPapTitle=new QaPapTitle();
             qaPapTitle.setQaLength(tempTestPaper.getQalist().size());
             qaPapTitle.setQaTotalScore(tempTestPaper.getQalist().size()*tempTestPaper.getQaScore2());
-
+            qaPapTitle.setQaScore2(tempTestPaper.getQaScore2());
             tempTestPaper.setQaPapTitle(qaPapTitle);
 
             //设置序号和答案
@@ -1583,22 +1583,23 @@ public class TestPaperService {
         if(page!=null&& size!=null){
             page=(page-1)*size;
         }
+        //这里获取的是非试卷模板的试卷
         List<TestPaper> data=testPaperMapper.getTestPaperByPage(page,size,testPaper);
         //这里把试题信息进行封装
         //首先获取试卷中的试题类型，放到集合中
-        List<SCQuestion> sclist=new ArrayList<>();
-        List<MCQuestion> mclist=new ArrayList<>();
-        List<TFQuestion> tflist=new ArrayList<>();
-        List<FBQuestion> fblist=new ArrayList<>();
-        List<QAQuestion> qalist=new ArrayList<>();
+
 
         for (int i = 0; i < data.size(); i++) {//遍历试卷
             TestPaper testPaper1=data.get(i);
-           /* System.out.println("aaaaaaaaaaaa:"+testPaper1.getId());*/
-            //这里获取的是非试卷模板的试卷
+            List<SCQuestion> sclist=new ArrayList<>();
+            List<MCQuestion> mclist=new ArrayList<>();
+            List<TFQuestion> tflist=new ArrayList<>();
+            List<FBQuestion> fblist=new ArrayList<>();
+            List<QAQuestion> qalist=new ArrayList<>();
+
+
             List<QuestionScore> questionScoreList=questionScoreMapper.getQuestionScoreByTestPaperId2(testPaper1.getId());
-           /* System.out.println("1111111111111111111111111111"+questionScoreList);
-            System.out.println("1111111111111111111111111111"+questionScoreList.size());*/
+
             for (int j = 0; j < questionScoreList.size(); j++) {
                 QuestionScore questionScore=questionScoreList.get(j);
                 //
@@ -1624,15 +1625,10 @@ public class TestPaperService {
            /* System.out.println(">>>>questionScoreList:"+questionScoreList);*/
             testPaper1.setQuestionScores(questionScoreList);
             testPaper1.setSclist(sclist);
-            /*System.out.println(">>>>sclist.size:"+sclist.size());*/
             testPaper1.setMclist(mclist);
-           /* System.out.println(">>>>mclist.size:"+mclist.size());*/
             testPaper1.setTflist(tflist);
-            /*System.out.println(">>>>tflist.size:"+tflist.size());*/
             testPaper1.setFblist(fblist);
-           /* System.out.println(">>>>fblist.size:"+fblist.size());*/
             testPaper1.setQalist(qalist);
-            /*System.out.println(">>>>qalist.size:"+qalist.size());*/
 
         }
 
@@ -1775,16 +1771,16 @@ public class TestPaperService {
         List<TestPaper> data=testPaperMapper.getAllTestPaperByPage(page,size,testPaper);
         //这里把试题信息进行封装
         //首先获取试卷中的试题类型，放到集合中
-        List<SCQuestion> sclist=new ArrayList<>();
-        List<MCQuestion> mclist=new ArrayList<>();
-        List<TFQuestion> tflist=new ArrayList<>();
-        List<FBQuestion> fblist=new ArrayList<>();
-        List<QAQuestion> qalist=new ArrayList<>();
+
 
 
         for (int i = 0; i < data.size(); i++) {//遍历试卷
             TestPaper testPaper1=data.get(i);
-
+            List<SCQuestion> sclist=new ArrayList<>();
+            List<MCQuestion> mclist=new ArrayList<>();
+            List<TFQuestion> tflist=new ArrayList<>();
+            List<FBQuestion> fblist=new ArrayList<>();
+            List<QAQuestion> qalist=new ArrayList<>();
             List<QuestionScore> questionScoreList=questionScoreMapper.getQuestionScoreByTestPaperId2(testPaper1.getId());
 
             //判断是系统组卷还是试卷模板

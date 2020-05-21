@@ -30,16 +30,18 @@ public class TestPaperCreateController {
 
     @Autowired
     TestPaperService testPaperService;
-    @RequestMapping("/getDoc")
-    public ResponseEntity<byte[]> getDoc(HttpServletRequest request, HttpServletResponse response,@RequestBody TempTestPaper tempTestPaper) throws IOException {
+    @RequestMapping("/getDoc")//手工组卷导出试卷
+    public ResponseEntity<byte[]> getDoc(HttpServletRequest request, HttpServletResponse response,
+                                         @RequestBody TempTestPaper tempTestPaper) throws IOException {
         Map<String,String> dataMap = new HashMap<String,String>();
         dataMap.put("title", "poi-tl Word模板引擎");
-        System.out.println(tempTestPaper.toString());
+        System.out.println("=============导出试卷================="+tempTestPaper.toString());
        // NumbericRenderData numbericRenderData=new NumbericRenderData(NumbericRenderData.FMT_UPPER_LETTER);
+
         String newWordName = "信息.doc";
-        ConfigureBuilder builder = Configure.newBuilder();
+        ConfigureBuilder builder = Configure.newBuilder();//这里配置使用el表达式
         builder.setElMode(Configure.ELMode.SPEL_MODE);
-        TempTestPaper testPaper=testPaperService.handleTempTestPaper(tempTestPaper);
+        TempTestPaper testPaper=testPaperService.handleTempTestPaper(tempTestPaper);//处理前端返回的试卷tempTestPaper对象
 
         //调用打印word的函数
         return DocUtil.download(request,response,newWordName, testPaper);

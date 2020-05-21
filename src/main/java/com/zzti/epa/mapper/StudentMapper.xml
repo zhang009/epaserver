@@ -110,7 +110,7 @@
       #{userface,jdbcType=VARCHAR}, #{enabled,jdbcType=TINYINT}, #{classId,jdbcType=INTEGER}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.zzti.epa.model.Student" >
+  <insert id="insertSelective" parameterType="com.zzti.epa.model.Student"  useGeneratedKeys="true" keyProperty="id">
     insert into student
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

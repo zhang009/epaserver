@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @ClassName TempTestPaper
- * @Description 临时试卷对象，主要用于接收前端传递的组卷的数据
+ * @Description 临时试卷对象，主要用于接收前端传递的组卷的数据，以便导出到word中
  * @Author Administrator
  * @Date 2020-04-22 7:56
  **/

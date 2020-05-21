@@ -6,6 +6,14 @@
     <result column="sid" property="sid" jdbcType="INTEGER" />
     <result column="rid" property="rid" jdbcType="INTEGER" />
   </resultMap>
+
+
+
+
+  <insert id="firstAddRole">
+    insert into student_role (sid,rid) values (#{id},4);
+  </insert>
+
   <sql id="Base_Column_List" >
     id, sid, rid
   </sql>

@@ -31,7 +31,7 @@ public class FBQuestion {
     private Chapter chapter;
     private int status;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")//第二个参数为设置时区
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")//第二个参数为设置时区
     private Date updateTime;
 
     public Chapter getChapter() {
