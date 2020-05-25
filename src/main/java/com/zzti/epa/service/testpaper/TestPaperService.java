@@ -1490,7 +1490,7 @@ public class TestPaperService {
         PaperCheck paperCheck=new PaperCheck();
         paperCheck.setPostTeacherId(TeacherUtils.getTeacher().getId());//设置提交教师id
         paperCheck.setCheckTeacherId(testPaper.getCheckTeacherId());//设置审核教师id
-        paperCheck.setTestPaperType(0);//手动组卷
+        paperCheck.setTestPaperType(1);//自动组卷
         paperCheck.setTestPaperId(testPaper.getId());//s设置试卷id
         paperCheck.setCheckStatus(0);//未审核状态
         paperCheck.setPostTime(new Date());//时间
