@@ -6,6 +6,18 @@
     <result column="courseId" property="courseId" jdbcType="INTEGER" />
     <result column="classId" property="classId" jdbcType="INTEGER" />
   </resultMap>
+  <select id="getClassByCourseId" resultType="com.zzti.epa.model.Class">
+    select c.* from class c,class_course cc
+    where cc.courseId=#{courseId}
+            and c.id=cc.classId
+  </select>
+  <delete id="deleteByCourseId" parameterType="java.lang.Integer">
+    delete from class_course  where courseId=#{id}
+  </delete>
+
+
+
+
   <sql id="Base_Column_List" >
     id, courseId, classId
   </sql>

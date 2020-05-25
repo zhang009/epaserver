@@ -20,6 +20,8 @@ public interface CourseMapper {
 
     List<Course> getCourse(@Param("page")Integer page, @Param("size") Integer size, @Param("course")Course course);
     List<Course> getCourseWithClass(@Param("page")Integer page, @Param("size") Integer size, @Param("course")Course course);
+    List<Course> getCourseWithClass2(@Param("page")Integer page, @Param("size") Integer size, @Param("course")Course course);
+
 
 
     Long getTotal(@Param("course")Course course);
@@ -27,4 +29,7 @@ public interface CourseMapper {
     List<Course> getAllCourse(@Param("classId") Integer id);
 
     Course getCourseById(@Param("id")Integer id);
+
+
+    List<Course> getCourseByMajorId(Integer id);
 }

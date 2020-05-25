@@ -8,10 +8,13 @@
     <result column="classId" property="classId" jdbcType="INTEGER" />
     <result column="majorId" property="majorId" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="BaseResultMap2" type="com.zzti.epa.model.Course" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="term" property="term" jdbcType="VARCHAR" />
+  </resultMap>
   <resultMap id="CourseWithClass" type="map" extends="BaseResultMap">
-
       <result column="className" property="className" jdbcType="VARCHAR"/>
-
   </resultMap>
 
   <select id="getAllCourse" resultType="com.zzti.epa.model.Course">
@@ -23,7 +26,9 @@
   <select id="getCourseById" resultType="com.zzti.epa.model.Course">
     select * from course where course.id=#{id};
   </select>
-
+  <select id="getCourseByMajorId" resultType="com.zzti.epa.model.Course">
+     select c.* from course c,major_course mc where c.id=mc.courseId and mc.majorId=#{id}
+  </select>
   <!--<select id="getCourse"  resultType="com.zzti.epa.model.Course">
     select * from course c where id in (select max(id) from course group by name)
     <where>
@@ -59,7 +64,6 @@
   <select id="getCourseWithClass" resultMap="CourseWithClass">
     select t2.*,t3.name as className, t3.schoolId as schoolId from (class_course t1 INNER JOIN course t2 on t1.courseId =t2.id)
     INNER JOIN class t3 on t1.classId=t3.id
-
     <where>
       <if test="course.name!=null and course.name!=''">
         and t2.name like concat('%',#{course.name},'%')
@@ -76,9 +80,32 @@
       limit #{page},#{size}
     </if>
   </select>
+  <!---->
+  <select id="getCourseWithClass2" resultMap="BaseResultMap2">
+    select DISTINCT  t2.id,t2.name,t2.term, t3.schoolId as schoolId from (class_course t1 INNER JOIN course t2 on t1.courseId =t2.id)
+    INNER JOIN class t3 on t1.classId=t3.id
+
+    <where>
+      <if test="course.name!=null and course.name!=''">
+        and t2.name like concat('%',#{course.name},'%')
+      </if>
+      <if test="course.majorId!=null">
+        and t2.majorId= #{course.majorId}
+      </if>
+      <if test="course.classId!=null">
+        and t3.id =#{course.classId}
+      </if>
+    </where>
+
+    order by t3.name
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+
   <!-- select count(*) from course c where id in (select max(id) from course group by name)-->
   <select id="getTotal" resultType="Long">
-    select count(*) from (class_course t1 INNER JOIN course t2 on t1.courseId =t2.id)
+    select count(distinct t2.id) from (class_course t1 INNER JOIN course t2 on t1.courseId =t2.id)
     INNER JOIN class t3 on t1.classId=t3.id
     <where>
       <if test="course!=null">

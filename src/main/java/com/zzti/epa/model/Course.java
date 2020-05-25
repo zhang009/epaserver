@@ -1,5 +1,7 @@
 package com.zzti.epa.model;
 
+import java.util.List;
+
 public class Course {
     private Integer id;
 
@@ -13,6 +15,44 @@ public class Course {
 
     private String className;
     private Integer schoolId;
+
+    private Integer[] classIds;//课程与班级为多对多关系
+    private Integer[] majorIds;//专业和课程是一对多关系
+
+    private List<Major> majors;
+    private List<Class> classes;
+
+    public List<Major> getMajors() {
+        return majors;
+    }
+
+    public void setMajors(List<Major> majors) {
+        this.majors = majors;
+    }
+
+    public List<Class> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<Class> classes) {
+        this.classes = classes;
+    }
+
+    public Integer[] getClassIds() {
+        return classIds;
+    }
+
+    public void setClassIds(Integer[] classIds) {
+        this.classIds = classIds;
+    }
+
+    public Integer[] getMajorIds() {
+        return majorIds;
+    }
+
+    public void setMajorIds(Integer[] majorIds) {
+        this.majorIds = majorIds;
+    }
 
     public Integer getSchoolId() {
         return schoolId;

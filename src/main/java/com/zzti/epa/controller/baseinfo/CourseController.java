@@ -33,9 +33,20 @@ public class CourseController {
         //System.out.println("========getCourseWithClass:"+course.toString());
         return courseService.getCourseWithClass(page,size,course);
     }
+    //（验收后修改），这里带有班级的Id数组和集合信息
+    @GetMapping("/withClass2")
+    public RespPageBean getCourseWithClass2(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10")
+                                  Integer size, Course course){//这里前端 传来的字段可能有：课程名、majorId、classId
+        //System.out.println("========getCourseWithClass:"+course.toString());
+        return courseService.getCourseWithClass2(page,size,course);
+    }
     @GetMapping("/all")
     public List<Course> getAllCourse(@RequestParam("classId") Integer id){
         return courseService.getAllCourse(id);
+    }
+    @GetMapping("/getCourseByMajorId")
+    public List<Course> getCourseByMajorId(@RequestParam("majorId") Integer id){
+        return courseService.getCourseByMajorId(id);
     }
 
     @PostMapping("/")

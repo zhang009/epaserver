@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2020-05-25 08:30:17
+Date: 2020-05-25 22:01:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -158,19 +158,162 @@ CREATE TABLE `class_course` (
   KEY `class_course_ibfk_2` (`classId`),
   CONSTRAINT `class_course_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `class_course_ibfk_2` FOREIGN KEY (`classId`) REFERENCES `class` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of class_course
 -- ----------------------------
 INSERT INTO `class_course` VALUES ('3', '1', '5');
 INSERT INTO `class_course` VALUES ('4', '2', '5');
-INSERT INTO `class_course` VALUES ('5', '3', '5');
 INSERT INTO `class_course` VALUES ('6', '4', '5');
-INSERT INTO `class_course` VALUES ('8', '6', '11');
 INSERT INTO `class_course` VALUES ('9', '1', '2');
-INSERT INTO `class_course` VALUES ('10', '7', '10');
-INSERT INTO `class_course` VALUES ('11', '8', '9');
+INSERT INTO `class_course` VALUES ('12', '6', '11');
+INSERT INTO `class_course` VALUES ('13', '6', '5');
+INSERT INTO `class_course` VALUES ('14', '6', '6');
+INSERT INTO `class_course` VALUES ('15', '6', '7');
+INSERT INTO `class_course` VALUES ('16', '6', '8');
+INSERT INTO `class_course` VALUES ('17', '6', '9');
+INSERT INTO `class_course` VALUES ('18', '6', '10');
+INSERT INTO `class_course` VALUES ('19', '6', '12');
+INSERT INTO `class_course` VALUES ('20', '6', '77');
+INSERT INTO `class_course` VALUES ('21', '6', '1');
+INSERT INTO `class_course` VALUES ('22', '6', '2');
+INSERT INTO `class_course` VALUES ('23', '6', '3');
+INSERT INTO `class_course` VALUES ('24', '6', '4');
+INSERT INTO `class_course` VALUES ('25', '6', '14');
+INSERT INTO `class_course` VALUES ('26', '6', '15');
+INSERT INTO `class_course` VALUES ('27', '6', '16');
+INSERT INTO `class_course` VALUES ('28', '6', '17');
+INSERT INTO `class_course` VALUES ('29', '6', '18');
+INSERT INTO `class_course` VALUES ('30', '6', '19');
+INSERT INTO `class_course` VALUES ('31', '6', '20');
+INSERT INTO `class_course` VALUES ('32', '6', '21');
+INSERT INTO `class_course` VALUES ('33', '6', '22');
+INSERT INTO `class_course` VALUES ('34', '6', '23');
+INSERT INTO `class_course` VALUES ('35', '6', '24');
+INSERT INTO `class_course` VALUES ('36', '6', '25');
+INSERT INTO `class_course` VALUES ('37', '6', '26');
+INSERT INTO `class_course` VALUES ('38', '6', '27');
+INSERT INTO `class_course` VALUES ('39', '6', '28');
+INSERT INTO `class_course` VALUES ('40', '6', '29');
+INSERT INTO `class_course` VALUES ('41', '6', '30');
+INSERT INTO `class_course` VALUES ('42', '6', '31');
+INSERT INTO `class_course` VALUES ('43', '6', '32');
+INSERT INTO `class_course` VALUES ('44', '6', '33');
+INSERT INTO `class_course` VALUES ('45', '6', '34');
+INSERT INTO `class_course` VALUES ('46', '6', '35');
+INSERT INTO `class_course` VALUES ('47', '6', '36');
+INSERT INTO `class_course` VALUES ('48', '6', '37');
+INSERT INTO `class_course` VALUES ('49', '6', '38');
+INSERT INTO `class_course` VALUES ('50', '6', '39');
+INSERT INTO `class_course` VALUES ('51', '6', '40');
+INSERT INTO `class_course` VALUES ('52', '6', '41');
+INSERT INTO `class_course` VALUES ('53', '6', '42');
+INSERT INTO `class_course` VALUES ('54', '6', '43');
+INSERT INTO `class_course` VALUES ('55', '6', '44');
+INSERT INTO `class_course` VALUES ('56', '6', '45');
+INSERT INTO `class_course` VALUES ('57', '6', '46');
+INSERT INTO `class_course` VALUES ('58', '6', '47');
+INSERT INTO `class_course` VALUES ('59', '6', '48');
+INSERT INTO `class_course` VALUES ('60', '6', '49');
+INSERT INTO `class_course` VALUES ('61', '6', '50');
+INSERT INTO `class_course` VALUES ('62', '6', '51');
+INSERT INTO `class_course` VALUES ('63', '6', '52');
+INSERT INTO `class_course` VALUES ('64', '6', '53');
+INSERT INTO `class_course` VALUES ('65', '6', '54');
+INSERT INTO `class_course` VALUES ('66', '6', '55');
+INSERT INTO `class_course` VALUES ('67', '6', '56');
+INSERT INTO `class_course` VALUES ('68', '6', '57');
+INSERT INTO `class_course` VALUES ('69', '6', '58');
+INSERT INTO `class_course` VALUES ('70', '6', '59');
+INSERT INTO `class_course` VALUES ('71', '6', '60');
+INSERT INTO `class_course` VALUES ('72', '6', '61');
+INSERT INTO `class_course` VALUES ('73', '6', '62');
+INSERT INTO `class_course` VALUES ('74', '6', '63');
+INSERT INTO `class_course` VALUES ('75', '6', '64');
+INSERT INTO `class_course` VALUES ('76', '6', '65');
+INSERT INTO `class_course` VALUES ('77', '6', '66');
+INSERT INTO `class_course` VALUES ('78', '6', '67');
+INSERT INTO `class_course` VALUES ('79', '6', '68');
+INSERT INTO `class_course` VALUES ('80', '6', '69');
+INSERT INTO `class_course` VALUES ('81', '6', '70');
+INSERT INTO `class_course` VALUES ('82', '6', '71');
+INSERT INTO `class_course` VALUES ('83', '6', '72');
+INSERT INTO `class_course` VALUES ('84', '6', '73');
+INSERT INTO `class_course` VALUES ('85', '8', '9');
+INSERT INTO `class_course` VALUES ('86', '8', '5');
+INSERT INTO `class_course` VALUES ('87', '8', '6');
+INSERT INTO `class_course` VALUES ('88', '8', '7');
+INSERT INTO `class_course` VALUES ('89', '8', '8');
+INSERT INTO `class_course` VALUES ('90', '8', '10');
+INSERT INTO `class_course` VALUES ('91', '8', '11');
+INSERT INTO `class_course` VALUES ('92', '8', '12');
+INSERT INTO `class_course` VALUES ('93', '8', '77');
+INSERT INTO `class_course` VALUES ('94', '8', '1');
+INSERT INTO `class_course` VALUES ('95', '8', '2');
+INSERT INTO `class_course` VALUES ('96', '8', '3');
+INSERT INTO `class_course` VALUES ('97', '8', '4');
+INSERT INTO `class_course` VALUES ('98', '8', '14');
+INSERT INTO `class_course` VALUES ('99', '8', '15');
+INSERT INTO `class_course` VALUES ('100', '8', '16');
+INSERT INTO `class_course` VALUES ('101', '8', '17');
+INSERT INTO `class_course` VALUES ('102', '8', '18');
+INSERT INTO `class_course` VALUES ('103', '8', '19');
+INSERT INTO `class_course` VALUES ('104', '8', '20');
+INSERT INTO `class_course` VALUES ('105', '8', '21');
+INSERT INTO `class_course` VALUES ('106', '8', '22');
+INSERT INTO `class_course` VALUES ('107', '8', '23');
+INSERT INTO `class_course` VALUES ('108', '8', '24');
+INSERT INTO `class_course` VALUES ('109', '8', '25');
+INSERT INTO `class_course` VALUES ('110', '8', '26');
+INSERT INTO `class_course` VALUES ('111', '8', '27');
+INSERT INTO `class_course` VALUES ('112', '8', '28');
+INSERT INTO `class_course` VALUES ('113', '8', '29');
+INSERT INTO `class_course` VALUES ('114', '8', '30');
+INSERT INTO `class_course` VALUES ('115', '8', '31');
+INSERT INTO `class_course` VALUES ('116', '8', '32');
+INSERT INTO `class_course` VALUES ('117', '8', '33');
+INSERT INTO `class_course` VALUES ('118', '8', '34');
+INSERT INTO `class_course` VALUES ('119', '8', '35');
+INSERT INTO `class_course` VALUES ('120', '8', '36');
+INSERT INTO `class_course` VALUES ('121', '8', '37');
+INSERT INTO `class_course` VALUES ('122', '8', '38');
+INSERT INTO `class_course` VALUES ('123', '8', '39');
+INSERT INTO `class_course` VALUES ('124', '8', '40');
+INSERT INTO `class_course` VALUES ('125', '8', '41');
+INSERT INTO `class_course` VALUES ('126', '8', '42');
+INSERT INTO `class_course` VALUES ('127', '8', '43');
+INSERT INTO `class_course` VALUES ('128', '8', '44');
+INSERT INTO `class_course` VALUES ('129', '8', '45');
+INSERT INTO `class_course` VALUES ('130', '8', '46');
+INSERT INTO `class_course` VALUES ('131', '8', '47');
+INSERT INTO `class_course` VALUES ('132', '8', '48');
+INSERT INTO `class_course` VALUES ('133', '8', '49');
+INSERT INTO `class_course` VALUES ('134', '8', '50');
+INSERT INTO `class_course` VALUES ('135', '8', '51');
+INSERT INTO `class_course` VALUES ('136', '8', '52');
+INSERT INTO `class_course` VALUES ('137', '8', '53');
+INSERT INTO `class_course` VALUES ('138', '8', '54');
+INSERT INTO `class_course` VALUES ('139', '8', '55');
+INSERT INTO `class_course` VALUES ('140', '8', '56');
+INSERT INTO `class_course` VALUES ('141', '8', '57');
+INSERT INTO `class_course` VALUES ('142', '8', '58');
+INSERT INTO `class_course` VALUES ('143', '8', '59');
+INSERT INTO `class_course` VALUES ('144', '8', '60');
+INSERT INTO `class_course` VALUES ('145', '8', '61');
+INSERT INTO `class_course` VALUES ('146', '8', '62');
+INSERT INTO `class_course` VALUES ('147', '8', '63');
+INSERT INTO `class_course` VALUES ('148', '8', '64');
+INSERT INTO `class_course` VALUES ('149', '8', '65');
+INSERT INTO `class_course` VALUES ('150', '8', '66');
+INSERT INTO `class_course` VALUES ('151', '8', '67');
+INSERT INTO `class_course` VALUES ('152', '8', '68');
+INSERT INTO `class_course` VALUES ('153', '8', '69');
+INSERT INTO `class_course` VALUES ('154', '8', '70');
+INSERT INTO `class_course` VALUES ('155', '8', '71');
+INSERT INTO `class_course` VALUES ('156', '8', '72');
+INSERT INTO `class_course` VALUES ('157', '8', '73');
+INSERT INTO `class_course` VALUES ('158', '3', '5');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -195,7 +338,6 @@ INSERT INTO `course` VALUES ('2', '编译原理', '2018-2019学年第二学期',
 INSERT INTO `course` VALUES ('3', '局域网组网技术', '2018-2019学年第二学期', '5', '1');
 INSERT INTO `course` VALUES ('4', '网络安全技术', '2018-2019学年第二学期', '5', '1');
 INSERT INTO `course` VALUES ('6', 'C语言程序设计', '2018-2019学年第一学期', '11', '1');
-INSERT INTO `course` VALUES ('7', '软件工程', '2019-2020学年第二学期', '10', '1');
 INSERT INTO `course` VALUES ('8', '软件工程', '2019-2020学年第二学期', '9', '1');
 
 -- ----------------------------
@@ -449,7 +591,39 @@ INSERT INTO `major` VALUES ('8', '计算机应用技术（软件测试与维护�
 INSERT INTO `major` VALUES ('9', '计算机信息管理（互联网营销方向）', '1');
 INSERT INTO `major` VALUES ('10', '软件技术（移动应用开发方向）', '1');
 INSERT INTO `major` VALUES ('12', '软件技术（软件测试技术方向）', '1');
-INSERT INTO `major` VALUES ('13', '22', '2');
+
+-- ----------------------------
+-- Table structure for `major_course`
+-- ----------------------------
+DROP TABLE IF EXISTS `major_course`;
+CREATE TABLE `major_course` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `majorId` int(11) DEFAULT NULL,
+  `courseId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `majorId` (`majorId`),
+  KEY `courseId` (`courseId`),
+  CONSTRAINT `major_course_ibfk_1` FOREIGN KEY (`majorId`) REFERENCES `major` (`id`),
+  CONSTRAINT `major_course_ibfk_2` FOREIGN KEY (`courseId`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of major_course
+-- ----------------------------
+INSERT INTO `major_course` VALUES ('9', '1', '6');
+INSERT INTO `major_course` VALUES ('10', '2', '6');
+INSERT INTO `major_course` VALUES ('11', '3', '6');
+INSERT INTO `major_course` VALUES ('12', '4', '6');
+INSERT INTO `major_course` VALUES ('13', '5', '6');
+INSERT INTO `major_course` VALUES ('14', '6', '6');
+INSERT INTO `major_course` VALUES ('15', '1', '8');
+INSERT INTO `major_course` VALUES ('16', '2', '8');
+INSERT INTO `major_course` VALUES ('17', '3', '8');
+INSERT INTO `major_course` VALUES ('18', '4', '8');
+INSERT INTO `major_course` VALUES ('19', '5', '8');
+INSERT INTO `major_course` VALUES ('20', '6', '8');
+INSERT INTO `major_course` VALUES ('21', '1', '3');
+INSERT INTO `major_course` VALUES ('22', '4', '3');
 
 -- ----------------------------
 -- Table structure for `mc_option`

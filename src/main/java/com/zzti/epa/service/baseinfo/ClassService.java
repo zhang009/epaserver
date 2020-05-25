@@ -7,6 +7,7 @@ import com.zzti.epa.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,5 +76,19 @@ public class ClassService {
         bean.setTotal(total);
         return bean;
 
+    }
+
+    //根据专业id数组查询该专业下的班级
+    public List<Class> getClassByMids(Integer[] majorIds) {
+
+        List<Class> list=new ArrayList<>();
+        for (int i = 0; i < majorIds.length; i++) {
+            List<Class> classes=classMapper.getClassByMid(majorIds[i]);
+            if(classes!=null){
+                list.addAll(classes);//合并班级
+            }
+
+        }
+        return list;
     }
 }
