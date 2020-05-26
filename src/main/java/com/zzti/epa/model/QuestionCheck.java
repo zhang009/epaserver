@@ -22,6 +22,8 @@ public class QuestionCheck {
     private Teacher postTeacher;
     private Teacher checkTeacher;
 
+    private Integer[] ids;//批量审核传递id数组
+
     private SCQuestion scQuestion;
     private MCQuestion mcQuestion;
     private TFQuestion tfQuestion;
@@ -53,6 +55,14 @@ public class QuestionCheck {
                 ", qaQuestion=" + qaQuestion +
                 ", postTime=" + postTime +
                 '}';
+    }
+
+    public Integer[] getIds() {
+        return ids;
+    }
+
+    public void setIds(Integer[] ids) {
+        this.ids = ids;
     }
 
     public Teacher getPostTeacher() {

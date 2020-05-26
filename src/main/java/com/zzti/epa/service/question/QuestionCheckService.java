@@ -5,7 +5,9 @@ import com.zzti.epa.model.*;
 import com.zzti.epa.utils.TeacherUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -217,8 +219,6 @@ public class QuestionCheckService {
             scQuestion.setStatus(questionCheck.getCheckStatus());
             scQuestionMapper.updateByPrimaryKeySelective(scQuestion);//更新单选题试题状态
 
-
-
         }else if(questionCheck.getQuestionType().equals("mc")){
             MCQuestion mcQuestion=mcQuestionMapper.getMCQuestionById2(questionCheck.getQuestionId());
             mcQuestion.setStatus(questionCheck.getCheckStatus());
@@ -240,5 +240,54 @@ public class QuestionCheckService {
         return questionCheckMapper.updateByPrimaryKeySelective(questionCheck);
     }
 
+    //批量删除
+    public int deleteQueByIds(Integer[] ids) {
+        return questionCheckMapper.deleteQueCheckByIds(ids);
+    }
+    //批量审核
+    @Transactional
+    public int updateQuestionManyCheck(QuestionCheck questionCheck) {
+        Integer [] ids=questionCheck.getIds();//获取批量审核的id数组
+        //这里需要获取试题审核的对象
+        List<QuestionCheck> list=new ArrayList<>();
+        for (int i = 0; i < ids.length; i++) {
+            QuestionCheck qc=questionCheckMapper.getQuestionCheckByCheckId(ids[i]);
+            if(qc!=null){
+                list.add(qc);
+            }
+        }
+        for (int i = 0; i < list.size(); i++) {
+            QuestionCheck questionCheck1=list.get(i);
+            questionCheck1.setCheckStatus(questionCheck.getCheckStatus());//设置新的审核状态
+            questionCheck1.setRefuseReason(questionCheck.getRefuseReason());//设置新的拒绝原因
+            //1.获取到试题id,和试题类型,更新试题状态
+            System.out.println("QuestionCheck:"+questionCheck1.toString());
+            if(questionCheck.getQuestionType().equals("sc")){//初始化试题信息
+                SCQuestion scQuestion=scQuestionMapper.getSCQuestionById2(questionCheck.getQuestionId());
+                scQuestion.setStatus(questionCheck.getCheckStatus());
+                scQuestionMapper.updateByPrimaryKeySelective(scQuestion);//更新单选题试题状态
 
+            }else if(questionCheck.getQuestionType().equals("mc")){
+                MCQuestion mcQuestion=mcQuestionMapper.getMCQuestionById2(questionCheck.getQuestionId());
+                mcQuestion.setStatus(questionCheck.getCheckStatus());
+                mcQuestionMapper.updateByPrimaryKeySelective(mcQuestion);
+            }else if(questionCheck.getQuestionType().equals("tf")){
+                TFQuestion tfQuestion=tfQuestionMapper.getTFQuestionById2(questionCheck.getQuestionId());
+                tfQuestion.setStatus(questionCheck.getCheckStatus());
+                tfQuestionMapper.updateByPrimaryKeySelective(tfQuestion);
+
+            }else if(questionCheck.getQuestionType().equals("fb")){
+                FBQuestion fbQuestion=fbQuestionMapper.getFBQuestionById2(questionCheck.getQuestionId());
+                fbQuestion.setStatus(questionCheck.getCheckStatus());
+                fbQuestionMapper.updateByPrimaryKeySelective(fbQuestion);
+            }else if(questionCheck.getQuestionType().equals("qa")){
+                QAQuestion qaQuestion=qaQuestionMapper.getQAQuestionById2(questionCheck.getQuestionId());
+                qaQuestion.setStatus(questionCheck.getCheckStatus());
+                qaQuestionMapper.updateByPrimaryKeySelective(qaQuestion);
+            }
+            questionCheckMapper.updateByPrimaryKeySelective(questionCheck1);//更新试题审核
+        }
+
+        return 1;
+    }
 }

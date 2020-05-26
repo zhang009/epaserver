@@ -31,4 +31,6 @@ public interface PaperCheckMapper {
                                                           @Param("size") Integer size);
 
     Long getSubmmitedTestPaperCheckTotal(@Param("testPaperId")Integer teacherId);
+
+
 }

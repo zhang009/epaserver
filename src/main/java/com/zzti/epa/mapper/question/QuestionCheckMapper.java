@@ -28,6 +28,7 @@ public interface QuestionCheckMapper {
     List<QuestionCheck> getQuestionReceiveByCheckTId(@Param("tId") Integer teacherId,
                                                      @Param("page")  Integer page,
                                                      @Param("size")Integer size);
+    QuestionCheck getQuestionCheckByCheckId(@Param("id")Integer id);
     Long getTotal2(@Param("id")Integer teacherId);
 
     Integer passQuestionCheck(@Param("id") Integer id);
@@ -36,4 +37,5 @@ public interface QuestionCheckMapper {
     Integer refuseQuestionCheck(@Param("id") Integer id, @Param("reason")String refuseReason);
 
     void updateStatusByQueIdAndType(@Param("type") String type, @Param("qId") Integer id);
+    int deleteQueCheckByIds(@Param("ids")Integer[] ids);
 }

@@ -102,12 +102,12 @@ public class PaperCheckService {
 
 
     }
-
+    //拒绝通过审核
     public Integer refuseTestPaperCheck(Integer id, String refuseReason) {
         return paperCheckMapper.refuseTestPaperCheck(id,refuseReason);
     }
 
-
+    //删除审核记录
     public Integer deletePaperCheckById(Integer id) {
         return paperCheckMapper.deleteByPrimaryKey(id);
     }
@@ -184,4 +184,5 @@ public class PaperCheckService {
         return paperCheckMapper.updateByPrimaryKeySelective(paperCheck);
 
     }
+
 }

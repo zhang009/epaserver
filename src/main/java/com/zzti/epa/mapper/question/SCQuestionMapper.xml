@@ -51,6 +51,7 @@
     <if test="sc.dot != null" >
       and sc.dot =#{sc.dot}
     </if>
+    order by  sc.updateTime desc
     <if test="page !=null and size!=null">
       limit #{page},#{size}
     </if>

@@ -47,6 +47,15 @@ public class QuestionCheckController {
         return RespBean.error("保存失败！");
 
     }
+    //批量审核
+    @PostMapping("/checkMany")
+    public RespBean updateQuestionManyCheck(@RequestBody QuestionCheck questionCheck){
+        if(questionCheckService.updateQuestionManyCheck(questionCheck)==1){
+            return RespBean.ok("保存成功！");
+        }
+        return RespBean.error("保存失败！");
+
+    }
 
     @DeleteMapping("/{id}")
     public RespBean deleteQuestionCheckById(@PathVariable Integer id){
@@ -55,7 +64,14 @@ public class QuestionCheckController {
         }
         return RespBean.error("删除成功！");
     }
-
+    //批量删除
+    @DeleteMapping("/")
+    public RespBean deleteQueByIds(Integer [] ids){
+        if(questionCheckService.deleteQueByIds(ids)==ids.length){
+            return RespBean.ok("删除成功!");
+        }
+        return RespBean.error("删除失败!");
+    }
 
 
 
