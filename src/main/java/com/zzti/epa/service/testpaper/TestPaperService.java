@@ -9,6 +9,7 @@ import com.zzti.epa.model.*;
 import com.zzti.epa.model.pojo.*;
 import com.zzti.epa.service.question.*;
 import com.zzti.epa.utils.TeacherUtils;
+import com.zzti.epa.utils.TestPaperUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -1599,6 +1600,25 @@ public class TestPaperService {
 
 
             List<QuestionScore> questionScoreList=questionScoreMapper.getQuestionScoreByTestPaperId2(testPaper1.getId());
+            System.out.println("=====================testPaper1=================================");
+            System.out.println(testPaper1.toString());
+            System.out.println(testPaper1.getChapterIds()==null||testPaper1.getChapterIds().length()==0);
+            System.out.println(testPaper1.getKnowIds()==null||testPaper1.getKnowIds().length()==0);
+            if(testPaper1.getId()==38){//试卷模板如果没有章节的id
+                String [] chapterIds= TestPaperUtils.getChapterIds(questionScoreList);
+                testPaper1.setChapterIds(StringUtils.join(chapterIds,"@"));
+                System.out.println("=====================chapterIds=================================");
+                System.out.println();
+                testPaperMapper.updateByPrimaryKeySelective(testPaper1);
+            }
+            if(testPaper1.getKnowIds()==null||testPaper1.getKnowIds().length()==0){
+                String [] knowIds=TestPaperUtils.getKnowIds(questionScoreList);
+                testPaper1.setKnowIds(StringUtils.join(knowIds,"@"));
+                System.out.println("=====================knowIds=================================");
+                testPaperMapper.updateByPrimaryKeySelective(testPaper1);
+            }
+            System.out.println("=====================testPaper1-end=================================");
+
 
             for (int j = 0; j < questionScoreList.size(); j++) {
                 QuestionScore questionScore=questionScoreList.get(j);

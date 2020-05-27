@@ -43,8 +43,8 @@ public class TestPaperUtils {
 
                 String  []knowIds=knowStrIds.split("@");
                 for (int j = 0; j < knowIds.length; j++) {
-                    if(!knowList.contains(knowIds[i])){//如果没有重复的，添加知识点id到集合中
-                        knowList.add(knowIds[i]);
+                    if(!knowList.contains(knowIds[j])){//如果没有重复的，添加知识点id到集合中
+                        knowList.add(knowIds[j]);
                     }
                 }
             }
