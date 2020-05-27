@@ -194,7 +194,6 @@ public class TestPaperService {
         //2.添加试题审核信息
         //3.添加试题分数信息
 
-
         //1.设置基本参数：创建时间，提交教师id,试卷状态，试题类型
         testPaper.setCreateTime(new Date());
         testPaper.setPostTeacherId(TeacherUtils.getTeacher().getId());
@@ -202,22 +201,113 @@ public class TestPaperService {
         testPaper.setStatus(0);//状态为0表示未审核
         testPaper.setIsTemplate(0);//设置非试卷模板添加
         String queTypes="";
+        List<String> chapterList=new ArrayList<String>();
+        List<String> knowList=new ArrayList<String>();
         if(testPaper.getSclist()!=null&&testPaper.getSclist().size()>0){
             queTypes+="单选题@";
+            //遍历章节和知识点，获取试卷所有的章节和知识点
+            List<SCQuestion> sclist=testPaper.getSclist();
+            for (int i = 0; i < sclist.size(); i++) {
+                SCQuestion scQuestion=sclist.get(i);
+                String chapter=Integer.toString(scQuestion.getChapterId());//把Integer转化为String类型
+                if(!chapterList.contains(chapter)){//如果没有重复的，添加章节id到集合中
+                    chapterList.add(chapter);
+                }
+                //获取知识点
+                String knowStrIds=scQuestion.getKnowIds();
+                String  []knowIds=knowStrIds.split("@");
+                for (int j = 0; j < knowIds.length; j++) {
+                    if(!knowList.contains(knowIds[j])){//如果没有重复的，添加知识点id到集合中
+                        knowList.add(knowIds[j]);
+                    }
+                }
+            }
         }
         if(testPaper.getMclist()!=null&&testPaper.getMclist().size()>0){
             queTypes+="多选题@";
+            //遍历章节和知识点，获取试卷所有的章节和知识点
+            List<MCQuestion> mclist=testPaper.getMclist();
+            for (int i = 0; i < mclist.size(); i++) {
+                MCQuestion mcQuestion=mclist.get(i);
+                String chapter=Integer.toString(mcQuestion.getChapterId());//把Integer转化为String类型
+                if(!chapterList.contains(chapter)){//如果没有重复的，添加章节id到集合中
+                    chapterList.add(chapter);
+                }
+                //获取知识点
+                String knowStrIds=mcQuestion.getKnowIds();
+                String  []knowIds=knowStrIds.split("@");
+                for (int j = 0; j < knowIds.length; j++) {
+                    if(!knowList.contains(knowIds[j])){//如果没有重复的，添加知识点id到集合中
+                        knowList.add(knowIds[j]);
+                    }
+                }
+            }
         }
         if(testPaper.getTflist()!=null&&testPaper.getTflist().size()>0){
             queTypes+="判断题@";
+            //遍历章节和知识点，获取试卷所有的章节和知识点
+            List<TFQuestion> tflist=testPaper.getTflist();
+            for (int i = 0; i < tflist.size(); i++) {
+                TFQuestion tfQuestion=tflist.get(i);
+                String chapter=Integer.toString(tfQuestion.getChapterId());//把Integer转化为String类型
+                if(!chapterList.contains(chapter)){//如果没有重复的，添加章节id到集合中
+                    chapterList.add(chapter);
+                }
+                //获取知识点
+                String knowStrIds=tfQuestion.getKnowIds();
+                String  []knowIds=knowStrIds.split("@");
+                for (int j = 0; j < knowIds.length; j++) {
+                    if(!knowList.contains(knowIds[j])){//如果没有重复的，添加知识点id到集合中
+                        knowList.add(knowIds[j]);
+                    }
+                }
+            }
         }
         if(testPaper.getFblist()!=null&&testPaper.getFblist().size()>0){
             queTypes+="填空题@";
+            //遍历章节和知识点，获取试卷所有的章节和知识点
+            List<FBQuestion> fblist=testPaper.getFblist();
+            for (int i = 0; i < fblist.size(); i++) {
+                FBQuestion fbQuestion=fblist.get(i);
+                String chapter=Integer.toString(fbQuestion.getChapterId());//把Integer转化为String类型
+                if(!chapterList.contains(chapter)){//如果没有重复的，添加章节id到集合中
+                    chapterList.add(chapter);
+                }
+                //获取知识点
+                String knowStrIds=fbQuestion.getKnowIds();
+                String  []knowIds=knowStrIds.split("@");
+                for (int j = 0; j < knowIds.length; j++) {
+                    if(!knowList.contains(knowIds[j])){//如果没有重复的，添加知识点id到集合中
+                        knowList.add(knowIds[j]);
+                    }
+                }
+            }
         }
         if(testPaper.getQalist()!=null&&testPaper.getQalist().size()>0){
             queTypes+="简答题@";
+            //遍历章节和知识点，获取试卷所有的章节和知识点
+            List<QAQuestion> qalist=testPaper.getQalist();
+            for (int i = 0; i < qalist.size(); i++) {
+                QAQuestion qaQuestion=qalist.get(i);
+                String chapter=Integer.toString(qaQuestion.getChapterId());//把Integer转化为String类型
+                if(!chapterList.contains(chapter)){//如果没有重复的，添加章节id到集合中
+                    chapterList.add(chapter);
+                }
+                //获取知识点
+                String knowStrIds=qaQuestion.getKnowIds();
+                String  []knowIds=knowStrIds.split("@");
+                for (int j = 0; j < knowIds.length; j++) {
+                    if(!knowList.contains(knowIds[j])){//如果没有重复的，添加知识点id到集合中
+                        knowList.add(knowIds[j]);
+                    }
+                }
+            }
         }
+        String []chapterIds=knowList.toArray(new String[chapterList.size()]);
+        String[] knowIds=knowList.toArray(new String[knowList.size()]);
         testPaper.setQueTypes(queTypes);//设置试卷中试题的类型
+        testPaper.setKnowIds(StringUtils.join(knowIds,"@"));
+        testPaper.setChapterIds(StringUtils.join(chapterIds,"@"));
         testPaperMapper.insertSelective(testPaper);
         Integer testPaperId=testPaper.getId();
         //2.添加试卷审核信息
@@ -1467,23 +1557,114 @@ public class TestPaperService {
         testPaper.setStatus(0);//状态为0表示未审核
         testPaper.setIsTemplate(0);//设置非试卷模板添加
         String queTypes="";
+        List<String> chapterList=new ArrayList<String>();
+        List<String> knowList=new ArrayList<String>();
         if(testPaper.getSclist()!=null&&testPaper.getSclist().size()>0){
             queTypes+="单选题@";
+            //遍历章节和知识点，获取试卷所有的章节和知识点
+            List<SCQuestion> sclist=testPaper.getSclist();
+            for (int i = 0; i < sclist.size(); i++) {
+                SCQuestion scQuestion=sclist.get(i);
+                String chapter=Integer.toString(scQuestion.getChapterId());//把Integer转化为String类型
+                if(!chapterList.contains(chapter)){//如果没有重复的，添加章节id到集合中
+                    chapterList.add(chapter);
+                }
+                //获取知识点
+                String knowStrIds=scQuestion.getKnowIds();
+                String  []knowIds=knowStrIds.split("@");
+                for (int j = 0; j < knowIds.length; j++) {
+                    if(!knowList.contains(knowIds[j])){//如果没有重复的，添加知识点id到集合中
+                        knowList.add(knowIds[j]);
+                    }
+                }
+            }
         }
         if(testPaper.getMclist()!=null&&testPaper.getMclist().size()>0){
             queTypes+="多选题@";
+            //遍历章节和知识点，获取试卷所有的章节和知识点
+            List<MCQuestion> mclist=testPaper.getMclist();
+            for (int i = 0; i < mclist.size(); i++) {
+                MCQuestion mcQuestion=mclist.get(i);
+                String chapter=Integer.toString(mcQuestion.getChapterId());//把Integer转化为String类型
+                if(!chapterList.contains(chapter)){//如果没有重复的，添加章节id到集合中
+                    chapterList.add(chapter);
+                }
+                //获取知识点
+                String knowStrIds=mcQuestion.getKnowIds();
+                String  []knowIds=knowStrIds.split("@");
+                for (int j = 0; j < knowIds.length; j++) {
+                    if(!knowList.contains(knowIds[j])){//如果没有重复的，添加知识点id到集合中
+                        knowList.add(knowIds[j]);
+                    }
+                }
+            }
         }
         if(testPaper.getTflist()!=null&&testPaper.getTflist().size()>0){
             queTypes+="判断题@";
+
+            //遍历章节和知识点，获取试卷所有的章节和知识点
+            List<TFQuestion> tflist=testPaper.getTflist();
+            for (int i = 0; i < tflist.size(); i++) {
+                TFQuestion tfQuestion=tflist.get(i);
+                String chapter=Integer.toString(tfQuestion.getChapterId());//把Integer转化为String类型
+                if(!chapterList.contains(chapter)){//如果没有重复的，添加章节id到集合中
+                    chapterList.add(chapter);
+                }
+                //获取知识点
+                String knowStrIds=tfQuestion.getKnowIds();
+                String  []knowIds=knowStrIds.split("@");
+                for (int j = 0; j < knowIds.length; j++) {
+                    if(!knowList.contains(knowIds[j])){//如果没有重复的，添加知识点id到集合中
+                        knowList.add(knowIds[j]);
+                    }
+                }
+            }
         }
         if(testPaper.getFblist()!=null&&testPaper.getFblist().size()>0){
             queTypes+="填空题@";
+            //遍历章节和知识点，获取试卷所有的章节和知识点
+            List<FBQuestion> fblist=testPaper.getFblist();
+            for (int i = 0; i < fblist.size(); i++) {
+                FBQuestion fbQuestion=fblist.get(i);
+                String chapter=Integer.toString(fbQuestion.getChapterId());//把Integer转化为String类型
+                if(!chapterList.contains(chapter)){//如果没有重复的，添加章节id到集合中
+                    chapterList.add(chapter);
+                }
+                //获取知识点
+                String knowStrIds=fbQuestion.getKnowIds();
+                String  []knowIds=knowStrIds.split("@");
+                for (int j = 0; j < knowIds.length; j++) {
+                    if(!knowList.contains(knowIds[j])){//如果没有重复的，添加知识点id到集合中
+                        knowList.add(knowIds[j]);
+                    }
+                }
+            }
         }
         if(testPaper.getQalist()!=null&&testPaper.getQalist().size()>0){
             queTypes+="简答题@";
+            //遍历章节和知识点，获取试卷所有的章节和知识点
+            List<QAQuestion> qalist=testPaper.getQalist();
+            for (int i = 0; i < qalist.size(); i++) {
+                QAQuestion qaQuestion=qalist.get(i);
+                String chapter=Integer.toString(qaQuestion.getChapterId());//把Integer转化为String类型
+                if(!chapterList.contains(chapter)){//如果没有重复的，添加章节id到集合中
+                    chapterList.add(chapter);
+                }
+                //获取知识点
+                String knowStrIds=qaQuestion.getKnowIds();
+                String  []knowIds=knowStrIds.split("@");
+                for (int j = 0; j < knowIds.length; j++) {
+                    if(!knowList.contains(knowIds[j])){//如果没有重复的，添加知识点id到集合中
+                        knowList.add(knowIds[j]);
+                    }
+                }
+            }
         }
+        String []chapterIds=knowList.toArray(new String[chapterList.size()]);
+        String[] knowIds=knowList.toArray(new String[knowList.size()]);
         testPaper.setQueTypes(queTypes);//设置试卷中试题的类型
-
+        testPaper.setKnowIds(StringUtils.join(knowIds,"@"));
+        testPaper.setChapterIds(StringUtils.join(chapterIds,"@"));
         testPaperMapper.insertSelective(testPaper);
         Integer testPaperId=testPaper.getId();
 
@@ -1600,24 +1781,20 @@ public class TestPaperService {
 
 
             List<QuestionScore> questionScoreList=questionScoreMapper.getQuestionScoreByTestPaperId2(testPaper1.getId());
-            System.out.println("=====================testPaper1=================================");
-            System.out.println(testPaper1.toString());
-            System.out.println(testPaper1.getChapterIds()==null||testPaper1.getChapterIds().length()==0);
-            System.out.println(testPaper1.getKnowIds()==null||testPaper1.getKnowIds().length()==0);
+
             if(testPaper1.getId()==38){//试卷模板如果没有章节的id
                 String [] chapterIds= TestPaperUtils.getChapterIds(questionScoreList);
                 testPaper1.setChapterIds(StringUtils.join(chapterIds,"@"));
-                System.out.println("=====================chapterIds=================================");
-                System.out.println();
+
                 testPaperMapper.updateByPrimaryKeySelective(testPaper1);
             }
             if(testPaper1.getKnowIds()==null||testPaper1.getKnowIds().length()==0){
                 String [] knowIds=TestPaperUtils.getKnowIds(questionScoreList);
                 testPaper1.setKnowIds(StringUtils.join(knowIds,"@"));
-                System.out.println("=====================knowIds=================================");
+
                 testPaperMapper.updateByPrimaryKeySelective(testPaper1);
             }
-            System.out.println("=====================testPaper1-end=================================");
+
 
 
             for (int j = 0; j < questionScoreList.size(); j++) {
