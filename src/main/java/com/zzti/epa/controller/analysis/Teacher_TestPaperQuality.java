@@ -29,7 +29,13 @@ public class Teacher_TestPaperQuality {
     public ScoreDistributionOfTestPaperChapters getScoreDistributionOfTestPaperChapters(@RequestParam int id){
         return analysis_testPaperService.getScoreDistributionOfTestPaperChapters(id);
     }
-    //得到试卷列表
+
+    //得到全部试卷的列表
+    @GetMapping("/getAllListOfTestPaper")
+    public List<ListOfTestPaperForWeb> getAllListOfTestPaper(){
+        return analysis_testPaperService.getAllListOfTestPaper();
+    }
+    //得到考试过的试卷的试卷列表
     @GetMapping("/getListOfTestPaper")
     public List<ListOfTestPaperForWeb> getListOfTestPaper(){
         return analysis_testPaperService.getListOfTestPaper();

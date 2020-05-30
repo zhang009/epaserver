@@ -170,16 +170,33 @@ public class Analysis_TestPaperService {
         return studentGradeMapper.getStudentGradeOfListByClassIdAndTestpaperId(classId,testpaperId);
     }
 
+    //得到全部试卷的试卷列表
+    public List<ListOfTestPaperForWeb> getAllListOfTestPaper(){
+        List<ListOfTestPaper> list = testPaperMapper.select_ListOfTestPaper();
+        List<ListOfTestPaperForWeb> listOfTestPaperForWebs= new ArrayList<ListOfTestPaperForWeb>();
+        for(int i=0;i<list.size();i++){
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String createTime = formatter.format(list.get(i).getCreateTime());
+            ListOfTestPaperForWeb listOfTestPaperForWeb=new ListOfTestPaperForWeb();
+            //将数据放到List<ListOfTestPaperForWeb>中，返回给前端
+            listOfTestPaperForWeb.setId(list.get(i).getId());
+            listOfTestPaperForWeb.setName(list.get(i).getName());
+            listOfTestPaperForWeb.setTeacher(list.get(i).getTeacher());
+            listOfTestPaperForWeb.setCreateTime(createTime);
+            listOfTestPaperForWebs.add(listOfTestPaperForWeb);
+        }
+        return  listOfTestPaperForWebs;
+    }
 
-    //得到试卷列表
+    //得到试过的试卷的试卷列表
     public List<ListOfTestPaperForWeb> getListOfTestPaper(){
         List<ListOfTestPaper> list = testPaperMapper.select_ListOfTestPaper();
         List<ListOfTestPaperForWeb> listOfTestPaperForWebs= new ArrayList<ListOfTestPaperForWeb>();
         for(int i=0;i<list.size();i++){
             //如果试卷没有被考试过，试卷成绩表中就不会有数据
-            List<StudentGrade> studentGrades = studentGradeMapper.getStudentGradeOfListByTestPaperId(list.get(i).getId());
-            System.out.println(studentGrades);
-            if(studentGrades == null){
+            List<StudentGrade> studentGrades = null;
+            studentGrades = studentGradeMapper.getStudentGradeOfListByTestPaperId(list.get(i).getId());
+            if(studentGrades.size() == 0){
                 continue;
             }
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
